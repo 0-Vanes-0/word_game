@@ -12,7 +12,12 @@ config_version=5
 
 config/name="Word Game"
 config/features=PackedStringArray("4.1", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://assets/sprites/icon.svg"
+
+[autoload]
+
+Preloader="*res://game_resources/singletons/preloader.tscn"
+Global="*res://src/singletons/global.gd"
 
 [rendering]
 
