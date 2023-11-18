@@ -10,7 +10,11 @@ var current_scene: Node ## Current scene on screen. Can be changed by [method sw
 func _ready() -> void:
 	current_scene = Preloader.game_scene.instantiate()
 	self.add_child(current_scene)
+	self.move_child(current_scene, 0)
 	scene_changed.emit(current_scene)
+	
+	var fps_label := FPSLabel.new()
+	$Control.add_child(fps_label)
 
 ## Firstly removes current scene from tree and queues it for freeing, then instantiates a new [param scene].
 func switch_to_scene(scene: PackedScene):
@@ -21,4 +25,5 @@ func switch_to_scene(scene: PackedScene):
 	self.remove_child(current_scene)
 	current_scene = scene.instantiate()
 	self.add_child(current_scene)
+	self.move_child(current_scene, 0)
 	scene_changed.emit(current_scene)

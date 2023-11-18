@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd17qjyt657fn"]
+
+[ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource("1_ypskv")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnterFightButton" type="Button" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Enter fight"
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/EnterFightButton" to="." method="_on_enter_fight_button_pressed"]

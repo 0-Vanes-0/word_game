@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=4 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
+[ext_resource type="PackedScene" uid="uid://bd17qjyt657fn" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
+[ext_resource type="PackedScene" uid="uid://cjadhu3y22px2" path="res://src/scenes/battle_scene.tscn" id="3_mm2kd"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
+game_scene = ExtResource("2_mq5gj")
+battle_scene = ExtResource("3_mm2kd")
