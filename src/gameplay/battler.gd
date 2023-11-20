@@ -1,6 +1,9 @@
 class_name Battler
-extends Node
+extends Node2D
 
 
-func _init() -> void:
+
+
+
+func _init(text: String) -> void:
 	super()

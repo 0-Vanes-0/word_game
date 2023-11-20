@@ -14,18 +14,24 @@ config/name="Word Game"
 run/main_scene="res://src/scenes/scene_handler.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 run/max_fps=60
-config/icon="res://assets/sprites/icon.svg"
+config/icon="res://assets/sprites/characters/Player Knight/knight.png"
 
 [autoload]
 
 Preloader="*res://game_resources/singletons/preloader.tscn"
 Global="*res://src/singletons/global.gd"
+GameInfo="*res://src/singletons/game_info.tscn"
 
 [display]
 
 window/size/viewport_width=960
-window/size/viewport_height=640
+window/size/viewport_height=540
 window/size/resizable=false
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/HTTPManager/plugin.cfg")
 
 [rendering]
 
