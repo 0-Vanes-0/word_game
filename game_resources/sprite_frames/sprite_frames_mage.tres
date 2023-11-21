@@ -1,0 +1,28 @@
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=5 format=3 uid="uid://bq1jfo4jkxm3s"]
+
+[ext_resource type="Texture2D" uid="uid://7eq5xf5n673v" path="res://assets/sprites/characters/Player Mage/Walk/walk1.png" id="1_p8la5"]
+[ext_resource type="Texture2D" uid="uid://dqcnwxbjlmwd2" path="res://assets/sprites/characters/Player Mage/Walk/walk2.png" id="2_1qvhh"]
+[ext_resource type="Texture2D" uid="uid://c3msdywbws3v2" path="res://assets/sprites/characters/Player Mage/Walk/walk3.png" id="3_34vp8"]
+[ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_qfs3f"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p8la5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1qvhh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_34vp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1qvhh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+script = ExtResource("4_qfs3f")
+y_offset = 48.0

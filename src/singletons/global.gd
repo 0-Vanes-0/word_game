@@ -17,6 +17,8 @@ func setup():
 	var gcd := _gcd(SCREEN_WIDTH, SCREEN_HEIGHT)
 	RATIO = str(SCREEN_WIDTH / gcd) + RATIO + str(SCREEN_HEIGHT / gcd)
 	print_debug("\t", "SCREEN_WIDTH=", SCREEN_WIDTH, ", SCREEN_HEIGHT=", SCREEN_HEIGHT, ", RATIO=", RATIO)
+	
+	randomize()
 
 # ---------------------- FUNCTIONS ----------------------
 

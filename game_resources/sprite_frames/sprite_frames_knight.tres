@@ -1,0 +1,28 @@
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=5 format=3 uid="uid://c71of80kg874k"]
+
+[ext_resource type="Texture2D" uid="uid://dw3aedo643i0x" path="res://assets/sprites/characters/Player Knight/Walk/walk1.png" id="1_w52tw"]
+[ext_resource type="Texture2D" uid="uid://bkaj2dfcwqvmq" path="res://assets/sprites/characters/Player Knight/Walk/walk2.png" id="2_voi76"]
+[ext_resource type="Texture2D" uid="uid://dbwr3ofeyuw1o" path="res://assets/sprites/characters/Player Knight/Walk/walk3.png" id="3_p5d72"]
+[ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_8pguh"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w52tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_voi76")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_p5d72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_voi76")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+script = ExtResource("4_8pguh")
+y_offset = 48.0

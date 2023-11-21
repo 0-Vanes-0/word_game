@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BattlerStats" load_steps=2 format=3 uid="uid://b3l3x7xocpnw3"]
+
+[ext_resource type="Script" path="res://src/gameplay/battler_stats.gd" id="1_3bbud"]
+
+[resource]
+script = ExtResource("1_3bbud")
+base_health = 100
+base_damage = 20

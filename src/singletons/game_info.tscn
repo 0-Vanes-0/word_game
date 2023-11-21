@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://src/singletons/game_info.gd" id="1_blxj6"]
 [ext_resource type="Script" path="res://addons/HTTPManager/classes/HTTPManager.gd" id="2_qi53e"]
 
-[node name="GameInfo" type="Node" node_paths=PackedStringArray("http_node")]
+[node name="GameInfo" type="Node"]
 script = ExtResource("1_blxj6")
-http_node = NodePath("HTTPManager")
+battlers_types = Array[int]([13, 12, 11, 21, 21, 21])
 
 [node name="HTTPManager" type="Node" parent="."]
 script = ExtResource("2_qi53e")

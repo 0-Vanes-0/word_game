@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=10 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
-[ext_resource type="PackedScene" uid="uid://bd17qjyt657fn" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
+[ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
 [ext_resource type="PackedScene" uid="uid://cjadhu3y22px2" path="res://src/scenes/battle_scene.tscn" id="3_mm2kd"]
+[ext_resource type="PackedScene" uid="uid://bd17qjyt657fn" path="res://src/scenes/http_test_scene.tscn" id="3_x778j"]
+[ext_resource type="SpriteFrames" uid="uid://c71of80kg874k" path="res://game_resources/sprite_frames/sprite_frames_knight.tres" id="5_wh8vi"]
+[ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="6_1v8hy"]
+[ext_resource type="SpriteFrames" uid="uid://bq1jfo4jkxm3s" path="res://game_resources/sprite_frames/sprite_frames_mage.tres" id="7_chvag"]
+[ext_resource type="SpriteFrames" uid="uid://cn38l01om6o2v" path="res://game_resources/sprite_frames/sprite_frames_goblin.tres" id="8_r525w"]
+[ext_resource type="Resource" uid="uid://b3l3x7xocpnw3" path="res://game_resources/start_stats/knight_start_stats.tres" id="9_tkkj7"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
-game_scene = ExtResource("2_mq5gj")
 battle_scene = ExtResource("3_mm2kd")
+game_scene = ExtResource("2_mq5gj")
+http_test_scene = ExtResource("3_x778j")
+sprite_frames_goblin = ExtResource("8_r525w")
+sprite_frames_knight = ExtResource("5_wh8vi")
+sprite_frames_mage = ExtResource("7_chvag")
+sprite_frames_robber = ExtResource("6_1v8hy")
+stats_goblin = ExtResource("9_tkkj7")
+stats_knight = ExtResource("9_tkkj7")
+stats_mage = ExtResource("9_tkkj7")
+stats_robber = ExtResource("9_tkkj7")

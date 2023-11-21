@@ -1,61 +1,103 @@
-[gd_scene load_steps=2 format=3 uid="uid://bd17qjyt657fn"]
+[gd_scene load_steps=2 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("label", "httpr")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("op_button1", "op_button2", "op_button3", "op_button4", "op_button5", "op_button6")]
 script = ExtResource("1_ypskv")
-label = NodePath("CanvasLayer/CenterContainer/HBoxContainer/OutputLabel")
-httpr = NodePath("HTTPRequest")
+op_button1 = NodePath("CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton")
+op_button2 = NodePath("CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton2")
+op_button3 = NodePath("CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton3")
+op_button4 = NodePath("CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton4")
+op_button5 = NodePath("CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton5")
+op_button6 = NodePath("CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/HBoxContainer"]
+[node name="EnterBattleButton" type="Button" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 60
+text = " Начать бой "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="EnterFightButton" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "Enter fight"
+clip_text = true
+item_count = 1
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
 
-[node name="NewUserButton" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="OptionButton2" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "Create new user"
+clip_text = true
+item_count = 1
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
 
-[node name="GetProfileButton" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="OptionButton3" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "GetProfile"
+clip_text = true
+item_count = 1
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
 
-[node name="SaveNickButton" type="Button" parent="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="OptionButton4" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = " SaveNick (random) "
+clip_text = true
+item_count = 1
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
 
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="OptionButton5" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-text = "Using HTTPManager plugin"
+theme_override_font_sizes/font_size = 36
+clip_text = true
+item_count = 1
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
 
-[node name="OutputLabel" type="RichTextLabel" parent="CanvasLayer/CenterContainer/HBoxContainer"]
-custom_minimum_size = Vector2(500, 400)
+[node name="OptionButton6" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-text = "..."
-scroll_following = true
+theme_override_font_sizes/font_size = 36
+clip_text = true
+item_count = 1
+selected = 0
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-
-[connection signal="pressed" from="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer/EnterFightButton" to="." method="_on_enter_fight_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer/NewUserButton" to="." method="_on_new_user_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer/GetProfileButton" to="." method="_on_get_profile_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer/SaveNickButton" to="." method="_on_save_nick_button_pressed"]
-[connection signal="toggled" from="CanvasLayer/CenterContainer/HBoxContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]

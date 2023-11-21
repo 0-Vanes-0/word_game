@@ -8,7 +8,7 @@ script = ExtResource("1_pex0a")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_kikds")
-volume_db = -20.0
+volume_db = -30.0
 autoplay = true
 
 [node name="Control" type="Control" parent="."]
