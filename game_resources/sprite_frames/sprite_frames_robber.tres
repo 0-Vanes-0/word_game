@@ -22,7 +22,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 2.0
+"speed": 4.0
 }]
 script = ExtResource("4_qexfl")
 y_offset = 48.0
