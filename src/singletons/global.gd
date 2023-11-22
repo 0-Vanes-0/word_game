@@ -2,10 +2,21 @@
 ## like pausing game, switching scenes etc.
 extends Node
 
-# ---------------------- VARIABLES ----------------------
+# ---------------------- CONSTANTS ----------------------
 
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
+const CHARACTER_SIZE := Vector2(60, 120)
+const TargetColors := {
+	CURRENT_BATTLER = Color.YELLOW,
+	FOE_BATTLER = Color.BROWN,
+	ALLY_SELF_BATTLER = Color.CORNFLOWER_BLUE,
+}
 
+# ---------------------- VARIABLES ----------------------
+
+
+
+# ---------------------- ON START ----------------------
 
 func _ready() -> void:
 	setup()
@@ -22,7 +33,7 @@ func setup():
 
 # ---------------------- FUNCTIONS ----------------------
 
-## Tells to [SceneHandler] to switch to [PackedScene].
+## Tells [SceneHandler] to switch to [PackedScene].
 func switch_to_scene(scene: PackedScene):
 	var scene_handler = get_tree().current_scene
 	if scene_handler is SceneHandler:

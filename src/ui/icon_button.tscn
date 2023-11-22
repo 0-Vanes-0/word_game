@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs1ntiicw1vo3"]
+
+[ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="1_2l2i5"]
+[ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="2_drhqy"]
+[ext_resource type="Script" path="res://src/ui/icon_button.gd" id="3_hamct"]
+
+[node name="IconButton" type="TextureButton"]
+offset_right = 66.0
+offset_bottom = 66.0
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("1_2l2i5")
+texture_pressed = ExtResource("2_drhqy")
+stretch_mode = 5
+script = ExtResource("3_hamct")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IconDisabled" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="IconEnabled" type="TextureRect" parent="CenterContainer"]
+visible = false
+layout_mode = 2
+stretch_mode = 5
+
+[node name="Unpressable" type="TextureRect" parent="CenterContainer"]
+visible = false
+layout_mode = 2
+stretch_mode = 5
+
+[connection signal="toggled" from="." to="." method="_on_toggled"]

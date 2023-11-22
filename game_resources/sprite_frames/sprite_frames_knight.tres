@@ -25,4 +25,4 @@ animations = [{
 "speed": 4.0
 }]
 script = ExtResource("4_8pguh")
-y_offset = 48.0
+offset = Vector2(20, -48)

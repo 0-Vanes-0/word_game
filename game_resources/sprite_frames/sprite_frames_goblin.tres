@@ -26,4 +26,4 @@ animations = [{
 "speed": 4.0
 }]
 script = ExtResource("4_m62ys")
-y_offset = 25.0
+offset = Vector2(5, -25)
