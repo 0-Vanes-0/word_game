@@ -2,13 +2,14 @@ class_name BattleScene
 extends Node2D
 
 enum ActionTypes {
-	NONE = 0, ATTACK = 1, SELF = 2, ALLY = 3
+	NONE = 0, ATTACK = 1, ALLY = 2
 }
+
+signal action_animation_ended
 
 @export_group("Children")
 @export var battlers_node: Marker2D
 @export var enemy_target_button: IconButton
-@export var self_target_button: IconButton
 @export var ally_target_button: IconButton
 @export var proceed_button: IconButton
 @export var black_screen: MeshInstance2D
@@ -22,10 +23,12 @@ var enemy_battlers: Array[Battler]
 var current_battler_number: int = -1
 var target_battler_number: int = -1
 var current_action_type: ActionTypes = ActionTypes.NONE
+var is_players_turn: bool = true
+var is_progressing_enemy_turn: bool = false
 
 
 func _ready() -> void:
-	assert(battlers_node and enemy_target_button and self_target_button and ally_target_button and proceed_button and black_screen and hud)
+	assert(battlers_node and enemy_target_button and ally_target_button and proceed_button and black_screen and hud)
 	
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
 	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
@@ -50,7 +53,6 @@ func _ready() -> void:
 	battlers_node.move_child(black_screen, -1)
 	
 	enemy_target_button.set_icons(Preloader.texture_sword_yellow_icon, Preloader.texture_sword_black_icon)
-	self_target_button.set_icons(Preloader.texture_shield_yellow_icon, Preloader.texture_shield_black_icon)
 	ally_target_button.set_icons(Preloader.texture_person_yellow_icon, Preloader.texture_person_black_icon)
 	proceed_button.set_icons(Preloader.texture_arrow_right_black_icon, Preloader.texture_arrow_right_yellow_icon, Preloader.texture_arrow_right_black_icon)
 	proceed_button.set_enabled(false)
@@ -59,25 +61,14 @@ func _ready() -> void:
 			func():
 				reset_all_selections()
 				show_current_selection()
-				for eb in enemy_battlers:
-					eb.selection.show()
-					eb.selection.modulate = Global.TargetColors.FOE_BATTLER
-					eb.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
-					eb.set_area_clickable(true)
+				if is_players_turn:
+					for eb in enemy_battlers:
+						eb.selection.show()
+						eb.selection.modulate = Global.TargetColors.FOE_BATTLER
+						eb.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
+						eb.set_area_clickable(true)
 				
 				current_action_type = ActionTypes.ATTACK
-	)
-	self_target_button.set_on_press(
-			func():
-				reset_all_selections()
-				show_current_selection()
-				var cb := player_battlers[current_battler_number]
-				cb.selection.show()
-				cb.selection.modulate = Global.TargetColors.ALLY_SELF_BATTLER
-				cb.selection_hover.modulate = Global.TargetColors.ALLY_SELF_BATTLER
-				cb.set_area_clickable(true)
-				
-				current_action_type = ActionTypes.SELF
 	)
 	ally_target_button.set_on_press(
 			func():
@@ -85,11 +76,10 @@ func _ready() -> void:
 				show_current_selection()
 				for i in player_battlers.size():
 					var ab := player_battlers[i]
-					if i != current_battler_number:
-						ab.selection.show()
-						ab.selection.modulate = Global.TargetColors.ALLY_SELF_BATTLER
-						ab.selection_hover.modulate = Global.TargetColors.ALLY_SELF_BATTLER
-						ab.set_area_clickable(true)
+					ab.selection.show()
+					ab.selection.modulate = Global.TargetColors.ALLY_SELF_BATTLER
+					ab.selection_hover.modulate = Global.TargetColors.ALLY_SELF_BATTLER
+					ab.set_area_clickable(true)
 				
 				current_action_type = ActionTypes.ALLY
 	)
@@ -98,7 +88,6 @@ func _ready() -> void:
 				proceed_button.set_enabled(false)
 				proceed_button.button_pressed = false
 				enemy_target_button.button_pressed = false
-				self_target_button.button_pressed = false
 				ally_target_button.button_pressed = false
 				reset_all_selections()
 				
@@ -183,12 +172,13 @@ func _ready() -> void:
 				
 				await anon_tween.finished
 				hud.show()
-				battlers_node.move_child(battlers[current_battler_number], current_battler_orig_index)
-				if current_battler_number != target_battler_number:
-					battlers_node.move_child(battlers[target_battler_number], target_battler_orig_index)
+				battlers_node.move_child(black_screen, -1)
 				
-				current_battler_number = randi_range(0, 2) # For showcase
+				is_players_turn = not is_players_turn
+				current_battler_number = randi_range(0, 2) if is_players_turn else randi_range(3, 5) # For showcase
 				enemy_target_button.button_pressed = true
+				
+				action_animation_ended.emit()
 	)
 	
 	
@@ -210,6 +200,35 @@ func _on_battler_clicked(battler: Battler):
 
 func _process(delta: float) -> void:
 	$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.RIGHT * 20 * delta
+
+
+func _physics_process(delta: float) -> void:
+	if not is_players_turn and not is_progressing_enemy_turn:
+		is_progressing_enemy_turn = true
+		
+		target_battler_number = randi_range(0, 2)
+		var enemy_tween := create_tween()
+		enemy_tween.tween_interval(0.5)
+		enemy_tween.tween_callback(
+				func():
+					enemy_target_button.button_pressed = true
+					battlers[current_battler_number].selection.show()
+					battlers[current_battler_number].selection_hover.show()
+					battlers[current_battler_number].selection.modulate = Global.TargetColors.CURRENT_BATTLER
+					battlers[current_battler_number].selection_hover.modulate = Global.TargetColors.CURRENT_BATTLER
+					battlers[current_battler_number].anim_prepare(ActionTypes.ATTACK)
+					battlers[target_battler_number].selection.show()
+					battlers[target_battler_number].selection_hover.show()
+					battlers[target_battler_number].selection.modulate = Global.TargetColors.FOE_BATTLER
+					battlers[target_battler_number].selection_hover.modulate = Global.TargetColors.FOE_BATTLER
+		)
+		enemy_tween.tween_interval(1.0)
+		enemy_tween.tween_callback(
+				func():
+					proceed_button.button_pressed = true
+					await action_animation_ended
+					is_progressing_enemy_turn = false
+		)
 
 
 func _on_back_button_pressed() -> void:

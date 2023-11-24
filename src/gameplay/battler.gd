@@ -95,8 +95,6 @@ func anim_prepare(type: BattleScene.ActionTypes):
 	match type:
 		BattleScene.ActionTypes.ATTACK:
 			sprite.play(Animations.PREPARE_ATTACK)
-		BattleScene.ActionTypes.SELF:
-			sprite.play(Animations.PREPARE_SELF)
 		BattleScene.ActionTypes.ALLY:
 			sprite.play(Animations.PREPARE_ALLY)
 		_:
@@ -107,8 +105,6 @@ func anim_action(type: BattleScene.ActionTypes):
 	match type:
 		BattleScene.ActionTypes.ATTACK:
 			sprite.play(Animations.ACTION_ATTACK)
-		BattleScene.ActionTypes.SELF:
-			sprite.play(Animations.ACTION_SELF)
 		BattleScene.ActionTypes.ALLY:
 			sprite.play(Animations.ACTION_ALLY)
 		_:
