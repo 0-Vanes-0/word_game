@@ -1,3 +1,7 @@
-[gd_resource type="Theme" format=3 uid="uid://dk0tmfu7rmmc0"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dk0tmfu7rmmc0"]
+
+[ext_resource type="FontFile" uid="uid://bfieqpushgxta" path="res://assets/fonts/Fairfax.ttf" id="1_woqwf"]
 
 [resource]
+default_font = ExtResource("1_woqwf")
+default_font_size = 24

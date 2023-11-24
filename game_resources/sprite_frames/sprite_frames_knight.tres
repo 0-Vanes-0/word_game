@@ -1,13 +1,54 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=5 format=3 uid="uid://c71of80kg874k"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=16 format=3 uid="uid://c71of80kg874k"]
 
+[ext_resource type="Texture2D" uid="uid://vh2p5fdmfxox" path="res://assets/sprites/characters/Player Knight/Idle/idle10.png" id="1_ibr1w"]
 [ext_resource type="Texture2D" uid="uid://dw3aedo643i0x" path="res://assets/sprites/characters/Player Knight/Walk/walk1.png" id="1_w52tw"]
+[ext_resource type="Texture2D" uid="uid://cmvk0rph4ku36" path="res://assets/sprites/characters/Player Knight/Attack/attack2.png" id="2_ooeks"]
 [ext_resource type="Texture2D" uid="uid://bkaj2dfcwqvmq" path="res://assets/sprites/characters/Player Knight/Walk/walk2.png" id="2_voi76"]
 [ext_resource type="Texture2D" uid="uid://dbwr3ofeyuw1o" path="res://assets/sprites/characters/Player Knight/Walk/walk3.png" id="3_p5d72"]
+[ext_resource type="Texture2D" uid="uid://u82youabwf2v" path="res://assets/sprites/characters/Player Knight/Idle/idle4.png" id="3_u54qf"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_8pguh"]
+[ext_resource type="Texture2D" uid="uid://bk1xvfaca385q" path="res://assets/sprites/characters/Player Knight/Idle/idle1.png" id="7_8udm5"]
+[ext_resource type="Texture2D" uid="uid://c0aht5tnngx5m" path="res://assets/sprites/characters/Player Knight/Idle/idle8.png" id="8_j0464"]
+[ext_resource type="Texture2D" uid="uid://bcqfafxbjtv0g" path="res://assets/sprites/characters/Player Knight/Idle/idle9.png" id="9_0hnak"]
+[ext_resource type="Texture2D" uid="uid://dt2cxa0gy61s3" path="res://assets/sprites/characters/Player Knight/Extra_Attack/attack_extra1.png" id="10_lut7l"]
+[ext_resource type="Texture2D" uid="uid://dy1psma4dtio8" path="res://assets/sprites/characters/Player Knight/Extra_Attack/attack_extra2.png" id="11_4cdml"]
+[ext_resource type="Texture2D" uid="uid://bkwa8bhevfrp3" path="res://assets/sprites/characters/Player Knight/Attack/attack1.png" id="12_mq8lm"]
+[ext_resource type="Texture2D" uid="uid://ccdiyac3q2wxq" path="res://assets/sprites/characters/Player Knight/Idle/idle2.png" id="13_x3w0j"]
+[ext_resource type="Texture2D" uid="uid://dctcje5faa452" path="res://assets/sprites/characters/Player Knight/Idle/idle3.png" id="14_d2586"]
 
 [resource]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ibr1w")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ooeks")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_u54qf")
+}],
+"loop": false,
+"name": &"action_self",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w52tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_w52tw")
+}, {
 "duration": 1.0,
 "texture": ExtResource("1_w52tw")
 }, {
@@ -18,10 +59,64 @@ animations = [{
 "texture": ExtResource("3_p5d72")
 }, {
 "duration": 1.0,
+"texture": ExtResource("3_p5d72")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_p5d72")
+}, {
+"duration": 1.0,
 "texture": ExtResource("2_voi76")
 }],
 "loop": true,
 "name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w52tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8udm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_j0464")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0hnak")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_lut7l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_4cdml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_mq8lm")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w52tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8udm5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_x3w0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_d2586")
+}],
+"loop": false,
+"name": &"prepare_self",
 "speed": 4.0
 }]
 script = ExtResource("4_8pguh")

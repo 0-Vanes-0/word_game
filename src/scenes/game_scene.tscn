@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=3 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="2_it1rv"]
 
 [node name="GameScene" type="Node2D" node_paths=PackedStringArray("op_button1", "op_button2", "op_button3", "op_button4", "op_button5", "op_button6")]
 script = ExtResource("1_ypskv")
@@ -20,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_it1rv")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 layout_mode = 1

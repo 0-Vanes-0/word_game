@@ -12,10 +12,16 @@ const HEROES := [Types.KNIGHT, Types.ROBBER, Types.MAGE]
 const MOBS := [Types.GOBLIN]
 const Animations := {
 	IDLE = "idle",
-	ATTACK = "attack_melee",
+	PREPARE_ATTACK = "prepare_attack",
+	PREPARE_SELF = "prepare_self",
+	PREPARE_ALLY = "prepare_ally",
+	ACTION_ATTACK = "action_attack",
+	ACTION_SELF = "action_self",
+	ACTION_ALLY = "action_ally",
 }
 
 var stats: BattlerStats
+var index: int = -1
 
 var sprite: AnimatedSprite2D
 var selection_hover: Sprite2D
@@ -24,11 +30,11 @@ var size_area: Area2D
 var coll_shape: CollisionShape2D
 
 
-static func create(type: Types, stats: BattlerStats) -> Battler:
-	return Battler.new(type, stats)
+static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
+	return Battler.new(type, stats, index)
 
 
-func _init(type: Types, stats: BattlerStats) -> void:
+func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	sprite = AnimatedSprite2D.new()
 	sprite.sprite_frames = get_sprite_frames(type)
 	sprite.offset = get_offset(type)
@@ -60,6 +66,7 @@ func _init(type: Types, stats: BattlerStats) -> void:
 	size_area.input_event.connect(_on_pressed)
 	
 	self.stats = stats
+	self.index = index
 	self.scale.x = get_scale_x(type)
 
 
@@ -78,6 +85,34 @@ func _on_pressed(viewport: Node, event: InputEvent, shape_idx: int):
 
 func set_area_clickable(is_clickble: bool):
 	coll_shape.disabled = not is_clickble
+
+
+func anim_idle():
+	sprite.play(Animations.IDLE)
+
+
+func anim_prepare(type: BattleScene.ActionTypes):
+	match type:
+		BattleScene.ActionTypes.ATTACK:
+			sprite.play(Animations.PREPARE_ATTACK)
+		BattleScene.ActionTypes.SELF:
+			sprite.play(Animations.PREPARE_SELF)
+		BattleScene.ActionTypes.ALLY:
+			sprite.play(Animations.PREPARE_ALLY)
+		_:
+			sprite.play(Animations.IDLE)
+
+
+func anim_action(type: BattleScene.ActionTypes):
+	match type:
+		BattleScene.ActionTypes.ATTACK:
+			sprite.play(Animations.ACTION_ATTACK)
+		BattleScene.ActionTypes.SELF:
+			sprite.play(Animations.ACTION_SELF)
+		BattleScene.ActionTypes.ALLY:
+			sprite.play(Animations.ACTION_ALLY)
+		_:
+			sprite.play(Animations.IDLE)
 
 
 static func get_sprite_frames(type: Types) -> SpriteFrames:

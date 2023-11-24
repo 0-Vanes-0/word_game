@@ -14,6 +14,8 @@ config/name="Word Game"
 run/main_scene="res://src/scenes/scene_handler.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 run/max_fps=60
+boot_splash/image="res://assets/sprites/boot.png"
+boot_splash/use_filter=false
 config/icon="res://assets/sprites/characters/Player Knight/knight.png"
 
 [autoload]

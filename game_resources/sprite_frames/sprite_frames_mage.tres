@@ -1,13 +1,64 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=5 format=3 uid="uid://bq1jfo4jkxm3s"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=26 format=3 uid="uid://bq1jfo4jkxm3s"]
 
+[ext_resource type="Texture2D" uid="uid://bxbqlwahjphwd" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra5.png" id="1_it2yl"]
 [ext_resource type="Texture2D" uid="uid://7eq5xf5n673v" path="res://assets/sprites/characters/Player Mage/Walk/walk1.png" id="1_p8la5"]
+[ext_resource type="Texture2D" uid="uid://boskqgiw7oo2i" path="res://assets/sprites/characters/Player Mage/Attack/attack5.png" id="1_s2d1k"]
 [ext_resource type="Texture2D" uid="uid://dqcnwxbjlmwd2" path="res://assets/sprites/characters/Player Mage/Walk/walk2.png" id="2_1qvhh"]
+[ext_resource type="Texture2D" uid="uid://c0unuge4xhh6f" path="res://assets/sprites/characters/Player Mage/Idle/idle1.png" id="2_sj0py"]
 [ext_resource type="Texture2D" uid="uid://c3msdywbws3v2" path="res://assets/sprites/characters/Player Mage/Walk/walk3.png" id="3_34vp8"]
+[ext_resource type="Texture2D" uid="uid://bs5as1ff27fa3" path="res://assets/sprites/characters/Player Mage/Idle/idle2.png" id="3_pv61f"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_qfs3f"]
+[ext_resource type="Texture2D" uid="uid://cms45ail84m8r" path="res://assets/sprites/characters/Player Mage/Idle/idle4.png" id="5_4731t"]
+[ext_resource type="Texture2D" uid="uid://gdb4265uv8ip" path="res://assets/sprites/characters/Player Mage/Death/death1.png" id="7_65rvc"]
+[ext_resource type="Texture2D" uid="uid://dwhl8q787rv16" path="res://assets/sprites/characters/Player Mage/Idle/idle6.png" id="7_obumx"]
+[ext_resource type="Texture2D" uid="uid://bc5ujmnb6eyls" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra0.png" id="7_q5coe"]
+[ext_resource type="Texture2D" uid="uid://cac1nu2803veb" path="res://assets/sprites/characters/Player Mage/Death/death2.png" id="8_krb5i"]
+[ext_resource type="Texture2D" uid="uid://inden5abwk22" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra1.png" id="8_wrsqe"]
+[ext_resource type="Texture2D" uid="uid://c6ohcicashsyq" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra2.png" id="9_ba6si"]
+[ext_resource type="Texture2D" uid="uid://c8u4v6lagih68" path="res://assets/sprites/characters/Player Mage/Death/death3.png" id="9_pbsij"]
+[ext_resource type="Texture2D" uid="uid://qbvpvplhnxef" path="res://assets/sprites/characters/Player Mage/Death/death4.png" id="10_1tjmp"]
+[ext_resource type="Texture2D" uid="uid://dkceqwpf6fxin" path="res://assets/sprites/characters/Player Mage/Death/death5.png" id="11_a8c1r"]
+[ext_resource type="Texture2D" uid="uid://vctjr8vboinp" path="res://assets/sprites/characters/Player Mage/Death/death6.png" id="12_6lxc4"]
+[ext_resource type="Texture2D" uid="uid://dmfnak7gysmrf" path="res://assets/sprites/characters/Player Mage/Death/death7.png" id="13_gk25d"]
+[ext_resource type="Texture2D" uid="uid://c2jur8ppxdonk" path="res://assets/sprites/characters/Player Mage/Death/death8.png" id="14_1up8f"]
+[ext_resource type="Texture2D" uid="uid://b0yhj072a4mp7" path="res://assets/sprites/characters/Player Mage/Death/death9.png" id="15_4b7kq"]
+[ext_resource type="Texture2D" uid="uid://c4tq1ccu6mrwm" path="res://assets/sprites/characters/Player Mage/Death/death10.png" id="16_3sd0i"]
+[ext_resource type="Texture2D" uid="uid://cottpdu57aj03" path="res://assets/sprites/characters/Player Mage/Attack/attack1.png" id="19_cwbjb"]
+[ext_resource type="Texture2D" uid="uid://bd4p1neom2khd" path="res://assets/sprites/characters/Player Mage/Attack/attack2.png" id="20_4wp27"]
 
 [resource]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_it2yl")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_s2d1k")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_obumx")
+}],
+"loop": false,
+"name": &"action_self",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p8la5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_p8la5")
+}, {
 "duration": 1.0,
 "texture": ExtResource("1_p8la5")
 }, {
@@ -18,10 +69,93 @@ animations = [{
 "texture": ExtResource("3_34vp8")
 }, {
 "duration": 1.0,
+"texture": ExtResource("3_34vp8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_34vp8")
+}, {
+"duration": 1.0,
 "texture": ExtResource("2_1qvhh")
 }],
 "loop": true,
 "name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_65rvc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_krb5i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pbsij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1tjmp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_a8c1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_6lxc4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_gk25d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_1up8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_4b7kq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_3sd0i")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_q5coe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_wrsqe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ba6si")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p8la5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_cwbjb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_4wp27")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sj0py")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pv61f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4731t")
+}],
+"loop": false,
+"name": &"prepare_self",
 "speed": 4.0
 }]
 script = ExtResource("4_qfs3f")
