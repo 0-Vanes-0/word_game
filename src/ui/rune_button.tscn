@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3di5wu6irnnt"]
+
+[ext_resource type="Script" path="res://src/ui/rune_button.gd" id="1_4q1ei"]
+[ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="1_sdppn"]
+[ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="3_b671u"]
+[ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="4_nwlqt"]
+
+[node name="RuneButton" type="TextureButton"]
+custom_minimum_size = Vector2(80, 80)
+texture_normal = ExtResource("1_sdppn")
+stretch_mode = 0
+script = ExtResource("1_4q1ei")
+
+[node name="ButtonBackground" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_b671u")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Rune" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_nwlqt")
+expand_mode = 1

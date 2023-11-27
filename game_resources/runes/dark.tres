@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Rune" load_steps=3 format=3 uid="uid://bq5vnut7tmf8g"]
+
+[ext_resource type="Texture2D" uid="uid://bxmgdvtcdhjyp" path="res://assets/sprites/magic_effects/icons/kill_all.png" id="1_i3fgc"]
+[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="1_jlkoo"]
+
+[resource]
+script = ExtResource("1_jlkoo")
+type = 5
+rune_icon = ExtResource("1_i3fgc")

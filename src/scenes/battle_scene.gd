@@ -14,6 +14,8 @@ signal action_animation_ended
 @export var proceed_button: IconButton
 @export var black_screen: MeshInstance2D
 @export var hud: Control
+@export var runes: GridContainer
+@export var spell_label: Label
 
 var battlers_positions: Array[Vector2]
 var battlers: Array[Battler]
@@ -26,9 +28,11 @@ var current_action_type: ActionTypes = ActionTypes.NONE
 var is_players_turn: bool = true
 var is_progressing_enemy_turn: bool = false
 
+var DEBUUUUUUUUG_ARRAAAAAAAAAAAAY: Array[int]
+
 
 func _ready() -> void:
-	assert(battlers_node and enemy_target_button and ally_target_button and proceed_button and black_screen and hud)
+	assert(battlers_node and enemy_target_button and ally_target_button and proceed_button and black_screen and hud and runes and spell_label)
 	
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
 	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
@@ -85,6 +89,8 @@ func _ready() -> void:
 	)
 	proceed_button.set_on_press(
 			func():
+				_on_reset_spell_button_pressed()
+				
 				proceed_button.set_enabled(false)
 				proceed_button.button_pressed = false
 				enemy_target_button.button_pressed = false
@@ -129,6 +135,20 @@ func _ready() -> void:
 							0.0
 					)
 					if current_action_type == ActionTypes.ATTACK:
+						var counter: int = 0
+						var pop_type: int = 0
+						for i in DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.size():
+							if DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[i] > counter:
+								counter = DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[i]
+								pop_type = i
+						
+						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.clear()
+						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.resize(6)
+						
+						if pop_type != 0:
+							$Test/AnimatedSprite2D.show()
+							$Test/AnimatedSprite2D.play(Rune.STRINGS[pop_type])
+						
 						anon_tween.tween_property(
 								battlers[current_battler_number], "position",
 								center_position,
@@ -137,6 +157,7 @@ func _ready() -> void:
 					else:
 						anon_tween.tween_interval(1.0)
 				else:
+						
 					anon_tween.tween_property(
 							battlers[current_battler_number], "position",
 							center_position,
@@ -171,8 +192,8 @@ func _ready() -> void:
 					)
 				
 				await anon_tween.finished
-				hud.show()
 				battlers_node.move_child(black_screen, -1)
+				$Test/AnimatedSprite2D.hide()
 				
 				is_players_turn = not is_players_turn
 				current_battler_number = randi_range(0, 2) if is_players_turn else randi_range(3, 5) # For showcase
@@ -180,9 +201,25 @@ func _ready() -> void:
 				
 				action_animation_ended.emit()
 	)
-	
-	
-	
+	for rune_button in runes.get_children() as Array[RuneButton]:
+		rune_button.pressed.connect(
+				func():
+					const MAX_CHARS := 25
+					var word: String = Rune.WORDS[rune_button.rune.type]
+					var text := spell_label.text
+					if text.length() == 0:
+						spell_label.text = word.capitalize()
+						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[rune_button.rune.type] += 1
+					elif text.length() + word.length() < MAX_CHARS:
+						spell_label.text += "-" + word
+						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[rune_button.rune.type] += 1
+		)
+		rune_button.set_enabled_function(
+				func() -> bool:
+					return is_players_turn
+		)
+	spell_label.text = ""
+	DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.resize(6)
 	
 	
 	
@@ -228,11 +265,16 @@ func _physics_process(delta: float) -> void:
 					proceed_button.button_pressed = true
 					await action_animation_ended
 					is_progressing_enemy_turn = false
+					hud.show()
 		)
 
 
 func _on_back_button_pressed() -> void:
 	Global.switch_to_scene(Preloader.game_scene)
+
+
+func _on_reset_spell_button_pressed() -> void:
+	spell_label.text = ""
 
 
 func reset_all_selections():
