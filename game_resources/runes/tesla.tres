@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Rune" load_steps=3 format=3 uid="uid://c81f1bp13k75w"]
+
+[ext_resource type="Texture2D" uid="uid://c4p7n8kh2immu" path="res://assets/sprites/magic_effects/icons/tesla_ball.png" id="1_em4i1"]
+[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_5fbnf"]
+
+[resource]
+script = ExtResource("2_5fbnf")
+type = 7
+rune_icon = ExtResource("1_em4i1")

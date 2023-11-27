@@ -31,12 +31,12 @@ func _ready() -> void:
 
 func _on_enter_battle_button_pressed() -> void:
 	var arr: Array[Battler.Types] = [
-		op_button1.get_item_id(op_button1.selected),
-		op_button2.get_item_id(op_button2.selected),
-		op_button3.get_item_id(op_button3.selected),
-		op_button4.get_item_id(op_button4.selected),
-		op_button5.get_item_id(op_button5.selected),
-		op_button6.get_item_id(op_button6.selected),
+		op_button1.get_item_id(op_button1.selected) as Battler.Types,
+		op_button2.get_item_id(op_button2.selected) as Battler.Types,
+		op_button3.get_item_id(op_button3.selected) as Battler.Types,
+		op_button4.get_item_id(op_button4.selected) as Battler.Types,
+		op_button5.get_item_id(op_button5.selected) as Battler.Types,
+		op_button6.get_item_id(op_button6.selected) as Battler.Types,
 	]
 	GameInfo.battlers_types = arr
 	Global.switch_to_scene(Preloader.battle_scene)

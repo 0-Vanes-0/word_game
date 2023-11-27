@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=28 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_2fgqw"]
@@ -8,195 +8,35 @@
 [ext_resource type="Texture2D" uid="uid://1xpuxquy5jj7" path="res://assets/sprites/env/grass_coluds_small.png" id="6_s2onw"]
 [ext_resource type="Texture2D" uid="uid://bv6nr7x5jrobq" path="res://assets/sprites/env/grass_trees.png" id="7_cxmis"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
-[ext_resource type="Texture2D" uid="uid://b21h8gkycrlep" path="res://assets/sprites/magic_effects/comet/comet8.png" id="9_p51sr"]
+[ext_resource type="SpriteFrames" uid="uid://xc71w5qk0l0q" path="res://game_resources/sprite_frames/sprite_frames_effects.tres" id="9_037nk"]
 [ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="10_05go7"]
-[ext_resource type="Texture2D" uid="uid://dj0te15r4wvht" path="res://assets/sprites/magic_effects/comet/comet9.png" id="10_aj7du"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="10_vr0bk"]
-[ext_resource type="Texture2D" uid="uid://xxlus8v20mnv" path="res://assets/sprites/magic_effects/comet/comet10.png" id="11_e87kd"]
 [ext_resource type="ButtonGroup" uid="uid://cyjeadjty8n27" path="res://game_resources/button_groups/target_types_button_group.tres" id="11_qnnly"]
-[ext_resource type="Texture2D" uid="uid://ca7m17mjyemvc" path="res://assets/sprites/magic_effects/comet/comet11.png" id="12_cpib0"]
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="12_javwb"]
-[ext_resource type="Texture2D" uid="uid://b15fh3tqf5bua" path="res://assets/sprites/magic_effects/comet/comet12.png" id="13_8ful6"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_iabbp"]
 [ext_resource type="Texture2D" uid="uid://bkuloxljiyk15" path="res://assets/sprites/ui/beige_border2.png" id="13_nfucy"]
-[ext_resource type="Texture2D" uid="uid://tbygj8buhkvc" path="res://assets/sprites/magic_effects/comet/comet13.png" id="14_pxouw"]
-[ext_resource type="Texture2D" uid="uid://bmiaqek15o4en" path="res://assets/sprites/magic_effects/comet/comet14.png" id="15_mvolm"]
-[ext_resource type="Texture2D" uid="uid://lbcx2tfj3yk3" path="res://assets/sprites/magic_effects/fire/fire6.png" id="16_4xtih"]
-[ext_resource type="Texture2D" uid="uid://0giwwat6ueut" path="res://assets/sprites/magic_effects/fire/fire7.png" id="17_fbxk1"]
-[ext_resource type="Texture2D" uid="uid://cfe6edp7jtyem" path="res://assets/sprites/magic_effects/kill_all/scull3.png" id="18_llvbf"]
-[ext_resource type="Texture2D" uid="uid://b6dilo7ju1rpp" path="res://assets/sprites/magic_effects/fire/fire8.png" id="18_xx2ob"]
-[ext_resource type="Texture2D" uid="uid://bvtlvim0a2his" path="res://assets/sprites/magic_effects/kill_all/scull4.png" id="19_bmlny"]
-[ext_resource type="Texture2D" uid="uid://bptw5e0fh7xos" path="res://assets/sprites/magic_effects/fire/fire9.png" id="19_f068b"]
-[ext_resource type="Texture2D" uid="uid://clo42alchelxr" path="res://assets/sprites/magic_effects/kill_all/scull5.png" id="20_3o1d6"]
-[ext_resource type="Texture2D" uid="uid://dyio0c28cjtma" path="res://assets/sprites/magic_effects/fire/fire10.png" id="20_06sgc"]
-[ext_resource type="Texture2D" uid="uid://bor7u68mpwv4t" path="res://assets/sprites/magic_effects/gypno/spiral4.png" id="21_0t5ik"]
-[ext_resource type="Texture2D" uid="uid://bnhwhjeo2lbja" path="res://assets/sprites/magic_effects/kill_all/scull6.png" id="21_6akte"]
-[ext_resource type="Texture2D" uid="uid://c2j4fl3yv3anu" path="res://assets/sprites/magic_effects/kill_all/scull7.png" id="22_keyuh"]
-[ext_resource type="Texture2D" uid="uid://dnr1inn7wadfx" path="res://assets/sprites/magic_effects/gypno/spiral5.png" id="22_t6lsj"]
-[ext_resource type="Texture2D" uid="uid://brm2ls3hp8qtm" path="res://assets/sprites/magic_effects/gypno/spiral6.png" id="23_b0s8l"]
-[ext_resource type="Texture2D" uid="uid://k6biob4p7hrk" path="res://assets/sprites/magic_effects/kill_all/scull8.png" id="23_tijfl"]
-[ext_resource type="Texture2D" uid="uid://mnwj88xeoh0t" path="res://assets/sprites/magic_effects/gypno/spiral7.png" id="24_gf5go"]
-[ext_resource type="Texture2D" uid="uid://bnquqaghpop1l" path="res://assets/sprites/magic_effects/kill_all/scull9.png" id="24_t5kko"]
-[ext_resource type="Texture2D" uid="uid://dfdr0orcvh3rs" path="res://assets/sprites/magic_effects/gypno/spiral13.png" id="25_erca3"]
-[ext_resource type="Texture2D" uid="uid://51yveu38rx2v" path="res://assets/sprites/magic_effects/gypno/spiral14.png" id="26_44g8o"]
-[ext_resource type="Texture2D" uid="uid://xqctvuyvlv1w" path="res://assets/sprites/magic_effects/ice/ice6.png" id="27_y4fjm"]
-[ext_resource type="Texture2D" uid="uid://nrrc03jasff7" path="res://assets/sprites/magic_effects/ice/ice7.png" id="28_f80de"]
-[ext_resource type="Texture2D" uid="uid://drkr1aiicgdue" path="res://assets/sprites/magic_effects/ice/ice8.png" id="29_qtoe6"]
-[ext_resource type="Texture2D" uid="uid://jlc5op8kp27n" path="res://assets/sprites/magic_effects/ice/ice9.png" id="30_x6xl2"]
-[ext_resource type="Texture2D" uid="uid://bcs7a0la5q2co" path="res://assets/sprites/magic_effects/ice/ice10.png" id="31_2w25e"]
-[ext_resource type="Texture2D" uid="uid://c2haf5cfvuedl" path="res://assets/sprites/magic_effects/ice/ice11.png" id="32_n7bda"]
-[ext_resource type="Texture2D" uid="uid://dawupfumadjdk" path="res://assets/sprites/magic_effects/ice/ice12.png" id="33_2kmto"]
-[ext_resource type="Texture2D" uid="uid://cxnt36x8u18p4" path="res://assets/sprites/magic_effects/ice/ice13.png" id="34_8fwk8"]
 [ext_resource type="PackedScene" uid="uid://d3di5wu6irnnt" path="res://src/ui/rune_button.tscn" id="39_hm1mx"]
 [ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="39_rp1nh"]
 [ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="40_rayfn"]
 [ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="41_3pg1g"]
+[ext_resource type="Script" path="res://src/scenes/battle_hud_manager.gd" id="43_btgy2"]
 [ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/comet.tres" id="43_ox3y7"]
 [ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="44_e1mdf"]
 [ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="45_163op"]
 [ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="46_sbj7i"]
 [ext_resource type="Resource" uid="uid://bjr00kkxd0ccr" path="res://game_resources/runes/stun.tres" id="47_d7aft"]
+[ext_resource type="Script" path="res://src/scenes/battle_animator.gd" id="58_cod5m"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_atuqh"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("9_p51sr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_aj7du")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_e87kd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_cpib0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_8ful6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_pxouw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_mvolm")
-}],
-"loop": false,
-"name": &"comet",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("18_llvbf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_bmlny")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_3o1d6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_6akte")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_keyuh")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_tijfl")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_t5kko")
-}],
-"loop": false,
-"name": &"dark",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("16_4xtih")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_fbxk1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_xx2ob")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_f068b")
-}, {
-"duration": 1.0,
-"texture": ExtResource("20_06sgc")
-}],
-"loop": false,
-"name": &"fire",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("27_y4fjm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_f80de")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_qtoe6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_x6xl2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_2w25e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_n7bda")
-}, {
-"duration": 1.0,
-"texture": ExtResource("33_2kmto")
-}, {
-"duration": 1.0,
-"texture": ExtResource("34_8fwk8")
-}],
-"loop": false,
-"name": &"ice",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("21_0t5ik")
-}, {
-"duration": 1.0,
-"texture": ExtResource("22_t6lsj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("23_b0s8l")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_gf5go")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_erca3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_44g8o")
-}],
-"loop": false,
-"name": &"stun",
-"speed": 4.0
-}]
-
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "enemy_target_button", "ally_target_button", "proceed_button", "black_screen", "hud", "runes", "spell_label")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hud_manager", "battlers_node", "black_screen", "effect_sprite", "battle_animator")]
 script = ExtResource("1_2ge4k")
+hud_manager = NodePath("CanvasLayer/Control/VBoxContainer/BattleHUDManager")
 battlers_node = NodePath("Battlers")
-enemy_target_button = NodePath("CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/HBoxContainer/EnemyTargetButton")
-ally_target_button = NodePath("CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/HBoxContainer/AllyTargetButton")
-proceed_button = NodePath("CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/ProceedButton")
 black_screen = NodePath("Battlers/BlackScreen")
-hud = NodePath("CanvasLayer/HUD")
-runes = NodePath("CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/GridContainer")
-spell_label = NodePath("CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/SpellLabel")
+effect_sprite = NodePath("Battlers/EffectSprite")
+battle_animator = NodePath("BattleAnimator")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -253,21 +93,26 @@ self_modulate = Color(0, 0, 0, 0)
 position = Vector2(480, -63)
 mesh = SubResource("BoxMesh_lc3p6")
 
+[node name="EffectSprite" type="AnimatedSprite2D" parent="Battlers"]
+visible = false
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("9_037nk")
+animation = &"comet"
+
 [node name="Test" type="Node2D" parent="."]
+visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Test"]
-visible = false
-position = Vector2(580, 320)
+position = Vector2(636, 210)
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_atuqh")
-animation = &"dark"
-frame = 2
-frame_progress = 0.276666
-offset = Vector2(20, -48)
+sprite_frames = ExtResource("9_037nk")
+animation = &"water"
+frame = 3
+frame_progress = 1.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -278,7 +123,7 @@ mouse_filter = 1
 theme = ExtResource("10_vr0bk")
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -287,42 +132,49 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="Control" type="Control" parent="CanvasLayer/HUD/VBoxContainer"]
+[node name="Control" type="Control" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 1
 metadata/_edit_lock_ = true
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/HUD/VBoxContainer"]
+[node name="BattleHUDManager" type="CenterContainer" parent="CanvasLayer/Control/VBoxContainer" node_paths=PackedStringArray("_enemy_target_button", "_ally_target_button", "_spell_label", "_reset_spell_button", "_runes", "_proceed_button")]
 layout_mode = 2
+script = ExtResource("43_btgy2")
+_enemy_target_button = NodePath("HBoxContainer/HBoxContainer/EnemyTargetButton")
+_ally_target_button = NodePath("HBoxContainer/HBoxContainer/AllyTargetButton")
+_spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/SpellLabel")
+_reset_spell_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton")
+_runes = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
+_proceed_button = NodePath("HBoxContainer/ProceedButton")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager"]
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 theme_override_constants/separation = 40
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer"]
 layout_mode = 2
 
-[node name="EnemyTargetButton" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/HBoxContainer" instance=ExtResource("10_05go7")]
+[node name="EnemyTargetButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/HBoxContainer" instance=ExtResource("10_05go7")]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 button_group = ExtResource("11_qnnly")
 
-[node name="AllyTargetButton" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/HBoxContainer" instance=ExtResource("10_05go7")]
+[node name="AllyTargetButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/HBoxContainer" instance=ExtResource("10_05go7")]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 button_group = ExtResource("11_qnnly")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -333,7 +185,7 @@ patch_margin_top = 24
 patch_margin_right = 27
 patch_margin_bottom = 23
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -345,7 +197,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 10
 
-[node name="SpellLabel" type="Label" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+[node name="SpellLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -353,14 +205,14 @@ text = "1234567890123456789012345"
 vertical_alignment = 1
 clip_text = true
 
-[node name="ResetSpellButton" type="TextureButton" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ResetSpellButton" type="TextureButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("39_rp1nh")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="ButtonBackground" type="TextureRect" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
+[node name="ButtonBackground" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
@@ -371,7 +223,7 @@ grow_vertical = 2
 texture = ExtResource("40_rayfn")
 stretch_mode = 5
 
-[node name="ResetIcon" type="TextureRect" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
+[node name="ResetIcon" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -381,41 +233,41 @@ grow_vertical = 2
 texture = ExtResource("41_3pg1g")
 stretch_mode = 3
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer"]
+[node name="RunesGrid" type="GridContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 5
 
-[node name="RuneButton" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("39_hm1mx")]
+[node name="RuneButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
 layout_mode = 2
 rune = ExtResource("43_ox3y7")
 
-[node name="RuneButton2" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("39_hm1mx")]
+[node name="RuneButton2" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
 layout_mode = 2
 rune = ExtResource("44_e1mdf")
 
-[node name="RuneButton3" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("39_hm1mx")]
+[node name="RuneButton3" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
 layout_mode = 2
 rune = ExtResource("45_163op")
 
-[node name="RuneButton4" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("39_hm1mx")]
+[node name="RuneButton4" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
 layout_mode = 2
 rune = ExtResource("46_sbj7i")
 
-[node name="RuneButton5" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/GridContainer" instance=ExtResource("39_hm1mx")]
+[node name="RuneButton5" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
 layout_mode = 2
 rune = ExtResource("47_d7aft")
 
-[node name="ProceedButton" parent="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer" instance=ExtResource("10_05go7")]
+[node name="ProceedButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer" instance=ExtResource("10_05go7")]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture_normal = ExtResource("12_javwb")
 texture_pressed = ExtResource("13_iabbp")
 texture_disabled = ExtResource("13_iabbp")
 
-[node name="BackButton" type="Button" parent="CanvasLayer/HUD"]
+[node name="BackButton" type="Button" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -426,5 +278,8 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 60
 text = "Back"
 
-[connection signal="pressed" from="CanvasLayer/HUD/VBoxContainer/CenterContainer/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton" to="." method="_on_reset_spell_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/HUD/BackButton" to="." method="_on_back_button_pressed"]
+[node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
+script = ExtResource("58_cod5m")
+battle_scene = NodePath("..")
+
+[connection signal="pressed" from="CanvasLayer/Control/BackButton" to="." method="_on_back_button_pressed"]

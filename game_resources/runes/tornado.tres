@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Rune" load_steps=3 format=3 uid="uid://cm775bcaxbhbx"]
+
+[ext_resource type="Texture2D" uid="uid://rcx1vk25l4k4" path="res://assets/sprites/magic_effects/icons/tornado.png" id="1_0dwks"]
+[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_aams4"]
+
+[resource]
+script = ExtResource("2_aams4")
+type = 8
+rune_icon = ExtResource("1_0dwks")

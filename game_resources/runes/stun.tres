@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_lp734")
-type = 3
+type = 6
 rune_icon = ExtResource("1_yvit7")

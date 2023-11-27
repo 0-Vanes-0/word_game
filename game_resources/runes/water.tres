@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Rune" load_steps=3 format=3 uid="uid://dqu5j8plewfet"]
+
+[ext_resource type="Texture2D" uid="uid://0lveor7lvmdu" path="res://assets/sprites/magic_effects/icons/water.png" id="1_pqtil"]
+[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_bcwvu"]
+
+[resource]
+script = ExtResource("2_bcwvu")
+type = 9
+rune_icon = ExtResource("1_pqtil")

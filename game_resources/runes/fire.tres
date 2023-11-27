@@ -5,5 +5,5 @@
 
 [resource]
 script = ExtResource("1_jf7kr")
-type = 2
+type = 3
 rune_icon = ExtResource("1_umip2")

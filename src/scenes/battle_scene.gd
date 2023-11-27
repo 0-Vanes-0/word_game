@@ -5,17 +5,13 @@ enum ActionTypes {
 	NONE = 0, ATTACK = 1, ALLY = 2
 }
 
-signal action_animation_ended
+signal proceed_turn_ended
 
-@export_group("Children")
+@export var hud_manager: BattleHUDManager
 @export var battlers_node: Marker2D
-@export var enemy_target_button: IconButton
-@export var ally_target_button: IconButton
-@export var proceed_button: IconButton
 @export var black_screen: MeshInstance2D
-@export var hud: Control
-@export var runes: GridContainer
-@export var spell_label: Label
+@export var effect_sprite: AnimatedSprite2D
+@export var battle_animator: BattleAnimator
 
 var battlers_positions: Array[Vector2]
 var battlers: Array[Battler]
@@ -28,11 +24,11 @@ var current_action_type: ActionTypes = ActionTypes.NONE
 var is_players_turn: bool = true
 var is_progressing_enemy_turn: bool = false
 
-var DEBUUUUUUUUG_ARRAAAAAAAAAAAAY: Array[int]
-
 
 func _ready() -> void:
-	assert(battlers_node and enemy_target_button and ally_target_button and proceed_button and black_screen and hud and runes and spell_label)
+	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator)
+	
+	hud_manager.hide()
 	
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
 	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
@@ -54,14 +50,11 @@ func _ready() -> void:
 			player_battlers.append(battlers[index])
 		else:
 			enemy_battlers.append(battlers[index])
+	
 	battlers_node.move_child(black_screen, -1)
+	battlers_node.move_child(effect_sprite, -1)
 	
-	enemy_target_button.set_icons(Preloader.texture_sword_yellow_icon, Preloader.texture_sword_black_icon)
-	ally_target_button.set_icons(Preloader.texture_person_yellow_icon, Preloader.texture_person_black_icon)
-	proceed_button.set_icons(Preloader.texture_arrow_right_black_icon, Preloader.texture_arrow_right_yellow_icon, Preloader.texture_arrow_right_black_icon)
-	proceed_button.set_enabled(false)
-	
-	enemy_target_button.set_on_press(
+	hud_manager.to_select_enemies.connect(
 			func():
 				reset_all_selections()
 				show_current_selection()
@@ -74,164 +67,67 @@ func _ready() -> void:
 				
 				current_action_type = ActionTypes.ATTACK
 	)
-	ally_target_button.set_on_press(
+	hud_manager.to_select_allies.connect(
 			func():
 				reset_all_selections()
 				show_current_selection()
 				for i in player_battlers.size():
-					var ab := player_battlers[i]
-					ab.selection.show()
-					ab.selection.modulate = Global.TargetColors.ALLY_SELF_BATTLER
-					ab.selection_hover.modulate = Global.TargetColors.ALLY_SELF_BATTLER
-					ab.set_area_clickable(true)
+					if current_battler_number != i:
+						var ab := player_battlers[i]
+						ab.selection.show()
+						ab.selection.modulate = Global.TargetColors.ALLY_SELF_BATTLER
+						ab.selection_hover.modulate = Global.TargetColors.ALLY_SELF_BATTLER
+					player_battlers[i].set_area_clickable(true)
 				
 				current_action_type = ActionTypes.ALLY
 	)
-	proceed_button.set_on_press(
+	hud_manager.to_proceed_turn.connect(
 			func():
-				_on_reset_spell_button_pressed()
-				
-				proceed_button.set_enabled(false)
-				proceed_button.button_pressed = false
-				enemy_target_button.button_pressed = false
-				ally_target_button.button_pressed = false
 				reset_all_selections()
 				
-				battlers[current_battler_number].anim_action(current_action_type)
-				
-				var current_battler_orig_index := battlers[current_battler_number].index
-				var current_battler_orig_position := battlers[current_battler_number].position
-				var current_battler_orig_scale := battlers[current_battler_number].scale
-				battlers_node.move_child(battlers[current_battler_number], -1)
-				battlers[current_battler_number].scale *= 2.0
-				
-				var target_battler_orig_index: int
-				var target_battler_orig_position: Vector2
-				var target_battler_orig_scale: Vector2
-				if current_battler_number != target_battler_number:
-					target_battler_orig_index = battlers[target_battler_number].index
-					target_battler_orig_position = battlers[target_battler_number].position
-					target_battler_orig_scale = battlers[target_battler_number].scale
-					battlers_node.move_child(battlers[target_battler_number], -2)
-					battlers[target_battler_number].scale *= 2.0
-				
-				var left_position := Vector2.RIGHT * Global.SCREEN_WIDTH / 3
-				var right_position := Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 3
-				var center_position := Vector2.RIGHT * Global.SCREEN_WIDTH / 2
-				
-				hud.hide()
-				black_screen.self_modulate.a = 0.5
-				
-				var anon_tween := create_tween()
-				if current_battler_number != target_battler_number:
-					anon_tween.tween_property(
-							battlers[current_battler_number], "position",
-							left_position if current_battler_number < target_battler_number else right_position,
-							0.0
-					)
-					anon_tween.tween_property(
-							battlers[target_battler_number], "position",
-							right_position if current_battler_number < target_battler_number else left_position,
-							0.0
-					)
-					if current_action_type == ActionTypes.ATTACK:
-						var counter: int = 0
-						var pop_type: int = 0
-						for i in DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.size():
-							if DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[i] > counter:
-								counter = DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[i]
-								pop_type = i
-						
-						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.clear()
-						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.resize(6)
-						
-						if pop_type != 0:
-							$Test/AnimatedSprite2D.show()
-							$Test/AnimatedSprite2D.play(Rune.STRINGS[pop_type])
-						
-						anon_tween.tween_property(
-								battlers[current_battler_number], "position",
-								center_position,
-								1.0
-						)
+				var spell: Array[Rune] = hud_manager.spell
+				var runes_counter := {}
+
+				for rune in spell:
+					if runes_counter.has(rune.type):
+						runes_counter[rune.type] += 1
 					else:
-						anon_tween.tween_interval(1.0)
-				else:
-						
-					anon_tween.tween_property(
-							battlers[current_battler_number], "position",
-							center_position,
-							0.0
-					)
-					anon_tween.tween_interval(1.0)
-				anon_tween.tween_property(
-						black_screen, "self_modulate:a",
-						0.0,
-						0.25
-				)
-				anon_tween.parallel().tween_property(
-						battlers[current_battler_number], "position",
-						current_battler_orig_position,
-						0.25
-				)
-				anon_tween.parallel().tween_property(
-						battlers[current_battler_number], "scale",
-						current_battler_orig_scale,
-						0.25
-				)
-				if current_battler_number != target_battler_number:
-					anon_tween.parallel().tween_property(
-							battlers[target_battler_number], "position",
-							target_battler_orig_position,
-							0.25
-					)
-					anon_tween.parallel().tween_property(
-							battlers[target_battler_number], "scale",
-							target_battler_orig_scale,
-							0.25
-					)
+						runes_counter[rune.type] = 1
 				
-				await anon_tween.finished
-				battlers_node.move_child(black_screen, -1)
-				$Test/AnimatedSprite2D.hide()
+				var most_common_type := -1
+				var max_count := -1
+				for key in runes_counter.keys():
+					if runes_counter.get(key) > max_count:
+						most_common_type = key
+						max_count = runes_counter.get(key)
+				
+				battle_animator.animate_turn(most_common_type)
+				await battle_animator.animate_turn_completed
+				
+				hud_manager.spell.clear()
 				
 				is_players_turn = not is_players_turn
-				current_battler_number = randi_range(0, 2) if is_players_turn else randi_range(3, 5) # For showcase
-				enemy_target_button.button_pressed = true
+				if is_players_turn:
+					current_battler_number = randi_range(0, 2) # For showcase
+					hud_manager.appear()
+				else:
+					current_battler_number = randi_range(3, 5) # For showcase
 				
-				action_animation_ended.emit()
+				proceed_turn_ended.emit()
 	)
-	for rune_button in runes.get_children() as Array[RuneButton]:
-		rune_button.pressed.connect(
-				func():
-					const MAX_CHARS := 25
-					var word: String = Rune.WORDS[rune_button.rune.type]
-					var text := spell_label.text
-					if text.length() == 0:
-						spell_label.text = word.capitalize()
-						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[rune_button.rune.type] += 1
-					elif text.length() + word.length() < MAX_CHARS:
-						spell_label.text += "-" + word
-						DEBUUUUUUUUG_ARRAAAAAAAAAAAAY[rune_button.rune.type] += 1
-		)
-		rune_button.set_enabled_function(
-				func() -> bool:
-					return is_players_turn
-		)
-	spell_label.text = ""
-	DEBUUUUUUUUG_ARRAAAAAAAAAAAAY.resize(6)
+	hud_manager.appear()
 	
 	
 	
 	current_battler_number = randi_range(0, 2) # For showcase
-	enemy_target_button.button_pressed = true
+	hud_manager.to_select_enemies.emit()
 
 
 func _on_battler_clicked(battler: Battler):
 	hide_selection_hovers()
 	battler.selection_hover.show()
 	target_battler_number = battler.index
-	proceed_button.set_enabled(true)
+	hud_manager.set_proceed_button_enabled(true)
 	battlers[current_battler_number].anim_prepare(current_action_type)
 
 
@@ -244,41 +140,21 @@ func _physics_process(delta: float) -> void:
 		is_progressing_enemy_turn = true
 		
 		target_battler_number = randi_range(0, 2)
-		var enemy_tween := create_tween()
-		enemy_tween.tween_interval(0.5)
-		enemy_tween.tween_callback(
+		
+		battle_animator.animate_enemy_prepare_completed.connect(
 				func():
-					enemy_target_button.button_pressed = true
-					battlers[current_battler_number].selection.show()
-					battlers[current_battler_number].selection_hover.show()
-					battlers[current_battler_number].selection.modulate = Global.TargetColors.CURRENT_BATTLER
-					battlers[current_battler_number].selection_hover.modulate = Global.TargetColors.CURRENT_BATTLER
-					battlers[current_battler_number].anim_prepare(ActionTypes.ATTACK)
-					battlers[target_battler_number].selection.show()
-					battlers[target_battler_number].selection_hover.show()
-					battlers[target_battler_number].selection.modulate = Global.TargetColors.FOE_BATTLER
-					battlers[target_battler_number].selection_hover.modulate = Global.TargetColors.FOE_BATTLER
-		)
-		enemy_tween.tween_interval(1.0)
-		enemy_tween.tween_callback(
-				func():
-					proceed_button.button_pressed = true
-					await action_animation_ended
+					hud_manager.to_proceed_turn.emit()
+					await proceed_turn_ended
 					is_progressing_enemy_turn = false
-					hud.show()
-		)
+		, CONNECT_ONE_SHOT)
+		battle_animator.animate_enemy_prepare()
 
 
 func _on_back_button_pressed() -> void:
 	Global.switch_to_scene(Preloader.game_scene)
 
 
-func _on_reset_spell_button_pressed() -> void:
-	spell_label.text = ""
-
-
 func reset_all_selections():
-	proceed_button.set_enabled(false)
 	for i in battlers.size():
 		battlers[i].set_area_clickable(false)
 		battlers[i].anim_idle()
@@ -290,7 +166,7 @@ func reset_all_selections():
 
 func show_current_selection():
 	battlers[current_battler_number].selection_hover.hide()
-	battlers[current_battler_number].selection_hover.modulate = Color.WHITE
+	battlers[current_battler_number].selection_hover.modulate = Global.TargetColors.CURRENT_BATTLER
 	battlers[current_battler_number].selection.show()
 	battlers[current_battler_number].selection.modulate = Global.TargetColors.CURRENT_BATTLER
 

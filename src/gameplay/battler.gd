@@ -36,8 +36,8 @@ static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
 
 func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	sprite = AnimatedSprite2D.new()
-	sprite.sprite_frames = get_sprite_frames(type)
-	sprite.offset = get_offset(type)
+	sprite.sprite_frames = Battler.get_sprite_frames(type)
+	sprite.offset = Battler.get_offset(type)
 	sprite.scale = Vector2.ONE * 2.0
 	self.add_child(sprite)
 	
@@ -67,7 +67,7 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	
 	self.stats = stats
 	self.index = index
-	self.scale.x = get_scale_x(type)
+	self.scale.x = Battler.get_scale_x(type)
 
 
 func _ready() -> void:

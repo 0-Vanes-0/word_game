@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=29 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -19,6 +19,15 @@
 [ext_resource type="Texture2D" uid="uid://ct7v0iv8kddft" path="res://assets/sprites/ui/icons/person.png" id="17_ufejx"]
 [ext_resource type="Texture2D" uid="uid://dsov2a1l5ms8d" path="res://assets/sprites/ui/icons/play_button_yellow.png" id="18_d3g4s"]
 [ext_resource type="Texture2D" uid="uid://b1oi3kt628yhp" path="res://assets/sprites/ui/icons/play_button1.png" id="19_bq5fo"]
+[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/comet.tres" id="20_arl4a"]
+[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="21_ywknp"]
+[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="22_vth3l"]
+[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="23_nehi5"]
+[ext_resource type="Resource" uid="uid://pthoxclx332h" path="res://game_resources/runes/spikes.tres" id="24_dxppb"]
+[ext_resource type="Resource" uid="uid://bjr00kkxd0ccr" path="res://game_resources/runes/stun.tres" id="25_stx8v"]
+[ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/tesla.tres" id="26_nob83"]
+[ext_resource type="Resource" uid="uid://cm775bcaxbhbx" path="res://game_resources/runes/tornado.tres" id="27_cgigl"]
+[ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/water.tres" id="28_6buor"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
@@ -43,3 +52,12 @@ texture_person_yellow_icon = ExtResource("16_ilmgl")
 texture_person_black_icon = ExtResource("17_ufejx")
 texture_arrow_right_yellow_icon = ExtResource("18_d3g4s")
 texture_arrow_right_black_icon = ExtResource("19_bq5fo")
+rune_comet = ExtResource("20_arl4a")
+rune_dark = ExtResource("21_ywknp")
+rune_fire = ExtResource("22_vth3l")
+rune_ice = ExtResource("23_nehi5")
+rune_spikes = ExtResource("24_dxppb")
+rune_stun = ExtResource("25_stx8v")
+rune_tesla = ExtResource("26_nob83")
+rune_tornado = ExtResource("27_cgigl")
+rune_water = ExtResource("28_6buor")
