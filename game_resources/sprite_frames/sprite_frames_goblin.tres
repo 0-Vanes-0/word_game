@@ -1,23 +1,58 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=10 format=3 uid="uid://cn38l01om6o2v"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=15 format=3 uid="uid://cn38l01om6o2v"]
 
 [ext_resource type="Texture2D" uid="uid://dmnlpp3ylyocc" path="res://assets/sprites/characters/goblin/attack4.png" id="1_nfmj4"]
 [ext_resource type="Texture2D" uid="uid://cse3t2b7kbea7" path="res://assets/sprites/characters/goblin/idle1.png" id="1_rbvex"]
 [ext_resource type="Texture2D" uid="uid://2y22i3jc68pj" path="res://assets/sprites/characters/goblin/idle2.png" id="2_2hak3"]
+[ext_resource type="Texture2D" uid="uid://qqu71fx1aqk1" path="res://assets/sprites/characters/goblin/death1.png" id="2_tb5vb"]
+[ext_resource type="Texture2D" uid="uid://dtmb8mlw47qx8" path="res://assets/sprites/characters/goblin/death2.png" id="3_0781u"]
 [ext_resource type="Texture2D" uid="uid://5ykrbbvlikuq" path="res://assets/sprites/characters/goblin/idle3.png" id="3_g0yd6"]
+[ext_resource type="Texture2D" uid="uid://dqekgs5ik6ixq" path="res://assets/sprites/characters/goblin/death3.png" id="4_c6ecf"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_m62ys"]
 [ext_resource type="Texture2D" uid="uid://dde1ywp87m1dl" path="res://assets/sprites/characters/goblin/idle4.png" id="4_n3eaw"]
+[ext_resource type="Texture2D" uid="uid://dp02tljamnfcs" path="res://assets/sprites/characters/goblin/death4.png" id="5_fgb4m"]
+[ext_resource type="Texture2D" uid="uid://dtgesi5wluteb" path="res://assets/sprites/characters/goblin/hurt2.png" id="6_egcb4"]
 [ext_resource type="Texture2D" uid="uid://clvtljet1ei1p" path="res://assets/sprites/characters/goblin/walk1.png" id="6_kajmv"]
 [ext_resource type="Texture2D" uid="uid://cjrcnyu8h5l1" path="res://assets/sprites/characters/goblin/attack1.png" id="7_tiyov"]
 [ext_resource type="Texture2D" uid="uid://drkes3g85bcb1" path="res://assets/sprites/characters/goblin/attack2.png" id="8_alv31"]
 
 [resource]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"action_ally",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_nfmj4")
 }],
 "loop": false,
 "name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tb5vb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0781u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c6ecf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fgb4m")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_egcb4")
+}],
+"loop": false,
+"name": &"hurt",
 "speed": 4.0
 }, {
 "frames": [{
@@ -35,6 +70,11 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"prepare_ally",
 "speed": 4.0
 }, {
 "frames": [{
@@ -56,3 +96,4 @@ animations = [{
 }]
 script = ExtResource("4_m62ys")
 offset = Vector2(5, -25)
+separate_offsets = {}

@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=16 format=3 uid="uid://c71of80kg874k"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=21 format=3 uid="uid://c71of80kg874k"]
 
 [ext_resource type="Texture2D" uid="uid://vh2p5fdmfxox" path="res://assets/sprites/characters/Player Knight/Idle/idle10.png" id="1_ibr1w"]
 [ext_resource type="Texture2D" uid="uid://dw3aedo643i0x" path="res://assets/sprites/characters/Player Knight/Walk/walk1.png" id="1_w52tw"]
@@ -7,8 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://dbwr3ofeyuw1o" path="res://assets/sprites/characters/Player Knight/Walk/walk3.png" id="3_p5d72"]
 [ext_resource type="Texture2D" uid="uid://u82youabwf2v" path="res://assets/sprites/characters/Player Knight/Idle/idle4.png" id="3_u54qf"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_8pguh"]
+[ext_resource type="Texture2D" uid="uid://1fgy41yxsbx7" path="res://assets/sprites/characters/Player Knight/Death/death2.png" id="4_cc6tp"]
+[ext_resource type="Texture2D" uid="uid://bkn762j0le64j" path="res://assets/sprites/characters/Player Knight/Death/death3.png" id="5_bg4h8"]
+[ext_resource type="Texture2D" uid="uid://bvult0ne3ty5v" path="res://assets/sprites/characters/Player Knight/Death/death4.png" id="6_sqkna"]
 [ext_resource type="Texture2D" uid="uid://bk1xvfaca385q" path="res://assets/sprites/characters/Player Knight/Idle/idle1.png" id="7_8udm5"]
+[ext_resource type="Texture2D" uid="uid://d1d0m68jkbm2e" path="res://assets/sprites/characters/Player Knight/Death/death5.png" id="7_s08ge"]
 [ext_resource type="Texture2D" uid="uid://c0aht5tnngx5m" path="res://assets/sprites/characters/Player Knight/Idle/idle8.png" id="8_j0464"]
+[ext_resource type="Texture2D" uid="uid://bfjj017ba7gqu" path="res://assets/sprites/characters/Player Knight/Hurt/hurt1.png" id="8_ki3ln"]
 [ext_resource type="Texture2D" uid="uid://bcqfafxbjtv0g" path="res://assets/sprites/characters/Player Knight/Idle/idle9.png" id="9_0hnak"]
 [ext_resource type="Texture2D" uid="uid://dt2cxa0gy61s3" path="res://assets/sprites/characters/Player Knight/Extra_Attack/attack_extra1.png" id="10_lut7l"]
 [ext_resource type="Texture2D" uid="uid://dy1psma4dtio8" path="res://assets/sprites/characters/Player Knight/Extra_Attack/attack_extra2.png" id="11_4cdml"]
@@ -40,6 +45,31 @@ animations = [{
 }],
 "loop": false,
 "name": &"action_self",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cc6tp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bg4h8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_sqkna")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_s08ge")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ki3ln")
+}],
+"loop": false,
+"name": &"hurt",
 "speed": 4.0
 }, {
 "frames": [{
@@ -109,3 +139,6 @@ animations = [{
 }]
 script = ExtResource("4_8pguh")
 offset = Vector2(20, -48)
+separate_offsets = {
+"die": Vector2(0, -28)
+}

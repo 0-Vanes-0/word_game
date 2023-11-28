@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=16 format=3 uid="uid://dpa1fpp1aqjip"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=21 format=3 uid="uid://dpa1fpp1aqjip"]
 
 [ext_resource type="Texture2D" uid="uid://b5jhi81pl121f" path="res://assets/sprites/characters/Player Robber/Walk/walk1.png" id="1_15ks2"]
 [ext_resource type="Texture2D" uid="uid://cwp02fd3ib4f5" path="res://assets/sprites/characters/Player Robber/Idle/idle4.png" id="1_cqqgj"]
@@ -6,10 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://5b7pkorbx0tc" path="res://assets/sprites/characters/Player Robber/Extra_Attack/attack_extra3.png" id="2_wx38m"]
 [ext_resource type="Texture2D" uid="uid://vk3q5t77tpol" path="res://assets/sprites/characters/Player Robber/Walk/walk3.png" id="3_cbprv"]
 [ext_resource type="Texture2D" uid="uid://5ajyjf25wxu2" path="res://assets/sprites/characters/Player Robber/Jump/jump7.png" id="3_jnrwe"]
+[ext_resource type="Texture2D" uid="uid://xmh2imqvteo" path="res://assets/sprites/characters/Player Robber/Death/death2.png" id="4_ey4ls"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_qexfl"]
 [ext_resource type="Texture2D" uid="uid://qelgewcpddvs" path="res://assets/sprites/characters/Player Robber/Idle/idle1.png" id="5_b060u"]
+[ext_resource type="Texture2D" uid="uid://b0e7ippbj018j" path="res://assets/sprites/characters/Player Robber/Death/death3.png" id="5_igdbk"]
+[ext_resource type="Texture2D" uid="uid://c27i6ox0305u1" path="res://assets/sprites/characters/Player Robber/Death/death4.png" id="6_n30k0"]
 [ext_resource type="Texture2D" uid="uid://dbmyvivdna2yj" path="res://assets/sprites/characters/Player Robber/Idle/idle2.png" id="6_w0tvd"]
 [ext_resource type="Texture2D" uid="uid://55w0e75k2d3e" path="res://assets/sprites/characters/Player Robber/Idle/idle3.png" id="7_stwwy"]
+[ext_resource type="Texture2D" uid="uid://dagiwg7pdxjqh" path="res://assets/sprites/characters/Player Robber/Death/death5.png" id="7_sxsfi"]
+[ext_resource type="Texture2D" uid="uid://bfndiiwxcal33" path="res://assets/sprites/characters/Player Robber/Death/death1.png" id="8_bdex7"]
 [ext_resource type="Texture2D" uid="uid://jdkacrl2fiys" path="res://assets/sprites/characters/Player Robber/Attack/Attack1.png" id="8_rdi24"]
 [ext_resource type="Texture2D" uid="uid://dedwpo6v07quy" path="res://assets/sprites/characters/Player Robber/Extra_Attack/attack_extra1.png" id="9_3ss5x"]
 [ext_resource type="Texture2D" uid="uid://moihrlj764c6" path="res://assets/sprites/characters/Player Robber/Extra_Attack/attack_extra2.png" id="10_o1wj4"]
@@ -40,6 +45,31 @@ animations = [{
 }],
 "loop": false,
 "name": &"action_self",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ey4ls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_igdbk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_n30k0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_sxsfi")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_bdex7")
+}],
+"loop": false,
+"name": &"hurt",
 "speed": 4.0
 }, {
 "frames": [{
@@ -106,3 +136,7 @@ animations = [{
 }]
 script = ExtResource("4_qexfl")
 offset = Vector2(20, -48)
+separate_offsets = {
+"die": Vector2(0, -28),
+"hurt": Vector2(0, -28)
+}

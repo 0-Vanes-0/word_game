@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BattlerStats" load_steps=2 format=3 uid="uid://dvf258ty8bnm7"]
+
+[ext_resource type="Script" path="res://src/gameplay/battler_stats.gd" id="1_yq63n"]
+
+[resource]
+script = ExtResource("1_yq63n")
+base_health = 60
+base_min_damage = 6
+base_max_damage = 10

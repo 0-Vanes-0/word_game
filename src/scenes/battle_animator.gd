@@ -13,18 +13,20 @@ func _ready() -> void:
 	assert(battle_scene)
 
 
-func animate_turn(effect_type: Rune.Types = Rune.Types.NONE):
-	var current_action_type: BattleScene.ActionTypes = battle_scene.current_action_type
+func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NONE):
+	var current_action_type: Battler.ActionTypes = battle_scene.current_action_type
 	
 	var current_battler: Battler = battle_scene.battlers[battle_scene.current_battler_number]
 	var current_battler_index := int(current_battler.index)
 	var current_battler_position := Vector2(current_battler.position)
 	var current_battler_scale := Vector2(current_battler.scale)
+	var current_battler_offset := Vector2(current_battler.sprite.offset)
 	
 	var target_battler: Battler = battle_scene.battlers[battle_scene.target_battler_number]
 	var target_battler_index := int(target_battler.index)
 	var target_battler_position := Vector2(target_battler.position)
 	var target_battler_scale := Vector2(target_battler.scale)
+	var target_battler_offset := Vector2(target_battler.sprite.offset)
 	
 	if current_battler_index != target_battler_index:
 		battle_scene.battlers_node.move_child(target_battler, -1)
@@ -41,7 +43,12 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE):
 	
 	# ----- ACTION ANIMATION START -----
 	
+	current_battler.health_bar.hide()
+	target_battler.health_bar.hide()
 	current_battler.anim_action(current_action_type)
+	if current_battler_index != target_battler_index:
+		target_battler.anim_reaction(current_action_type)
+	
 	if effect_type > 0:
 		battle_scene.effect_sprite.offset = (battle_scene.effect_sprite.sprite_frames as MySpriteFrames).separate_offsets[Rune.get_type_string(effect_type)]
 		battle_scene.effect_sprite.position = (
@@ -53,6 +60,7 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE):
 		battle_scene.battlers_node.move_child(battle_scene.effect_sprite, -1)
 		battle_scene.effect_sprite.show()
 		battle_scene.effect_sprite.play(Rune.get_type_string(effect_type))
+	
 	
 	tween = new_tween()
 	if current_battler_index != target_battler_index:
@@ -66,7 +74,7 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE):
 				right_position if current_battler_index < target_battler_index else left_position,
 				0.0
 		)
-		if current_action_type == BattleScene.ActionTypes.ATTACK:			
+		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type):
 			tween.tween_property(
 					current_battler, "position",
 					center_position,
@@ -81,6 +89,27 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE):
 				0.0
 		)
 		tween.tween_interval(ACTION_TIME)
+	
+	if some_number >= 0:
+		battle_scene.action_number_label.text = str(some_number)
+		battle_scene.action_number_label.show()
+		battle_scene.action_number_label.position = (
+				(right_position if current_battler_index < target_battler_index 
+				else center_position if current_battler_index == target_battler_index
+				else left_position)
+				+ Vector2.UP * Global.CHARACTER_SIZE.y
+				- battle_scene.action_number_label.size / 2
+		)
+		battle_scene.action_number_label.modulate = (
+				Global.TargetColors.FOE_BATTLER if current_action_type == Battler.ActionTypes.ATTACK
+				else Global.TargetColors.ALLY_SELF_BATTLER
+		)
+		battle_scene.battlers_node.move_child(battle_scene.action_number_label, -1)
+		tween.parallel().tween_property(
+				battle_scene.action_number_label, "position",
+				battle_scene.action_number_label.position + Vector2.UP * Global.CHARACTER_SIZE.y,
+				ACTION_TIME
+		).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	
 	# ----- ACTION ANIMATION ENDED; RETURNING BATTLERS -----
 	
@@ -101,8 +130,13 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE):
 	)
 	tween.parallel().tween_callback(
 			func():
-				current_battler.anim_idle()
+				current_battler.sprite.offset = current_battler_offset
+				if current_battler.is_alive:
+					current_battler.anim_idle()
+				else:
+					current_battler.anim_die()
 				battle_scene.effect_sprite.hide()
+				battle_scene.action_number_label.hide()
 	)
 	if current_battler_index != target_battler_index:
 		tween.parallel().tween_property(
@@ -117,12 +151,15 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE):
 		)
 		tween.parallel().tween_callback(
 				func():
-					target_battler.anim_idle()
+					target_battler.sprite.offset = target_battler_offset
+					if target_battler.is_alive:
+						target_battler.anim_idle()
+					else:
+						target_battler.anim_die()
 		)
 	tween.tween_callback(
 			func():
 				battle_scene.battlers_node.move_child(black, -1)
-#				battle_scene.effect.hide()
 	)
 	
 	await tween.finished
@@ -150,7 +187,7 @@ func animate_enemy_prepare():
 				target_battler.selection.modulate = Global.TargetColors.FOE_BATTLER
 				target_battler.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
 				
-				current_battler.anim_prepare(BattleScene.ActionTypes.ATTACK)
+				current_battler.anim_prepare(Battler.ActionTypes.ATTACK)
 	)
 	tween.tween_interval(1.0)
 	
@@ -163,3 +200,8 @@ func new_tween() -> Tween:
 	if tween:
 		tween.kill()
 	return create_tween()
+
+
+func _is_attack_ranged(type: Battler.Types) -> bool:
+	var array: Array[Battler.Types] = [Battler.Types.MAGE]
+	return array.has(type)

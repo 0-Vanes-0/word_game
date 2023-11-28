@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=26 format=3 uid="uid://bq1jfo4jkxm3s"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=21 format=3 uid="uid://bq1jfo4jkxm3s"]
 
 [ext_resource type="Texture2D" uid="uid://bxbqlwahjphwd" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra5.png" id="1_it2yl"]
 [ext_resource type="Texture2D" uid="uid://7eq5xf5n673v" path="res://assets/sprites/characters/Player Mage/Walk/walk1.png" id="1_p8la5"]
@@ -18,11 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://c8u4v6lagih68" path="res://assets/sprites/characters/Player Mage/Death/death3.png" id="9_pbsij"]
 [ext_resource type="Texture2D" uid="uid://qbvpvplhnxef" path="res://assets/sprites/characters/Player Mage/Death/death4.png" id="10_1tjmp"]
 [ext_resource type="Texture2D" uid="uid://dkceqwpf6fxin" path="res://assets/sprites/characters/Player Mage/Death/death5.png" id="11_a8c1r"]
-[ext_resource type="Texture2D" uid="uid://vctjr8vboinp" path="res://assets/sprites/characters/Player Mage/Death/death6.png" id="12_6lxc4"]
-[ext_resource type="Texture2D" uid="uid://dmfnak7gysmrf" path="res://assets/sprites/characters/Player Mage/Death/death7.png" id="13_gk25d"]
-[ext_resource type="Texture2D" uid="uid://c2jur8ppxdonk" path="res://assets/sprites/characters/Player Mage/Death/death8.png" id="14_1up8f"]
-[ext_resource type="Texture2D" uid="uid://b0yhj072a4mp7" path="res://assets/sprites/characters/Player Mage/Death/death9.png" id="15_4b7kq"]
-[ext_resource type="Texture2D" uid="uid://c4tq1ccu6mrwm" path="res://assets/sprites/characters/Player Mage/Death/death10.png" id="16_3sd0i"]
 [ext_resource type="Texture2D" uid="uid://cottpdu57aj03" path="res://assets/sprites/characters/Player Mage/Attack/attack1.png" id="19_cwbjb"]
 [ext_resource type="Texture2D" uid="uid://bd4p1neom2khd" path="res://assets/sprites/characters/Player Mage/Attack/attack2.png" id="20_4wp27"]
 
@@ -53,6 +48,31 @@ animations = [{
 "speed": 4.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_krb5i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pbsij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1tjmp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_a8c1r")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_65rvc")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
 "duration": 3.0,
 "texture": ExtResource("1_p8la5")
 }, {
@@ -68,41 +88,6 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("7_65rvc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_krb5i")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_pbsij")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_1tjmp")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_a8c1r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_6lxc4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_gk25d")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_1up8f")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_4b7kq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_3sd0i")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -148,3 +133,7 @@ animations = [{
 }]
 script = ExtResource("4_qfs3f")
 offset = Vector2(20, -48)
+separate_offsets = {
+"die": Vector2(0, -28),
+"hurt": Vector2(0, -28)
+}

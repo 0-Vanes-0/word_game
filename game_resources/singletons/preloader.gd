@@ -28,6 +28,12 @@ extends Node
 @export var texture_person_black_icon: Texture2D
 @export var texture_arrow_right_yellow_icon: Texture2D
 @export var texture_arrow_right_black_icon: Texture2D
+@export var texture_under_progress_bar: Texture2D
+@export var texture_over_progress_bar: Texture2D
+@export var texture_red_progress_bar: Texture2D
+@export var texture_green_progress_bar: Texture2D
+@export var texture_blue_progress_bar: Texture2D
+@export var texture_yellow_progress_bar: Texture2D
 
 @export_group("Runes", "rune_")
 @export var rune_comet: Rune
@@ -41,6 +47,8 @@ extends Node
 @export var rune_water: Rune
 var test_runes: Array[Rune]
 
+@export_group("UIs")
+
 
 func _ready() -> void:
 	assert(game_scene and http_test_scene and battle_scene)
@@ -49,7 +57,10 @@ func _ready() -> void:
 	assert(texture_selection and texture_selection_hover and texture_sword_yellow_icon and texture_sword_black_icon 
 			and texture_shield_black_icon and texture_shield_yellow_icon and texture_person_yellow_icon 
 			and texture_person_black_icon and texture_arrow_right_yellow_icon and texture_arrow_right_black_icon
+			and texture_under_progress_bar and texture_over_progress_bar and texture_red_progress_bar 
+			and texture_green_progress_bar and texture_blue_progress_bar and texture_yellow_progress_bar
 			)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla
 			and rune_tornado and rune_water)
+	
 	test_runes = [rune_comet , rune_dark , rune_fire , rune_ice , rune_spikes , rune_stun , rune_tornado , rune_water, rune_tesla ]

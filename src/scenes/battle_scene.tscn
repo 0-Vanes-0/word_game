@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=29 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_2fgqw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bv6nr7x5jrobq" path="res://assets/sprites/env/grass_trees.png" id="7_cxmis"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="SpriteFrames" uid="uid://xc71w5qk0l0q" path="res://game_resources/sprite_frames/sprite_frames_effects.tres" id="9_037nk"]
+[ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="9_s7a8b"]
 [ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="10_05go7"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="10_vr0bk"]
 [ext_resource type="ButtonGroup" uid="uid://cyjeadjty8n27" path="res://game_resources/button_groups/target_types_button_group.tres" id="11_qnnly"]
@@ -30,12 +31,13 @@
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hud_manager", "battlers_node", "black_screen", "effect_sprite", "battle_animator")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hud_manager", "battlers_node", "black_screen", "effect_sprite", "action_number_label", "battle_animator")]
 script = ExtResource("1_2ge4k")
 hud_manager = NodePath("CanvasLayer/Control/VBoxContainer/BattleHUDManager")
 battlers_node = NodePath("Battlers")
 black_screen = NodePath("Battlers/BlackScreen")
 effect_sprite = NodePath("Battlers/EffectSprite")
+action_number_label = NodePath("Battlers/ActionNumberLabel")
 battle_animator = NodePath("BattleAnimator")
 
 [node name="Background" type="Node2D" parent="."]
@@ -84,6 +86,16 @@ tile_set = ExtResource("8_2qah2")
 format = 2
 layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 524290, 589824, 3, 524291, 589824, 3, 524292, 589824, 3, 524293, 589824, 3, 524294, 589824, 3, 524295, 589824, 3, 524296, 589824, 3, 524297, 589824, 3, 524298, 589824, 3, 524299, 589824, 3, 524300, 589824, 3, 524301, 589824, 3, 524302, 589824, 3, 589823, 524288, 3, 524303, 720896, 3, 458754, 589824, 2, 458755, 589824, 2, 458756, 589824, 2, 458757, 589824, 2, 458758, 589824, 2, 458759, 589824, 2, 458760, 589824, 2, 458761, 589824, 2, 458762, 589824, 2, 458763, 589824, 2, 458764, 589824, 2, 458765, 589824, 2, 458766, 589824, 2, 458767, 720896, 2, 458753, 589824, 2, 458752, 589824, 2, 524287, 524288, 1, 393216, 589824, 2, 458751, 524288, 1, 393217, 589824, 2, 393218, 589824, 2, 393219, 589824, 2, 393220, 589824, 2, 393221, 589824, 2, 393222, 589824, 2, 393223, 589824, 2, 393224, 589824, 2, 393225, 589824, 2, 393226, 589824, 2, 393227, 589824, 2, 393228, 589824, 2, 393229, 589824, 2, 393230, 589824, 2, 393231, 720896, 2, 393215, 524288, 0, 327680, 655360, 0, 327681, 655360, 0, 327682, 655360, 0, 327683, 655360, 0, 327684, 655360, 0, 327685, 655360, 0, 327686, 655360, 0, 327687, 655360, 0, 327688, 655360, 0, 327689, 655360, 0, 327690, 655360, 0, 327691, 655360, 0, 327692, 655360, 0, 327693, 655360, 0, 327694, 655360, 0, 327695, 720896, 0)
 
+[node name="Test" type="Node2D" parent="."]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Test"]
+position = Vector2(36, -40)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("9_s7a8b")
+animation = &"hurt"
+offset = Vector2(0, -28)
+
 [node name="Battlers" type="Marker2D" parent="."]
 position = Vector2(0, 333)
 gizmo_extents = 100.0
@@ -92,6 +104,7 @@ gizmo_extents = 100.0
 self_modulate = Color(0, 0, 0, 0)
 position = Vector2(480, -63)
 mesh = SubResource("BoxMesh_lc3p6")
+metadata/_edit_lock_ = true
 
 [node name="EffectSprite" type="AnimatedSprite2D" parent="Battlers"]
 visible = false
@@ -99,16 +112,26 @@ scale = Vector2(2, 2)
 sprite_frames = ExtResource("9_037nk")
 animation = &"comet"
 
-[node name="Test" type="Node2D" parent="."]
+[node name="ActionNumberLabel" type="Label" parent="Battlers"]
 visible = false
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Test"]
-position = Vector2(636, 210)
-scale = Vector2(2, 2)
-sprite_frames = ExtResource("9_037nk")
-animation = &"water"
-frame = 3
-frame_progress = 1.0
+modulate = Color(1, 0.984314, 0, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -25.5
+offset_right = 36.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("10_vr0bk")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 48
+text = "100"
+vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -172,7 +195,7 @@ alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(340, 0)
@@ -205,12 +228,18 @@ text = "1234567890123456789012345"
 vertical_alignment = 1
 clip_text = true
 
+[node name="Control" type="Control" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="ResetSpellButton" type="TextureButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(46, 46)
 layout_mode = 2
 size_flags_horizontal = 3
 texture_normal = ExtResource("39_rp1nh")
 ignore_texture_size = true
-stretch_mode = 5
+stretch_mode = 4
 
 [node name="ButtonBackground" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
 z_index = -1
@@ -221,24 +250,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("40_rayfn")
-stretch_mode = 5
+stretch_mode = 4
 
-[node name="ResetIcon" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("41_3pg1g")
-stretch_mode = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="RunesGrid" type="GridContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer"]
+[node name="ResetIcon" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("41_3pg1g")
+stretch_mode = 4
+
+[node name="RunesGrid" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-columns = 5
+theme_override_constants/separation = 0
+alignment = 1
 
 [node name="RuneButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
 layout_mode = 2

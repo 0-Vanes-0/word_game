@@ -9,7 +9,7 @@ signal to_proceed_turn
 @export var _ally_target_button: IconButton
 @export var _spell_label: Label
 @export var _reset_spell_button: TextureButton
-@export var _runes: GridContainer
+@export var _runes: HBoxContainer
 @export var _proceed_button: IconButton
 
 var spell: Array[Rune] = []

@@ -2,7 +2,11 @@ class_name Battler
 extends Node2D
 
 signal clicked
+signal died
 
+enum ActionTypes {
+	NONE, ATTACK, ALLY
+}
 enum Types {
 	NONE = 0,
 	KNIGHT = 11, ROBBER = 12, MAGE = 13,
@@ -18,16 +22,21 @@ const Animations := {
 	ACTION_ATTACK = "action_attack",
 	ACTION_SELF = "action_self",
 	ACTION_ALLY = "action_ally",
+	HURT = "hurt",
+	DIE = "die",
 }
 
+var type: Types
 var stats: BattlerStats
 var index: int = -1
+var is_alive: bool = true
 
 var sprite: AnimatedSprite2D
 var selection_hover: Sprite2D
 var selection: Sprite2D
 var size_area: Area2D
 var coll_shape: CollisionShape2D
+var health_bar: MyProgressBar
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
@@ -35,6 +44,23 @@ static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
 
 
 func _init(type: Types, stats: BattlerStats, index: int) -> void:
+	self.type = type
+	assert(stats.is_stats_valid())
+	self.stats = stats.get_resource()
+	self.stats.health_changed.connect(
+			func(value: int):
+				health_bar.value = value
+	)
+	self.stats.health_depleted.connect(
+			func():
+				health_bar.hide()
+				is_alive = false			
+				died.emit()
+	)
+	self.index = index
+	self.scale.x = Battler.get_scale_x(type)
+	
+	
 	sprite = AnimatedSprite2D.new()
 	sprite.sprite_frames = Battler.get_sprite_frames(type)
 	sprite.offset = Battler.get_offset(type)
@@ -65,16 +91,17 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	self.add_child(size_area)
 	size_area.input_event.connect(_on_pressed)
 	
-	self.stats = stats
-	self.index = index
-	self.scale.x = Battler.get_scale_x(type)
+	health_bar = MyProgressBar.create(MyProgressBar.Colors.RED)
+	self.add_child(health_bar)
+	health_bar.position = Vector2.LEFT * health_bar.custom_minimum_size.x / 2 * Battler.get_scale_x(type)
+	health_bar.min_value = 0 - 1
+	health_bar.max_value = self.stats.max_health + 1
+	health_bar.value = health_bar.max_value
+	health_bar.scale.x = Battler.get_scale_x(type)
 
 
 func _ready() -> void:
-	sprite.play(Animations.IDLE)
-	var frames_count: int = sprite.sprite_frames.get_frame_count(Animations.IDLE)
-	var start_frame: int = randi_range(0, frames_count - 1)
-	sprite.set_frame_and_progress(start_frame, float(start_frame) / frames_count)
+	anim_idle()
 
 
 func _on_pressed(viewport: Node, event: InputEvent, shape_idx: int):
@@ -89,26 +116,48 @@ func set_area_clickable(is_clickble: bool):
 
 func anim_idle():
 	sprite.play(Animations.IDLE)
+	var frames_count: int = sprite.sprite_frames.get_frame_count(Animations.IDLE)
+	var start_frame: int = randi_range(0, frames_count - 1)
+	sprite.set_frame_and_progress(start_frame, float(start_frame) / frames_count)
+	health_bar.show()
 
 
-func anim_prepare(type: BattleScene.ActionTypes):
+func anim_prepare(type: ActionTypes):
 	match type:
-		BattleScene.ActionTypes.ATTACK:
+		ActionTypes.ATTACK:
 			sprite.play(Animations.PREPARE_ATTACK)
-		BattleScene.ActionTypes.ALLY:
+		ActionTypes.ALLY:
 			sprite.play(Animations.PREPARE_ALLY)
 		_:
 			sprite.play(Animations.IDLE)
 
 
-func anim_action(type: BattleScene.ActionTypes):
+func anim_action(type: ActionTypes):
 	match type:
-		BattleScene.ActionTypes.ATTACK:
+		ActionTypes.ATTACK:
 			sprite.play(Animations.ACTION_ATTACK)
-		BattleScene.ActionTypes.ALLY:
+		ActionTypes.ALLY:
 			sprite.play(Animations.ACTION_ALLY)
 		_:
 			sprite.play(Animations.IDLE)
+
+
+func anim_reaction(type: ActionTypes):
+	var offsets := (sprite.sprite_frames as MySpriteFrames).separate_offsets
+	match type:
+		ActionTypes.ATTACK:
+			if offsets.has(Animations.HURT):
+				sprite.offset = offsets.get(Animations.HURT)
+			sprite.play(Animations.HURT)
+#		ActionTypes.ALLY:
+#			sprite.play(Animations.BUFF)
+		_:
+			sprite.play(Animations.IDLE)
+
+
+func anim_die():
+	sprite.play(Animations.DIE)
+	health_bar.hide()
 
 
 static func get_sprite_frames(type: Types) -> SpriteFrames:

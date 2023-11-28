@@ -1,14 +1,17 @@
-[gd_scene load_steps=29 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=38 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
 [ext_resource type="PackedScene" uid="uid://cjadhu3y22px2" path="res://src/scenes/battle_scene.tscn" id="3_mm2kd"]
 [ext_resource type="PackedScene" uid="uid://bd17qjyt657fn" path="res://src/scenes/http_test_scene.tscn" id="3_x778j"]
+[ext_resource type="Resource" uid="uid://bx8m2l8lc15c4" path="res://game_resources/start_stats/goblin_base_stats.tres" id="5_o2b78"]
 [ext_resource type="SpriteFrames" uid="uid://c71of80kg874k" path="res://game_resources/sprite_frames/sprite_frames_knight.tres" id="5_wh8vi"]
 [ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="6_1v8hy"]
+[ext_resource type="Resource" uid="uid://b3l3x7xocpnw3" path="res://game_resources/start_stats/knight_base_stats.tres" id="6_s46mm"]
 [ext_resource type="SpriteFrames" uid="uid://bq1jfo4jkxm3s" path="res://game_resources/sprite_frames/sprite_frames_mage.tres" id="7_chvag"]
+[ext_resource type="Resource" uid="uid://bhpntspmp1b5e" path="res://game_resources/start_stats/mage_base_stats.tres" id="7_elr8a"]
+[ext_resource type="Resource" uid="uid://dvf258ty8bnm7" path="res://game_resources/start_stats/robber_base_stats.tres" id="8_5xyke"]
 [ext_resource type="SpriteFrames" uid="uid://cn38l01om6o2v" path="res://game_resources/sprite_frames/sprite_frames_goblin.tres" id="8_r525w"]
-[ext_resource type="Resource" uid="uid://b3l3x7xocpnw3" path="res://game_resources/start_stats/knight_start_stats.tres" id="9_tkkj7"]
 [ext_resource type="Texture2D" uid="uid://cay0px1pbvcpn" path="res://assets/sprites/ui/selection.png" id="10_l5r3s"]
 [ext_resource type="Texture2D" uid="uid://cim7p0f0ynatd" path="res://assets/sprites/ui/selection_hover.png" id="11_nxxdl"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="12_aw57u"]
@@ -22,22 +25,28 @@
 [ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/comet.tres" id="20_arl4a"]
 [ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="21_ywknp"]
 [ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="22_vth3l"]
+[ext_resource type="Texture2D" uid="uid://x84xcpjy7blk" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_bg.png" id="23_lgn4a"]
 [ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="23_nehi5"]
 [ext_resource type="Resource" uid="uid://pthoxclx332h" path="res://game_resources/runes/spikes.tres" id="24_dxppb"]
+[ext_resource type="Texture2D" uid="uid://c61cgmxcgp2vi" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_border.png" id="24_mf617"]
 [ext_resource type="Resource" uid="uid://bjr00kkxd0ccr" path="res://game_resources/runes/stun.tres" id="25_stx8v"]
+[ext_resource type="Texture2D" uid="uid://ber214afay0e" path="res://assets/sprites/ui/bars/hp_full.png" id="25_uq5xq"]
+[ext_resource type="Texture2D" uid="uid://dw4se0mw8vsbc" path="res://assets/sprites/ui/bars/stamina_full_bar.png" id="26_mldub"]
 [ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/tesla.tres" id="26_nob83"]
 [ext_resource type="Resource" uid="uid://cm775bcaxbhbx" path="res://game_resources/runes/tornado.tres" id="27_cgigl"]
+[ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="27_t64hi"]
 [ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/water.tres" id="28_6buor"]
+[ext_resource type="Texture2D" uid="uid://cmje7tp5yg8gu" path="res://assets/sprites/ui/bars/energy_full_bar.png" id="28_xpvxx"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
 battle_scene = ExtResource("3_mm2kd")
 game_scene = ExtResource("2_mq5gj")
 http_test_scene = ExtResource("3_x778j")
-stats_goblin = ExtResource("9_tkkj7")
-stats_knight = ExtResource("9_tkkj7")
-stats_mage = ExtResource("9_tkkj7")
-stats_robber = ExtResource("9_tkkj7")
+stats_goblin = ExtResource("5_o2b78")
+stats_knight = ExtResource("6_s46mm")
+stats_mage = ExtResource("7_elr8a")
+stats_robber = ExtResource("8_5xyke")
 sprite_frames_goblin = ExtResource("8_r525w")
 sprite_frames_knight = ExtResource("5_wh8vi")
 sprite_frames_mage = ExtResource("7_chvag")
@@ -52,6 +61,12 @@ texture_person_yellow_icon = ExtResource("16_ilmgl")
 texture_person_black_icon = ExtResource("17_ufejx")
 texture_arrow_right_yellow_icon = ExtResource("18_d3g4s")
 texture_arrow_right_black_icon = ExtResource("19_bq5fo")
+texture_under_progress_bar = ExtResource("23_lgn4a")
+texture_over_progress_bar = ExtResource("24_mf617")
+texture_red_progress_bar = ExtResource("25_uq5xq")
+texture_green_progress_bar = ExtResource("26_mldub")
+texture_blue_progress_bar = ExtResource("27_t64hi")
+texture_yellow_progress_bar = ExtResource("28_xpvxx")
 rune_comet = ExtResource("20_arl4a")
 rune_dark = ExtResource("21_ywknp")
 rune_fire = ExtResource("22_vth3l")

@@ -23,10 +23,6 @@ func _ready() -> void:
 			button.add_item(Battler.Types.keys()[ Battler.Types.values().find(Battler.MOBS[0]) ], Battler.MOBS[0])
 			button.selected = 0
 		button.custom_minimum_size.x = Global.SCREEN_WIDTH / 6 - 20
-	
-#	$CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton.select(13)
-#	$CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton2.selected = 12
-#	$CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer/OptionButton3.selected = 11
 
 
 func _on_enter_battle_button_pressed() -> void:
