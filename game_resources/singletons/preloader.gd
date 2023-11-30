@@ -17,7 +17,7 @@ extends Node
 @export var sprite_frames_mage: MySpriteFrames
 @export var sprite_frames_robber: MySpriteFrames
 
-@export_group("Textures", "texture_")
+@export_group("Textures", "texture_") # TODO: move export var textures to nodes ????????????????????
 @export var texture_selection: Texture2D
 @export var texture_selection_hover: Texture2D
 @export var texture_sword_yellow_icon: Texture2D

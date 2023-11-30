@@ -45,7 +45,6 @@ static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
 
 func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	self.type = type
-	assert(stats.is_stats_valid())
 	self.stats = stats.get_resource()
 	self.stats.health_changed.connect(
 			func(value: int):
@@ -59,7 +58,6 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	)
 	self.index = index
 	self.scale.x = Battler.get_scale_x(type)
-	
 	
 	sprite = AnimatedSprite2D.new()
 	sprite.sprite_frames = Battler.get_sprite_frames(type)

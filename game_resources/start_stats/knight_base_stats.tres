@@ -1,9 +1,12 @@
-[gd_resource type="Resource" script_class="BattlerStats" load_steps=2 format=3 uid="uid://b3l3x7xocpnw3"]
+[gd_resource type="Resource" script_class="BattlerStats" load_steps=3 format=3 uid="uid://b3l3x7xocpnw3"]
 
 [ext_resource type="Script" path="res://src/gameplay/battler_stats.gd" id="1_3bbud"]
+[ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="1_tfxh4"]
 
 [resource]
 script = ExtResource("1_3bbud")
+icon = ExtResource("1_tfxh4")
+base_initiative = 5
 base_health = 100
 base_min_damage = 15
 base_max_damage = 20

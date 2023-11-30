@@ -9,6 +9,7 @@ signal proceed_turn_ended
 @export var effect_sprite: AnimatedSprite2D
 @export var action_number_label: Label
 @export var battle_animator: BattleAnimator
+@export var turn_bar: TurnBar
 
 var battlers_positions: Array[Vector2]
 var battlers: Array[Battler]
@@ -48,12 +49,14 @@ func _ready() -> void:
 			battlers[index].died.connect(
 					func():
 						player_battlers.erase(battlers[index])
+						turn_bar.remove_battler(index)
 			)
 		else:
 			enemy_battlers.append(battlers[index])
 			battlers[index].died.connect(
 					func():
 						enemy_battlers.erase(battlers[index])
+						turn_bar.remove_battler(index)
 			)
 	
 	battlers_node.move_child(black_screen, -1)
@@ -117,26 +120,22 @@ func _ready() -> void:
 				battle_animator.animate_turn(action_value, most_common_rune_type)
 				await battle_animator.animate_turn_completed
 				
-				is_players_turn = not is_players_turn
-				if is_players_turn:
-					if not enemy_battlers.is_empty():
-						current_battler_number = player_battlers.pick_random().index # For showcase
-						hud_manager.appear()
-					else:
-						black_screen.modulate.a = 0.75
-				else:
-					if not enemy_battlers.is_empty():
-						current_battler_number = enemy_battlers.pick_random().index # For showcase
-					else:
-						black_screen.modulate.a = 0.75
+				turn_bar.shift_battler()
+				current_battler_number = turn_bar.get_current_battler_index()
+				
+				is_players_turn = current_battler_number in [0, 1, 2]
+				if player_battlers.is_empty() or enemy_battlers.is_empty():
+					black_screen.modulate.a = 0.75
+				elif is_players_turn:
+					hud_manager.appear()
 				
 				proceed_turn_ended.emit()
 	)
 	hud_manager.appear()
 	
+	turn_bar.setup()
+	current_battler_number = turn_bar.get_current_battler_index()
 	
-	
-	current_battler_number = player_battlers.pick_random().index # For showcase
 	hud_manager.to_select_enemies.emit()
 
 

@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="10_05go7"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="10_vr0bk"]
 [ext_resource type="ButtonGroup" uid="uid://cyjeadjty8n27" path="res://game_resources/button_groups/target_types_button_group.tres" id="11_qnnly"]
+[ext_resource type="PackedScene" uid="uid://dv6surfcxmvtm" path="res://src/ui/turn_bar.tscn" id="12_6v3hf"]
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="12_javwb"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_iabbp"]
 [ext_resource type="Texture2D" uid="uid://bkuloxljiyk15" path="res://assets/sprites/ui/beige_border2.png" id="13_nfucy"]
@@ -25,13 +26,12 @@
 [ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="44_e1mdf"]
 [ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="45_163op"]
 [ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="46_sbj7i"]
-[ext_resource type="Resource" uid="uid://bjr00kkxd0ccr" path="res://game_resources/runes/stun.tres" id="47_d7aft"]
 [ext_resource type="Script" path="res://src/scenes/battle_animator.gd" id="58_cod5m"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hud_manager", "battlers_node", "black_screen", "effect_sprite", "action_number_label", "battle_animator")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hud_manager", "battlers_node", "black_screen", "effect_sprite", "action_number_label", "battle_animator", "turn_bar")]
 script = ExtResource("1_2ge4k")
 hud_manager = NodePath("CanvasLayer/Control/VBoxContainer/BattleHUDManager")
 battlers_node = NodePath("Battlers")
@@ -39,6 +39,7 @@ black_screen = NodePath("Battlers/BlackScreen")
 effect_sprite = NodePath("Battlers/EffectSprite")
 action_number_label = NodePath("Battlers/ActionNumberLabel")
 battle_animator = NodePath("BattleAnimator")
+turn_bar = NodePath("CanvasLayer/Control/VBoxContainer/TurnBar")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -154,6 +155,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
+
+[node name="BackButton" type="Button" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 60
+text = " < "
+
+[node name="TurnBar" parent="CanvasLayer/Control/VBoxContainer" node_paths=PackedStringArray("battle_scene") instance=ExtResource("12_6v3hf")]
+layout_mode = 2
+battle_scene = NodePath("../../../..")
 
 [node name="Control" type="Control" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
@@ -291,10 +302,6 @@ rune = ExtResource("45_163op")
 layout_mode = 2
 rune = ExtResource("46_sbj7i")
 
-[node name="RuneButton5" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
-layout_mode = 2
-rune = ExtResource("47_d7aft")
-
 [node name="ProceedButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer" instance=ExtResource("10_05go7")]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -302,19 +309,8 @@ texture_normal = ExtResource("12_javwb")
 texture_pressed = ExtResource("13_iabbp")
 texture_disabled = ExtResource("13_iabbp")
 
-[node name="BackButton" type="Button" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -147.0
-offset_bottom = 91.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 60
-text = "Back"
-
 [node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
 script = ExtResource("58_cod5m")
 battle_scene = NodePath("..")
 
-[connection signal="pressed" from="CanvasLayer/Control/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
