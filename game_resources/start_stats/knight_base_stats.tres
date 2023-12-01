@@ -10,3 +10,5 @@ base_initiative = 5
 base_health = 100
 base_min_damage = 15
 base_max_damage = 20
+foe_action_text = "Наносит $dmg урона одной цели."
+ally_action_text = "Накладывает $shield на цель."

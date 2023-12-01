@@ -26,10 +26,12 @@ func _ready() -> void:
 	
 	_enemy_target_button.set_on_press(
 			func():
+				_ally_target_button.button_pressed = false
 				to_select_enemies.emit()
 	)
 	_ally_target_button.set_on_press(
 			func():
+				_enemy_target_button.button_pressed = false
 				to_select_allies.emit()
 	)
 	_proceed_button.set_on_press(

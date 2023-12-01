@@ -1,0 +1,149 @@
+[gd_scene load_steps=14 format=3 uid="uid://dmphysqui0a6s"]
+
+[ext_resource type="Script" path="res://src/ui/battle_hud_manager.gd" id="1_r71ia"]
+[ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="2_lxj8w"]
+[ext_resource type="Texture2D" uid="uid://bkuloxljiyk15" path="res://assets/sprites/ui/beige_border2.png" id="3_q75oo"]
+[ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="4_0rgqq"]
+[ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="5_qw2h8"]
+[ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="6_4rak5"]
+[ext_resource type="PackedScene" uid="uid://d3di5wu6irnnt" path="res://src/ui/rune_button.tscn" id="7_v8cwb"]
+[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/comet.tres" id="8_8yyw7"]
+[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="9_cy361"]
+[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="10_e1k15"]
+[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="11_nhhu8"]
+[ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="12_by8sb"]
+[ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
+
+[node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_enemy_target_button", "_ally_target_button", "_spell_label", "_reset_spell_button", "_runes", "_proceed_button")]
+script = ExtResource("1_r71ia")
+_enemy_target_button = NodePath("HBoxContainer/HBoxContainer/EnemyTargetButton")
+_ally_target_button = NodePath("HBoxContainer/HBoxContainer/AllyTargetButton")
+_spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/SpellLabel")
+_reset_spell_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton")
+_runes = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
+_proceed_button = NodePath("HBoxContainer/ProceedButton")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="EnemyTargetButton" parent="HBoxContainer/HBoxContainer" instance=ExtResource("2_lxj8w")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="AllyTargetButton" parent="HBoxContainer/HBoxContainer" instance=ExtResource("2_lxj8w")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_q75oo")
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 27
+patch_margin_bottom = 23
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 10
+
+[node name="SpellLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1234567890123456789012345"
+vertical_alignment = 1
+clip_text = true
+
+[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResetSpellButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(46, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+texture_normal = ExtResource("4_0rgqq")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="ButtonBackground" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_qw2h8")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ResetIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("6_4rak5")
+stretch_mode = 4
+
+[node name="RunesGrid" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="RuneButton" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+layout_mode = 2
+rune = ExtResource("8_8yyw7")
+
+[node name="RuneButton2" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+layout_mode = 2
+rune = ExtResource("9_cy361")
+
+[node name="RuneButton3" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+layout_mode = 2
+rune = ExtResource("10_e1k15")
+
+[node name="RuneButton4" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+layout_mode = 2
+rune = ExtResource("11_nhhu8")
+
+[node name="ProceedButton" parent="HBoxContainer" instance=ExtResource("2_lxj8w")]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture_normal = ExtResource("12_by8sb")
+texture_pressed = ExtResource("13_nvbkp")
+texture_disabled = ExtResource("13_nvbkp")

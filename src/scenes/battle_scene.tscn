@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=17 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_2fgqw"]
@@ -10,36 +10,25 @@
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="SpriteFrames" uid="uid://xc71w5qk0l0q" path="res://game_resources/sprite_frames/sprite_frames_effects.tres" id="9_037nk"]
 [ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="9_s7a8b"]
-[ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="10_05go7"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="10_vr0bk"]
-[ext_resource type="ButtonGroup" uid="uid://cyjeadjty8n27" path="res://game_resources/button_groups/target_types_button_group.tres" id="11_qnnly"]
 [ext_resource type="PackedScene" uid="uid://dv6surfcxmvtm" path="res://src/ui/turn_bar.tscn" id="12_6v3hf"]
-[ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="12_javwb"]
-[ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_iabbp"]
-[ext_resource type="Texture2D" uid="uid://bkuloxljiyk15" path="res://assets/sprites/ui/beige_border2.png" id="13_nfucy"]
-[ext_resource type="PackedScene" uid="uid://d3di5wu6irnnt" path="res://src/ui/rune_button.tscn" id="39_hm1mx"]
-[ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="39_rp1nh"]
-[ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="40_rayfn"]
-[ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="41_3pg1g"]
-[ext_resource type="Script" path="res://src/scenes/battle_hud_manager.gd" id="43_btgy2"]
-[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/comet.tres" id="43_ox3y7"]
-[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="44_e1mdf"]
-[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="45_163op"]
-[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="46_sbj7i"]
-[ext_resource type="Script" path="res://src/scenes/battle_animator.gd" id="58_cod5m"]
+[ext_resource type="PackedScene" uid="uid://d2vcave878atq" path="res://src/ui/battler_info_container.tscn" id="13_a0mw8"]
+[ext_resource type="PackedScene" uid="uid://dmphysqui0a6s" path="res://src/ui/battle_hud_manager.tscn" id="14_3lqgt"]
+[ext_resource type="Script" path="res://src/helpers/battle_animator.gd" id="15_ynmqs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hud_manager", "battlers_node", "black_screen", "effect_sprite", "action_number_label", "battle_animator", "turn_bar")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "action_number_label", "turn_bar", "battler_info", "hud_manager", "battle_animator")]
 script = ExtResource("1_2ge4k")
-hud_manager = NodePath("CanvasLayer/Control/VBoxContainer/BattleHUDManager")
 battlers_node = NodePath("Battlers")
 black_screen = NodePath("Battlers/BlackScreen")
 effect_sprite = NodePath("Battlers/EffectSprite")
 action_number_label = NodePath("Battlers/ActionNumberLabel")
+turn_bar = NodePath("CanvasLayer/Control/VBox/TurnBar")
+battler_info = NodePath("CanvasLayer/Control/VBox/CenterControl/BattlerInfoContainer")
+hud_manager = NodePath("CanvasLayer/Control/VBox/BattleHUDManager")
 battle_animator = NodePath("BattleAnimator")
-turn_bar = NodePath("CanvasLayer/Control/VBoxContainer/TurnBar")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -128,6 +117,7 @@ offset_bottom = 25.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("10_vr0bk")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 48
@@ -147,7 +137,7 @@ mouse_filter = 1
 theme = ExtResource("10_vr0bk")
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -156,161 +146,33 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="BackButton" type="Button" parent="CanvasLayer/Control/VBoxContainer"]
+[node name="BackButton" type="Button" parent="CanvasLayer/Control/VBox"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 60
 text = " < "
 
-[node name="TurnBar" parent="CanvasLayer/Control/VBoxContainer" node_paths=PackedStringArray("battle_scene") instance=ExtResource("12_6v3hf")]
+[node name="TurnBar" parent="CanvasLayer/Control/VBox" node_paths=PackedStringArray("battle_scene") instance=ExtResource("12_6v3hf")]
 layout_mode = 2
 battle_scene = NodePath("../../../..")
 
-[node name="Control" type="Control" parent="CanvasLayer/Control/VBoxContainer"]
+[node name="CenterControl" type="Control" parent="CanvasLayer/Control/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 1
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="BattleHUDManager" type="CenterContainer" parent="CanvasLayer/Control/VBoxContainer" node_paths=PackedStringArray("_enemy_target_button", "_ally_target_button", "_spell_label", "_reset_spell_button", "_runes", "_proceed_button")]
-layout_mode = 2
-script = ExtResource("43_btgy2")
-_enemy_target_button = NodePath("HBoxContainer/HBoxContainer/EnemyTargetButton")
-_ally_target_button = NodePath("HBoxContainer/HBoxContainer/AllyTargetButton")
-_spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/SpellLabel")
-_reset_spell_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton")
-_runes = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
-_proceed_button = NodePath("HBoxContainer/ProceedButton")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager"]
-custom_minimum_size = Vector2(0, 180)
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer"]
-layout_mode = 2
-
-[node name="EnemyTargetButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/HBoxContainer" instance=ExtResource("10_05go7")]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-button_group = ExtResource("11_qnnly")
-
-[node name="AllyTargetButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/HBoxContainer" instance=ExtResource("10_05go7")]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-button_group = ExtResource("11_qnnly")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-texture = ExtResource("13_nfucy")
-patch_margin_left = 24
-patch_margin_top = 24
-patch_margin_right = 27
-patch_margin_bottom = 23
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+[node name="BattlerInfoContainer" parent="CanvasLayer/Control/VBox/CenterControl" instance=ExtResource("13_a0mw8")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 18
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 18
-theme_override_constants/margin_bottom = 10
+offset_left = -160.0
+offset_right = 160.0
+mouse_filter = 2
 
-[node name="SpellLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" instance=ExtResource("14_3lqgt")]
 layout_mode = 2
-size_flags_vertical = 1
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "1234567890123456789012345"
-vertical_alignment = 1
-clip_text = true
-
-[node name="Control" type="Control" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ResetSpellButton" type="TextureButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(46, 46)
-layout_mode = 2
-size_flags_horizontal = 3
-texture_normal = ExtResource("39_rp1nh")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="ButtonBackground" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("40_rayfn")
-stretch_mode = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="ResetIcon" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("41_3pg1g")
-stretch_mode = 4
-
-[node name="RunesGrid" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="RuneButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
-layout_mode = 2
-rune = ExtResource("43_ox3y7")
-
-[node name="RuneButton2" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
-layout_mode = 2
-rune = ExtResource("44_e1mdf")
-
-[node name="RuneButton3" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
-layout_mode = 2
-rune = ExtResource("45_163op")
-
-[node name="RuneButton4" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("39_hm1mx")]
-layout_mode = 2
-rune = ExtResource("46_sbj7i")
-
-[node name="ProceedButton" parent="CanvasLayer/Control/VBoxContainer/BattleHUDManager/HBoxContainer" instance=ExtResource("10_05go7")]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-texture_normal = ExtResource("12_javwb")
-texture_pressed = ExtResource("13_iabbp")
-texture_disabled = ExtResource("13_iabbp")
 
 [node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
-script = ExtResource("58_cod5m")
+script = ExtResource("15_ynmqs")
 battle_scene = NodePath("..")
 
-[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBox/BackButton" to="." method="_on_back_button_pressed"]

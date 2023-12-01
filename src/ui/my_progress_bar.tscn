@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://w3gp8jc1u66i"]
+
+[ext_resource type="Script" path="res://src/ui/my_progress_bar.gd" id="1_hw2g3"]
+[ext_resource type="Texture2D" uid="uid://x84xcpjy7blk" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_bg.png" id="1_lrns1"]
+[ext_resource type="Texture2D" uid="uid://c61cgmxcgp2vi" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_border.png" id="2_mqdi7"]
+
+[node name="MyProgressBar" type="TextureProgressBar"]
+custom_minimum_size = Vector2(70, 15)
+offset_right = 70.0
+offset_bottom = 15.0
+nine_patch_stretch = true
+stretch_margin_left = 6
+stretch_margin_top = 6
+stretch_margin_right = 6
+stretch_margin_bottom = 6
+texture_under = ExtResource("1_lrns1")
+texture_over = ExtResource("2_mqdi7")
+script = ExtResource("1_hw2g3")

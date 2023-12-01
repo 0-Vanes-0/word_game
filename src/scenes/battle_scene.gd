@@ -3,13 +3,14 @@ extends Node2D
 
 signal proceed_turn_ended
 
-@export var hud_manager: BattleHUDManager
 @export var battlers_node: Marker2D
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D
 @export var action_number_label: Label
-@export var battle_animator: BattleAnimator
 @export var turn_bar: TurnBar
+@export var battler_info: BattlerInfoContainer
+@export var hud_manager: BattleHUDManager
+@export var battle_animator: BattleAnimator
 
 var battlers_positions: Array[Vector2]
 var battlers: Array[Battler]
@@ -24,7 +25,7 @@ var is_progressing_enemy_turn: bool = false
 
 
 func _ready() -> void:
-	assert(hud_manager and battlers_node and black_screen and effect_sprite and action_number_label and battle_animator)
+	assert(hud_manager and battlers_node and black_screen and effect_sprite and action_number_label and battle_animator and battler_info)
 	
 	hud_manager.hide()
 	
@@ -41,6 +42,9 @@ func _ready() -> void:
 		var battler := Battler.create(battler_type, Battler.get_start_stats(battler_type), index)
 		battler.position = battlers_positions[index]
 		battler.clicked.connect(_on_battler_clicked.bind(battler))
+		battler.hold_started.connect(battler_info.appear.bind(battler.stats))
+		battler.hold_stopped.connect(battler_info.disappear)
+		battler.set_area_inputable(true)
 		
 		battlers_node.add_child(battler)
 		battlers.append(battler)
@@ -71,7 +75,7 @@ func _ready() -> void:
 						eb.selection.show()
 						eb.selection.modulate = Global.TargetColors.FOE_BATTLER
 						eb.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
-						eb.set_area_clickable(true)
+						eb.is_clickable = true
 				
 				current_action_type = Battler.ActionTypes.ATTACK
 	)
@@ -85,12 +89,14 @@ func _ready() -> void:
 						ab.selection.show()
 						ab.selection.modulate = Global.TargetColors.ALLY_SELF_BATTLER
 						ab.selection_hover.modulate = Global.TargetColors.ALLY_SELF_BATTLER
-					player_battlers[i].set_area_clickable(true)
+					player_battlers[i].is_clickable = true
 				
 				current_action_type = Battler.ActionTypes.ALLY
 	)
 	hud_manager.to_proceed_turn.connect(
 			func():
+				for b in battlers:
+					b.set_area_inputable(false)
 				reset_all_selections()
 				
 				var spell: Array[Rune] = hud_manager.spell
@@ -127,11 +133,14 @@ func _ready() -> void:
 				if player_battlers.is_empty() or enemy_battlers.is_empty():
 					black_screen.modulate.a = 0.75
 				elif is_players_turn:
+					for b in battlers:
+						b.set_area_inputable(true)
 					hud_manager.appear()
 				
 				proceed_turn_ended.emit()
 	)
 	hud_manager.appear()
+	battler_info.scale = Vector2.ZERO
 	
 	turn_bar.setup()
 	current_battler_number = turn_bar.get_current_battler_index()
@@ -141,8 +150,8 @@ func _ready() -> void:
 
 func _on_battler_clicked(battler: Battler):
 	hide_selection_hovers()
-	battler.selection_hover.show()
-	target_battler_number = battler.index
+	battler.selection_hover.show() # TODO: check selection
+	target_battler_number = battler.index # TODO: check selection
 	hud_manager.set_proceed_button_enabled(true)
 	battlers[current_battler_number].anim_prepare(current_action_type)
 
@@ -168,7 +177,7 @@ func _physics_process(delta: float) -> void:
 
 func reset_all_selections():
 	for i in battlers.size():
-		battlers[i].set_area_clickable(false)
+		battlers[i].is_clickable = false
 		if battlers[i].is_alive:
 			battlers[i].anim_idle()
 		battlers[i].selection.hide()

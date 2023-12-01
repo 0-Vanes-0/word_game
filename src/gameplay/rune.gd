@@ -28,9 +28,5 @@ static func create() -> Rune:
 	return Rune.new()
 
 
-func _init() -> void:
-	super()
-
-
 static func get_type_string(type: Types) -> String:
 	return (Types.keys()[type] as String).to_lower()

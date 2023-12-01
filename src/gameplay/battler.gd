@@ -2,6 +2,8 @@ class_name Battler
 extends Node2D
 
 signal clicked
+signal hold_started
+signal hold_stopped
 signal died
 
 enum ActionTypes {
@@ -30,6 +32,7 @@ var type: Types
 var stats: BattlerStats
 var index: int = -1
 var is_alive: bool = true
+var is_clickable: bool = false
 
 var sprite: AnimatedSprite2D
 var selection_hover: Sprite2D
@@ -102,14 +105,38 @@ func _ready() -> void:
 	anim_idle()
 
 
+const TAP_MAX_TIME := 0.2; var timer := TAP_MAX_TIME
+var is_finger_on := false; var is_holding := false
 func _on_pressed(viewport: Node, event: InputEvent, shape_idx: int):
-	if event is InputEventScreenTouch or event is InputEventMouseButton:
+	if event is InputEventScreenTouch:
 		if event.pressed:
-			clicked.emit()
+			is_finger_on = true
+			timer = 0.0
+		else:
+			is_finger_on = false
+			is_holding = false
+			if timer < TAP_MAX_TIME and is_clickable:
+				clicked.emit()
+			else:
+				hold_stopped.emit()
+	elif event is InputEventScreenDrag and is_holding:
+		is_finger_on = false
+		is_holding = false
+		hold_stopped.emit()
 
 
-func set_area_clickable(is_clickble: bool):
-	coll_shape.disabled = not is_clickble
+func _physics_process(delta: float) -> void:
+	if timer < TAP_MAX_TIME:
+		timer += delta
+	else:
+		timer = TAP_MAX_TIME
+		if is_finger_on and not is_holding:
+			is_holding = true
+			hold_started.emit()
+
+
+func set_area_inputable(is_inputable: bool):
+	coll_shape.disabled = not is_inputable
 
 
 func anim_idle():

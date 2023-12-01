@@ -4,23 +4,17 @@ extends TextureProgressBar
 enum Colors {
 	NONE, RED, GREEN, BLUE, YELLOW
 }
+@export_group("Color")
+@export var color_from_editor: Colors = Colors.NONE
+var is_setup: bool = false
 
 
 static func create(color: Colors) -> MyProgressBar:
-	return MyProgressBar.new(color)
+	var node := Preloader.my_progress_bar.instantiate() as MyProgressBar
+	return node.setup(color)
 
 
-func _init(color: Colors) -> void:
-	super()
-	self.nine_patch_stretch = true
-	self.stretch_margin_top = 6
-	self.stretch_margin_right = 6
-	self.stretch_margin_bottom = 6
-	self.stretch_margin_left = 6
-	self.custom_minimum_size = Vector2(70, 14)
-	
-	self.texture_under = Preloader.texture_under_progress_bar
-	self.texture_over = Preloader.texture_over_progress_bar
+func setup(color: Colors) -> MyProgressBar:
 	match color:
 		Colors.RED:
 			self.texture_progress = Preloader.texture_red_progress_bar
@@ -30,3 +24,10 @@ func _init(color: Colors) -> void:
 			self.texture_progress = Preloader.texture_blue_progress_bar
 		Colors.YELLOW:
 			self.texture_progress = Preloader.texture_yellow_progress_bar
+	is_setup = true
+	return self
+
+
+func _ready() -> void:
+	if not is_setup:
+		setup(color_from_editor)

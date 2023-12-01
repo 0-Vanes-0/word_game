@@ -6,7 +6,7 @@ signal animate_enemy_prepare_completed
 
 @export var battle_scene: BattleScene
 const ACTION_TIME := 1.0
-var tween: Tween
+var _tween: Tween
 
 
 func _ready() -> void:
@@ -62,33 +62,33 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 		battle_scene.effect_sprite.play(Rune.get_type_string(effect_type))
 	
 	
-	tween = new_tween()
+	_tween = _new_tween()
 	if current_battler_index != target_battler_index:
-		tween.tween_property(
+		_tween.tween_property(
 				current_battler, "position",
 				left_position if current_battler_index < target_battler_index else right_position,
 				0.0
 		)
-		tween.tween_property(
+		_tween.tween_property(
 				target_battler, "position",
 				right_position if current_battler_index < target_battler_index else left_position,
 				0.0
 		)
 		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type):
-			tween.tween_property(
+			_tween.tween_property(
 					current_battler, "position",
 					center_position,
 					ACTION_TIME
 			)
 		else:
-			tween.tween_interval(ACTION_TIME)
+			_tween.tween_interval(ACTION_TIME)
 	else:
-		tween.tween_property(
+		_tween.tween_property(
 				current_battler, "position",
 				center_position,
 				0.0
 		)
-		tween.tween_interval(ACTION_TIME)
+		_tween.tween_interval(ACTION_TIME)
 	
 	if some_number >= 0:
 		battle_scene.action_number_label.text = str(some_number)
@@ -105,7 +105,7 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 				else Global.TargetColors.ALLY_SELF_BATTLER
 		)
 		battle_scene.battlers_node.move_child(battle_scene.action_number_label, -1)
-		tween.parallel().tween_property(
+		_tween.parallel().tween_property(
 				battle_scene.action_number_label, "position",
 				battle_scene.action_number_label.position + Vector2.UP * Global.CHARACTER_SIZE.y,
 				ACTION_TIME
@@ -113,22 +113,22 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 	
 	# ----- ACTION ANIMATION ENDED; RETURNING BATTLERS -----
 	
-	tween.tween_property(
+	_tween.tween_property(
 			black, "self_modulate:a",
 			0.0,
 			0.25
 	)
-	tween.parallel().tween_property(
+	_tween.parallel().tween_property(
 			current_battler, "position",
 			current_battler_position,
 			0.25
 	)
-	tween.parallel().tween_property(
+	_tween.parallel().tween_property(
 			current_battler, "scale",
 			current_battler_scale,
 			0.25
 	)
-	tween.parallel().tween_callback(
+	_tween.parallel().tween_callback(
 			func():
 				current_battler.sprite.offset = current_battler_offset
 				if current_battler.is_alive:
@@ -139,17 +139,17 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 				battle_scene.action_number_label.hide()
 	)
 	if current_battler_index != target_battler_index:
-		tween.parallel().tween_property(
+		_tween.parallel().tween_property(
 				target_battler, "position",
 				target_battler_position,
 				0.25
 		)
-		tween.parallel().tween_property(
+		_tween.parallel().tween_property(
 				target_battler, "scale",
 				target_battler_scale,
 				0.25
 		)
-		tween.parallel().tween_callback(
+		_tween.parallel().tween_callback(
 				func():
 					target_battler.sprite.offset = target_battler_offset
 					if target_battler.is_alive:
@@ -157,12 +157,12 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 					else:
 						target_battler.anim_die()
 		)
-	tween.tween_callback(
+	_tween.tween_callback(
 			func():
 				battle_scene.battlers_node.move_child(black, -1)
 	)
 	
-	await tween.finished
+	await _tween.finished
 	
 	# ----- ALL ANIMATIONS ENDED -----
 	
@@ -173,9 +173,9 @@ func animate_enemy_prepare():
 	var current_battler: Battler = battle_scene.battlers[battle_scene.current_battler_number]
 	var target_battler: Battler = battle_scene.battlers[battle_scene.target_battler_number]
 	
-	tween = new_tween()
-	tween.tween_interval(0.5)
-	tween.tween_callback(
+	_tween = _new_tween()
+	_tween.tween_interval(0.5)
+	_tween.tween_callback(
 			func():
 				battle_scene.hud_manager.to_select_enemies.emit()
 				current_battler.selection.show()
@@ -189,16 +189,16 @@ func animate_enemy_prepare():
 				
 				current_battler.anim_prepare(Battler.ActionTypes.ATTACK)
 	)
-	tween.tween_interval(1.0)
+	_tween.tween_interval(1.0)
 	
-	await tween.finished
+	await _tween.finished
 	
 	animate_enemy_prepare_completed.emit()
 
 
-func new_tween() -> Tween:
-	if tween:
-		tween.kill()
+func _new_tween() -> Tween:
+	if _tween:
+		_tween.kill()
 	return create_tween()
 
 
