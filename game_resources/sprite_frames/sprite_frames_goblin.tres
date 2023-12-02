@@ -18,9 +18,9 @@
 [resource]
 animations = [{
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"action_ally",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
