@@ -143,6 +143,7 @@ func _ready() -> void:
 	battler_info.scale = Vector2.ZERO
 	
 	turn_bar.setup()
+	turn_bar.battlers_moved_by_one_tick.connect(_on_battlers_moved_by_one_tick)
 	current_battler_number = turn_bar.get_current_battler_index()
 	
 	hud_manager.to_select_enemies.emit()
@@ -154,6 +155,11 @@ func _on_battler_clicked(battler: Battler):
 	target_battler_number = battler.index # TODO: check selection
 	hud_manager.set_proceed_button_enabled(true)
 	battlers[current_battler_number].anim_prepare(current_action_type)
+
+
+func _on_battlers_moved_by_one_tick():
+	for b in battlers:
+		b.check_tokens()
 
 
 func _process(delta: float) -> void:

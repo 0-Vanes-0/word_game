@@ -1,6 +1,8 @@
 class_name TurnBar
 extends Control
 
+signal battlers_moved_by_one_tick
+
 @export var battle_scene: BattleScene
 var _battler_queue: Array[Battler] = []
 var _sliders: Array[HSlider] = []
@@ -75,6 +77,8 @@ func move_battlers():
 			
 			if _battler_queue[i] != null:
 				_sliders[_battler_queue[i].index].value = i
+	
+	battlers_moved_by_one_tick.emit()
 
 
 func remove_battler(battler_index: int):

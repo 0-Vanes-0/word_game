@@ -6,13 +6,14 @@ signal hold_started
 signal hold_stopped
 signal died
 
-enum ActionTypes {
-	NONE, ATTACK, ALLY
-}
 enum Types {
 	NONE = 0,
 	KNIGHT = 11, ROBBER = 12, MAGE = 13,
+	
 	GOBLIN = 21
+}
+enum ActionTypes {
+	NONE, ATTACK, ALLY
 }
 const HEROES := [Types.KNIGHT, Types.ROBBER, Types.MAGE]
 const MOBS := [Types.GOBLIN]
@@ -33,6 +34,7 @@ var stats: BattlerStats
 var index: int = -1
 var is_alive: bool = true
 var is_clickable: bool = false
+var tokens: Array[Token] = []
 
 var sprite: AnimatedSprite2D
 var selection_hover: Sprite2D
@@ -139,6 +141,17 @@ func set_area_inputable(is_inputable: bool):
 	coll_shape.disabled = not is_inputable
 
 
+func add_token(token: Token):
+	pass
+
+
+func check_tokens(for_what_moment: Token.ApplyMoments):
+	for t in tokens:
+		if Token.get_apply_moment(t.type) == for_what_moment:
+			t.apply_token_effect()
+
+
+#region Animations
 func anim_idle():
 	sprite.play(Animations.IDLE)
 	var frames_count: int = sprite.sprite_frames.get_frame_count(Animations.IDLE)
@@ -183,8 +196,9 @@ func anim_reaction(type: ActionTypes):
 func anim_die():
 	sprite.play(Animations.DIE)
 	health_bar.hide()
+#endregion
 
-
+#region Static functions
 static func get_sprite_frames(type: Types) -> SpriteFrames:
 	match type:
 		Types.KNIGHT:
@@ -239,3 +253,4 @@ static func get_scale_x(type: Types) -> int:
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return 0
+#endregion
