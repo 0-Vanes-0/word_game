@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="BattlerStats" load_steps=3 format=3 uid="uid://bx8m2l8lc15c4"]
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://bx8m2l8lc15c4"]
 
-[ext_resource type="Script" path="res://src/gameplay/battler_stats.gd" id="1_n2yc3"]
 [ext_resource type="Texture2D" uid="uid://dkvue48d5hlcs" path="res://assets/sprites/avas/con16.png" id="1_oyhoe"]
+[ext_resource type="Script" path="res://src/gameplay/enemy_battler_stats.gd" id="2_pafcg"]
 
 [resource]
-script = ExtResource("1_n2yc3")
+script = ExtResource("2_pafcg")
+foe_action_ticks = 2
+ally_action_ticks = 2
 icon = ExtResource("1_oyhoe")
 base_initiative = 1
 base_health = 20

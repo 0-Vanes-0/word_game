@@ -5,6 +5,7 @@ signal to_select_enemies
 signal to_select_allies
 signal to_proceed_turn
 
+@export var _battle_scene: BattleScene
 @export var _enemy_target_button: IconButton
 @export var _ally_target_button: IconButton
 @export var _spell_label: Label
@@ -16,7 +17,7 @@ var spell: Array[Rune] = []
 
 
 func _ready() -> void:
-	assert(_enemy_target_button and _ally_target_button and _spell_label and _reset_spell_button and _runes and _proceed_button)
+	assert(_battle_scene and _enemy_target_button and _ally_target_button and _spell_label and _reset_spell_button and _runes and _proceed_button)
 	
 	_proceed_button.set_enabled(false)
 	
@@ -50,7 +51,7 @@ func _ready() -> void:
 				spell.clear()
 	)
 	
-	for rune_button in _runes.get_children() as Array[RuneButton]:
+	for rune_button: RuneButton in _runes.get_children():
 		rune_button.pressed.connect(
 				func():
 					const MAX_CHARS := 25
@@ -79,13 +80,17 @@ func appear():
 			1.0,
 			0.5
 	)
-	# For showcase:
-	var arr: Array = Preloader.test_runes.duplicate()
-	for rune_button in _runes.get_children() as Array[RuneButton]:
-		var rune: Rune = arr.pop_at(randi_range(0, arr.size() - 1))
-		rune_button.set_rune(rune)
+	
+	var current_battler := _battle_scene.player_battlers[_battle_scene.current_battler_number]
+	var battler_runes: Array[Rune] = (current_battler.stats as PlayerBattlerStats).runes
+	for i in battler_runes.size():
+		var rune_button := _runes.get_child(i)
+		rune_button.set_rune(battler_runes[i])
+		rune_button.show()
 
 
 func disappear():
 	self.modulate.a = 0.0
 	self.hide()
+	for button: RuneButton in _runes.get_children():
+		button.hide()

@@ -1,5 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://dmphysqui0a6s"]
+[gd_scene load_steps=15 format=3 uid="uid://dmphysqui0a6s"]
 
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_gqh4m"]
 [ext_resource type="Script" path="res://src/ui/battle_hud_manager.gd" id="1_r71ia"]
 [ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="2_lxj8w"]
 [ext_resource type="Texture2D" uid="uid://bkuloxljiyk15" path="res://assets/sprites/ui/beige_border2.png" id="3_q75oo"]
@@ -15,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
 [node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_enemy_target_button", "_ally_target_button", "_spell_label", "_reset_spell_button", "_runes", "_proceed_button")]
+theme = ExtResource("1_gqh4m")
 script = ExtResource("1_r71ia")
 _enemy_target_button = NodePath("HBoxContainer/HBoxContainer/EnemyTargetButton")
 _ally_target_button = NodePath("HBoxContainer/HBoxContainer/AllyTargetButton")
@@ -134,10 +136,12 @@ layout_mode = 2
 rune = ExtResource("9_cy361")
 
 [node name="RuneButton3" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+visible = false
 layout_mode = 2
 rune = ExtResource("10_e1k15")
 
 [node name="RuneButton4" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+visible = false
 layout_mode = 2
 rune = ExtResource("11_nhhu8")
 

@@ -27,7 +27,7 @@ func setup():
 		slider.add_theme_icon_override("grabber_disabled", battlers[i].stats.icon)
 		_sliders[battle_scene.battlers[i].index] = slider
 	
-	_battler_queue.resize(12)
+	_battler_queue.resize(10)
 	var size := int(battlers.size())
 	for i in size:
 		var max_initiative: int = 0

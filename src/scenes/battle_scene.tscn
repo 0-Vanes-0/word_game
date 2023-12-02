@@ -168,8 +168,9 @@ offset_left = -160.0
 offset_right = 160.0
 mouse_filter = 2
 
-[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" instance=ExtResource("14_3lqgt")]
+[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("14_3lqgt")]
 layout_mode = 2
+_battle_scene = NodePath("../../../..")
 
 [node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
 script = ExtResource("15_ynmqs")
