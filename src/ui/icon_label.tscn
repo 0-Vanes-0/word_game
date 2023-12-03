@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cadmoqo0jqjmq"]
+
+[ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="1_j2miu"]
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_sglfy"]
+[ext_resource type="Script" path="res://src/ui/icon_label.gd" id="2_oh1kj"]
+
+[node name="HBox" type="HBoxContainer"]
+theme = ExtResource("1_sglfy")
+script = ExtResource("2_oh1kj")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture = ExtResource("1_j2miu")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "30%"

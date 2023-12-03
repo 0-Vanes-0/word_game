@@ -3,17 +3,17 @@
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_10rvu"]
 [ext_resource type="Script" path="res://src/ui/battler_info_container.gd" id="2_vsbf0"]
 [ext_resource type="Texture2D" uid="uid://bgu37xw77i1f7" path="res://assets/sprites/ui/char_bg.png" id="2_x3sax"]
-[ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="3_misgw"]
+[ext_resource type="PackedScene" uid="uid://dhxktvlnk4yef" path="res://src/ui/backgrounded_icon.tscn" id="4_8c2gl"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="4_labw7"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="5_xcwb8"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="6_1lxaf"]
 [ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="8_eunih"]
-[ext_resource type="Texture2D" uid="uid://bx5wjwjpuhwr" path="res://assets/sprites/magic_effects/icons/comet.png" id="9_hlmu4"]
+[ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="8_kouqu"]
 [ext_resource type="Texture2D" uid="uid://cer7rtp02o4nl" path="res://assets/sprites/magic_effects/icons/gypno.png" id="10_3xhjg"]
 [ext_resource type="Texture2D" uid="uid://ce8f2cgxxkoii" path="res://assets/sprites/magic_effects/icons/ice.png" id="11_7jut3"]
 [ext_resource type="Texture2D" uid="uid://bxmgdvtcdhjyp" path="res://assets/sprites/magic_effects/icons/kill_all.png" id="12_dfbx4"]
-[ext_resource type="Texture2D" uid="uid://buydvl4mowxh2" path="res://assets/sprites/magic_effects/icons/spikes.png" id="13_hdbon"]
 [ext_resource type="Texture2D" uid="uid://c4p7n8kh2immu" path="res://assets/sprites/magic_effects/icons/tesla_ball.png" id="14_f5tuk"]
+[ext_resource type="Texture2D" uid="uid://0lveor7lvmdu" path="res://assets/sprites/magic_effects/icons/water.png" id="14_qgacy"]
 
 [node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label")]
 anchors_preset = 13
@@ -57,14 +57,13 @@ theme_override_constants/separation = 20
 [node name="Ava+HealthHBox" type="HBoxContainer" parent="MarginContainer/VBox"]
 layout_mode = 2
 
-[node name="Ava" type="TextureRect" parent="MarginContainer/VBox/Ava+HealthHBox"]
+[node name="Ava" parent="MarginContainer/VBox/Ava+HealthHBox" instance=ExtResource("4_8c2gl")]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("3_misgw")
 
 [node name="HealthVBox" type="VBoxContainer" parent="MarginContainer/VBox/Ava+HealthHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
 
 [node name="HealthBar" parent="MarginContainer/VBox/Ava+HealthHBox/HealthVBox" instance=ExtResource("4_labw7")]
 layout_mode = 2
@@ -111,104 +110,36 @@ scroll_active = false
 
 [node name="ResistsGrid" type="GridContainer" parent="MarginContainer/VBox"]
 layout_mode = 2
-theme_override_constants/h_separation = 20
-theme_override_constants/v_separation = 10
-columns = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 0
+columns = 3
 
-[node name="ResistHBox" type="HBoxContainer" parent="MarginContainer/VBox/ResistsGrid"]
+[node name="ResistHBox" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
 layout_mode = 2
+icon = ExtResource("8_eunih")
+icon_size = 2
 
-[node name="ResistIcon" type="TextureRect" parent="MarginContainer/VBox/ResistsGrid/ResistHBox"]
-custom_minimum_size = Vector2(36, 36)
+[node name="ResistHBox2" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
 layout_mode = 2
-texture = ExtResource("8_eunih")
-expand_mode = 2
-stretch_mode = 4
+icon = ExtResource("10_3xhjg")
+icon_size = 2
 
-[node name="ResistLabel" type="Label" parent="MarginContainer/VBox/ResistsGrid/ResistHBox"]
+[node name="ResistHBox3" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
 layout_mode = 2
-text = "30%"
+icon = ExtResource("11_7jut3")
+icon_size = 2
 
-[node name="ResistHBox2" type="HBoxContainer" parent="MarginContainer/VBox/ResistsGrid"]
+[node name="ResistHBox4" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
 layout_mode = 2
+icon = ExtResource("12_dfbx4")
+icon_size = 2
 
-[node name="ResistIcon" type="TextureRect" parent="MarginContainer/VBox/ResistsGrid/ResistHBox2"]
-custom_minimum_size = Vector2(36, 36)
+[node name="ResistHBox5" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
 layout_mode = 2
-texture = ExtResource("9_hlmu4")
-expand_mode = 2
-stretch_mode = 4
+icon = ExtResource("14_f5tuk")
+icon_size = 2
 
-[node name="ResistLabel" type="Label" parent="MarginContainer/VBox/ResistsGrid/ResistHBox2"]
+[node name="ResistHBox6" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
 layout_mode = 2
-text = "60%"
-
-[node name="ResistHBox3" type="HBoxContainer" parent="MarginContainer/VBox/ResistsGrid"]
-layout_mode = 2
-
-[node name="ResistIcon" type="TextureRect" parent="MarginContainer/VBox/ResistsGrid/ResistHBox3"]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-texture = ExtResource("10_3xhjg")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="ResistLabel" type="Label" parent="MarginContainer/VBox/ResistsGrid/ResistHBox3"]
-layout_mode = 2
-text = "100%"
-
-[node name="ResistHBox4" type="HBoxContainer" parent="MarginContainer/VBox/ResistsGrid"]
-layout_mode = 2
-
-[node name="ResistIcon" type="TextureRect" parent="MarginContainer/VBox/ResistsGrid/ResistHBox4"]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-texture = ExtResource("11_7jut3")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="ResistLabel" type="Label" parent="MarginContainer/VBox/ResistsGrid/ResistHBox4"]
-layout_mode = 2
-text = "50%"
-
-[node name="ResistHBox5" type="HBoxContainer" parent="MarginContainer/VBox/ResistsGrid"]
-layout_mode = 2
-
-[node name="ResistIcon" type="TextureRect" parent="MarginContainer/VBox/ResistsGrid/ResistHBox5"]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-texture = ExtResource("12_dfbx4")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="ResistLabel" type="Label" parent="MarginContainer/VBox/ResistsGrid/ResistHBox5"]
-layout_mode = 2
-text = "80%"
-
-[node name="ResistHBox6" type="HBoxContainer" parent="MarginContainer/VBox/ResistsGrid"]
-layout_mode = 2
-
-[node name="ResistIcon" type="TextureRect" parent="MarginContainer/VBox/ResistsGrid/ResistHBox6"]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-texture = ExtResource("13_hdbon")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="ResistLabel" type="Label" parent="MarginContainer/VBox/ResistsGrid/ResistHBox6"]
-layout_mode = 2
-text = "30%"
-
-[node name="ResistHBox7" type="HBoxContainer" parent="MarginContainer/VBox/ResistsGrid"]
-layout_mode = 2
-
-[node name="ResistIcon" type="TextureRect" parent="MarginContainer/VBox/ResistsGrid/ResistHBox7"]
-custom_minimum_size = Vector2(36, 36)
-layout_mode = 2
-texture = ExtResource("14_f5tuk")
-expand_mode = 2
-stretch_mode = 4
-
-[node name="ResistLabel" type="Label" parent="MarginContainer/VBox/ResistsGrid/ResistHBox7"]
-layout_mode = 2
-text = "50%"
+icon = ExtResource("14_qgacy")
+icon_size = 2
