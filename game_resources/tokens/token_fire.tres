@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://d2q1usbyl1c41"]
+
+[ext_resource type="Script" path="res://src/gameplay/token.gd" id="1_ep85t"]
+[ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="1_miy6v"]
+
+[resource]
+script = ExtResource("1_ep85t")
+type = 21
+icon = ExtResource("1_miy6v")
+lifetime_ticks = 10

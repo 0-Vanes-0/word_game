@@ -1,6 +1,8 @@
 class_name Token
 extends Resource
 
+signal to_remove
+
 enum Types {
 	NONE = 0,
 	SHIELD = 11, ATTACK = 12,
@@ -23,9 +25,16 @@ func apply_token_effect():
 	match type:
 		Types.FIRE:
 			owner.stats.adjust_health(-1)
+			adjust_tick_count(-1)
 		_:
 			assert(false, "Wrong token type=" + str(type))
 	
+
+func adjust_tick_count(value: int):
+	ticks_count = clampi(ticks_count + value, 0, lifetime_ticks)
+	if ticks_count == 0:
+		owner.tokens.erase(self)
+		self.free()
 
 
 static func get_apply_moment(type: Types) -> ApplyMoments:

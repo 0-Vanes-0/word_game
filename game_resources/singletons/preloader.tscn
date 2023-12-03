@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=40 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="27_t64hi"]
 [ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/water.tres" id="28_6buor"]
 [ext_resource type="Texture2D" uid="uid://cmje7tp5yg8gu" path="res://assets/sprites/ui/bars/energy_full_bar.png" id="28_xpvxx"]
+[ext_resource type="Resource" uid="uid://d2q1usbyl1c41" path="res://game_resources/tokens/token_fire.tres" id="38_geoqu"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="38_ly5rc"]
 
 [node name="Preloader" type="Node"]
@@ -77,4 +78,5 @@ rune_stun = ExtResource("25_stx8v")
 rune_tesla = ExtResource("26_nob83")
 rune_tornado = ExtResource("27_cgigl")
 rune_water = ExtResource("28_6buor")
+token_fire = ExtResource("38_geoqu")
 my_progress_bar = ExtResource("38_ly5rc")

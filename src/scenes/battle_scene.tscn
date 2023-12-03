@@ -80,11 +80,18 @@ layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 52429
 visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Test"]
-position = Vector2(36, -40)
+position = Vector2(80, 270)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("9_s7a8b")
 animation = &"hurt"
 offset = Vector2(0, -28)
+
+[node name="HFlowContainer" type="HBoxContainer" parent="Test/AnimatedSprite2D"]
+offset_left = -40.0
+offset_top = -70.0
+offset_right = 40.0
+offset_bottom = -50.0
+alignment = 1
 
 [node name="Battlers" type="Marker2D" parent="."]
 position = Vector2(0, 333)
