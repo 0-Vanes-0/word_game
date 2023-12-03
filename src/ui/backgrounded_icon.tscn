@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhxktvlnk4yef"]
+
+[ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="1_dx4ji"]
+[ext_resource type="Script" path="res://src/ui/backgrounded_icon.gd" id="1_kdapt"]
+[ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="2_i3nyd"]
+[ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="3_gmo4x"]
+
+[node name="BackgroundedIcon" type="MarginContainer"]
+offset_right = 34.0
+offset_bottom = 35.0
+script = ExtResource("1_kdapt")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_dx4ji")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_i3nyd")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Bounds" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("3_gmo4x")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6

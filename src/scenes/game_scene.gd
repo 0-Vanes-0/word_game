@@ -11,24 +11,17 @@ extends Node2D
 func _ready() -> void:
 	assert(op_button1 and op_button2 and op_button3 and op_button4 and op_button5 and op_button6)
 	
-	#var regex := RegEx.new()
-	#regex.compile("\\$(\\w+)")
-	#var reg_match := regex.search_all("In $month I want to buy $item, but I have not enough $currency")
-	#for m in reg_match:
-		#print(m.get_start())
-		#print(m.get_string())
-		#print(m.get_end())
-	
 	for i in $CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer.get_child_count():
 		var button := $CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer.get_child(i) as OptionButton
 		button.remove_item(0)
 		if i <= 2:
-			button.add_item(Battler.Types.keys()[ Battler.Types.values().find(Battler.HEROES[0]) ], Battler.HEROES[0]) # ОЧЕНЬ ПЛОХОЙ КОД!!! (если что)
-			button.add_item(Battler.Types.keys()[ Battler.Types.values().find(Battler.HEROES[1]) ], Battler.HEROES[1])
-			button.add_item(Battler.Types.keys()[ Battler.Types.values().find(Battler.HEROES[2]) ], Battler.HEROES[2])
+			button.add_item(Battler.get_type_as_string(Battler.HEROES[0]), Battler.HEROES[0])
+			button.add_item(Battler.get_type_as_string(Battler.HEROES[1]), Battler.HEROES[1])
+			button.add_item(Battler.get_type_as_string(Battler.HEROES[2]), Battler.HEROES[2])
 			button.selected = 2 - i
 		else:
-			button.add_item(Battler.Types.keys()[ Battler.Types.values().find(Battler.MOBS[0]) ], Battler.MOBS[0])
+			button.add_item(Battler.get_type_as_string(Battler.MOBS[0]), Battler.MOBS[0])
+			button.add_item(Battler.get_type_as_string(Battler.MOBS[1]), Battler.MOBS[1])
 			button.selected = 0
 		button.custom_minimum_size.x = Global.SCREEN_WIDTH / 6 - 20
 

@@ -1,7 +1,7 @@
 class_name BattlerInfoContainer
 extends MarginContainer
 
-@export var ava: TextureRect
+@export var ava: BackgroundedIcon
 @export var health_bar: MyProgressBar
 @export var health_label: Label
 @export var foe_action_icon: TextureRect
@@ -20,7 +20,7 @@ func _ready() -> void:
 
 
 func appear(stats: BattlerStats):
-	ava.texture = stats.icon
+	ava.set_icon(stats.icon)
 	health_bar.min_value = 0
 	health_bar.max_value = stats.max_health
 	health_bar.value = stats.health

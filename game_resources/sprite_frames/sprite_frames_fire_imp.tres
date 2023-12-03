@@ -1,0 +1,91 @@
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=13 format=3 uid="uid://cxd0gx3lpfnso"]
+
+[ext_resource type="Texture2D" uid="uid://njmvfiekxe8i" path="res://assets/sprites/characters/fire_imp/Fire_Imp_attack4.png" id="1_b7p3u"]
+[ext_resource type="Texture2D" uid="uid://bipuiv2eltsv2" path="res://assets/sprites/characters/fire_imp/Fire_Imp_death1.png" id="2_bp1jj"]
+[ext_resource type="Texture2D" uid="uid://gflryf1xt7gv" path="res://assets/sprites/characters/fire_imp/Fire_Imp_death2.png" id="3_xhkee"]
+[ext_resource type="Texture2D" uid="uid://cx4bfudgpe6yi" path="res://assets/sprites/characters/fire_imp/Fire_Imp_death3.png" id="4_vero5"]
+[ext_resource type="Texture2D" uid="uid://bjiym0gtj0itv" path="res://assets/sprites/characters/fire_imp/Fire_Imp_death4.png" id="5_pa27l"]
+[ext_resource type="Texture2D" uid="uid://chwxdnoplcpj0" path="res://assets/sprites/characters/fire_imp/Fire_Imp_hurt2.png" id="6_4wjy0"]
+[ext_resource type="Texture2D" uid="uid://cjgdriiicfpjx" path="res://assets/sprites/characters/fire_imp/Fire_Imp_attack2.png" id="10_cwgu6"]
+[ext_resource type="Texture2D" uid="uid://bok42nuwgfpi8" path="res://assets/sprites/characters/fire_imp/Fire_Imp_attack1.png" id="11_oed7w"]
+[ext_resource type="Texture2D" uid="uid://buj7r38woqe4d" path="res://assets/sprites/characters/fire_imp/Fire_Imp_idle1.png" id="11_wa84g"]
+[ext_resource type="Texture2D" uid="uid://dw64m4aax3vjc" path="res://assets/sprites/characters/fire_imp/Fire_Imp_idle2.png" id="12_edu4k"]
+[ext_resource type="Texture2D" uid="uid://d3i2hslkkdh7s" path="res://assets/sprites/characters/fire_imp/Fire_Imp_idle3.png" id="13_bbc5r"]
+[ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="14_bl3aq"]
+
+[resource]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_b7p3u")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bp1jj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xhkee")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vero5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pa27l")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_4wjy0")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("11_wa84g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_edu4k")
+}, {
+"duration": 3.0,
+"texture": ExtResource("13_bbc5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_edu4k")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("10_cwgu6")
+}, {
+"duration": 2.0,
+"texture": ExtResource("11_oed7w")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("14_bl3aq")
+offset = Vector2(8, -32)
+separate_offsets = {}

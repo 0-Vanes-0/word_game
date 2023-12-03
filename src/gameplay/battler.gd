@@ -10,13 +10,13 @@ enum Types {
 	NONE = 0,
 	KNIGHT = 11, ROBBER = 12, MAGE = 13,
 	
-	GOBLIN = 21
+	GOBLIN = 21, FIRE_IMP = 22,
 }
 enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
 const HEROES := [Types.KNIGHT, Types.ROBBER, Types.MAGE]
-const MOBS := [Types.GOBLIN]
+const MOBS := [Types.GOBLIN, Types.FIRE_IMP]
 const Animations := {
 	IDLE = "idle",
 	PREPARE_ATTACK = "prepare_attack",
@@ -239,6 +239,8 @@ static func get_sprite_frames(type: Types) -> SpriteFrames:
 			return Preloader.sprite_frames_mage
 		Types.GOBLIN:
 			return Preloader.sprite_frames_goblin
+		Types.FIRE_IMP:
+			return Preloader.sprite_frames_fire_imp
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return null
@@ -254,6 +256,8 @@ static func get_offset(type: Types) -> Vector2:
 			return Preloader.sprite_frames_mage.offset
 		Types.GOBLIN:
 			return Preloader.sprite_frames_goblin.offset
+		Types.FIRE_IMP:
+			return Preloader.sprite_frames_fire_imp.offset
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return Vector2.ZERO
@@ -269,18 +273,36 @@ static func get_start_stats(type: Types) -> BattlerStats:
 			return Preloader.stats_mage
 		Types.GOBLIN:
 			return Preloader.stats_goblin
+		Types.FIRE_IMP:
+			return Preloader.stats_fire_imp
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return null
 
 
 static func get_scale_x(type: Types) -> int:
+	if type in HEROES:
+		return 1
+	elif type in MOBS:
+		return -1
+	else:
+		assert(false, "Wrong type: " + str(type))
+		return 0
+
+
+static func get_type_as_string(type: Types) -> String:
 	match type:
-		Types.KNIGHT, Types.ROBBER, Types.MAGE:
-			return 1
+		Types.KNIGHT:
+			return "Рыцарь"
+		Types.ROBBER:
+			return "Разбойник"
+		Types.MAGE:
+			return "Маг"
 		Types.GOBLIN:
-			return -1
+			return "Гоблин"
+		Types.FIRE_IMP:
+			return "Чорт"
 		_:
 			assert(false, "Wrong type: " + str(type))
-			return 0
+			return ""
 #endregion

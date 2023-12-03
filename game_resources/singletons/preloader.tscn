@@ -1,9 +1,10 @@
-[gd_scene load_steps=40 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=41 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
 [ext_resource type="PackedScene" uid="uid://cjadhu3y22px2" path="res://src/scenes/battle_scene.tscn" id="3_mm2kd"]
 [ext_resource type="PackedScene" uid="uid://bd17qjyt657fn" path="res://src/scenes/http_test_scene.tscn" id="3_x778j"]
+[ext_resource type="Resource" uid="uid://coausqeuq5nxy" path="res://game_resources/start_stats/fire_imp_base_stats.tres" id="5_1ed1q"]
 [ext_resource type="Resource" uid="uid://bx8m2l8lc15c4" path="res://game_resources/start_stats/goblin_base_stats.tres" id="5_o2b78"]
 [ext_resource type="SpriteFrames" uid="uid://c71of80kg874k" path="res://game_resources/sprite_frames/sprite_frames_knight.tres" id="5_wh8vi"]
 [ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="6_1v8hy"]
@@ -13,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://dvf258ty8bnm7" path="res://game_resources/start_stats/robber_base_stats.tres" id="8_5xyke"]
 [ext_resource type="SpriteFrames" uid="uid://cn38l01om6o2v" path="res://game_resources/sprite_frames/sprite_frames_goblin.tres" id="8_r525w"]
 [ext_resource type="Texture2D" uid="uid://cay0px1pbvcpn" path="res://assets/sprites/ui/selection.png" id="10_l5r3s"]
+[ext_resource type="SpriteFrames" uid="uid://cxd0gx3lpfnso" path="res://game_resources/sprite_frames/sprite_frames_fire_imp.tres" id="10_ln2yb"]
 [ext_resource type="Texture2D" uid="uid://cim7p0f0ynatd" path="res://assets/sprites/ui/selection_hover.png" id="11_nxxdl"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="12_aw57u"]
 [ext_resource type="Texture2D" uid="uid://kgices52mgxs" path="res://assets/sprites/ui/icons/sword.png" id="13_hax0l"]
@@ -45,10 +47,12 @@ script = ExtResource("1_0hqcx")
 battle_scene = ExtResource("3_mm2kd")
 game_scene = ExtResource("2_mq5gj")
 http_test_scene = ExtResource("3_x778j")
+stats_fire_imp = ExtResource("5_1ed1q")
 stats_goblin = ExtResource("5_o2b78")
 stats_knight = ExtResource("6_s46mm")
 stats_mage = ExtResource("7_elr8a")
 stats_robber = ExtResource("8_5xyke")
+sprite_frames_fire_imp = ExtResource("10_ln2yb")
 sprite_frames_goblin = ExtResource("8_r525w")
 sprite_frames_knight = ExtResource("5_wh8vi")
 sprite_frames_mage = ExtResource("7_chvag")

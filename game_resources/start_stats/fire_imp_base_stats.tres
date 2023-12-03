@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://coausqeuq5nxy"]
+
+[ext_resource type="Texture2D" uid="uid://bw03lb6mbio7b" path="res://assets/sprites/avas/con26.png" id="1_3gopb"]
+[ext_resource type="Script" path="res://src/gameplay/enemy_battler_stats.gd" id="2_2wb6o"]
+
+[resource]
+script = ExtResource("2_2wb6o")
+foe_action_ticks = 2
+ally_action_ticks = 2
+icon = ExtResource("1_3gopb")
+base_initiative = 2
+base_health = 10
+base_min_damage = 8
+base_max_damage = 14
+foe_action_text = "Наносит $dmg урона одной цели."
+ally_action_text = "-"
