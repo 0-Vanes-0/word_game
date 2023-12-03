@@ -52,14 +52,12 @@ func _ready() -> void:
 			player_battlers.append(battlers[index])
 			battlers[index].died.connect(
 					func():
-						player_battlers.erase(battlers[index])
 						turn_bar.remove_battler(index)
 			)
 		else:
 			enemy_battlers.append(battlers[index])
 			battlers[index].died.connect(
 					func():
-						enemy_battlers.erase(battlers[index])
 						turn_bar.remove_battler(index)
 			)
 	
@@ -72,10 +70,11 @@ func _ready() -> void:
 				show_current_selection()
 				if is_players_turn:
 					for eb in enemy_battlers:
-						eb.selection.show()
-						eb.selection.modulate = Global.TargetColors.FOE_BATTLER
-						eb.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
-						eb.is_clickable = true
+						if eb.is_alive:
+							eb.selection.show()
+							eb.selection.modulate = Global.TargetColors.FOE_BATTLER
+							eb.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
+							eb.is_clickable = true
 				
 				current_action_type = Battler.ActionTypes.ATTACK
 	)
@@ -130,9 +129,7 @@ func _ready() -> void:
 				current_battler_number = turn_bar.get_current_battler_index()
 				
 				is_players_turn = current_battler_number in [0, 1, 2]
-				if player_battlers.is_empty() or enemy_battlers.is_empty():
-					black_screen.modulate.a = 0.75
-				elif is_players_turn:
+				if is_players_turn:
 					for b in battlers:
 						b.set_area_inputable(true)
 					hud_manager.appear()
@@ -143,6 +140,7 @@ func _ready() -> void:
 	battler_info.scale = Vector2.ZERO
 	
 	turn_bar.setup()
+	turn_bar.battlers_moved_by_one_tick.connect(_on_battlers_moved_by_one_tick)
 	current_battler_number = turn_bar.get_current_battler_index()
 	
 	hud_manager.to_select_enemies.emit()
@@ -156,23 +154,31 @@ func _on_battler_clicked(battler: Battler):
 	battlers[current_battler_number].anim_prepare(current_action_type)
 
 
+func _on_battlers_moved_by_one_tick():
+	for b in battlers:
+		b.check_tokens(Token.ApplyMoments.ON_TICK)
+
+
 func _process(delta: float) -> void:
 	$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.RIGHT * 20 * delta
 
 
 func _physics_process(delta: float) -> void:
-	if not is_players_turn and not is_progressing_enemy_turn and not enemy_battlers.is_empty():
-		is_progressing_enemy_turn = true
-		
-		target_battler_number = player_battlers.pick_random().index
-		
-		battle_animator.animate_enemy_prepare_completed.connect(
-				func():
-					hud_manager.to_proceed_turn.emit()
-					await proceed_turn_ended
-					is_progressing_enemy_turn = false
-		, CONNECT_ONE_SHOT)
-		battle_animator.animate_enemy_prepare()
+	if not is_players_turn and not is_progressing_enemy_turn:
+		if not get_alive_enemies().is_empty() and not get_alive_players().is_empty():
+			is_progressing_enemy_turn = true
+			
+			target_battler_number = get_alive_players().pick_random().index
+			
+			battle_animator.animate_enemy_prepare_completed.connect(
+					func():
+						hud_manager.to_proceed_turn.emit()
+						await proceed_turn_ended
+						is_progressing_enemy_turn = false
+			, CONNECT_ONE_SHOT)
+			battle_animator.animate_enemy_prepare()
+		else:
+			Global.switch_to_scene(Preloader.game_scene) # TODO: bad code here
 
 
 func reset_all_selections():
@@ -196,6 +202,20 @@ func show_current_selection():
 func hide_selection_hovers():
 	for b in battlers:
 		b.selection_hover.hide()
+
+
+func get_alive_players() -> Array[Battler]:
+	return player_battlers.filter(
+			func(battler: Battler):
+				return battler.is_alive 
+	)
+
+	
+func get_alive_enemies() -> Array[Battler]:
+	return enemy_battlers.filter(
+			func(battler: Battler):
+				return battler.is_alive 
+	)
 
 
 func _on_back_button_pressed() -> void:

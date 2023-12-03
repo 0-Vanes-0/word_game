@@ -49,6 +49,9 @@ extends Node
 @export var rune_water: Rune
 var test_runes: Array[Rune]
 
+@export_group("Tokens", "token_")
+@export var token_fire: Token
+
 @export_group("UIs")
 @export var my_progress_bar: PackedScene
 
@@ -65,6 +68,7 @@ func _ready() -> void:
 			)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla
 			and rune_tornado and rune_water)
+	assert(token_fire)
 	assert(my_progress_bar)
 	
 	test_runes = [rune_comet , rune_dark , rune_fire , rune_ice , rune_spikes , rune_stun , rune_tornado , rune_water, rune_tesla ]

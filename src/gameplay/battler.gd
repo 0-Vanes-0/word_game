@@ -6,14 +6,14 @@ signal hold_started
 signal hold_stopped
 signal died
 
-enum ActionTypes {
-	NONE, ATTACK, ALLY
-}
 enum Types {
 	NONE = 0,
 	KNIGHT = 11, ROBBER = 12, MAGE = 13,
 	
 	GOBLIN = 21, FIRE_IMP = 22,
+}
+enum ActionTypes {
+	NONE, ATTACK, ALLY
 }
 const HEROES := [Types.KNIGHT, Types.ROBBER, Types.MAGE]
 const MOBS := [Types.GOBLIN, Types.FIRE_IMP]
@@ -34,6 +34,7 @@ var stats: BattlerStats
 var index: int = -1
 var is_alive: bool = true
 var is_clickable: bool = false
+var tokens: Array[Token] = []
 
 var sprite: AnimatedSprite2D
 var selection_hover: Sprite2D
@@ -41,6 +42,7 @@ var selection: Sprite2D
 var size_area: Area2D
 var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
+var token_container: HBoxContainer
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
@@ -100,6 +102,12 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	health_bar.max_value = self.stats.max_health + 1
 	health_bar.value = health_bar.max_value
 	health_bar.scale.x = Battler.get_scale_x(type)
+	
+	token_container = HBoxContainer.new()
+	token_container.alignment = BoxContainer.ALIGNMENT_CENTER
+	token_container.custom_minimum_size = Vector2(80, 20)
+	self.add_child(token_container)
+	token_container.position = Vector2(-40, -70)
 
 
 func _ready() -> void:
@@ -140,32 +148,54 @@ func set_area_inputable(is_inputable: bool):
 	coll_shape.disabled = not is_inputable
 
 
+func add_token(token_type: Token.Types):
+	match token_type:
+		Token.Types.FIRE:
+			var token: Token = Preloader.token_fire.duplicate()
+			tokens.append(token)
+
+
+func check_tokens(for_what_moment: Token.ApplyMoments):
+	for t in tokens:
+		if Token.get_apply_moment(t.type) == for_what_moment:
+			t.apply_token_effect()
+
+
+#region Animations
 func anim_idle():
 	sprite.play(Animations.IDLE)
 	var frames_count: int = sprite.sprite_frames.get_frame_count(Animations.IDLE)
 	var start_frame: int = randi_range(0, frames_count - 1)
 	sprite.set_frame_and_progress(start_frame, float(start_frame) / frames_count)
 	health_bar.show()
+	
+	check_offset(Animations.IDLE)
 
 
 func anim_prepare(type: ActionTypes):
 	match type:
 		ActionTypes.ATTACK:
 			sprite.play(Animations.PREPARE_ATTACK)
+			check_offset(Animations.PREPARE_ATTACK)
 		ActionTypes.ALLY:
 			sprite.play(Animations.PREPARE_ALLY)
+			check_offset(Animations.PREPARE_ALLY)
 		_:
 			sprite.play(Animations.IDLE)
+			check_offset(Animations.IDLE)
 
 
 func anim_action(type: ActionTypes):
 	match type:
 		ActionTypes.ATTACK:
 			sprite.play(Animations.ACTION_ATTACK)
+			check_offset(Animations.ACTION_ATTACK)
 		ActionTypes.ALLY:
 			sprite.play(Animations.ACTION_ALLY)
+			check_offset(Animations.ACTION_ALLY)
 		_:
 			sprite.play(Animations.IDLE)
+			check_offset(Animations.IDLE)
 
 
 func anim_reaction(type: ActionTypes):
@@ -175,17 +205,30 @@ func anim_reaction(type: ActionTypes):
 			if offsets.has(Animations.HURT):
 				sprite.offset = offsets.get(Animations.HURT)
 			sprite.play(Animations.HURT)
-#		ActionTypes.ALLY:
-#			sprite.play(Animations.BUFF)
+			check_offset(Animations.HURT)
+		#ActionTypes.ALLY:
+			#sprite.play(Animations.BUFF)
+			#check_offset(Animations.BUFF)
 		_:
 			sprite.play(Animations.IDLE)
+			check_offset(Animations.IDLE)
 
 
 func anim_die():
 	sprite.play(Animations.DIE)
 	health_bar.hide()
+	check_offset(Animations.DIE)
 
 
+func check_offset(anim: String):
+	var offset_dict := (sprite.sprite_frames as MySpriteFrames).separate_offsets
+	if offset_dict.has(anim):
+		sprite.offset = offset_dict.get(anim)
+	else:
+		sprite.offset = (sprite.sprite_frames as MySpriteFrames).offset
+#endregion
+
+#region Static functions
 static func get_sprite_frames(type: Types) -> SpriteFrames:
 	match type:
 		Types.KNIGHT:
@@ -262,3 +305,4 @@ static func get_type_as_string(type: Types) -> String:
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return ""
+#endregion
