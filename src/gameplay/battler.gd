@@ -42,7 +42,7 @@ var selection: Sprite2D
 var size_area: Area2D
 var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
-var token_container: HBoxContainer
+var tokens_container: VBoxContainer
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
@@ -58,17 +58,18 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	)
 	self.stats.health_depleted.connect(
 			func():
+				anim_die() # TODO: MOVE TO BATTLE ANIMATOR
 				health_bar.hide()
-				is_alive = false			
+				is_alive = false
+				tokens.clear()
 				died.emit()
 	)
 	self.index = index
-	self.scale.x = Battler.get_scale_x(type)
 	
 	sprite = AnimatedSprite2D.new()
 	sprite.sprite_frames = Battler.get_sprite_frames(type)
 	sprite.offset = Battler.get_offset(type)
-	sprite.scale = Vector2.ONE * 2.0
+	sprite.scale = Vector2(Battler.get_scale_x(type), 1) * 2.0
 	self.add_child(sprite)
 	
 	selection_hover = Sprite2D.new()
@@ -97,17 +98,16 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	
 	health_bar = MyProgressBar.create(MyProgressBar.Colors.RED)
 	self.add_child(health_bar)
-	health_bar.position = Vector2.LEFT * health_bar.custom_minimum_size.x / 2 * Battler.get_scale_x(type)
+	health_bar.position = Vector2.LEFT * health_bar.custom_minimum_size.x / 2
 	health_bar.min_value = 0 - 1
 	health_bar.max_value = self.stats.max_health + 1
 	health_bar.value = health_bar.max_value
-	health_bar.scale.x = Battler.get_scale_x(type)
 	
-	token_container = HBoxContainer.new()
-	token_container.alignment = BoxContainer.ALIGNMENT_CENTER
-	token_container.custom_minimum_size = Vector2(80, 20)
-	self.add_child(token_container)
-	token_container.position = Vector2(-40, -70)
+	tokens_container = VBoxContainer.new()
+	tokens_container.alignment = BoxContainer.ALIGNMENT_END
+	tokens_container.custom_minimum_size = Vector2(100, 120)
+	self.add_child(tokens_container)
+	tokens_container.position = Vector2(-50, -230)
 
 
 func _ready() -> void:
@@ -149,16 +149,48 @@ func set_area_inputable(is_inputable: bool):
 
 
 func add_token(token_type: Token.Types):
-	match token_type:
-		Token.Types.FIRE:
-			var token: Token = Preloader.token_fire.duplicate()
-			tokens.append(token)
+	var token := Token.create(token_type, self)
+	tokens.append(token)
+	update_token_labels()
+
+
+func update_token_labels():
+	for t_label: TokenLabel in tokens_container.get_children():
+		tokens_container.remove_child(t_label)
+		t_label.queue_free()
+	
+	for token in tokens:
+		var current_t_label: TokenLabel
+		var found_label: bool = false
+		for t_label: TokenLabel in tokens_container.get_children():
+			if t_label.token.type == token.type:
+				found_label = true
+				current_t_label = t_label
+				break
+		
+		if not found_label:
+			current_t_label = TokenLabel.create()
+			current_t_label.token = token
+			current_t_label.amount = 1
+			current_t_label.duration = token.ticks_count
+			tokens_container.add_child(current_t_label)
+		else:
+			current_t_label.amount += 1
+			current_t_label.duration = max(token.ticks_count, current_t_label.duration)
+		
+	for t_label: TokenLabel in tokens_container.get_children():
+		t_label.update_info()
 
 
 func check_tokens(for_what_moment: Token.ApplyMoments):
 	for t in tokens:
-		if Token.get_apply_moment(t.type) == for_what_moment:
+		if t.type == Token.Types.FIRE and Token.get_apply_moment(t.type) == for_what_moment:
 			t.apply_token_effect()
+	update_token_labels()
+
+
+func _is_token_type(t_label: TokenLabel, token: Token): 
+	return t_label.token.type == token.type
 
 
 #region Animations

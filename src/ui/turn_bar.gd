@@ -60,6 +60,7 @@ func shift_battler(ticks: int = 1):
 		print_debug("_battler_queue[0] == null!!!")
 	
 	move_battlers()
+	battlers_moved_by_one_tick.emit()
 
 
 func get_current_battler_index() -> int:
@@ -77,8 +78,6 @@ func move_battlers():
 			
 			if _battler_queue[i] != null:
 				_sliders[_battler_queue[i].index].value = i
-	
-	battlers_moved_by_one_tick.emit()
 
 
 func remove_battler(battler_index: int):

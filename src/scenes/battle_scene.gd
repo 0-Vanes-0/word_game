@@ -46,20 +46,22 @@ func _ready() -> void:
 		battler.hold_stopped.connect(battler_info.disappear)
 		battler.set_area_inputable(true)
 		
+		if index < 3:
+			player_battlers.append(battler)
+			battler.died.connect(
+					func():
+						turn_bar.remove_battler(index)
+			)
+			battler.name = "Player" + str(index)
+		else:
+			enemy_battlers.append(battler)
+			battler.died.connect(
+					func():
+						turn_bar.remove_battler(index)
+			)
+			battler.name = "Enemy" + str(index)
 		battlers_node.add_child(battler)
 		battlers.append(battler)
-		if index < 3:
-			player_battlers.append(battlers[index])
-			battlers[index].died.connect(
-					func():
-						turn_bar.remove_battler(index)
-			)
-		else:
-			enemy_battlers.append(battlers[index])
-			battlers[index].died.connect(
-					func():
-						turn_bar.remove_battler(index)
-			)
 	
 	battlers_node.move_child(black_screen, -1)
 	battlers_node.move_child(effect_sprite, -1)
@@ -119,6 +121,8 @@ func _ready() -> void:
 					var damage: int = battlers[current_battler_number].stats.get_damage_value()
 					battlers[target_battler_number].stats.adjust_health(-damage)
 					action_value = damage
+					if most_common_rune_type == Rune.Types.FIRE:
+						battlers[target_battler_number].add_token(Token.Types.FIRE)
 				
 				hud_manager.spell.clear()
 				

@@ -1,8 +1,6 @@
 class_name Token
 extends Resource
 
-signal to_remove
-
 enum Types {
 	NONE = 0,
 	SHIELD = 11, ATTACK = 12,
@@ -13,12 +11,21 @@ enum ApplyMoments {
 	NONE, ON_TICK, ON_GET_ATTACKED, ON_ATTACKING
 }
 @export var type: Types = Types.NONE
-@export var icon: Texture2D
+@export var icon_texture: Texture2D
 @export_range(1, 10) var lifetime_ticks: int = 1
-const DISAPPEAR_IF_NOT_USED_TICKS: int = 10
 
 var owner: Battler
 var ticks_count: int
+
+
+static func create(token_type: Types, battler: Battler) -> Token:
+	var token: Token
+	match token_type:
+		Token.Types.FIRE:
+			token = Preloader.token_fire.duplicate()
+	token.owner = battler
+	token.ticks_count = token.lifetime_ticks
+	return token
 
 
 func apply_token_effect():
@@ -34,7 +41,6 @@ func adjust_tick_count(value: int):
 	ticks_count = clampi(ticks_count + value, 0, lifetime_ticks)
 	if ticks_count == 0:
 		owner.tokens.erase(self)
-		self.free()
 
 
 static func get_apply_moment(type: Types) -> ApplyMoments:

@@ -11,16 +11,20 @@ const SIZE_VECTORS := {
 	Sizes.x48: Vector2.ONE * 48,
 	Sizes.x64: Vector2.ONE * 64,
 }
-@export var icon: Texture2D
+@export var icon_texture: Texture2D
 @export var icon_size: Sizes = Sizes.x16
 
 
 func _ready() -> void:
-	if icon:
-		$Icon.texture = icon
+	if icon_texture:
+		$Icon.texture = icon_texture
 
 
 func set_icon(value: Texture2D, size: Sizes):
 	$Icon.texture = value
-	$Icon.custom_minimum_size = SIZE_VECTORS.get(size)
-	self.icon = value
+	$Icon.custom_minimum_size = SIZE_VECTORS.get(icon_size)
+	icon_texture = value
+
+
+func set_text(text: String):
+	$Label.text = text

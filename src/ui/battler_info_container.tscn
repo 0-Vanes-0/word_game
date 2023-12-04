@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d2vcave878atq"]
+[gd_scene load_steps=8 format=3 uid="uid://d2vcave878atq"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_10rvu"]
 [ext_resource type="Script" path="res://src/ui/battler_info_container.gd" id="2_vsbf0"]
@@ -7,13 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="4_labw7"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="5_xcwb8"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="6_1lxaf"]
-[ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="8_eunih"]
-[ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="8_kouqu"]
-[ext_resource type="Texture2D" uid="uid://cer7rtp02o4nl" path="res://assets/sprites/magic_effects/icons/gypno.png" id="10_3xhjg"]
-[ext_resource type="Texture2D" uid="uid://ce8f2cgxxkoii" path="res://assets/sprites/magic_effects/icons/ice.png" id="11_7jut3"]
-[ext_resource type="Texture2D" uid="uid://bxmgdvtcdhjyp" path="res://assets/sprites/magic_effects/icons/kill_all.png" id="12_dfbx4"]
-[ext_resource type="Texture2D" uid="uid://c4p7n8kh2immu" path="res://assets/sprites/magic_effects/icons/tesla_ball.png" id="14_f5tuk"]
-[ext_resource type="Texture2D" uid="uid://0lveor7lvmdu" path="res://assets/sprites/magic_effects/icons/water.png" id="14_qgacy"]
 
 [node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label")]
 anchors_preset = 13
@@ -113,33 +106,3 @@ layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 0
 columns = 3
-
-[node name="ResistHBox" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
-layout_mode = 2
-icon = ExtResource("8_eunih")
-icon_size = 2
-
-[node name="ResistHBox2" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
-layout_mode = 2
-icon = ExtResource("10_3xhjg")
-icon_size = 2
-
-[node name="ResistHBox3" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
-layout_mode = 2
-icon = ExtResource("11_7jut3")
-icon_size = 2
-
-[node name="ResistHBox4" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
-layout_mode = 2
-icon = ExtResource("12_dfbx4")
-icon_size = 2
-
-[node name="ResistHBox5" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
-layout_mode = 2
-icon = ExtResource("14_f5tuk")
-icon_size = 2
-
-[node name="ResistHBox6" parent="MarginContainer/VBox/ResistsGrid" instance=ExtResource("8_kouqu")]
-layout_mode = 2
-icon = ExtResource("14_qgacy")
-icon_size = 2
