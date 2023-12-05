@@ -44,7 +44,9 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 	# ----- ACTION ANIMATION START -----
 	
 	current_battler.health_bar.hide()
+	current_battler.tokens_container.hide()
 	target_battler.health_bar.hide()
+	target_battler.tokens_container.hide()
 	current_battler.anim_action(current_action_type)
 	if current_battler_index != target_battler_index:
 		target_battler.anim_reaction(current_action_type)
@@ -138,6 +140,13 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 				battle_scene.effect_sprite.hide()
 				battle_scene.action_number_label.hide()
 	)
+	_tween.tween_callback(
+			func():
+				if current_battler.is_alive:
+					current_battler.health_bar.show()
+					current_battler.tokens_container.show()
+	)
+				
 	if current_battler_index != target_battler_index:
 		_tween.parallel().tween_property(
 				target_battler, "position",
@@ -157,6 +166,13 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 					else:
 						target_battler.anim_die()
 		)
+		_tween.tween_callback(
+				func():
+					if target_battler.is_alive:
+						target_battler.health_bar.show()
+						target_battler.tokens_container.show()
+		)
+	
 	_tween.tween_callback(
 			func():
 				battle_scene.battlers_node.move_child(black, -1)

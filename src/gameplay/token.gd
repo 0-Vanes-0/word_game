@@ -23,18 +23,23 @@ static func create(token_type: Types, battler: Battler) -> Token:
 	match token_type:
 		Token.Types.FIRE:
 			token = Preloader.token_fire.duplicate()
+		Token.Types.SHIELD:
+			token = Preloader.token_shield.duplicate()
 	token.owner = battler
 	token.ticks_count = token.lifetime_ticks
 	return token
 
 
-func apply_token_effect():
+func apply_token_effect(some_value: int = 0) -> int:
 	match type:
 		Types.FIRE:
 			owner.stats.adjust_health(-1)
-			adjust_tick_count(-1)
+			return 1
+		Types.SHIELD:
+			return some_value / 2
 		_:
 			assert(false, "Wrong token type=" + str(type))
+			return 0
 	
 
 func adjust_tick_count(value: int):
@@ -47,5 +52,7 @@ static func get_apply_moment(type: Types) -> ApplyMoments:
 	match type:
 		Types.FIRE:
 			return ApplyMoments.ON_TICK
+		Types.SHIELD:
+			return ApplyMoments.ON_GET_ATTACKED
 		_:
 			return ApplyMoments.NONE

@@ -105,9 +105,9 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	
 	tokens_container = VBoxContainer.new()
 	tokens_container.alignment = BoxContainer.ALIGNMENT_END
-	tokens_container.custom_minimum_size = Vector2(100, 120)
+	tokens_container.custom_minimum_size = Global.CHARACTER_SIZE
 	self.add_child(tokens_container)
-	tokens_container.position = Vector2(-50, -230)
+	tokens_container.position = Vector2(- Global.CHARACTER_SIZE.x / 2, - Global.CHARACTER_SIZE.y * 2)
 
 
 func _ready() -> void:
@@ -148,9 +148,10 @@ func set_area_inputable(is_inputable: bool):
 	coll_shape.disabled = not is_inputable
 
 
-func add_token(token_type: Token.Types):
-	var token := Token.create(token_type, self)
-	tokens.append(token)
+func add_token(token_type: Token.Types, amount: int = 1):
+	for i in amount:
+		var token := Token.create(token_type, self)
+		tokens.append(token)
 	update_token_labels()
 
 
@@ -184,13 +185,21 @@ func update_token_labels():
 
 func check_tokens(for_what_moment: Token.ApplyMoments):
 	for t in tokens:
-		if t.type == Token.Types.FIRE and Token.get_apply_moment(t.type) == for_what_moment:
-			t.apply_token_effect()
+		if Token.get_apply_moment(t.type) == for_what_moment:
+			var value: int = t.apply_token_effect()
 	update_token_labels()
 
 
-func _is_token_type(t_label: TokenLabel, token: Token): 
-	return t_label.token.type == token.type
+func get_first_token(type: Token.Types) -> Token:
+	for t in tokens:
+		if t.type == type:
+			return t
+	return null
+
+
+func adjust_all_tokens():
+	for t in tokens:
+		t.adjust_tick_count(-1)
 
 
 #region Animations
@@ -199,7 +208,6 @@ func anim_idle():
 	var frames_count: int = sprite.sprite_frames.get_frame_count(Animations.IDLE)
 	var start_frame: int = randi_range(0, frames_count - 1)
 	sprite.set_frame_and_progress(start_frame, float(start_frame) / frames_count)
-	health_bar.show()
 	
 	check_offset(Animations.IDLE)
 

@@ -12,7 +12,6 @@ signal health_depleted
 @export_multiline var foe_action_text: String
 @export_multiline var ally_action_text: String
 
-
 var initiative: int
 var health: int
 var max_health: int

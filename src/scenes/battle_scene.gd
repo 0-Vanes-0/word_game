@@ -116,15 +116,31 @@ func _ready() -> void:
 						most_common_rune_type = key
 						max_count = runes_counter.get(key)
 				
+				
+				
+				var current_battler := battlers[current_battler_number]
+				var target_battler := battlers[target_battler_number]
 				var action_value: int = -1
 				if current_action_type == Battler.ActionTypes.ATTACK:
-					var damage: int = battlers[current_battler_number].stats.get_damage_value()
-					battlers[target_battler_number].stats.adjust_health(-damage)
-					action_value = damage
+					var damage := int(current_battler.stats.get_damage_value())
+					
+					var shield_token: Token = target_battler.get_first_token(Token.Types.SHIELD)
+					if shield_token != null:
+						action_value = shield_token.apply_token_effect(damage)
+						target_battler.stats.adjust_health(- action_value)
+					else:
+						action_value = damage
+						target_battler.stats.adjust_health(- action_value)
 					if most_common_rune_type == Rune.Types.FIRE:
-						battlers[target_battler_number].add_token(Token.Types.FIRE)
+						target_battler.add_token(Token.Types.FIRE)
+				
+				elif current_action_type == Battler.ActionTypes.ALLY:
+					#if current_battler.type == Battler.Types.KNIGHT:
+						target_battler.add_token(Token.Types.SHIELD)
 				
 				hud_manager.spell.clear()
+				
+				
 				
 				battle_animator.animate_turn(action_value, most_common_rune_type)
 				await battle_animator.animate_turn_completed
@@ -161,6 +177,7 @@ func _on_battler_clicked(battler: Battler):
 func _on_battlers_moved_by_one_tick():
 	for b in battlers:
 		b.check_tokens(Token.ApplyMoments.ON_TICK)
+		b.adjust_all_tokens()
 
 
 func _process(delta: float) -> void:
