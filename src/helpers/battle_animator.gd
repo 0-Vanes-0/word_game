@@ -13,7 +13,7 @@ func _ready() -> void:
 	assert(battle_scene)
 
 
-func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NONE):
+func animate_turn(effect_type: Rune.Types = Rune.Types.NONE, some_numbers: Array[int] = []):
 	var current_action_type: Battler.ActionTypes = battle_scene.current_action_type
 	
 	var current_battler: Battler = battle_scene.battlers[battle_scene.current_battler_number]
@@ -92,26 +92,11 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 		)
 		_tween.tween_interval(ACTION_TIME)
 	
-	if some_number >= 0:
-		battle_scene.action_number_label.text = str(some_number)
-		battle_scene.action_number_label.show()
-		battle_scene.action_number_label.position = (
-				(right_position if current_battler_index < target_battler_index 
-				else center_position if current_battler_index == target_battler_index
-				else left_position)
-				+ Vector2.UP * Global.CHARACTER_SIZE.y
-				- battle_scene.action_number_label.size / 2
-		)
-		battle_scene.action_number_label.modulate = (
-				Global.TargetColors.FOE_BATTLER if current_action_type == Battler.ActionTypes.ATTACK
-				else Global.TargetColors.ALLY_SELF_BATTLER
-		)
-		battle_scene.battlers_node.move_child(battle_scene.action_number_label, -1)
-		_tween.parallel().tween_property(
-				battle_scene.action_number_label, "position",
-				battle_scene.action_number_label.position + Vector2.UP * Global.CHARACTER_SIZE.y,
-				ACTION_TIME
-		).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	if some_numbers.size() > 0:
+		if some_numbers.size() == 2:
+			target_battler.anim_value_label(current_action_type, "[color=#000000][s]" + str(some_numbers[0]) + "[/s][/color] " + str(some_numbers[1]))
+		else:
+			target_battler.anim_value_label(current_action_type, str(some_numbers[0]))
 	
 	# ----- ACTION ANIMATION ENDED; RETURNING BATTLERS -----
 	
@@ -138,7 +123,6 @@ func animate_turn(some_number: int = -1, effect_type: Rune.Types = Rune.Types.NO
 				else:
 					current_battler.anim_die()
 				battle_scene.effect_sprite.hide()
-				battle_scene.action_number_label.hide()
 	)
 	_tween.tween_callback(
 			func():

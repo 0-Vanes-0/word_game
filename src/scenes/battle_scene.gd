@@ -6,7 +6,6 @@ signal proceed_turn_ended
 @export var battlers_node: Marker2D
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D
-@export var action_number_label: Label
 @export var turn_bar: TurnBar
 @export var battler_info: BattlerInfoContainer
 @export var hud_manager: BattleHUDManager
@@ -25,7 +24,7 @@ var is_progressing_enemy_turn: bool = false
 
 
 func _ready() -> void:
-	assert(hud_manager and battlers_node and black_screen and effect_sprite and action_number_label and battle_animator and battler_info)
+	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator and battler_info)
 	
 	hud_manager.hide()
 	
@@ -120,17 +119,21 @@ func _ready() -> void:
 				
 				var current_battler := battlers[current_battler_number]
 				var target_battler := battlers[target_battler_number]
-				var action_value: int = -1
+				var action_values: Array[int] = []
 				if current_action_type == Battler.ActionTypes.ATTACK:
 					var damage := int(current_battler.stats.get_damage_value())
 					
 					var shield_token: Token = target_battler.get_first_token(Token.Types.SHIELD)
 					if shield_token != null:
-						action_value = shield_token.apply_token_effect(damage)
-						target_battler.stats.adjust_health(- action_value)
+						action_values.resize(2)
+						action_values[0] = damage
+						action_values[1] = shield_token.apply_token_effect(damage)
+						target_battler.stats.adjust_health(- action_values[1])
 					else:
-						action_value = damage
-						target_battler.stats.adjust_health(- action_value)
+						action_values.resize(1)
+						action_values[0] = damage
+						target_battler.stats.adjust_health(- action_values[0])
+					
 					if most_common_rune_type == Rune.Types.FIRE:
 						target_battler.add_token(Token.Types.FIRE)
 				
@@ -142,7 +145,7 @@ func _ready() -> void:
 				
 				
 				
-				battle_animator.animate_turn(action_value, most_common_rune_type)
+				battle_animator.animate_turn(most_common_rune_type, action_values)
 				await battle_animator.animate_turn_completed
 				
 				turn_bar.shift_battler()

@@ -21,12 +21,11 @@
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "action_number_label", "turn_bar", "battler_info", "hud_manager", "battle_animator")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "turn_bar", "battler_info", "hud_manager", "battle_animator")]
 script = ExtResource("1_2ge4k")
 battlers_node = NodePath("Battlers")
 black_screen = NodePath("Battlers/BlackScreen")
 effect_sprite = NodePath("Battlers/EffectSprite")
-action_number_label = NodePath("Battlers/ActionNumberLabel")
 turn_bar = NodePath("CanvasLayer/Control/VBox/TurnBar")
 battler_info = NodePath("CanvasLayer/Control/VBox/CenterControl/BattlerInfoContainer")
 hud_manager = NodePath("CanvasLayer/Control/VBox/BattleHUDManager")
@@ -89,15 +88,6 @@ animation = &"idle"
 offset = Vector2(-5, -25)
 flip_h = true
 
-[node name="HBox2" parent="-----TEST-----" instance=ExtResource("10_168tf")]
-offset_left = 612.0
-offset_top = 176.0
-offset_right = 686.0
-offset_bottom = 200.0
-size_flags_horizontal = 4
-icon_texture = ExtResource("11_t7hoc")
-icon_size = 1
-
 [node name="HFlowContainer" type="VBoxContainer" parent="-----TEST-----"]
 clip_contents = true
 offset_left = 610.0
@@ -106,6 +96,24 @@ offset_right = 670.0
 offset_bottom = 230.0
 theme_override_constants/separation = 0
 alignment = 2
+
+[node name="HBox2" parent="-----TEST-----/HFlowContainer" instance=ExtResource("10_168tf")]
+layout_mode = 2
+size_flags_horizontal = 4
+icon_texture = ExtResource("11_t7hoc")
+icon_size = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="-----TEST-----"]
+offset_left = 620.0
+offset_top = 170.0
+offset_right = 740.0
+offset_bottom = 210.0
+theme = ExtResource("10_vr0bk")
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 4
+bbcode_enabled = true
+text = "[center][s]10[/s] 8[/center]"
+scroll_active = false
 
 [node name="Battlers" type="Marker2D" parent="."]
 position = Vector2(0, 333)
@@ -122,28 +130,6 @@ visible = false
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("9_037nk")
 animation = &"comet"
-
-[node name="ActionNumberLabel" type="Label" parent="Battlers"]
-visible = false
-modulate = Color(1, 0.984314, 0, 1)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -25.5
-offset_right = 36.0
-offset_bottom = 25.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("10_vr0bk")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 20
-theme_override_font_sizes/font_size = 48
-text = "100"
-vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -43,12 +43,14 @@ var size_area: Area2D
 var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
 var tokens_container: VBoxContainer
+var value_label: RichTextLabel
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
 	return Battler.new(type, stats, index)
 
 
+#region Init
 func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	self.type = type
 	self.stats = stats.get_resource()
@@ -108,6 +110,18 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	tokens_container.custom_minimum_size = Global.CHARACTER_SIZE
 	self.add_child(tokens_container)
 	tokens_container.position = Vector2(- Global.CHARACTER_SIZE.x / 2, - Global.CHARACTER_SIZE.y * 2)
+	
+	value_label = RichTextLabel.new()
+	value_label.theme = Preloader.default_theme
+	value_label.bbcode_enabled = true
+	value_label.scroll_active = false
+	value_label.add_theme_color_override("default_color", Color.WHITE)
+	value_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	value_label.add_theme_constant_override("outline_size", 8)
+	value_label.add_theme_font_size_override("normal_font_size", 24)
+	value_label.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
+	self.add_child(value_label)
+#endregion
 
 
 func _ready() -> void:
@@ -148,6 +162,7 @@ func set_area_inputable(is_inputable: bool):
 	coll_shape.disabled = not is_inputable
 
 
+#region Tokens
 func add_token(token_type: Token.Types, amount: int = 1):
 	for i in amount:
 		var token := Token.create(token_type, self)
@@ -184,9 +199,20 @@ func update_token_labels():
 
 
 func check_tokens(for_what_moment: Token.ApplyMoments):
+	var damage_value: int = 0
+	var heal_value: int = 0
 	for t in tokens:
 		if Token.get_apply_moment(t.type) == for_what_moment:
-			var value: int = t.apply_token_effect()
+			if t.type != Token.Types.FIRE:
+				heal_value += t.apply_token_effect()
+			else:
+				damage_value += t.apply_token_effect()
+	
+	if heal_value > 0:
+		anim_value_label(Battler.ActionTypes.ALLY, str(heal_value)) # TODO: make 2nd label :/
+		await get_tree().create_timer(0.1).timeout
+	if damage_value > 0:
+		anim_value_label(Battler.ActionTypes.ATTACK, str(damage_value))
 	update_token_labels()
 
 
@@ -200,6 +226,7 @@ func get_first_token(type: Token.Types) -> Token:
 func adjust_all_tokens():
 	for t in tokens:
 		t.adjust_tick_count(-1)
+#endregion
 
 
 #region Animations
@@ -266,7 +293,34 @@ func check_offset(anim: String):
 		sprite.offset = offset_dict.get(anim)
 	else:
 		sprite.offset = (sprite.sprite_frames as MySpriteFrames).offset
+
+
+func anim_value_label(current_action_type: Battler.ActionTypes, text: String):
+	value_label.text = (
+			"[center]"
+			+ text
+			+ "[/center]"
+	)
+	value_label.show()
+	value_label.position = Vector2.UP * Global.CHARACTER_SIZE.y / 2 + Vector2.LEFT * value_label.size.x / 2
+	value_label.modulate = (
+				Global.TargetColors.FOE_BATTLER if current_action_type == Battler.ActionTypes.ATTACK
+				else Global.TargetColors.ALLY_SELF_BATTLER
+	)
+	var tween := create_tween()
+	tween.tween_property(
+			value_label, "position:y",
+			value_label.position.y - Global.CHARACTER_SIZE.y / 2,
+			BattleAnimator.ACTION_TIME
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(
+			value_label, "modulate:a",
+			0.0,
+			0.1
+	)
+	tween.tween_callback(value_label.hide)
 #endregion
+
 
 #region Static functions
 static func get_sprite_frames(type: Types) -> SpriteFrames:
