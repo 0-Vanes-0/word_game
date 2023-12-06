@@ -7,4 +7,4 @@
 script = ExtResource("2_qrh0a")
 type = 11
 icon_texture = ExtResource("1_x6w0f")
-lifetime_ticks = 6
+lifetime_ticks = 9

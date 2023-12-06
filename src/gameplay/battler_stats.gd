@@ -9,6 +9,7 @@ signal health_depleted
 @export var base_health: int
 @export var base_min_damage: int
 @export var base_max_damage: int
+@export var ally_action_value: int
 @export_multiline var foe_action_text: String
 @export_multiline var ally_action_text: String
 
@@ -70,9 +71,19 @@ func _get_label_with_info(text: String) -> RichTextLabel:
 	var label := RichTextLabel.new()
 	label.bbcode_enabled = true
 	var tags := {
+		"$aav": {
+			"append_text": [str(ally_action_value)]
+		},
 		"$dmg": { 
 			"append_text": [str(min_damage) + "-" + str(max_damage)]
 		},
+		"$shield": { 
+			"add_image": [Preloader.token_shield.icon_texture, 24, 24]
+		},
+		"$attack": { 
+			"add_image": [Preloader.token_attack.icon_texture, 24, 24]
+		},
+		
 	}
 	
 	var splited_text: Array[String] = []

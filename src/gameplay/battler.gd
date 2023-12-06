@@ -226,6 +226,7 @@ func get_first_token(type: Token.Types) -> Token:
 func adjust_all_tokens():
 	for t in tokens:
 		t.adjust_tick_count(-1)
+	update_token_labels()
 #endregion
 
 

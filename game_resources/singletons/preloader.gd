@@ -50,6 +50,7 @@ extends Node
 var test_runes: Array[Rune]
 
 @export_group("Tokens", "token_")
+@export var token_attack: Token
 @export var token_fire: Token
 @export var token_shield: Token
 
@@ -63,15 +64,15 @@ func _ready() -> void:
 	assert(game_scene and http_test_scene and battle_scene)
 	assert(stats_goblin and stats_knight and stats_mage and stats_robber)
 	assert(sprite_frames_knight and sprite_frames_robber and sprite_frames_mage and sprite_frames_goblin)
-	assert(texture_selection and texture_selection_hover and texture_sword_yellow_icon and texture_sword_black_icon 
-			and texture_shield_black_icon and texture_shield_yellow_icon and texture_person_yellow_icon 
+	assert(texture_selection and texture_selection_hover and texture_sword_yellow_icon and texture_sword_black_icon
+			and texture_shield_black_icon and texture_shield_yellow_icon and texture_person_yellow_icon
 			and texture_person_black_icon and texture_arrow_right_yellow_icon and texture_arrow_right_black_icon
-			and texture_under_progress_bar and texture_over_progress_bar and texture_red_progress_bar 
+			and texture_under_progress_bar and texture_over_progress_bar and texture_red_progress_bar
 			and texture_green_progress_bar and texture_blue_progress_bar and texture_yellow_progress_bar
 			)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla
 			and rune_tornado and rune_water)
 	assert(token_fire and token_shield)
 	assert(default_theme and my_progress_bar and icon_label)
-	
+
 	test_runes = [ rune_comet , rune_dark , rune_fire , rune_ice , rune_spikes , rune_stun , rune_tornado , rune_water, rune_tesla ]

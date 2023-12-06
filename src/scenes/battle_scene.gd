@@ -5,11 +5,12 @@ signal proceed_turn_ended
 
 @export var battlers_node: Marker2D
 @export var black_screen: MeshInstance2D
-@export var effect_sprite: AnimatedSprite2D
+@export var effect_sprite: AnimatedSprite2D#
 @export var turn_bar: TurnBar
 @export var battler_info: BattlerInfoContainer
 @export var hud_manager: BattleHUDManager
 @export var battle_animator: BattleAnimator
+@export var battle_manager: BattleManager
 
 var battlers_positions: Array[Vector2]
 var battlers: Array[Battler]
@@ -24,10 +25,10 @@ var is_progressing_enemy_turn: bool = false
 
 
 func _ready() -> void:
-	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator and battler_info)
-	
+	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator and battler_info and battle_manager)
+
 	hud_manager.hide()
-	
+
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
 	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
 	battlers_positions[1] = Vector2.RIGHT * Global.SCREEN_WIDTH * 4 / 16
@@ -35,7 +36,7 @@ func _ready() -> void:
 	battlers_positions[3] = Vector2.RIGHT * Global.SCREEN_WIDTH * 10 / 16
 	battlers_positions[4] = Vector2.RIGHT * Global.SCREEN_WIDTH * 12 / 16
 	battlers_positions[5] = Vector2.RIGHT * Global.SCREEN_WIDTH * 14 / 16
-	
+
 	for index in GameInfo.MAX_BATTLERS_COUNT:
 		var battler_type: Battler.Types = GameInfo.battlers_types[index]
 		var battler := Battler.create(battler_type, Battler.get_start_stats(battler_type), index)
@@ -44,8 +45,8 @@ func _ready() -> void:
 		battler.hold_started.connect(battler_info.appear.bind(battler.stats))
 		battler.hold_stopped.connect(battler_info.disappear)
 		battler.set_area_inputable(true)
-		
-		if index < 3:
+
+		if index <= 2:
 			player_battlers.append(battler)
 			battler.died.connect(
 					func():
@@ -59,12 +60,13 @@ func _ready() -> void:
 						turn_bar.remove_battler(index)
 			)
 			battler.name = "Enemy" + str(index)
+
 		battlers_node.add_child(battler)
 		battlers.append(battler)
-	
+
 	battlers_node.move_child(black_screen, -1)
-	battlers_node.move_child(effect_sprite, -1)
-	
+	battlers_node.move_child(effect_sprite, -1) # TODO: remove
+
 	hud_manager.to_select_enemies.connect(
 			func():
 				reset_all_selections()
@@ -76,7 +78,7 @@ func _ready() -> void:
 							eb.selection.modulate = Global.TargetColors.FOE_BATTLER
 							eb.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
 							eb.is_clickable = true
-				
+
 				current_action_type = Battler.ActionTypes.ATTACK
 	)
 	hud_manager.to_select_allies.connect(
@@ -90,7 +92,7 @@ func _ready() -> void:
 						ab.selection.modulate = Global.TargetColors.ALLY_SELF_BATTLER
 						ab.selection_hover.modulate = Global.TargetColors.ALLY_SELF_BATTLER
 					player_battlers[i].is_clickable = true
-				
+
 				current_action_type = Battler.ActionTypes.ALLY
 	)
 	hud_manager.to_proceed_turn.connect(
@@ -98,7 +100,7 @@ func _ready() -> void:
 				for b in battlers:
 					b.set_area_inputable(false)
 				reset_all_selections()
-				
+
 				var spell: Array[Rune] = hud_manager.spell
 				var runes_counter := {}
 
@@ -107,22 +109,25 @@ func _ready() -> void:
 						runes_counter[rune.type] += 1
 					else:
 						runes_counter[rune.type] = 1
-				
+
 				var most_common_rune_type := 0
 				var max_count := 0
 				for key in runes_counter.keys():
 					if runes_counter.get(key) > max_count:
 						most_common_rune_type = key
 						max_count = runes_counter.get(key)
-				
-				
-				
+
+
+
 				var current_battler := battlers[current_battler_number]
 				var target_battler := battlers[target_battler_number]
 				var action_values: Array[int] = []
 				if current_action_type == Battler.ActionTypes.ATTACK:
 					var damage := int(current_battler.stats.get_damage_value())
-					
+					var attack_token: Token = current_battler.get_first_token(Token.Types.ATTACK)
+					if attack_token != null:
+						damage = attack_token.apply_token_effect(damage)
+
 					var shield_token: Token = target_battler.get_first_token(Token.Types.SHIELD)
 					if shield_token != null:
 						action_values.resize(2)
@@ -133,39 +138,47 @@ func _ready() -> void:
 						action_values.resize(1)
 						action_values[0] = damage
 						target_battler.stats.adjust_health(- action_values[0])
-					
+
 					if most_common_rune_type == Rune.Types.FIRE:
 						target_battler.add_token(Token.Types.FIRE)
-				
+
 				elif current_action_type == Battler.ActionTypes.ALLY:
-					#if current_battler.type == Battler.Types.KNIGHT:
-						target_battler.add_token(Token.Types.SHIELD)
-				
+					if current_battler.type == Battler.Types.KNIGHT:
+						target_battler.add_token(Token.Types.SHIELD, current_battler.stats.ally_action_value)
+					elif current_battler.type == Battler.Types.ROBBER:
+						target_battler.add_token(Token.Types.ATTACK, current_battler.stats.ally_action_value)
+					elif current_battler.type == Battler.Types.MAGE:
+						action_values.resize(1)
+						action_values[0] = int(target_battler.stats.max_health * (current_battler.stats.ally_action_value / 100.0))
+						target_battler.stats.adjust_health(action_values[0])
+
 				hud_manager.spell.clear()
-				
-				
-				
+
+
+
 				battle_animator.animate_turn(most_common_rune_type, action_values)
 				await battle_animator.animate_turn_completed
-				
+
 				turn_bar.shift_battler()
 				current_battler_number = turn_bar.get_current_battler_index()
-				
+
 				is_players_turn = current_battler_number in [0, 1, 2]
 				if is_players_turn:
 					for b in battlers:
 						b.set_area_inputable(true)
 					hud_manager.appear()
-				
+
 				proceed_turn_ended.emit()
 	)
 	hud_manager.appear()
 	battler_info.scale = Vector2.ZERO
-	
+
 	turn_bar.setup()
 	turn_bar.battlers_moved_by_one_tick.connect(_on_battlers_moved_by_one_tick)
+	#turn_bar.battlers_moved_by_one_tick.connect(battle_manager._on_battlers_moved_by_one_tick)
 	current_battler_number = turn_bar.get_current_battler_index()
-	
+	#battle_manager.current_battler_index = turn_bar.get_current_battler_index()
+
 	hud_manager.to_select_enemies.emit()
 
 
@@ -191,9 +204,9 @@ func _physics_process(delta: float) -> void:
 	if not is_players_turn and not is_progressing_enemy_turn:
 		if not get_alive_enemies().is_empty() and not get_alive_players().is_empty():
 			is_progressing_enemy_turn = true
-			
+
 			target_battler_number = get_alive_players().pick_random().index
-			
+
 			battle_animator.animate_enemy_prepare_completed.connect(
 					func():
 						hud_manager.to_proceed_turn.emit()
@@ -231,14 +244,14 @@ func hide_selection_hovers():
 func get_alive_players() -> Array[Battler]:
 	return player_battlers.filter(
 			func(battler: Battler):
-				return battler.is_alive 
+				return battler.is_alive
 	)
 
-	
+
 func get_alive_enemies() -> Array[Battler]:
 	return enemy_battlers.filter(
 			func(battler: Battler):
-				return battler.is_alive 
+				return battler.is_alive
 	)
 
 

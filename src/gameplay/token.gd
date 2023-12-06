@@ -4,7 +4,7 @@ extends Resource
 enum Types {
 	NONE = 0,
 	SHIELD = 11, ATTACK = 12,
-	
+
 	FIRE = 21, STUN = 22,
 }
 enum ApplyMoments {
@@ -21,6 +21,8 @@ var ticks_count: int
 static func create(token_type: Types, battler: Battler) -> Token:
 	var token: Token
 	match token_type:
+		Token.Types.ATTACK:
+			token = Preloader.token_attack.duplicate()
 		Token.Types.FIRE:
 			token = Preloader.token_fire.duplicate()
 		Token.Types.SHIELD:
@@ -32,15 +34,19 @@ static func create(token_type: Types, battler: Battler) -> Token:
 
 func apply_token_effect(some_value: int = 0) -> int:
 	match type:
+		Types.ATTACK:
+			ticks_count = 0
+			return some_value * 2
 		Types.FIRE:
 			owner.stats.adjust_health(-1)
 			return 1
 		Types.SHIELD:
+			ticks_count = 0
 			return some_value / 2
 		_:
 			assert(false, "Wrong token type=" + str(type))
 			return 0
-	
+
 
 func adjust_tick_count(value: int):
 	ticks_count = clampi(ticks_count + value, 0, lifetime_ticks)

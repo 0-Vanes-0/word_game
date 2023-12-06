@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://due1nf4et7ntm"]
+
+[ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="1_kwy58"]
+[ext_resource type="Script" path="res://src/gameplay/token.gd" id="2_xmr8t"]
+
+[resource]
+script = ExtResource("2_xmr8t")
+type = 12
+icon_texture = ExtResource("1_kwy58")
+lifetime_ticks = 9
