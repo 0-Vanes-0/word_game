@@ -9,7 +9,9 @@ signal health_depleted
 @export var base_health: int
 @export var base_min_damage: int
 @export var base_max_damage: int
-@export var ally_action_value: int
+@export var base_ally_action_value: int
+@export var is_attack_action_group: bool
+@export var is_ally_action_group: bool
 @export_multiline var foe_action_text: String
 @export_multiline var ally_action_text: String
 
@@ -18,6 +20,7 @@ var health: int
 var max_health: int
 var min_damage: int
 var max_damage: int
+var ally_action_value: int
 
 
 func _is_stats_valid() -> bool:
@@ -39,6 +42,7 @@ func get_resource() -> BattlerStats:
 	resoure_copy.max_health = base_health
 	resoure_copy.min_damage = base_min_damage
 	resoure_copy.max_damage = base_max_damage
+	resoure_copy.ally_action_value = base_ally_action_value
 	return resoure_copy
 
 
@@ -49,7 +53,7 @@ func adjust_health(value: int):
 		health_depleted.emit()
 
 
-func get_damage_value():
+func generate_damage_value():
 	return randi_range(min_damage, max_damage)
 
 

@@ -6,5 +6,6 @@
 [resource]
 script = ExtResource("2_qrh0a")
 type = 11
+apply_moment = 2
 icon_texture = ExtResource("1_x6w0f")
-lifetime_ticks = 9
+base_lifetime_turns = 5

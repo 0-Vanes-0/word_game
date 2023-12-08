@@ -5,24 +5,27 @@ signal animate_turn_completed
 signal animate_enemy_prepare_completed
 
 @export var battle_scene: BattleScene
+var battle_manager: BattleManager
+
 const ACTION_TIME := 1.0
 var _tween: Tween
 
 
 func _ready() -> void:
 	assert(battle_scene)
+	battle_manager = battle_scene.battle_manager
 
 
-func animate_turn(effect_type: Rune.Types = Rune.Types.NONE, some_numbers: Array[int] = []):
-	var current_action_type: Battler.ActionTypes = battle_scene.current_action_type
+func animate_turn(target_group: Array[Battler] = []):
+	var current_action_type: Battler.ActionTypes = battle_manager.current_action_type
 	
-	var current_battler: Battler = battle_scene.battlers[battle_scene.current_battler_number]
+	var current_battler: Battler = battle_scene.battlers[battle_manager.current_battler_index]
 	var current_battler_index := int(current_battler.index)
 	var current_battler_position := Vector2(current_battler.position)
 	var current_battler_scale := Vector2(current_battler.scale)
 	var current_battler_offset := Vector2(current_battler.sprite.offset)
 	
-	var target_battler: Battler = battle_scene.battlers[battle_scene.target_battler_number]
+	var target_battler: Battler = battle_scene.battlers[battle_manager.target_battler_index]
 	var target_battler_index := int(target_battler.index)
 	var target_battler_position := Vector2(target_battler.position)
 	var target_battler_scale := Vector2(target_battler.scale)
@@ -45,23 +48,28 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE, some_numbers: Array
 	
 	current_battler.health_bar.hide()
 	current_battler.tokens_container.hide()
+	current_battler.selection.hide()
+	current_battler.selection_hover.hide()
 	target_battler.health_bar.hide()
 	target_battler.tokens_container.hide()
+	target_battler.selection.hide()
+	target_battler.selection_hover.hide()
+	
 	current_battler.anim_action(current_action_type)
 	if current_battler_index != target_battler_index:
 		target_battler.anim_reaction(current_action_type)
 	
-	if effect_type > 0:
-		battle_scene.effect_sprite.offset = (battle_scene.effect_sprite.sprite_frames as MySpriteFrames).separate_offsets[Rune.get_type_string(effect_type)]
-		battle_scene.effect_sprite.position = (
-				(right_position if current_battler_index < target_battler_index 
-				else center_position if current_battler_index == target_battler_index
-				else left_position)
-				+ Vector2.UP * Global.CHARACTER_SIZE.y
-		)
-		battle_scene.battlers_node.move_child(battle_scene.effect_sprite, -1)
-		battle_scene.effect_sprite.show()
-		battle_scene.effect_sprite.play(Rune.get_type_string(effect_type))
+	#if effect_type > 0:
+		#battle_scene.effect_sprite.offset = (battle_scene.effect_sprite.sprite_frames as MySpriteFrames).separate_offsets[Rune.get_type_string(effect_type)]
+		#battle_scene.effect_sprite.position = (
+				#(right_position if current_battler_index < target_battler_index 
+				#else center_position if current_battler_index == target_battler_index
+				#else left_position)
+				#+ Vector2.UP * Global.CHARACTER_SIZE.y
+		#)
+		#battle_scene.battlers_node.move_child(battle_scene.effect_sprite, -1)
+		#battle_scene.effect_sprite.show()
+		#battle_scene.effect_sprite.play(Rune.get_type_string(effect_type))
 	
 	
 	_tween = _new_tween()
@@ -92,12 +100,6 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE, some_numbers: Array
 		)
 		_tween.tween_interval(ACTION_TIME)
 	
-	if some_numbers.size() > 0:
-		if some_numbers.size() == 2:
-			target_battler.anim_value_label(current_action_type, "[color=#000000][s]" + str(some_numbers[0]) + "[/s][/color] " + str(some_numbers[1]))
-		else:
-			target_battler.anim_value_label(current_action_type, str(some_numbers[0]))
-	
 	# ----- ACTION ANIMATION ENDED; RETURNING BATTLERS -----
 	
 	_tween.tween_property(
@@ -122,7 +124,6 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE, some_numbers: Array
 					current_battler.anim_idle()
 				else:
 					current_battler.anim_die()
-				battle_scene.effect_sprite.hide()
 	)
 	_tween.tween_callback(
 			func():
@@ -170,14 +171,13 @@ func animate_turn(effect_type: Rune.Types = Rune.Types.NONE, some_numbers: Array
 
 
 func animate_enemy_prepare():
-	var current_battler: Battler = battle_scene.battlers[battle_scene.current_battler_number]
-	var target_battler: Battler = battle_scene.battlers[battle_scene.target_battler_number]
+	var current_battler: Battler = battle_scene.battlers[battle_manager.current_battler_index]
+	var target_battler: Battler = battle_scene.battlers[battle_manager.target_battler_index]
 	
 	_tween = _new_tween()
 	_tween.tween_interval(0.5)
 	_tween.tween_callback(
 			func():
-				battle_scene.hud_manager.to_select_enemies.emit()
 				current_battler.selection.show()
 				current_battler.selection_hover.show()
 				current_battler.selection.modulate = Global.TargetColors.CURRENT_BATTLER

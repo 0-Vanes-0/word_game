@@ -6,8 +6,6 @@ signal to_select_allies
 signal to_proceed_turn
 
 @export var _battle_scene: BattleScene
-@export var _enemy_target_button: IconButton
-@export var _ally_target_button: IconButton
 @export var _spell_label: Label
 @export var _reset_spell_button: TextureButton
 @export var _runes: HBoxContainer
@@ -17,31 +15,17 @@ var spell: Array[Rune] = []
 
 
 func _ready() -> void:
-	assert(_battle_scene and _enemy_target_button and _ally_target_button and _spell_label and _reset_spell_button and _runes and _proceed_button)
+	assert(_battle_scene and _spell_label and _reset_spell_button and _runes and _proceed_button)
 	
 	_proceed_button.set_enabled(false)
 	
-	_enemy_target_button.set_icons(Preloader.texture_sword_yellow_icon, Preloader.texture_sword_black_icon)
-	_ally_target_button.set_icons(Preloader.texture_person_yellow_icon, Preloader.texture_person_black_icon)
 	_proceed_button.set_icons(Preloader.texture_arrow_right_black_icon, Preloader.texture_arrow_right_yellow_icon, Preloader.texture_arrow_right_black_icon)
 	
-	_enemy_target_button.set_on_press(
-			func():
-				_ally_target_button.button_pressed = false
-				to_select_enemies.emit()
-	)
-	_ally_target_button.set_on_press(
-			func():
-				_enemy_target_button.button_pressed = false
-				to_select_allies.emit()
-	)
 	_proceed_button.set_on_press(
 			func():
 				_spell_label.text = ""
 				_proceed_button.set_enabled(false)
 				_proceed_button.button_pressed = false
-				_enemy_target_button.button_pressed = false
-				_ally_target_button.button_pressed = false
 				disappear()
 				to_proceed_turn.emit()
 	)
@@ -73,7 +57,6 @@ func set_proceed_button_enabled(is_enabled: bool):
 
 func appear():
 	self.show()
-	_enemy_target_button.button_pressed = true
 	var tween := create_tween()
 	tween.tween_property(
 			self, "modulate:a",

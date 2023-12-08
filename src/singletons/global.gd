@@ -9,7 +9,7 @@ const CHARACTER_SIZE := Vector2(60, 120)
 const TargetColors := {
 	CURRENT_BATTLER = Color.YELLOW,
 	FOE_BATTLER = Color.BROWN,
-	ALLY_SELF_BATTLER = Color.CORNFLOWER_BLUE,
+	ALLY_BATTLER = Color.CORNFLOWER_BLUE,
 }
 
 # ---------------------- VARIABLES ----------------------

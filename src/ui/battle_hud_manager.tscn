@@ -15,11 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="12_by8sb"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
-[node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_enemy_target_button", "_ally_target_button", "_spell_label", "_reset_spell_button", "_runes", "_proceed_button")]
+[node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_spell_label", "_reset_spell_button", "_runes", "_proceed_button")]
 theme = ExtResource("1_gqh4m")
 script = ExtResource("1_r71ia")
-_enemy_target_button = NodePath("HBoxContainer/HBoxContainer/EnemyTargetButton")
-_ally_target_button = NodePath("HBoxContainer/HBoxContainer/AllyTargetButton")
 _spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/SpellLabel")
 _reset_spell_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton")
 _runes = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
@@ -29,17 +27,6 @@ _proceed_button = NodePath("HBoxContainer/ProceedButton")
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 theme_override_constants/separation = 40
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
-
-[node name="EnemyTargetButton" parent="HBoxContainer/HBoxContainer" instance=ExtResource("2_lxj8w")]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="AllyTargetButton" parent="HBoxContainer/HBoxContainer" instance=ExtResource("2_lxj8w")]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -79,11 +66,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "1234567890123456789012345"
 vertical_alignment = 1
 clip_text = true
-
-[node name="Control" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="ResetSpellButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(46, 46)
