@@ -5,7 +5,7 @@
 
 [node name="GameInfo" type="Node"]
 script = ExtResource("1_blxj6")
-battlers_types = Array[int]([13, 12, 11, 21, 21, 21])
+max_enemies_level = 4
 
 [node name="HTTPManager" type="Node" parent="."]
 script = ExtResource("2_qi53e")

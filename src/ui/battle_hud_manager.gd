@@ -5,7 +5,6 @@ signal to_select_enemies
 signal to_select_allies
 signal to_proceed_turn
 
-@export var _battle_scene: BattleScene
 @export var _spell_label: Label
 @export var _reset_spell_button: TextureButton
 @export var _runes: HBoxContainer
@@ -15,7 +14,7 @@ var spell: Array[Rune] = []
 
 
 func _ready() -> void:
-	assert(_battle_scene and _spell_label and _reset_spell_button and _runes and _proceed_button)
+	assert(_spell_label and _reset_spell_button and _runes and _proceed_button)
 	
 	_proceed_button.set_enabled(false)
 	
@@ -38,15 +37,16 @@ func _ready() -> void:
 	for rune_button: RuneButton in _runes.get_children():
 		rune_button.pressed.connect(
 				func():
-					const MAX_CHARS := 25
-					var word: String = Rune.WORDS[rune_button.rune.type]
-					var text := _spell_label.text
-					if text.length() == 0:
-						_spell_label.text = word.capitalize()
-						spell.append(rune_button.rune)
-					elif text.length() + word.length() < MAX_CHARS:
-						_spell_label.text += "-" + word
-						spell.append(rune_button.rune)
+					if rune_button.rune.type != Rune.Types.NONE:
+						const MAX_CHARS := 25
+						var word: String = Rune.WORDS[rune_button.rune.type]
+						var text := _spell_label.text
+						if text.length() == 0:
+							_spell_label.text = word.capitalize()
+							spell.append(rune_button.rune)
+						elif text.length() + word.length() < MAX_CHARS:
+							_spell_label.text += "-" + word
+							spell.append(rune_button.rune)
 		)
 	_spell_label.text = ""
 
@@ -55,7 +55,7 @@ func set_proceed_button_enabled(is_enabled: bool):
 	_proceed_button.set_enabled(is_enabled)
 
 
-func appear():
+func appear(current_battler: Battler):
 	self.show()
 	var tween := create_tween()
 	tween.tween_property(
@@ -63,11 +63,9 @@ func appear():
 			1.0,
 			0.5
 	)
-	
-	var current_battler := _battle_scene.player_battlers[_battle_scene.current_battler_number]
 	var battler_runes: Array[Rune] = (current_battler.stats as PlayerBattlerStats).runes
 	for i in battler_runes.size():
-		var rune_button := _runes.get_child(i)
+		var rune_button := _runes.get_child(i) as RuneButton
 		rune_button.set_rune(battler_runes[i])
 		rune_button.show()
 

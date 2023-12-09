@@ -1,39 +1,37 @@
 extends Node2D
 
-@export var op_button1: OptionButton
-@export var op_button2: OptionButton
-@export var op_button3: OptionButton
-@export var op_button4: OptionButton
-@export var op_button5: OptionButton
-@export var op_button6: OptionButton
+@export var game_info_box: HBoxContainer
+var op_buttons: Array[OptionButton]
+var enemy_level_spinbox: SpinBox
 
 
 func _ready() -> void:
-	assert(op_button1 and op_button2 and op_button3 and op_button4 and op_button5 and op_button6)
+	assert(game_info_box)
 	
-	for i in $CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer.get_child_count():
-		var button := $CanvasLayer/Control/CenterContainer/VBoxContainer/HBoxContainer.get_child(i) as OptionButton
-		button.remove_item(0)
-		if i <= 2:
-			button.add_item(Battler.get_type_as_string(Battler.HEROES[0]), Battler.HEROES[0])
-			button.add_item(Battler.get_type_as_string(Battler.HEROES[1]), Battler.HEROES[1])
-			button.add_item(Battler.get_type_as_string(Battler.HEROES[2]), Battler.HEROES[2])
-			button.selected = 2 - i
-		else:
-			button.add_item(Battler.get_type_as_string(Battler.MOBS[0]), Battler.MOBS[0])
-			button.add_item(Battler.get_type_as_string(Battler.MOBS[1]), Battler.MOBS[1])
-			button.selected = 0
-		button.custom_minimum_size.x = Global.SCREEN_WIDTH / 6 - 20
+	for i in game_info_box.get_child_count():
+		if game_info_box.get_child(i) is VBoxContainer:
+			var button := game_info_box.get_child(i).get_child(0) as OptionButton
+			var level_box := game_info_box.get_child(i).get_child(1) as SpinBox
+			button.remove_item(0)
+			if i <= 2:
+				button.add_item(Battler.get_type_as_string(Battler.HEROES[0]), Battler.HEROES[0])
+				button.add_item(Battler.get_type_as_string(Battler.HEROES[1]), Battler.HEROES[1])
+				button.add_item(Battler.get_type_as_string(Battler.HEROES[2]), Battler.HEROES[2])
+				button.selected = 2 - i
+				level_box.custom_minimum_size.y = button.size.y / 2
+			button.custom_minimum_size.x = Global.SCREEN_WIDTH / 6 - 20
+			
+			op_buttons.append(button)
+		elif game_info_box.get_child(i) is SpinBox:
+			enemy_level_spinbox = game_info_box.get_child(i) as SpinBox
+			enemy_level_spinbox.min_value = 1
+			enemy_level_spinbox.max_value = GameInfo.max_enemies_level
 
 
 func _on_enter_battle_button_pressed() -> void:
-	var arr: Array[Battler.Types] = [
-		op_button1.get_item_id(op_button1.selected) as Battler.Types,
-		op_button2.get_item_id(op_button2.selected) as Battler.Types,
-		op_button3.get_item_id(op_button3.selected) as Battler.Types,
-		op_button4.get_item_id(op_button4.selected) as Battler.Types,
-		op_button5.get_item_id(op_button5.selected) as Battler.Types,
-		op_button6.get_item_id(op_button6.selected) as Battler.Types,
-	]
-	GameInfo.battlers_types = arr
+	var arr := op_buttons.map( func(button: OptionButton): return button.get_item_id(button.selected) )
+	for i in arr.size():
+		GameInfo.battlers_types[i] = arr[i]
+	GameInfo.add_enemies(enemy_level_spinbox.value)
+	
 	Global.switch_to_scene(Preloader.battle_scene)

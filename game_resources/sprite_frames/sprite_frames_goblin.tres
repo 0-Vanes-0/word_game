@@ -1,9 +1,10 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=15 format=3 uid="uid://cn38l01om6o2v"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=16 format=3 uid="uid://cn38l01om6o2v"]
 
 [ext_resource type="Texture2D" uid="uid://dmnlpp3ylyocc" path="res://assets/sprites/characters/goblin/attack4.png" id="1_nfmj4"]
 [ext_resource type="Texture2D" uid="uid://cse3t2b7kbea7" path="res://assets/sprites/characters/goblin/idle1.png" id="1_rbvex"]
 [ext_resource type="Texture2D" uid="uid://2y22i3jc68pj" path="res://assets/sprites/characters/goblin/idle2.png" id="2_2hak3"]
 [ext_resource type="Texture2D" uid="uid://qqu71fx1aqk1" path="res://assets/sprites/characters/goblin/death1.png" id="2_tb5vb"]
+[ext_resource type="Texture2D" uid="uid://djinosavv4o3t" path="res://assets/sprites/characters/goblin/walk6.png" id="2_wojaj"]
 [ext_resource type="Texture2D" uid="uid://dtmb8mlw47qx8" path="res://assets/sprites/characters/goblin/death2.png" id="3_0781u"]
 [ext_resource type="Texture2D" uid="uid://5ykrbbvlikuq" path="res://assets/sprites/characters/goblin/idle3.png" id="3_g0yd6"]
 [ext_resource type="Texture2D" uid="uid://dqekgs5ik6ixq" path="res://assets/sprites/characters/goblin/death3.png" id="4_c6ecf"]
@@ -28,6 +29,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wojaj")
+}],
+"loop": false,
+"name": &"buff",
 "speed": 4.0
 }, {
 "frames": [{

@@ -19,8 +19,6 @@ const WORDS := {
 @export var type: Types = Types.NONE
 @export var rune_icon: Texture2D :
 	get:
-		if rune_icon == null:
-			print_debug("rune icon is null! type: ", type)
 		return rune_icon if rune_icon != null else Texture2D.new()
 
 

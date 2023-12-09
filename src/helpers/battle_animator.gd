@@ -30,10 +30,10 @@ func animate_turn(target_group: Array[Battler] = []):
 			target_group if not target_group.is_empty()
 			else one
 	)
-	var target_battler_indexes: Array[int] #int(target_battler.index)
-	var target_battler_positions: Array[Vector2]# = Vector2(target_battler.position)
-	var target_battler_scales: Array[Vector2]#Vector2(target_battler.scale)
-	var target_battler_offsets: Array[Vector2]#Vector2(target_battler.sprite.offset)
+	var target_battler_indexes: Array[int]
+	var target_battler_positions: Array[Vector2]
+	var target_battler_scales: Array[Vector2]
+	var target_battler_offsets: Array[Vector2]
 	
 	target_battler_indexes.resize(target_battlers.size())
 	target_battler_positions.resize(target_battlers.size())
@@ -103,7 +103,6 @@ func animate_turn(target_group: Array[Battler] = []):
 					right_position + group_gap * i if current_battler_index < target_battlers[i].index else left_position,
 					0.0
 			)
-			print(right_position - group_gap + group_gap * i)
 		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type):
 			_tween.tween_property(
 					current_battler, "position",
@@ -215,6 +214,21 @@ func animate_enemy_prepare():
 	await _tween.finished
 	
 	animate_enemy_prepare_completed.emit()
+
+
+func animate_battle_end(is_victory: bool):
+	battle_scene.victory_defeat_container.modulate.a = 0.0
+	var label := battle_scene.victory_defeat_container.get_node("VBox/CenterContainer/VictoryDefeatLabel")
+	if label != null:
+		label.text = "ПОБЕДА" if is_victory else "ПОРАЖЕНИЕ"
+	_tween = _new_tween()
+	_tween.tween_interval(2.0)
+	_tween.tween_callback(battle_scene.victory_defeat_container.show)
+	_tween.tween_property(
+			battle_scene.victory_defeat_container, "modulate:a",
+			1.0,
+			0.5
+	)
 
 
 func _new_tween() -> Tween:

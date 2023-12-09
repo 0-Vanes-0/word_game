@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dmphysqui0a6s"]
+[gd_scene load_steps=11 format=3 uid="uid://dmphysqui0a6s"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_gqh4m"]
 [ext_resource type="Script" path="res://src/ui/battle_hud_manager.gd" id="1_r71ia"]
@@ -8,10 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="5_qw2h8"]
 [ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="6_4rak5"]
 [ext_resource type="PackedScene" uid="uid://d3di5wu6irnnt" path="res://src/ui/rune_button.tscn" id="7_v8cwb"]
-[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/comet.tres" id="8_8yyw7"]
-[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="9_cy361"]
-[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="10_e1k15"]
-[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="11_nhhu8"]
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="12_by8sb"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
@@ -111,21 +107,17 @@ alignment = 1
 
 [node name="RuneButton" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
 layout_mode = 2
-rune = ExtResource("8_8yyw7")
 
 [node name="RuneButton2" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
 layout_mode = 2
-rune = ExtResource("9_cy361")
 
 [node name="RuneButton3" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
 visible = false
 layout_mode = 2
-rune = ExtResource("10_e1k15")
 
 [node name="RuneButton4" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
 visible = false
 layout_mode = 2
-rune = ExtResource("11_nhhu8")
 
 [node name="ProceedButton" parent="HBoxContainer" instance=ExtResource("2_lxj8w")]
 custom_minimum_size = Vector2(100, 0)

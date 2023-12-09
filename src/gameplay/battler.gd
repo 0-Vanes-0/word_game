@@ -15,8 +15,8 @@ enum Types {
 enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
-const HEROES := [Types.KNIGHT, Types.ROBBER, Types.MAGE]
-const MOBS := [Types.GOBLIN, Types.FIRE_IMP]
+const HEROES: Array[Types] = [Types.KNIGHT, Types.ROBBER, Types.MAGE]
+const MOBS: Array[Types] = [Types.GOBLIN, Types.FIRE_IMP]
 const Animations := {
 	IDLE = "idle",
 	PREPARE_ATTACK = "prepare_attack",
@@ -26,6 +26,7 @@ const Animations := {
 	ACTION_SELF = "action_self",
 	ACTION_ALLY = "action_ally",
 	HURT = "hurt",
+	BUFF = "buff",
 	DIE = "die",
 }
 
@@ -46,6 +47,7 @@ var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
 var tokens_container: VBoxContainer
 var value_label: RichTextLabel
+var value_label2: RichTextLabel
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
@@ -130,6 +132,18 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	value_label.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
 	value_label.name = "ValueLabel"
 	self.add_child(value_label)
+	
+	value_label2 = RichTextLabel.new()
+	value_label2.theme = Preloader.default_theme
+	value_label2.bbcode_enabled = true
+	value_label2.scroll_active = false
+	value_label2.add_theme_color_override("default_color", Color.WHITE)
+	value_label2.add_theme_color_override("font_outline_color", Color.BLACK)
+	value_label2.add_theme_constant_override("outline_size", 8)
+	value_label2.add_theme_font_size_override("normal_font_size", 24)
+	value_label2.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
+	value_label2.name = "ValueLabel"
+	self.add_child(value_label2)
 #endregion
 
 
@@ -191,7 +205,10 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	
 	if target_group.is_empty():
 		target_battler.stats.adjust_health(- action_value)
-		target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
+		if is_first_call:
+			target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
+		else:
+			target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str(action_value))
 	else:
 		for b in target_group:
 			b.stats.adjust_health(- action_value)
@@ -332,9 +349,9 @@ func anim_reaction(type: ActionTypes):
 				sprite.offset = offsets.get(Animations.HURT)
 			sprite.play(Animations.HURT)
 			check_offset(Animations.HURT)
-		#ActionTypes.ALLY:
-			#sprite.play(Animations.BUFF)
-			#check_offset(Animations.BUFF)
+		ActionTypes.ALLY:
+			sprite.play(Animations.BUFF)
+			check_offset(Animations.BUFF)
 		_:
 			sprite.play(Animations.IDLE)
 			check_offset(Animations.IDLE)
@@ -354,7 +371,7 @@ func check_offset(anim: String):
 		sprite.offset = (sprite.sprite_frames as MySpriteFrames).offset
 
 
-func anim_value_label(current_action_type: Battler.ActionTypes, text: String):
+func anim_value_label(current_action_type: Battler.ActionTypes, text: String, value_label := self.value_label):
 	value_label.text = (
 			"[center]"
 			+ text
@@ -378,6 +395,10 @@ func anim_value_label(current_action_type: Battler.ActionTypes, text: String):
 			0.1
 	)
 	tween.tween_callback(value_label.hide)
+
+
+func anim_value_label2(current_action_type: Battler.ActionTypes, text: String):
+	anim_value_label(current_action_type, text, value_label2)
 
 
 func _new_tween() -> Tween:

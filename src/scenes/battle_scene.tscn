@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=21 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_2fgqw"]
@@ -17,12 +17,13 @@
 [ext_resource type="PackedScene" uid="uid://d2vcave878atq" path="res://src/ui/battler_info_container.tscn" id="13_a0mw8"]
 [ext_resource type="PackedScene" uid="uid://dmphysqui0a6s" path="res://src/ui/battle_hud_manager.tscn" id="14_3lqgt"]
 [ext_resource type="Script" path="res://src/helpers/battle_animator.gd" id="15_ynmqs"]
+[ext_resource type="Texture2D" uid="uid://c78hn2760yfbh" path="res://assets/sprites/ui/panel_86_62_62_62.png" id="17_fq6n2"]
 [ext_resource type="Script" path="res://src/helpers/battle_manager.gd" id="18_n0r4n"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "turn_bar", "battler_info", "hud_manager", "battle_animator", "battle_manager")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "turn_bar", "battler_info", "hud_manager", "victory_defeat_container", "battle_animator", "battle_manager")]
 script = ExtResource("1_2ge4k")
 battlers_node = NodePath("Battlers")
 black_screen = NodePath("Battlers/BlackScreen")
@@ -30,6 +31,7 @@ effect_sprite = NodePath("Battlers/EffectSprite")
 turn_bar = NodePath("CanvasLayer/Control/VBox/TurnBar")
 battler_info = NodePath("CanvasLayer/Control/VBox/CenterControl/BattlerInfoContainer")
 hud_manager = NodePath("CanvasLayer/Control/VBox/BattleHUDManager")
+victory_defeat_container = NodePath("CanvasLayer/Control/VictoryDefeatContainer")
 battle_animator = NodePath("BattleAnimator")
 battle_manager = NodePath("BattleManager")
 
@@ -153,7 +155,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
 
 [node name="BackButton" type="Button" parent="CanvasLayer/Control/VBox"]
 layout_mode = 2
@@ -178,9 +179,63 @@ offset_left = -160.0
 offset_right = 160.0
 mouse_filter = 2
 
-[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("14_3lqgt")]
+[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" instance=ExtResource("14_3lqgt")]
 layout_mode = 2
-_battle_scene = NodePath("../../../..")
+
+[node name="VictoryDefeatContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 160
+theme_override_constants/margin_bottom = 80
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/VictoryDefeatContainer"]
+layout_mode = 2
+texture = ExtResource("17_fq6n2")
+patch_margin_left = 62
+patch_margin_top = 86
+patch_margin_right = 62
+patch_margin_bottom = 62
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/VictoryDefeatContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/VictoryDefeatContainer/VBox"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+
+[node name="VictoryDefeatLabel" type="Label" parent="CanvasLayer/Control/VictoryDefeatContainer/VBox/CenterContainer"]
+layout_mode = 2
+text = "ПОБЕДА"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VictoryDefeatContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VictoryDefeatContainer/VBox/MarginContainer"]
+layout_mode = 2
+
+[node name="SomeLabel" type="Label" parent="CanvasLayer/Control/VictoryDefeatContainer/VBox/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Тут будет какая-то инфа про добычу, про статисику, может даже очки, которые потом пойдут в рекорд"
+autowrap_mode = 3
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/VictoryDefeatContainer/VBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Вернуться в меню"
 
 [node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
 script = ExtResource("15_ynmqs")
@@ -191,3 +246,4 @@ script = ExtResource("18_n0r4n")
 battle_scene = NodePath("..")
 
 [connection signal="pressed" from="CanvasLayer/Control/VBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VictoryDefeatContainer/VBox/MarginContainer/VBoxContainer/Button" to="." method="_on_back_button_pressed"]

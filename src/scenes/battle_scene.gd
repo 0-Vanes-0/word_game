@@ -9,6 +9,7 @@ signal proceed_turn_ended
 @export var turn_bar: TurnBar
 @export var battler_info: BattlerInfoContainer
 @export var hud_manager: BattleHUDManager
+@export var victory_defeat_container: MarginContainer
 @export var battle_animator: BattleAnimator
 @export var battle_manager: BattleManager
 
@@ -25,7 +26,7 @@ var is_progressing_enemy_turn: bool = false # to remove
 
 
 func _ready() -> void:
-	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator and battler_info and battle_manager)
+	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator and battler_info and battle_manager and victory_defeat_container)
 	
 	hud_manager.disappear()
 	
@@ -39,6 +40,9 @@ func _ready() -> void:
 	
 	for index in GameInfo.MAX_BATTLERS_COUNT:
 		var battler_type: Battler.Types = GameInfo.battlers_types[index]
+		if battler_type == Battler.Types.NONE:
+			continue
+		
 		var battler := Battler.create(battler_type, Battler.get_start_stats(battler_type), index)
 		battler.position = battlers_positions[index]
 		battler.clicked.connect(_on_battler_clicked.bind(battler))

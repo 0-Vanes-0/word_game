@@ -32,7 +32,7 @@ func init_turn():
 			
 			is_player_turn = current_battler_index in _get_player_indexes()
 			if is_player_turn:
-				hud_manager.appear()
+				hud_manager.appear(battle_scene.battlers[current_battler_index])
 				for b in battle_scene.battlers:
 					if b.is_alive:
 						if b.index == current_battler_index:
@@ -64,7 +64,12 @@ func init_turn():
 				battle_animator.animate_enemy_prepare()
 		
 		else:
-			print_debug("BATTLE ENDED")
+			for b in battle_scene.battlers:
+				b.selection.hide()
+				b.selection_hover.hide()
+				if b.is_alive:
+					b.anim_reaction(Battler.ActionTypes.ALLY)
+			battle_animator.animate_battle_end(not battle_scene.get_alive_players().is_empty())
 
 
 func proceed_turn():
