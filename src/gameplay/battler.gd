@@ -8,15 +8,15 @@ signal died
 
 enum Types {
 	NONE = 0,
-	KNIGHT = 11, ROBBER = 12, MAGE = 13,
+	HERO_KNIGHT = 11, HERO_ROBBER = 12, HERO_MAGE = 13,
 	
-	GOBLIN = 21, FIRE_IMP = 22,
+	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22,
 }
 enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
-const HEROES: Array[Types] = [Types.KNIGHT, Types.ROBBER, Types.MAGE]
-const MOBS: Array[Types] = [Types.GOBLIN, Types.FIRE_IMP]
+const HEROES: Array[Types] = [Types.HERO_KNIGHT, Types.HERO_ROBBER, Types.HERO_MAGE]
+const MOBS: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP]
 const Animations := {
 	IDLE = "idle",
 	PREPARE_ATTACK = "prepare_attack",
@@ -214,7 +214,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 			b.stats.adjust_health(- action_value)
 			b.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
 	
-	if type == Types.ROBBER and is_first_call:
+	if type == Types.HERO_ROBBER and is_first_call:
 		await get_tree().create_timer(0.25).timeout
 		do_attack_action(target_battler, [], false)
 	else: 
@@ -227,13 +227,13 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
 	action_value = -1
 	
-	if type == Types.KNIGHT:
+	if type == Types.HERO_KNIGHT:
 		target_battler.add_token(Token.Types.SHIELD, stats.ally_action_value)
 	
-	elif type == Types.ROBBER:
+	elif type == Types.HERO_ROBBER:
 		target_battler.add_token(Token.Types.ATTACK, stats.ally_action_value)
 	
-	elif type == Types.MAGE:
+	elif type == Types.HERO_MAGE:
 		action_value = int(target_battler.stats.max_health * (stats.ally_action_value / 100.0))
 		target_battler.stats.adjust_health(action_value)
 		target_battler.anim_value_label(Battler.ActionTypes.ALLY, str(action_value))
@@ -411,15 +411,15 @@ func _new_tween() -> Tween:
 #region Static functions
 static func get_sprite_frames(type: Types) -> SpriteFrames:
 	match type:
-		Types.KNIGHT:
+		Types.HERO_KNIGHT:
 			return Preloader.sprite_frames_knight
-		Types.ROBBER:
+		Types.HERO_ROBBER:
 			return Preloader.sprite_frames_robber
-		Types.MAGE:
+		Types.HERO_MAGE:
 			return Preloader.sprite_frames_mage
-		Types.GOBLIN:
+		Types.ENEMY_GOBLIN:
 			return Preloader.sprite_frames_goblin
-		Types.FIRE_IMP:
+		Types.ENEMY_FIRE_IMP:
 			return Preloader.sprite_frames_fire_imp
 		_:
 			assert(false, "Wrong type: " + str(type))
@@ -428,15 +428,15 @@ static func get_sprite_frames(type: Types) -> SpriteFrames:
 
 static func get_offset(type: Types) -> Vector2:
 	match type:
-		Types.KNIGHT:
+		Types.HERO_KNIGHT:
 			return Preloader.sprite_frames_knight.offset
-		Types.ROBBER:
+		Types.HERO_ROBBER:
 			return Preloader.sprite_frames_robber.offset
-		Types.MAGE:
+		Types.HERO_MAGE:
 			return Preloader.sprite_frames_mage.offset
-		Types.GOBLIN:
+		Types.ENEMY_GOBLIN:
 			return Preloader.sprite_frames_goblin.offset
-		Types.FIRE_IMP:
+		Types.ENEMY_FIRE_IMP:
 			return Preloader.sprite_frames_fire_imp.offset
 		_:
 			assert(false, "Wrong type: " + str(type))
@@ -445,15 +445,15 @@ static func get_offset(type: Types) -> Vector2:
 
 static func get_start_stats(type: Types) -> BattlerStats:
 	match type:
-		Types.KNIGHT:
+		Types.HERO_KNIGHT:
 			return Preloader.stats_knight
-		Types.ROBBER:
+		Types.HERO_ROBBER:
 			return Preloader.stats_robber
-		Types.MAGE:
+		Types.HERO_MAGE:
 			return Preloader.stats_mage
-		Types.GOBLIN:
+		Types.ENEMY_GOBLIN:
 			return Preloader.stats_goblin
-		Types.FIRE_IMP:
+		Types.ENEMY_FIRE_IMP:
 			return Preloader.stats_fire_imp
 		_:
 			assert(false, "Wrong type: " + str(type))
@@ -472,15 +472,15 @@ static func get_scale_x(type: Types) -> int:
 
 static func get_type_as_string(type: Types) -> String:
 	match type:
-		Types.KNIGHT:
+		Types.HERO_KNIGHT:
 			return "Рыцарь"
-		Types.ROBBER:
+		Types.HERO_ROBBER:
 			return "Разбойник"
-		Types.MAGE:
+		Types.HERO_MAGE:
 			return "Маг"
-		Types.GOBLIN:
+		Types.ENEMY_GOBLIN:
 			return "Гоблин"
-		Types.FIRE_IMP:
+		Types.ENEMY_FIRE_IMP:
 			return "Чорт"
 		_:
 			assert(false, "Wrong type: " + str(type))

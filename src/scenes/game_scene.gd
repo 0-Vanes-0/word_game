@@ -25,7 +25,7 @@ func _ready() -> void:
 		elif game_info_box.get_child(i) is SpinBox:
 			enemy_level_spinbox = game_info_box.get_child(i) as SpinBox
 			enemy_level_spinbox.min_value = 1
-			enemy_level_spinbox.max_value = GameInfo.max_enemies_level
+			enemy_level_spinbox.max_value = GameInfo.levels.size()
 
 
 func _on_enter_battle_button_pressed() -> void:

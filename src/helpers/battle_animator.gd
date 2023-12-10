@@ -239,7 +239,7 @@ func _new_tween() -> Tween:
 
 func _is_attack_ranged(type: Battler.Types) -> bool:
 	var rangers: Array[Battler.Types] = [
-			Battler.Types.MAGE,
-			Battler.Types.FIRE_IMP,
+			Battler.Types.HERO_MAGE,
+			Battler.Types.ENEMY_FIRE_IMP,
 	]
 	return rangers.has(type)
