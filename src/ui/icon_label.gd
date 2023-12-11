@@ -26,5 +26,5 @@ func set_icon(value: Texture2D, size: Sizes):
 	icon_texture = value
 
 
-func set_text(text: String):
-	$Label.text = text
+func set_text(text: Variant):
+	$Label.text = str(text)

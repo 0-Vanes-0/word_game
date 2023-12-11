@@ -90,7 +90,6 @@ value = 1.0
 update_on_text_changed = true
 suffix = "ур"
 script = ExtResource("3_0osi6")
-index = 1
 
 [node name="VBox2" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
 layout_mode = 2
@@ -114,7 +113,6 @@ value = 1.0
 update_on_text_changed = true
 suffix = "ур"
 script = ExtResource("3_0osi6")
-index = 2
 
 [node name="MobLevelSpinBox" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
 custom_minimum_size = Vector2(240, 0)

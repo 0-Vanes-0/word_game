@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2vcave878atq"]
+[gd_scene load_steps=9 format=3 uid="uid://d2vcave878atq"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_10rvu"]
 [ext_resource type="Script" path="res://src/ui/battler_info_container.gd" id="2_vsbf0"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="4_labw7"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="5_xcwb8"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="6_1lxaf"]
+[ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="6_tu6at"]
 
-[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label")]
+[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "coins_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label")]
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
@@ -22,6 +23,7 @@ script = ExtResource("2_vsbf0")
 ava = NodePath("MarginContainer/VBox/Ava+HealthHBox/Ava")
 health_bar = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/HealthBar")
 health_label = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/HealthLabel")
+coins_label = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/CoinsLabel")
 foe_action_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/FoeActionIcon")
 foe_action_label = NodePath("MarginContainer/VBox/FoeAllyGrid/FoeActionLabel")
 ally_action_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/AllyActionIcon")
@@ -57,6 +59,7 @@ layout_mode = 2
 [node name="HealthVBox" type="VBoxContainer" parent="MarginContainer/VBox/Ava+HealthHBox"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 0
 
 [node name="HealthBar" parent="MarginContainer/VBox/Ava+HealthHBox/HealthVBox" instance=ExtResource("4_labw7")]
 layout_mode = 2
@@ -67,6 +70,10 @@ color_from_editor = 1
 layout_mode = 2
 text = "100/100"
 horizontal_alignment = 1
+
+[node name="CoinsLabel" parent="MarginContainer/VBox/Ava+HealthHBox/HealthVBox" instance=ExtResource("6_tu6at")]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="FoeAllyGrid" type="GridContainer" parent="MarginContainer/VBox"]
 custom_minimum_size = Vector2(272, 0)

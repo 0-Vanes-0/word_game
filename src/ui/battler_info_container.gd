@@ -4,6 +4,7 @@ extends MarginContainer
 @export var ava: BackgroundedIcon
 @export var health_bar: MyProgressBar
 @export var health_label: Label
+@export var coins_label: IconLabel
 @export var foe_action_icon: TextureRect
 @export var foe_action_label: RichTextLabel
 @export var ally_action_icon: TextureRect
@@ -14,7 +15,7 @@ var _tween
 
 
 func _ready() -> void:
-	assert(ava and health_bar and health_label and foe_action_icon and foe_action_label and ally_action_icon and ally_action_label)
+	assert(ava and health_bar and health_label and foe_action_icon and foe_action_label and ally_action_icon and ally_action_label and coins_label)
 	await Global.get_current_scene().ready
 	self.pivot_offset = self.size / 2
 
@@ -25,6 +26,13 @@ func appear(stats: BattlerStats):
 	health_bar.max_value = stats.max_health
 	health_bar.value = stats.health
 	health_label.text = str(stats.health) + "/" + str(stats.max_health)
+	
+	if stats is PlayerBattlerStats:
+		coins_label.hide()
+	elif stats is EnemyBattlerStats:
+		coins_label.show()
+		coins_label.set_icon(Preloader.texture_coin, IconLabel.Sizes.x24)
+		coins_label.set_text(stats.reward)
 	
 	foe_action_label.queue_free()
 	foe_action_label = stats.get_foe_action_text_as_label()

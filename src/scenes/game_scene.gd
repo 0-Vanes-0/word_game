@@ -30,6 +30,8 @@ func _ready() -> void:
 			enemy_level_spinbox = game_info_box.get_child(i) as SpinBox
 			enemy_level_spinbox.min_value = 1
 			enemy_level_spinbox.max_value = GameInfo.enemy_levels.size()
+	
+	_update_coins_label()
 
 
 func _on_enter_battle_button_pressed() -> void:

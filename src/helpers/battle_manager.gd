@@ -1,7 +1,8 @@
 class_name BattleManager
 extends Node
 
-signal battle_ended
+signal coins_reduced
+signal battle_ended(is_victory: bool)
 
 @export var battle_scene: BattleScene
 var turn_bar: TurnBar
@@ -60,6 +61,7 @@ func init_turn():
 				set_target_and_action(battle_scene.get_alive_players().pick_random().index)
 				var enemy_stats := battle_scene.battlers[current_battler_index].stats as EnemyBattlerStats
 				enemy_stats.reduce_reward()
+				coins_reduced.emit()
 				
 				battle_animator.animate_enemy_prepare_completed.connect(
 						func():

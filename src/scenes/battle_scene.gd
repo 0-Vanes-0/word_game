@@ -6,6 +6,7 @@ signal proceed_turn_ended
 @export var battlers_node: Marker2D
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D#
+@export var coins_counter: LineEdit
 @export var turn_bar: TurnBar
 @export var battler_info: BattlerInfoContainer
 @export var hud_manager: BattleHUDManager
@@ -26,7 +27,8 @@ var is_progressing_enemy_turn: bool = false # to remove
 
 
 func _ready() -> void:
-	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator and battler_info and battle_manager and victory_defeat_container)
+	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
+			and battler_info and battle_manager and victory_defeat_container and coins_counter)
 	
 	hud_manager.disappear()
 	
@@ -79,7 +81,10 @@ func _ready() -> void:
 	
 	turn_bar.setup()
 	
+	_update_coins_label()
+	
 	battle_manager.init_turn()
+	battle_manager.coins_reduced.connect(_update_coins_label)
 	battle_manager.battle_ended.connect(_on_battle_ended)
 
 
@@ -102,13 +107,36 @@ func _on_battler_clicked(battler: Battler):
 	current_battler.anim_prepare(battle_manager.current_action_type)
 
 
-func _on_battle_ended():
+func _update_coins_label():
 	var coins: int = 0
 	for b in enemy_battlers:
-		var enemy_stats := b.stats as EnemyBattlerStats
-		coins += enemy_stats.reward
+		var stats := b.stats as EnemyBattlerStats
+		coins += stats.reward
+	coins_counter.text = str(coins)
+
+
+func _on_battle_ended(is_victory: bool):
+	var label := $CanvasLayer/Control/VictoryDefeatContainer/VBox/MarginContainer/VBoxContainer/SomeLabel as Label
+	if is_victory:
+		var coins: int = 0
+		for b in enemy_battlers:
+			var enemy_stats := b.stats as EnemyBattlerStats
+			coins += enemy_stats.reward
+		
+		GameInfo.coins += coins * get_alive_players().size() / 3
+		
+		label.text = (
+			"Ваша добыча: " + str(coins) + " монет"
+			+ "\n" + "Теперь у вас: " + str(GameInfo.coins) + " монет"
+		)
 	
-	GameInfo.coins += coins
+	else:
+		GameInfo.coins += 3
+		label.text = (
+			"Утешительный приз: " + str(3) + " монет"
+			+ "\n" + "Теперь у вас: " + str(GameInfo.coins) + " монет"
+			+ "\n" + "Герои будут возрождены в городе."
+		)
 
 
 func _process(delta: float) -> void:

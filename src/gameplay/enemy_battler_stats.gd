@@ -19,7 +19,7 @@ func _is_stats_valid() -> bool:
 
 func get_resource() -> BattlerStats:
 	var resource_copy = super()
-	reward = base_reward
+	resource_copy.reward = base_reward
 	return resource_copy
 
 
