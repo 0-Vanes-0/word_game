@@ -19,6 +19,7 @@ type = 0
 [resource]
 script = ExtResource("2_f2o5g")
 runes = Array[ExtResource("2_ypq8v")]([SubResource("Resource_wwu2p"), SubResource("Resource_2te1m"), SubResource("Resource_nttne")])
+level = 1
 icon = ExtResource("1_0b07j")
 base_initiative = 4
 base_health = 60

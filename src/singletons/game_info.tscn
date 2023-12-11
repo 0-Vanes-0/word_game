@@ -1,27 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctjb1qqjmqgl7"]
+[gd_scene load_steps=3 format=3 uid="uid://ctjb1qqjmqgl7"]
 
 [ext_resource type="Script" path="res://src/singletons/game_info.gd" id="1_blxj6"]
 [ext_resource type="Script" path="res://addons/HTTPManager/classes/HTTPManager.gd" id="2_qi53e"]
-[ext_resource type="Script" path="res://src/gameplay/enemy_leveling.gd" id="2_rtlgl"]
-
-[sub_resource type="Resource" id="Resource_kk0c0"]
-script = ExtResource("2_rtlgl")
-level_number = 1
-enemies = Array[int]([21, 21, 0])
-
-[sub_resource type="Resource" id="Resource_7ulnv"]
-script = ExtResource("2_rtlgl")
-level_number = 2
-enemies = Array[int]([21, 21, 21])
-
-[sub_resource type="Resource" id="Resource_3vhda"]
-script = ExtResource("2_rtlgl")
-level_number = 3
-enemies = Array[int]([21, 22, 0])
 
 [node name="GameInfo" type="Node"]
 script = ExtResource("1_blxj6")
-levels = Array[ExtResource("2_rtlgl")]([SubResource("Resource_kk0c0"), SubResource("Resource_7ulnv"), SubResource("Resource_3vhda")])
+coins = 100
 
 [node name="HTTPManager" type="Node" parent="."]
 script = ExtResource("2_qi53e")

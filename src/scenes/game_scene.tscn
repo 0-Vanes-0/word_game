@@ -1,10 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=4 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="2_it1rv"]
+[ext_resource type="Script" path="res://src/scenes/level_spin_box.gd" id="3_0osi6"]
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("game_info_box")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("coins_label", "game_info_box")]
 script = ExtResource("1_ypskv")
+coins_label = NodePath("CanvasLayer/Control/CenterContainer/VBox/CoinsLabel")
 game_info_box = NodePath("CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -34,8 +36,37 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = " Начать бой "
 
+[node name="CoinsLabel" type="Label" parent="CanvasLayer/Control/CenterContainer/VBox"]
+layout_mode = 2
+text = "Кол-во монет: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="GameInfoHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox"]
 layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+clip_text = true
+item_count = 1
+selected = 0
+allow_reselect = true
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
+
+[node name="LevelSpinBox" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox"]
+layout_mode = 2
+min_value = 1.0
+max_value = 1.0
+value = 1.0
+update_on_text_changed = true
+suffix = "ур"
+script = ExtResource("3_0osi6")
 
 [node name="VBox1" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
 layout_mode = 2
@@ -47,15 +78,19 @@ theme_override_font_sizes/font_size = 36
 clip_text = true
 item_count = 1
 selected = 0
+allow_reselect = true
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
 
 [node name="LevelSpinBox1" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox1"]
 layout_mode = 2
 min_value = 1.0
+max_value = 1.0
 value = 1.0
 update_on_text_changed = true
 suffix = "ур"
+script = ExtResource("3_0osi6")
+index = 1
 
 [node name="VBox2" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
 layout_mode = 2
@@ -67,35 +102,19 @@ theme_override_font_sizes/font_size = 36
 clip_text = true
 item_count = 1
 selected = 0
+allow_reselect = true
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
 
 [node name="LevelSpinBox2" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox2"]
 layout_mode = 2
 min_value = 1.0
+max_value = 1.0
 value = 1.0
 update_on_text_changed = true
 suffix = "ур"
-
-[node name="VBox3" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
-layout_mode = 2
-
-[node name="OptionButton3" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox3"]
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-clip_text = true
-item_count = 1
-selected = 0
-popup/item_0/text = "NONE"
-popup/item_0/id = 0
-
-[node name="LevelSpinBox3" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox3"]
-layout_mode = 2
-min_value = 1.0
-value = 1.0
-update_on_text_changed = true
-suffix = "ур"
+script = ExtResource("3_0osi6")
+index = 2
 
 [node name="MobLevelSpinBox" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
 custom_minimum_size = Vector2(240, 0)

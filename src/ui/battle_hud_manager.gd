@@ -63,7 +63,8 @@ func appear(current_battler: Battler):
 			1.0,
 			0.5
 	)
-	var battler_runes: Array[Rune] = (current_battler.stats as PlayerBattlerStats).runes
+	var player_stats := current_battler.stats as PlayerBattlerStats
+	var battler_runes: Array[Rune] = player_stats.runes
 	for i in battler_runes.size():
 		var rune_button := _runes.get_child(i) as RuneButton
 		rune_button.set_rune(battler_runes[i])

@@ -1,6 +1,8 @@
 class_name BattleManager
 extends Node
 
+signal battle_ended
+
 @export var battle_scene: BattleScene
 var turn_bar: TurnBar
 var battle_animator: BattleAnimator
@@ -56,6 +58,8 @@ func init_turn():
 				
 				# Some enemy AI stuff here
 				set_target_and_action(battle_scene.get_alive_players().pick_random().index)
+				var enemy_stats := battle_scene.battlers[current_battler_index].stats as EnemyBattlerStats
+				enemy_stats.reduce_reward()
 				
 				battle_animator.animate_enemy_prepare_completed.connect(
 						func():
@@ -70,6 +74,7 @@ func init_turn():
 				if b.is_alive:
 					b.anim_reaction(Battler.ActionTypes.ALLY)
 			battle_animator.animate_battle_end(not battle_scene.get_alive_players().is_empty())
+			battle_ended.emit()
 
 
 func proceed_turn():

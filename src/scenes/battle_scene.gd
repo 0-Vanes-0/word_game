@@ -80,6 +80,7 @@ func _ready() -> void:
 	turn_bar.setup()
 	
 	battle_manager.init_turn()
+	battle_manager.battle_ended.connect(_on_battle_ended)
 
 
 func _on_battler_clicked(battler: Battler):
@@ -99,6 +100,15 @@ func _on_battler_clicked(battler: Battler):
 	
 	hud_manager.set_proceed_button_enabled(true)
 	current_battler.anim_prepare(battle_manager.current_action_type)
+
+
+func _on_battle_ended():
+	var coins: int = 0
+	for b in enemy_battlers:
+		var enemy_stats := b.stats as EnemyBattlerStats
+		coins += enemy_stats.reward
+	
+	GameInfo.coins += coins
 
 
 func _process(delta: float) -> void:
