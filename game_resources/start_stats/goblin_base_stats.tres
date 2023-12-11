@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://bx8m2l8lc15c4"]
 
 [ext_resource type="Texture2D" uid="uid://dkvue48d5hlcs" path="res://assets/sprites/avas/con16.png" id="1_oyhoe"]
-[ext_resource type="Script" path="res://src/gameplay/enemy_battler_stats.gd" id="2_pafcg"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_pafcg"]
 
 [resource]
 script = ExtResource("2_pafcg")

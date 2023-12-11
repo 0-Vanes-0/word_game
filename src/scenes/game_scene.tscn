@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="2_it1rv"]
-[ext_resource type="Script" path="res://src/scenes/level_spin_box.gd" id="3_0osi6"]
+[ext_resource type="Script" path="res://src/ui/level_spin_box.gd" id="3_0osi6"]
 
 [node name="GameScene" type="Node2D" node_paths=PackedStringArray("coins_label", "game_info_box")]
 script = ExtResource("1_ypskv")

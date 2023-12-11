@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="1_tfxh4"]
 [ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_hxbic"]
-[ext_resource type="Script" path="res://src/gameplay/player_battler_stats.gd" id="3_badom"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="3_badom"]
 
 [sub_resource type="Resource" id="Resource_tbsf5"]
 script = ExtResource("2_hxbic")
