@@ -19,12 +19,6 @@ var battlers: Array[Battler]
 var player_battlers: Array[Battler]
 var enemy_battlers: Array[Battler]
 
-var current_battler_number: int = -1 # to remove
-var target_battler_number: int = -1 # to remove
-var current_action_type: Battler.ActionTypes = Battler.ActionTypes.NONE # to remove
-var is_players_turn: bool = true # to remove
-var is_progressing_enemy_turn: bool = false # to remove
-
 
 func _ready() -> void:
 	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
