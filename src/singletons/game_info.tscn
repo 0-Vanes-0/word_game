@@ -27,7 +27,6 @@ enemies = Array[int]([21, 22, 22])
 [node name="GameInfo" type="Node"]
 script = ExtResource("1_blxj6")
 enemy_levels = Array[ExtResource("2_jjiwg")]([SubResource("Resource_6cm0q"), SubResource("Resource_gdosi"), SubResource("Resource_v83hx"), SubResource("Resource_ofu02")])
-coins = 100
 
 [node name="HTTPManager" type="Node" parent="."]
 script = ExtResource("2_qi53e")

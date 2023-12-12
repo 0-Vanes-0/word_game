@@ -11,10 +11,24 @@ const TargetColors := {
 	FOE_BATTLER = Color.BROWN,
 	ALLY_BATTLER = Color.CORNFLOWER_BLUE,
 }
+const DEFAULT_SETTINGS := {
+	MUSIC = true
+}
+const DEFAULT_DATA := {
+	"id": 1,
+	"levels": {
+		"knight_level": 1,
+		"robber_level": 1,
+		"mage_level": 1,
+	},
+	"coins": 0,
+	"last_hero_choice": [Battler.Types.HERO_MAGE, Battler.Types.HERO_ROBBER, Battler.Types.HERO_KNIGHT],
+}
 
 # ---------------------- VARIABLES ----------------------
 
-
+var settings: Dictionary
+var player_data: Dictionary
 
 # ---------------------- ON START ----------------------
 
@@ -30,6 +44,52 @@ func setup():
 	print_debug("\t", "SCREEN_WIDTH=", SCREEN_WIDTH, ", SCREEN_HEIGHT=", SCREEN_HEIGHT, ", RATIO=", RATIO)
 	
 	randomize()
+	
+	player_data = SaveLoad.load_data()
+
+# ---------------------- PLAYER DATA SETTERS & GETTERS ----------------------
+
+func set_player_id(value: int):
+	player_data["id"] = value
+	SaveLoad.save_data()
+func get_player_id() -> int:
+	return player_data.get("id") as int
+
+func set_player_level(battler_type: Battler.Types, value: int):
+	match battler_type:
+		Battler.Types.HERO_KNIGHT:
+			player_data["levels"]["knight_level"] = value
+		Battler.Types.HERO_ROBBER:
+			player_data["levels"]["robber_level"] = value
+		Battler.Types.HERO_MAGE:
+			player_data["levels"]["mage_level"] = value
+		_:
+			assert(false, str(battler_type))
+	SaveLoad.save_data()
+func get_player_level(battler_type: Battler.Types) -> int:
+	match battler_type:
+		Battler.Types.HERO_KNIGHT:
+			return player_data.get("levels").get("knight_level") as int
+		Battler.Types.HERO_ROBBER:
+			return player_data.get("levels").get("robber_level") as int
+		Battler.Types.HERO_MAGE:
+			return player_data.get("levels").get("mage_level") as int
+		_:
+			assert(false, str(battler_type))
+			return 0
+
+func set_player_coins(value: int):
+	player_data["coins"] = value
+	SaveLoad.save_data()
+func get_player_coins() -> int:
+	return player_data.get("coins") as int
+
+func set_player_last_hero_choice(value: Array):
+	assert(value.size() == 3, "Wrong array size:" + str(value))
+	player_data["last_hero_choice"] = value
+	SaveLoad.save_data()
+func get_player_last_hero_choice() -> Array:
+	return player_data.get("last_hero_choice") as Array
 
 # ---------------------- FUNCTIONS ----------------------
 
@@ -49,60 +109,6 @@ func get_current_scene() -> Node:
 	else:
 		print_debug("scene_handler is missing!!!")
 		return null
-
-## Returns [param error] as [String].
-func parse_error(error: Error) -> String:
-	match error:
-		OK: return "OK"
-		FAILED: return "FAILED"
-		ERR_UNAVAILABLE: return "ERR_UNAVAILABLE"
-		ERR_UNCONFIGURED: return "ERR_UNCONFIGURED"
-		ERR_UNAUTHORIZED: return "ERR_UNAUTHORIZED"
-		ERR_PARAMETER_RANGE_ERROR: return "ERR_PARAMETER_RANGE_ERROR"
-		ERR_OUT_OF_MEMORY: return "ERR_OUT_OF_MEMORY"
-		ERR_FILE_NOT_FOUND: return "ERR_FILE_NOT_FOUND"
-		ERR_FILE_BAD_DRIVE: return "ERR_FILE_BAD_DRIVE"
-		ERR_FILE_BAD_PATH: return "ERR_FILE_BAD_PATH"
-		ERR_FILE_NO_PERMISSION: return "ERR_FILE_NO_PERMISSION"
-		ERR_FILE_ALREADY_IN_USE: return "ERR_FILE_ALREADY_IN_USE"
-		ERR_FILE_CANT_OPEN: return "ERR_FILE_CANT_OPEN"
-		ERR_FILE_CANT_WRITE: return "ERR_FILE_CANT_WRITE"
-		ERR_FILE_CANT_READ: return "ERR_FILE_CANT_READ"
-		ERR_FILE_UNRECOGNIZED: return "ERR_FILE_UNRECOGNIZED"
-		ERR_FILE_CORRUPT: return "ERR_FILE_CORRUPT"
-		ERR_FILE_MISSING_DEPENDENCIES: return "ERR_FILE_MISSING_DEPENDENCIES"
-		ERR_FILE_EOF: return "ERR_FILE_EOF"
-		ERR_CANT_OPEN: return "ERR_CANT_OPEN"
-		ERR_CANT_CREATE: return "ERR_CANT_CREATE"
-		ERR_QUERY_FAILED: return "ERR_QUERY_FAILED"
-		ERR_ALREADY_IN_USE: return "ERR_ALREADY_IN_USE"
-		ERR_LOCKED: return "ERR_LOCKED"
-		ERR_TIMEOUT: return "ERR_TIMEOUT"
-		ERR_CANT_CONNECT: return "ERR_CANT_CONNECT"
-		ERR_CANT_RESOLVE: return "ERR_CANT_RESOLVE"
-		ERR_CONNECTION_ERROR: return "ERR_CONNECTION_ERROR"
-		ERR_CANT_ACQUIRE_RESOURCE: return "ERR_CANT_ACQUIRE_RESOURCE"
-		ERR_CANT_FORK: return "ERR_CANT_FORK"
-		ERR_INVALID_DATA: return "ERR_INVALID_DATA"
-		ERR_INVALID_PARAMETER: return "ERR_INVALID_PARAMETER"
-		ERR_ALREADY_EXISTS: return "ERR_ALREADY_EXISTS"
-		ERR_DOES_NOT_EXIST: return "ERR_DOES_NOT_EXIST"
-		ERR_DATABASE_CANT_READ: return "ERR_DATABASE_CANT_READ"
-		ERR_DATABASE_CANT_WRITE: return "ERR_DATABASE_CANT_WRITE"
-		ERR_COMPILATION_FAILED: return "ERR_COMPILATION_FAILED"
-		ERR_METHOD_NOT_FOUND: return "ERR_METHOD_NOT_FOUND"
-		ERR_LINK_FAILED: return "ERR_LINK_FAILED"
-		ERR_SCRIPT_FAILED: return "ERR_SCRIPT_FAILED"
-		ERR_CYCLIC_LINK: return "ERR_CYCLIC_LINK"
-		ERR_INVALID_DECLARATION: return "ERR_INVALID_DECLARATION"
-		ERR_DUPLICATE_SYMBOL: return "ERR_DUPLICATE_SYMBOL"
-		ERR_PARSE_ERROR: return "ERR_PARSE_ERROR"
-		ERR_BUSY: return "ERR_BUSY"
-		ERR_SKIP: return "ERR_SKIP"
-		ERR_HELP: return "ERR_HELP"
-		ERR_BUG: return "ERR_BUG"
-		ERR_PRINTER_ON_FIRE: return "ERR_PRINTER_ON_FIRE"
-		_: return "Unknown error"
 
 # NOD
 func _gcd(a: int, b: int) -> int:
