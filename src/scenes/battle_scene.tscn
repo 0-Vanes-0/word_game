@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bv6nr7x5jrobq" path="res://assets/sprites/env/grass_trees.png" id="7_cxmis"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="SpriteFrames" uid="uid://xc71w5qk0l0q" path="res://game_resources/sprite_frames/sprite_frames_effects.tres" id="9_037nk"]
-[ext_resource type="SpriteFrames" uid="uid://cn38l01om6o2v" path="res://game_resources/sprite_frames/sprite_frames_goblin.tres" id="9_hktif"]
+[ext_resource type="SpriteFrames" uid="uid://bect0g6f4bvhb" path="res://game_resources/sprite_frames/sprite_frames_bear.tres" id="9_ro74f"]
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="10_168tf"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="10_vr0bk"]
 [ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="11_t7hoc"]
@@ -85,15 +85,13 @@ format = 2
 layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 524290, 589824, 3, 524291, 589824, 3, 524292, 589824, 3, 524293, 589824, 3, 524294, 589824, 3, 524295, 589824, 3, 524296, 589824, 3, 524297, 589824, 3, 524298, 589824, 3, 524299, 589824, 3, 524300, 589824, 3, 524301, 589824, 3, 524302, 589824, 3, 589823, 524288, 3, 524303, 720896, 3, 458754, 589824, 2, 458755, 589824, 2, 458756, 589824, 2, 458757, 589824, 2, 458758, 589824, 2, 458759, 589824, 2, 458760, 589824, 2, 458761, 589824, 2, 458762, 589824, 2, 458763, 589824, 2, 458764, 589824, 2, 458765, 589824, 2, 458766, 589824, 2, 458767, 720896, 2, 458753, 589824, 2, 458752, 589824, 2, 524287, 524288, 1, 393216, 589824, 2, 458751, 524288, 1, 393217, 589824, 2, 393218, 589824, 2, 393219, 589824, 2, 393220, 589824, 2, 393221, 589824, 2, 393222, 589824, 2, 393223, 589824, 2, 393224, 589824, 2, 393225, 589824, 2, 393226, 589824, 2, 393227, 589824, 2, 393228, 589824, 2, 393229, 589824, 2, 393230, 589824, 2, 393231, 720896, 2, 393215, 524288, 0, 327680, 655360, 0, 327681, 655360, 0, 327682, 655360, 0, 327683, 655360, 0, 327684, 655360, 0, 327685, 655360, 0, 327686, 655360, 0, 327687, 655360, 0, 327688, 655360, 0, 327689, 655360, 0, 327690, 655360, 0, 327691, 655360, 0, 327692, 655360, 0, 327693, 655360, 0, 327694, 655360, 0, 327695, 720896, 0)
 
 [node name="-----TEST-----" type="Node2D" parent="."]
-visible = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="-----TEST-----"]
-position = Vector2(640, 330)
+position = Vector2(558, 328)
 scale = Vector2(2, 2)
-sprite_frames = ExtResource("9_hktif")
+sprite_frames = ExtResource("9_ro74f")
 animation = &"idle"
-offset = Vector2(-5, -25)
-flip_h = true
+offset = Vector2(16, -48)
 
 [node name="HFlowContainer" type="VBoxContainer" parent="-----TEST-----"]
 clip_contents = true
@@ -111,10 +109,10 @@ icon_texture = ExtResource("11_t7hoc")
 icon_size = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="-----TEST-----"]
-offset_left = 620.0
-offset_top = 170.0
-offset_right = 740.0
-offset_bottom = 210.0
+offset_left = 606.0
+offset_top = 167.0
+offset_right = 726.0
+offset_bottom = 207.0
 theme = ExtResource("10_vr0bk")
 theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 4

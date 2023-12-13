@@ -31,7 +31,6 @@ static func load_data() -> Dictionary:
 	var file := FileAccess.open(_DATA_FILE_PATH, FileAccess.READ)
 	var error: Error = FileAccess.get_open_error()
 	if error != OK or file.get_length() == 0:
-		file.close()
 		_create_default_data_file(file)
 		file = FileAccess.open(_DATA_FILE_PATH, FileAccess.READ)
 	

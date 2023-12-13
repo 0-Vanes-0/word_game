@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctjb1qqjmqgl7"]
+[gd_scene load_steps=9 format=3 uid="uid://ctjb1qqjmqgl7"]
 
 [ext_resource type="Script" path="res://src/singletons/game_info.gd" id="1_blxj6"]
 [ext_resource type="Script" path="res://src/gameplay/enemy_leveling.gd" id="2_jjiwg"]
@@ -24,9 +24,14 @@ script = ExtResource("2_jjiwg")
 level_number = 4
 enemies = Array[int]([21, 22, 22])
 
+[sub_resource type="Resource" id="Resource_l31bi"]
+script = ExtResource("2_jjiwg")
+level_number = 5
+enemies = Array[int]([23, 21, 22])
+
 [node name="GameInfo" type="Node"]
 script = ExtResource("1_blxj6")
-enemy_levels = Array[ExtResource("2_jjiwg")]([SubResource("Resource_6cm0q"), SubResource("Resource_gdosi"), SubResource("Resource_v83hx"), SubResource("Resource_ofu02")])
+enemy_levels = Array[ExtResource("2_jjiwg")]([SubResource("Resource_6cm0q"), SubResource("Resource_gdosi"), SubResource("Resource_v83hx"), SubResource("Resource_ofu02"), SubResource("Resource_l31bi")])
 
 [node name="HTTPManager" type="Node" parent="."]
 script = ExtResource("2_qi53e")

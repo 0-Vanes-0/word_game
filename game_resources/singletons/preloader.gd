@@ -8,6 +8,7 @@ extends Node
 @export_group("Battler Stats", "stats_")
 @export var stats_fire_imp: BattlerStats
 @export var stats_goblin: BattlerStats
+@export var stats_bear: BattlerStats
 @export var stats_knight: BattlerStats
 @export var stats_mage: BattlerStats
 @export var stats_robber: BattlerStats
@@ -15,6 +16,7 @@ extends Node
 @export_group("Sprite Frames", "sprite_frames_")
 @export var sprite_frames_fire_imp: MySpriteFrames
 @export var sprite_frames_goblin: MySpriteFrames
+@export var sprite_frames_bear: MySpriteFrames
 @export var sprite_frames_knight: MySpriteFrames
 @export var sprite_frames_mage: MySpriteFrames
 @export var sprite_frames_robber: MySpriteFrames

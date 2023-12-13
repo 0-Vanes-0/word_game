@@ -23,7 +23,7 @@ var enemy_battlers: Array[Battler]
 func _ready() -> void:
 	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
 			and battler_info and battle_manager and victory_defeat_container and coins_counter)
-	
+	$"-----TEST-----".hide()
 	hud_manager.disappear()
 	
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
