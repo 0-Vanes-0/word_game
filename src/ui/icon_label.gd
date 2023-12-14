@@ -12,12 +12,12 @@ const SIZE_VECTORS := {
 	Sizes.x64: Vector2.ONE * 64,
 }
 @export var icon_texture: Texture2D
-@export var icon_size: Sizes = Sizes.x16
+@export var icon_size: Sizes = Sizes.x24
 
 
 func _ready() -> void:
 	if icon_texture:
-		$Icon.texture = icon_texture
+		set_icon(icon_texture, icon_size)
 
 
 func set_icon(value: Texture2D, size: Sizes):

@@ -7,10 +7,12 @@
 [resource]
 script = ExtResource("2_8tjrn")
 runes = Array[Resource("res://src/gameplay/rune.gd")]([ExtResource("2_eq4tt"), ExtResource("2_eq4tt"), ExtResource("2_eq4tt"), ExtResource("2_eq4tt")])
+health_up_per_level = 10
+damage_up_per_level = 1
 icon = ExtResource("1_u4p5w")
 base_initiative = 3
 base_health = 40
-base_min_damage = 1
+base_min_damage_from_max = Vector2(1, 2)
 base_max_damage = 2
 base_ally_action_value = 20
 is_attack_action_group = true

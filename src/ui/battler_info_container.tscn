@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_10rvu"]
 [ext_resource type="Script" path="res://src/ui/battler_info_container.gd" id="2_vsbf0"]
-[ext_resource type="Texture2D" uid="uid://bgu37xw77i1f7" path="res://assets/sprites/ui/char_bg.png" id="2_x3sax"]
+[ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="3_sp30q"]
 [ext_resource type="PackedScene" uid="uid://dhxktvlnk4yef" path="res://src/ui/backgrounded_icon.tscn" id="4_8c2gl"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="4_labw7"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="5_xcwb8"]
@@ -29,14 +29,8 @@ foe_action_label = NodePath("MarginContainer/VBox/FoeAllyGrid/FoeActionLabel")
 ally_action_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/AllyActionIcon")
 ally_action_label = NodePath("MarginContainer/VBox/FoeAllyGrid/AllyActionLabel")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
+[node name="PaperRect" parent="." instance=ExtResource("3_sp30q")]
 layout_mode = 2
-texture = ExtResource("2_x3sax")
-region_rect = Rect2(0, 0, 217, 379)
-patch_margin_left = 24
-patch_margin_top = 24
-patch_margin_right = 24
-patch_margin_bottom = 24
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

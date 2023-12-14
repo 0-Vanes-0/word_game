@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0n3dpvos7lex"]
+
+[ext_resource type="Texture2D" uid="uid://bgu37xw77i1f7" path="res://assets/sprites/ui/char_bg.png" id="1_dbpj6"]
+
+[node name="PaperRect" type="NinePatchRect"]
+texture = ExtResource("1_dbpj6")
+region_rect = Rect2(0, 0, 217, 379)
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24

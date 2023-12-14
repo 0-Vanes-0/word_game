@@ -41,12 +41,12 @@ func _ready() -> void:
 		
 		var battler := Battler.create(battler_type, Battler.get_start_stats(battler_type), index)
 		battler.position = battlers_positions[index]
-		battler.clicked.connect(_on_battler_clicked.bind(battler))
-		battler.hold_started.connect(battler_info.appear.bind(battler.stats))
+		battler.clicked.connect(func(): _on_battler_clicked(battler))
+		battler.hold_started.connect(func(): battler_info.appear(battler.stats))
 		battler.hold_stopped.connect(battler_info.disappear)
 		battler.set_area_inputable(true)
 		
-		if index <= 2:
+		if battler.stats is PlayerBattlerStats:
 			player_battlers.append(battler)
 			battler.died.connect(
 					func():
@@ -117,12 +117,14 @@ func _on_battle_ended(is_victory: bool):
 			var enemy_stats := b.stats as EnemyBattlerStats
 			coins += enemy_stats.reward
 		
+		var penalty: int = coins * (1 - float(get_alive_players().size()) / player_battlers.size())
 		var player_coins := int(Global.get_player_coins())
-		Global.set_player_coins(player_coins + coins)
+		Global.set_player_coins(player_coins + coins - penalty)
 		
 		label.text = (
 			"Ваша добыча: " + str(coins) + " монет"
-			+ "\n" + "Теперь у вас: " + str(player_coins + coins) + " монет"
+			+ ((" (-" + str(penalty) + " за смерть героев)") if penalty > 0 else "")
+			+ "\n" + "Теперь у вас: " + str(player_coins + coins - penalty) + " монет"
 		)
 	
 	else:

@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_sglfy"]
 [ext_resource type="Script" path="res://src/ui/icon_label.gd" id="2_oh1kj"]
 
-[node name="HBox" type="HBoxContainer"]
+[node name="IconLabel" type="HBoxContainer"]
 theme = ExtResource("1_sglfy")
 theme_override_constants/separation = 2
 script = ExtResource("2_oh1kj")

@@ -8,18 +8,19 @@
 script = ExtResource("2_hxbic")
 type = 0
 
-[sub_resource type="Resource" id="Resource_kwf1m"]
+[sub_resource type="Resource" id="Resource_80k38"]
 script = ExtResource("2_hxbic")
 type = 0
 
 [resource]
 script = ExtResource("3_badom")
-runes = Array[ExtResource("2_hxbic")]([SubResource("Resource_tbsf5"), SubResource("Resource_kwf1m")])
-level = 1
+runes = Array[ExtResource("2_hxbic")]([SubResource("Resource_tbsf5"), SubResource("Resource_80k38")])
+health_up_per_level = 20
+damage_up_per_level = 3
 icon = ExtResource("1_tfxh4")
 base_initiative = 5
 base_health = 100
-base_min_damage = 8
+base_min_damage_from_max = Vector2(2, 3)
 base_max_damage = 12
 base_ally_action_value = 2
 is_attack_action_group = false

@@ -70,6 +70,9 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 				tokens.clear()
 				died.emit()
 	)
+	if self.stats is PlayerBattlerStats:
+		self.stats.assign_level(Global.get_player_level(type))
+	
 	self.index = index
 	
 	sprite = AnimatedSprite2D.new()
@@ -168,6 +171,7 @@ func _on_pressed(viewport: Node, event: InputEvent, shape_idx: int):
 				clicked.emit()
 			else:
 				hold_stopped.emit()
+	
 	elif event is InputEventScreenDrag and is_holding:
 		is_finger_on = false
 		is_holding = false

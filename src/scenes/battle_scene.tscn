@@ -106,7 +106,6 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 4
 icon_texture = ExtResource("11_t7hoc")
-icon_size = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="-----TEST-----"]
 offset_left = 606.0

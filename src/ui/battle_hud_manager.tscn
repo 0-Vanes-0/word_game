@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_gqh4m"]
 [ext_resource type="Script" path="res://src/ui/battle_hud_manager.gd" id="1_r71ia"]
 [ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="2_lxj8w"]
-[ext_resource type="Texture2D" uid="uid://bkuloxljiyk15" path="res://assets/sprites/ui/beige_border2.png" id="3_q75oo"]
+[ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="3_i8csu"]
 [ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="4_0rgqq"]
 [ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="5_qw2h8"]
 [ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="6_4rak5"]
@@ -14,7 +14,7 @@
 [node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_spell_label", "_reset_spell_button", "_runes", "_proceed_button")]
 theme = ExtResource("1_gqh4m")
 script = ExtResource("1_r71ia")
-_spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer/SpellLabel")
+_spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/PaperRect/MarginContainer/SpellLabel")
 _reset_spell_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton")
 _runes = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
 _proceed_button = NodePath("HBoxContainer/ProceedButton")
@@ -32,18 +32,11 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="PaperRect" parent="HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_i8csu")]
 custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-texture = ExtResource("3_q75oo")
-patch_margin_left = 24
-patch_margin_top = 24
-patch_margin_right = 27
-patch_margin_bottom = 23
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/PaperRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +48,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 10
 
-[node name="SpellLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/NinePatchRect/MarginContainer"]
+[node name="SpellLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/PaperRect/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
