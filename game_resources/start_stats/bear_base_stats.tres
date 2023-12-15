@@ -16,5 +16,5 @@ base_ally_action_value = 2
 is_attack_action_group = false
 is_ally_action_group = false
 foe_action_text = "Наносит $dmg урона одной цели"
-ally_action_text = "Накладывает $aav$shield на цель и $aav$antishield на себя"
+ally_action_text = "Накладывает $aav$shield на цель и $aav$antishield на себя (WIP)"
 base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])
