@@ -75,7 +75,8 @@ func animate_turn(target_group: Array[Battler] = []):
 	current_battler.anim_action(current_action_type)
 	if current_battler_index != target_battler_indexes[0]:
 		for b in target_battlers:
-			b.anim_reaction(current_action_type)
+			if b.is_alive:
+				b.anim_reaction(current_action_type)
 	
 	#if effect_type > 0:
 		#battle_scene.effect_sprite.offset = (battle_scene.effect_sprite.sprite_frames as MySpriteFrames).separate_offsets[Rune.get_type_string(effect_type)]
@@ -141,14 +142,10 @@ func animate_turn(target_group: Array[Battler] = []):
 				current_battler.sprite.offset = current_battler_offset
 				if current_battler.is_alive:
 					current_battler.anim_idle()
-	)
-	_tween.tween_callback(
-			func():
-				if current_battler.is_alive:
 					current_battler.health_bar.show()
 					current_battler.tokens_container.show()
 	)
-				
+	
 	if current_battler_index != target_battler_indexes[0]:
 		for i in target_battlers.size():
 			_tween.parallel().tween_property(
@@ -166,10 +163,6 @@ func animate_turn(target_group: Array[Battler] = []):
 						target_battlers[i].sprite.offset = target_battler_offsets[i]
 						if target_battlers[i].is_alive:
 							target_battlers[i].anim_idle()
-			)
-			_tween.tween_callback(
-					func():
-						if target_battlers[i].is_alive:
 							target_battlers[i].health_bar.show()
 							target_battlers[i].tokens_container.show()
 			)

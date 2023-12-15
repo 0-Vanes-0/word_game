@@ -51,6 +51,22 @@ func apply_token_effect(some_value: int = 0) -> int:
 
 func adjust_turn_count(value: int = -1):
 	lifetime_turns = clampi(lifetime_turns + value, 0, base_lifetime_turns)
-	if lifetime_turns <= 0:
-		owner.tokens.erase(self)
-		owner.update_token_labels()
+
+
+func is_need_delete() -> bool:
+	return lifetime_turns == 0
+
+
+static func get_token_name(type: Types) -> String:
+	match type:
+		Types.SHIELD:
+			return "Щит"
+		Types.ATTACK:
+			return "+Урон"
+		Types.FIRE:
+			return "Огонь"
+		Types.STUN:
+			return "Оглушение"
+		_:
+			assert(false, "Wrong type: " + str(type))
+			return ""

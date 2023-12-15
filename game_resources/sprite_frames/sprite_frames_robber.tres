@@ -1,9 +1,10 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=19 format=3 uid="uid://dpa1fpp1aqjip"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=20 format=3 uid="uid://dpa1fpp1aqjip"]
 
 [ext_resource type="Texture2D" uid="uid://b5jhi81pl121f" path="res://assets/sprites/characters/Player Robber/Walk/walk1.png" id="1_15ks2"]
 [ext_resource type="Texture2D" uid="uid://cwp02fd3ib4f5" path="res://assets/sprites/characters/Player Robber/Idle/idle4.png" id="1_cqqgj"]
 [ext_resource type="Texture2D" uid="uid://ct72vt2epjoyt" path="res://assets/sprites/characters/Player Robber/Walk/walk2.png" id="2_ltbcu"]
 [ext_resource type="Texture2D" uid="uid://5b7pkorbx0tc" path="res://assets/sprites/characters/Player Robber/Extra_Attack/attack_extra3.png" id="2_wx38m"]
+[ext_resource type="Texture2D" uid="uid://cclbg8s5rjjdo" path="res://assets/sprites/characters/Player Robber/Extra_Attack/attack_extra9.png" id="3_04nwi"]
 [ext_resource type="Texture2D" uid="uid://vk3q5t77tpol" path="res://assets/sprites/characters/Player Robber/Walk/walk3.png" id="3_cbprv"]
 [ext_resource type="Texture2D" uid="uid://xmh2imqvteo" path="res://assets/sprites/characters/Player Robber/Death/death2.png" id="4_ey4ls"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="4_qexfl"]
@@ -30,6 +31,9 @@ animations = [{
 "speed": 4.0
 }, {
 "frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_04nwi")
+}, {
 "duration": 1.0,
 "texture": ExtResource("2_wx38m")
 }],

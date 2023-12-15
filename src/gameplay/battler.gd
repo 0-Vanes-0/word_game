@@ -237,6 +237,10 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 			attack_token.adjust_turn_count()
 		if shield_token != null:
 			shield_token.adjust_turn_count()
+	
+	for i in range(tokens.size()-1, -1, -1):
+		if tokens[i].is_need_delete():
+			tokens.remove_at(i)
 
 
 func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
@@ -252,7 +256,6 @@ func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
 		action_value = int(target_battler.stats.max_health * (stats.ally_action_value / 100.0))
 		target_battler.stats.adjust_health(action_value)
 		target_battler.anim_value_label(Battler.ActionTypes.ALLY, str(action_value))
-	
 #endregion
 
 
@@ -261,33 +264,33 @@ func add_token(token_type: Token.Types, amount: int = 1):
 	for i in amount:
 		var token := Token.create(token_type, self)
 		tokens.append(token)
-	update_token_labels()
 
 
 func update_token_labels():
 	for t_label: TokenLabel in tokens_container.get_children():
-		tokens_container.remove_child(t_label)
+		tokens_container.remove_child(t_label) # For some reason we need this line, do not remove it
 		t_label.queue_free()
 	
 	for token in tokens:
-		var current_t_label: TokenLabel
-		var found_label: bool = false
-		for t_label: TokenLabel in tokens_container.get_children():
-			if t_label.token.type == token.type:
-				found_label = true
-				current_t_label = t_label
-				break
-		
-		if not found_label:
-			current_t_label = TokenLabel.create()
-			current_t_label.token = token
-			current_t_label.amount = 1
-			current_t_label.duration = token.lifetime_turns
-			tokens_container.add_child(current_t_label)
-		else:
-			current_t_label.amount += 1
-			current_t_label.duration = max(token.lifetime_turns, current_t_label.duration)
-		
+		if token.lifetime_turns > 0:
+			var current_t_label: TokenLabel
+			var found_label: bool = false
+			for t_label: TokenLabel in tokens_container.get_children():
+				if t_label.token.type == token.type:
+					found_label = true
+					current_t_label = t_label
+					break
+			
+			if not found_label:
+				current_t_label = TokenLabel.create()
+				current_t_label.token = token
+				current_t_label.amount = 1
+				current_t_label.duration = token.lifetime_turns
+				tokens_container.add_child(current_t_label)
+			else:
+				current_t_label.amount += 1
+				current_t_label.duration = max(token.lifetime_turns, current_t_label.duration)
+	
 	for t_label: TokenLabel in tokens_container.get_children():
 		t_label.update_info()
 
@@ -296,20 +299,20 @@ func check_tokens(for_what_moment: Token.ApplyMoments):
 	var damage_value: int = 0
 	var heal_value: int = 0
 	for t in tokens:
-		if t.apply_moment == for_what_moment:
-			if t.type != Token.Types.FIRE:
-				heal_value += t.apply_token_effect()
-			else:
-				damage_value += t.apply_token_effect()
-		
 		if for_what_moment == Token.ApplyMoments.ON_TURN_START:
+			if t.type == Token.Types.FIRE:
+				damage_value += t.apply_token_effect()
 			t.adjust_turn_count()
 	
+	for i in range(tokens.size()-1, -1, -1):
+		if tokens[i].is_need_delete():
+			tokens.remove_at(i)
+	
 	if heal_value > 0:
-		anim_value_label(Battler.ActionTypes.ALLY, str(heal_value)) # TODO: make 2nd label :/
+		anim_value_label(Battler.ActionTypes.ALLY, str(heal_value))
 		await get_tree().create_timer(0.1).timeout
 	if damage_value > 0:
-		anim_value_label(Battler.ActionTypes.ATTACK, str(damage_value))
+		anim_value_label2(Battler.ActionTypes.ATTACK, str(damage_value))
 	
 	update_token_labels()
 
@@ -431,9 +434,11 @@ func anim_and_set_about_to_die(value: bool):
 					Color.WHITE,
 					0.5
 			)
+		else:
+			tween_dying.play()
 	else:
-		if tween_dying:
-			tween_dying.kill()
+		if tween_dying and tween_dying.is_running():
+			tween_dying.pause()
 		sprite.self_modulate = Color.WHITE
 #endregion
 
