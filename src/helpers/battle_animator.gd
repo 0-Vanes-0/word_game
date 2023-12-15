@@ -141,8 +141,6 @@ func animate_turn(target_group: Array[Battler] = []):
 				current_battler.sprite.offset = current_battler_offset
 				if current_battler.is_alive:
 					current_battler.anim_idle()
-				else:
-					current_battler.anim_die()
 	)
 	_tween.tween_callback(
 			func():
@@ -168,8 +166,6 @@ func animate_turn(target_group: Array[Battler] = []):
 						target_battlers[i].sprite.offset = target_battler_offsets[i]
 						if target_battlers[i].is_alive:
 							target_battlers[i].anim_idle()
-						else:
-							target_battlers[i].anim_die()
 			)
 			_tween.tween_callback(
 					func():
@@ -217,6 +213,10 @@ func animate_enemy_prepare():
 
 
 func animate_battle_end(is_victory: bool):
+	var battlers := battle_scene.get_alive_players() if is_victory else battle_scene.get_alive_enemies()
+	for b in battlers:
+		b.anim_reaction(Battler.ActionTypes.ALLY)
+	
 	battle_scene.victory_defeat_container.modulate.a = 0.0
 	var label := battle_scene.victory_defeat_container.get_node("VBox/CenterContainer/VictoryDefeatLabel")
 	if label != null:

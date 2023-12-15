@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="6_1lxaf"]
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="6_tu6at"]
 
-[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "coins_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label")]
+[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "coins_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label", "resists_vbox", "resists_grid")]
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
@@ -28,6 +28,8 @@ foe_action_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/FoeActionIcon")
 foe_action_label = NodePath("MarginContainer/VBox/FoeAllyGrid/FoeActionLabel")
 ally_action_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/AllyActionIcon")
 ally_action_label = NodePath("MarginContainer/VBox/FoeAllyGrid/AllyActionLabel")
+resists_vbox = NodePath("MarginContainer/VBox/ResistsVBox")
+resists_grid = NodePath("MarginContainer/VBox/ResistsVBox/ResistsGrid")
 
 [node name="PaperRect" parent="." instance=ExtResource("3_sp30q")]
 layout_mode = 2
@@ -102,7 +104,14 @@ text = "Добавляет []"
 fit_content = true
 scroll_active = false
 
-[node name="ResistsGrid" type="GridContainer" parent="MarginContainer/VBox"]
+[node name="ResistsVBox" type="VBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="ResistsLabel" type="Label" parent="MarginContainer/VBox/ResistsVBox"]
+layout_mode = 2
+text = "Сопротивления:"
+
+[node name="ResistsGrid" type="GridContainer" parent="MarginContainer/VBox/ResistsVBox"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 0

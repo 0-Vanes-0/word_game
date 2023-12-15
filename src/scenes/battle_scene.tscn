@@ -90,7 +90,7 @@ layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 52429
 position = Vector2(558, 328)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("9_ro74f")
-animation = &"idle"
+animation = &"prepare_attack"
 offset = Vector2(16, -48)
 
 [node name="HFlowContainer" type="VBoxContainer" parent="-----TEST-----"]

@@ -15,6 +15,10 @@ const SIZE_VECTORS := {
 @export var icon_size: Sizes = Sizes.x24
 
 
+static func create() -> IconLabel:
+	return Preloader.icon_label.instantiate() as IconLabel
+
+
 func _ready() -> void:
 	if icon_texture:
 		set_icon(icon_texture, icon_size)

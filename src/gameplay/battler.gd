@@ -34,9 +34,10 @@ var type: Types
 var stats: BattlerStats
 var index: int = -1
 var is_alive: bool = true
+var is_about_to_die: bool = false
 var tokens: Array[Token] = []
 
-var _tween: Tween
+var tween_dying: Tween
 var action_value: int = -1
 
 var sprite: AnimatedSprite2D
@@ -61,13 +62,23 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	self.stats.health_changed.connect(
 			func(value: int):
 				health_bar.value = value
+				if value > 0 and is_about_to_die:
+					anim_and_set_about_to_die(false)
 	)
 	self.stats.health_depleted.connect(
-			func():
-				anim_die() # TODO: MOVE TO BATTLE ANIMATOR
-				health_bar.hide()
+			func() -> void:
+				var deaths_door_resist := self.stats.get_deaths_door_resist()
+				if deaths_door_resist != null:
+					if not is_about_to_die or deaths_door_resist.try_to_resist():
+						anim_and_set_about_to_die(true)
+						return
+				
+				anim_and_set_about_to_die(false)
 				is_alive = false
+				health_bar.hide()
+				tokens_container.hide()
 				tokens.clear()
+				anim_die()
 				died.emit()
 	)
 	if self.stats is PlayerBattlerStats:
@@ -387,7 +398,7 @@ func anim_value_label(current_action_type: Battler.ActionTypes, text: String, va
 				Global.TargetColors.FOE_BATTLER if current_action_type == Battler.ActionTypes.ATTACK
 				else Global.TargetColors.ALLY_BATTLER
 	)
-	var tween := _new_tween()
+	var tween := create_tween()
 	tween.tween_property(
 			value_label, "position:y",
 			value_label.position.y - Global.CHARACTER_SIZE.y / 2,
@@ -405,10 +416,25 @@ func anim_value_label2(current_action_type: Battler.ActionTypes, text: String):
 	anim_value_label(current_action_type, text, value_label2)
 
 
-func _new_tween() -> Tween:
-	if _tween:
-		_tween.kill()
-	return create_tween()
+func anim_and_set_about_to_die(value: bool):
+	is_about_to_die = value
+	if is_about_to_die:
+		if not tween_dying:
+			tween_dying = create_tween().set_loops()
+			tween_dying.tween_property(
+					sprite, "self_modulate",
+					Color.RED,
+					0.5
+			)
+			tween_dying.tween_property(
+					sprite, "self_modulate",
+					Color.WHITE,
+					0.5
+			)
+	else:
+		if tween_dying:
+			tween_dying.kill()
+		sprite.self_modulate = Color.WHITE
 #endregion
 
 

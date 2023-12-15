@@ -16,7 +16,7 @@
 [resource]
 animations = [{
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"action_ally",
 "speed": 4.0
 }, {
@@ -24,7 +24,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("1_kj07h")
 }],
-"loop": true,
+"loop": false,
 "name": &"action_attack",
 "speed": 4.0
 }, {
@@ -32,7 +32,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_eqmm4")
 }],
-"loop": true,
+"loop": false,
 "name": &"buff",
 "speed": 4.0
 }, {
@@ -57,7 +57,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("7_hn1ji")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
 "speed": 4.0
 }, {
@@ -79,9 +79,9 @@ animations = [{
 "speed": 4.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"prepare_ally",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -90,7 +90,7 @@ animations = [{
 "duration": 2.0,
 "texture": ExtResource("10_p1wu4")
 }],
-"loop": true,
+"loop": false,
 "name": &"prepare_attack",
 "speed": 4.0
 }]

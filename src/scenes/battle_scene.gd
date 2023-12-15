@@ -112,13 +112,13 @@ func _update_coins_label():
 func _on_battle_ended(is_victory: bool):
 	var label := $CanvasLayer/Control/VictoryDefeatContainer/VBox/MarginContainer/VBoxContainer/SomeLabel as Label
 	var coins: int = 0
+	var player_coins := int(Global.get_player_coins())
+	
 	if is_victory:
 		for b in enemy_battlers:
 			var enemy_stats := b.stats as EnemyBattlerStats
 			coins += enemy_stats.reward
-		
 		var penalty: int = coins * (1 - float(get_alive_players().size()) / player_battlers.size())
-		var player_coins := int(Global.get_player_coins())
 		Global.set_player_coins(player_coins + coins - penalty)
 		
 		label.text = (
@@ -129,14 +129,16 @@ func _on_battle_ended(is_victory: bool):
 	
 	else:
 		coins = 3
-		var player_coins := int(Global.get_player_coins())
 		Global.set_player_coins(player_coins + coins)
 		
 		label.text = (
 			"Утешительный приз: " + str(coins) + " монет"
-			+ "\n" + "Теперь у вас: " + str(player_coins + coins) + " монет"
-			+ "\n" + "Герои будут возрождены в городе."
+			
 		)
+	
+	label.text += "\n" + "Теперь у вас: " + str(player_coins + coins) + " монет"
+	if get_alive_players().size() < 3:
+		label.text += "\n" + "Погибшие герои будут возрождены в городе."
 
 
 func _process(delta: float) -> void:

@@ -47,26 +47,26 @@ func update_content():
 	
 	knight_button.text = _get_text(knight_level + 1, next_knight_payment)
 	knight_button.disabled = not GameInfo.has_coins(next_knight_payment)
-	knight_level_label.text = str(knight_level) + "ур."
+	knight_level_label.text = str(knight_level) + " ур."
 	knight_health.set_text(knight.base_health + knight.get_health_addition(knight_level))
 	var knight_max_dmg: int = knight.base_max_damage + knight.get_damage_addition(knight_level)
-	var knight_min_dmg: int = ceili(knight_max_dmg * knight.base_min_damage_from_max.x / knight.base_min_damage_from_max.y)
+	var knight_min_dmg: int = ceili(knight_max_dmg * knight.base_min_damage_fraction.x / knight.base_min_damage_fraction.y)
 	knight_damage.set_text(str(knight_min_dmg) + "-" + str(knight_max_dmg))
 	
 	robber_button.text = _get_text(robber_level + 1, next_robber_payment)
 	robber_button.disabled = not GameInfo.has_coins(next_robber_payment)
-	robber_level_label.text = str(robber_level) + "ур."
+	robber_level_label.text = str(robber_level) + " ур."
 	robber_health.set_text(robber.base_health + robber.get_health_addition(robber_level))
 	var robber_max_dmg: int = robber.base_max_damage + robber.get_damage_addition(robber_level)
-	var robber_min_dmg: int = ceili(robber_max_dmg * robber.base_min_damage_from_max.x / robber.base_min_damage_from_max.y)
+	var robber_min_dmg: int = ceili(robber_max_dmg * robber.base_min_damage_fraction.x / robber.base_min_damage_fraction.y)
 	robber_damage.set_text(str(robber_min_dmg) + "-" + str(robber_max_dmg))
 	
 	mage_button.disabled = not GameInfo.has_coins(next_mage_payment)
 	mage_button.text = _get_text(mage_level + 1, next_mage_payment)
-	mage_level_label.text = str(mage_level) + "ур."
+	mage_level_label.text = str(mage_level) + " ур."
 	mage_health.set_text(mage.base_health + mage.get_health_addition(mage_level))
 	var mage_max_dmg: int = mage.base_max_damage + mage.get_damage_addition(mage_level)
-	var mage_min_dmg: int = ceili(mage_max_dmg * mage.base_min_damage_from_max.x / mage.base_min_damage_from_max.y)
+	var mage_min_dmg: int = ceili(mage_max_dmg * mage.base_min_damage_fraction.x / mage.base_min_damage_fraction.y)
 	mage_damage.set_text(str(mage_min_dmg) + "-" + str(mage_max_dmg))
 
 

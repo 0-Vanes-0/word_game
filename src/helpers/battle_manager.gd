@@ -73,8 +73,6 @@ func init_turn():
 			for b in battle_scene.battlers:
 				b.selection.hide()
 				b.selection_hover.hide()
-				if b.is_alive:
-					b.anim_reaction(Battler.ActionTypes.ALLY)
 			var is_vicroty := not battle_scene.get_alive_players().is_empty()
 			battle_animator.animate_battle_end(is_vicroty)
 			battle_ended.emit(is_vicroty)
