@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_1jmey")
-base_reward = 25
+base_reward = 20
 reward_loss = 2
 icon = ExtResource("1_ujh5y")
 base_initiative = 1
