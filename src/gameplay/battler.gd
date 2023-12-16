@@ -229,7 +229,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 			if target_battler.stats.health > 0:
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str(action_value))
 			else:
-				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
+				pass
 	else:
 		for b in target_group:
 			b.stats.adjust_health(- action_value)
