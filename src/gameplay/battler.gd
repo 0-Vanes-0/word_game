@@ -220,16 +220,17 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	
 	if target_group.is_empty():
 		target_battler.stats.adjust_health(- action_value)
-		if is_first_call:
-			if target_battler.stats.health > 0:
+		if target_battler.stats.health > 0:
+			if is_first_call:
 				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
 			else:
-				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
-		else:
-			if target_battler.stats.health > 0:
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str(action_value))
+		else:
+			if is_first_call:
+				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
 			else:
-				pass
+				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
+
 	else:
 		for b in target_group:
 			b.stats.adjust_health(- action_value)
@@ -535,7 +536,5 @@ static func get_type_as_string(type: Types) -> String:
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return ""
-
-
 
 #endregion
