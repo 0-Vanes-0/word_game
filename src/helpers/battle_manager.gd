@@ -28,6 +28,7 @@ func init_turn():
 	
 	battle_scene.battlers[current_battler_index].check_tokens(Token.ApplyMoments.ON_TURN_START)
 	if not battle_scene.battlers[current_battler_index].is_alive:
+		await get_tree().create_timer(1.0).timeout
 		init_turn()
 	
 	else:
@@ -73,8 +74,6 @@ func init_turn():
 			for b in battle_scene.battlers:
 				b.selection.hide()
 				b.selection_hover.hide()
-				if b.is_alive:
-					b.anim_reaction(Battler.ActionTypes.ALLY)
 			var is_vicroty := not battle_scene.get_alive_players().is_empty()
 			battle_animator.animate_battle_end(is_vicroty)
 			battle_ended.emit(is_vicroty)
@@ -107,7 +106,6 @@ func proceed_turn():
 	
 #region TODO: Add Spell class later
 	var spell: Array[Rune] = hud_manager.spell
-	var runes_counter := {}
 	
 	for rune in spell:
 		if rune.type == Rune.Types.FIRE:
@@ -118,6 +116,14 @@ func proceed_turn():
 					b.add_token(Token.Types.FIRE)
 #endregion
 	hud_manager.spell.clear()
+	
+	current_battler.update_token_labels()
+	if current_battler_index != target_battler_index:
+		if group.is_empty():
+			target_battler.update_token_labels()
+		else:
+			for b in group:
+				b.update_token_labels()
 	
 	battle_animator.animate_turn(group)
 	await battle_animator.animate_turn_completed

@@ -7,20 +7,22 @@ signal health_depleted
 @export var icon: Texture2D
 @export var base_initiative: int
 @export var base_health: int
-@export var base_min_damage: int
+@export var base_min_damage_fraction := Vector2.ONE
 @export var base_max_damage: int
 @export var base_ally_action_value: int
 @export var is_attack_action_group: bool
 @export var is_ally_action_group: bool
 @export_multiline var foe_action_text: String
 @export_multiline var ally_action_text: String
+@export var base_resist_array: Array[Resist]
 
 var initiative: int
 var health: int
 var max_health: int
-var min_damage: int
+var min_damage_fraction: Vector2
 var max_damage: int
 var ally_action_value: int
+var resists: Array[Resist]
 
 
 func _is_stats_valid() -> bool:
@@ -28,7 +30,8 @@ func _is_stats_valid() -> bool:
 			icon
 			and base_initiative > 0
 			and base_health > 0 
-			and base_min_damage <= base_max_damage and base_min_damage >= 0 and base_max_damage >= 0
+			and base_min_damage_fraction.x <= base_min_damage_fraction.y and base_min_damage_fraction >= Vector2.ZERO
+			and base_max_damage >= 0
 			and not foe_action_text.is_empty()
 			and not ally_action_text.is_empty()
 	)
@@ -40,9 +43,11 @@ func get_resource() -> BattlerStats:
 	resoure_copy.initiative = base_initiative
 	resoure_copy.health = base_health
 	resoure_copy.max_health = base_health
-	resoure_copy.min_damage = base_min_damage
+	resoure_copy.min_damage_fraction = base_min_damage_fraction
 	resoure_copy.max_damage = base_max_damage
 	resoure_copy.ally_action_value = base_ally_action_value
+	for base_resist in base_resist_array:
+		resoure_copy.resists.append(base_resist.get_resource())
 	return resoure_copy
 
 
@@ -53,8 +58,19 @@ func adjust_health(value: int):
 		health_depleted.emit()
 
 
+func get_deaths_door_resist() -> Resist:
+	for resist in resists:
+		if resist.type == Resist.Types.DEATHS_DOOR:
+			return resist
+	return null
+
+
 func generate_damage_value():
-	return randi_range(min_damage, max_damage)
+	return randi_range(get_min_damage(), max_damage)
+
+
+func get_min_damage() -> int:
+	return ceili(max_damage * min_damage_fraction.x / min_damage_fraction.y)
 
 
 func get_foe_action_text_as_label() -> RichTextLabel:
@@ -78,13 +94,13 @@ func _get_label_with_info(text: String) -> RichTextLabel:
 		"$aav": {
 			"append_text": [str(ally_action_value)]
 		},
-		"$dmg": { 
-			"append_text": [str(min_damage) + "-" + str(max_damage)]
+		"$dmg": {
+			"append_text": [str(get_min_damage()) + "-" + str(max_damage)]
 		},
-		"$shield": { 
+		"$shield": {
 			"add_image": [Preloader.token_shield.icon_texture, 24, 24]
 		},
-		"$attack": { 
+		"$attack": {
 			"add_image": [Preloader.token_attack.icon_texture, 24, 24]
 		},
 		

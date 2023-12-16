@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="2_it1rv"]
-[ext_resource type="Script" path="res://src/ui/level_spin_box.gd" id="3_0osi6"]
+[ext_resource type="PackedScene" uid="uid://b18imap80ic8m" path="res://src/ui/level_up_container.tscn" id="4_yejoq"]
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("coins_label", "game_info_box")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("game_info_box", "level_up_container")]
 script = ExtResource("1_ypskv")
-coins_label = NodePath("CanvasLayer/Control/CenterContainer/VBox/CoinsLabel")
-game_info_box = NodePath("CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox")
+game_info_box = NodePath("CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox")
+level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -28,28 +28,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
+[node name="StartBattleVBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
 layout_mode = 2
 
-[node name="EnterBattleButton" type="Button" parent="CanvasLayer/Control/CenterContainer/VBox"]
+[node name="EnterBattleButton" type="Button" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 60
 text = " Начать бой "
 
-[node name="CoinsLabel" type="Label" parent="CanvasLayer/Control/CenterContainer/VBox"]
+[node name="UpgradeButton" type="Button" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox"]
 layout_mode = 2
-text = "Кол-во монет: 0"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_font_sizes/font_size = 60
+text = " Улучшить героев "
 
-[node name="GameInfoHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox"]
-layout_mode = 2
-
-[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
+[node name="GameInfoHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox"]
 layout_mode = 2
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox"]
-custom_minimum_size = Vector2(0, 150)
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 clip_text = true
@@ -59,20 +55,8 @@ allow_reselect = true
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
 
-[node name="LevelSpinBox" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox"]
-layout_mode = 2
-min_value = 1.0
-max_value = 1.0
-value = 1.0
-update_on_text_changed = true
-suffix = "ур"
-script = ExtResource("3_0osi6")
-
-[node name="VBox1" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
-layout_mode = 2
-
-[node name="OptionButton1" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox1"]
-custom_minimum_size = Vector2(0, 150)
+[node name="OptionButton1" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 clip_text = true
@@ -82,20 +66,8 @@ allow_reselect = true
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
 
-[node name="LevelSpinBox1" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox1"]
-layout_mode = 2
-min_value = 1.0
-max_value = 1.0
-value = 1.0
-update_on_text_changed = true
-suffix = "ур"
-script = ExtResource("3_0osi6")
-
-[node name="VBox2" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
-layout_mode = 2
-
-[node name="OptionButton2" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox2"]
-custom_minimum_size = Vector2(0, 150)
+[node name="OptionButton2" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 clip_text = true
@@ -105,16 +77,7 @@ allow_reselect = true
 popup/item_0/text = "NONE"
 popup/item_0/id = 0
 
-[node name="LevelSpinBox2" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox/VBox2"]
-layout_mode = 2
-min_value = 1.0
-max_value = 1.0
-value = 1.0
-update_on_text_changed = true
-suffix = "ур"
-script = ExtResource("3_0osi6")
-
-[node name="MobLevelSpinBox" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/VBox/GameInfoHBox"]
+[node name="MobLevelSpinBox" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
 custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -124,4 +87,8 @@ alignment = 2
 update_on_text_changed = true
 prefix = "Ур. противников"
 
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBox/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]
+[node name="LevelUpContainer" parent="CanvasLayer/Control" instance=ExtResource("4_yejoq")]
+layout_mode = 1
+
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/StartBattleVBox/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/StartBattleVBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]

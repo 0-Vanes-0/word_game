@@ -7,7 +7,7 @@ var duration: int = 0
 
 
 static func create() -> TokenLabel:
-	var t_label := Preloader.icon_label.instantiate() as IconLabel
+	var t_label := super()
 	t_label.set_script(preload("res://src/ui/token_label.gd"))
 	return t_label as TokenLabel
 

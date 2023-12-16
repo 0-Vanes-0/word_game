@@ -25,7 +25,7 @@ static func load_settings() -> Dictionary:
 	
 	return settings
 
-## WIP. Returns player data as Dictionary from file at user data path. If error occured, ???.
+## Returns player data as Dictionary from file at user data path.
 static func load_data() -> Dictionary:
 	var data: Dictionary = {}
 	var file := FileAccess.open(_DATA_FILE_PATH, FileAccess.READ)

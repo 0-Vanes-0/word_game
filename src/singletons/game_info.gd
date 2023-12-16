@@ -53,3 +53,11 @@ func pay_coins(coins: int) -> bool:
 		return true
 	else:
 		return false
+
+
+func has_coins(coins: int) -> bool:
+	var player_coins := int(Global.get_player_coins())
+	if player_coins - coins >= 0:
+		return true
+	else:
+		return false

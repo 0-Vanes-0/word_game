@@ -1,0 +1,167 @@
+[gd_scene load_steps=12 format=3 uid="uid://b18imap80ic8m"]
+
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_4cbrw"]
+[ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_qq3ip"]
+[ext_resource type="Script" path="res://src/ui/level_up_container.gd" id="2_a0s1n"]
+[ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="2_ib5ep"]
+[ext_resource type="PackedScene" uid="uid://dhxktvlnk4yef" path="res://src/ui/backgrounded_icon.tscn" id="3_pifhd"]
+[ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="4_2eaps"]
+[ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="5_btmbs"]
+[ext_resource type="Texture2D" uid="uid://byqctj5057d22" path="res://assets/sprites/avas/con3.png" id="5_twdlc"]
+[ext_resource type="Texture2D" uid="uid://digotaoy3m3uw" path="res://assets/sprites/avas/con2.png" id="6_6glsd"]
+[ext_resource type="Texture2D" uid="uid://d0olvwfx035lc" path="res://assets/sprites/ui/icons/heart_yellow.png" id="8_i36dg"]
+[ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="9_futtk"]
+
+[node name="LevelUpContainer" type="Control" node_paths=PackedStringArray("coins_icon_label", "knight_button", "knight_level_label", "knight_health", "knight_damage", "robber_button", "robber_level_label", "robber_health", "robber_damage", "mage_button", "mage_level_label", "mage_health", "mage_damage")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_a0s1n")
+coins_icon_label = NodePath("MarginContainer/MarginContainer/VBox/CoinsHBox/CoinsIconLabel")
+knight_button = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/KnightButton")
+knight_level_label = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/KnightStatsVBox/LvlLabel")
+knight_health = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/KnightStatsVBox/HealthIconLabel")
+knight_damage = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/KnightStatsVBox/DamageIconLabel")
+robber_button = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/RobberButton")
+robber_level_label = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/RobberStatsVBox/LvlLabel")
+robber_health = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/RobberStatsVBox/HealthIconLabel")
+robber_damage = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/RobberStatsVBox/DamageIconLabel")
+mage_button = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/MageButton")
+mage_level_label = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/MageStatsVBox/LvlLabel")
+mage_health = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/MageStatsVBox/HealthIconLabel")
+mage_damage = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/MageStatsVBox/DamageIconLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -234.0
+offset_top = -204.0
+offset_right = 234.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4cbrw")
+
+[node name="PaperRect" parent="MarginContainer" instance=ExtResource("1_qq3ip")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = " Назад "
+
+[node name="CoinsHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBox/CoinsHBox"]
+layout_mode = 2
+text = "Ваша казна:"
+
+[node name="CoinsIconLabel" parent="MarginContainer/MarginContainer/VBox/CoinsHBox" instance=ExtResource("2_ib5ep")]
+layout_mode = 2
+icon_texture = ExtResource("5_btmbs")
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="KnightIcon" parent="MarginContainer/MarginContainer/VBox/GridContainer" instance=ExtResource("3_pifhd")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+icon = ExtResource("4_2eaps")
+
+[node name="KnightStatsVBox" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LvlLabel" type="Label" parent="MarginContainer/MarginContainer/VBox/GridContainer/KnightStatsVBox"]
+layout_mode = 2
+text = "00 ур."
+
+[node name="HealthIconLabel" parent="MarginContainer/MarginContainer/VBox/GridContainer/KnightStatsVBox" instance=ExtResource("2_ib5ep")]
+layout_mode = 2
+icon_texture = ExtResource("8_i36dg")
+
+[node name="DamageIconLabel" parent="MarginContainer/MarginContainer/VBox/GridContainer/KnightStatsVBox" instance=ExtResource("2_ib5ep")]
+layout_mode = 2
+icon_texture = ExtResource("9_futtk")
+
+[node name="KnightButton" type="Button" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Улучшить до 00 ур.: 0000 "
+
+[node name="RobberIcon" parent="MarginContainer/MarginContainer/VBox/GridContainer" instance=ExtResource("3_pifhd")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+icon = ExtResource("5_twdlc")
+
+[node name="RobberStatsVBox" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LvlLabel" type="Label" parent="MarginContainer/MarginContainer/VBox/GridContainer/RobberStatsVBox"]
+layout_mode = 2
+text = "00 ур."
+
+[node name="HealthIconLabel" parent="MarginContainer/MarginContainer/VBox/GridContainer/RobberStatsVBox" instance=ExtResource("2_ib5ep")]
+layout_mode = 2
+icon_texture = ExtResource("8_i36dg")
+
+[node name="DamageIconLabel" parent="MarginContainer/MarginContainer/VBox/GridContainer/RobberStatsVBox" instance=ExtResource("2_ib5ep")]
+layout_mode = 2
+icon_texture = ExtResource("9_futtk")
+
+[node name="RobberButton" type="Button" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Улучшить до 00 ур.: 0000 "
+
+[node name="MageIcon" parent="MarginContainer/MarginContainer/VBox/GridContainer" instance=ExtResource("3_pifhd")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+icon = ExtResource("6_6glsd")
+
+[node name="MageStatsVBox" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LvlLabel" type="Label" parent="MarginContainer/MarginContainer/VBox/GridContainer/MageStatsVBox"]
+layout_mode = 2
+text = "00 ур."
+
+[node name="HealthIconLabel" parent="MarginContainer/MarginContainer/VBox/GridContainer/MageStatsVBox" instance=ExtResource("2_ib5ep")]
+layout_mode = 2
+icon_texture = ExtResource("8_i36dg")
+
+[node name="DamageIconLabel" parent="MarginContainer/MarginContainer/VBox/GridContainer/MageStatsVBox" instance=ExtResource("2_ib5ep")]
+layout_mode = 2
+icon_texture = ExtResource("9_futtk")
+
+[node name="MageButton" type="Button" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Улучшить до 00 ур.: 0000 "
+
+[connection signal="pressed" from="MarginContainer/MarginContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]

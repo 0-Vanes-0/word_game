@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=7 format=3 uid="uid://dvf258ty8bnm7"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=9 format=3 uid="uid://dvf258ty8bnm7"]
 
 [ext_resource type="Texture2D" uid="uid://byqctj5057d22" path="res://assets/sprites/avas/con3.png" id="1_0b07j"]
+[ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_2ipv1"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="2_f2o5g"]
 [ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_ypq8v"]
+
+[sub_resource type="Resource" id="Resource_3cet7"]
+script = ExtResource("1_2ipv1")
+type = 1
+base_value = 70
 
 [sub_resource type="Resource" id="Resource_wwu2p"]
 script = ExtResource("2_ypq8v")
@@ -19,14 +25,16 @@ type = 0
 [resource]
 script = ExtResource("2_f2o5g")
 runes = Array[ExtResource("2_ypq8v")]([SubResource("Resource_wwu2p"), SubResource("Resource_2te1m"), SubResource("Resource_nttne")])
-level = 1
+health_up_per_level = 15
+damage_up_per_level = 2
 icon = ExtResource("1_0b07j")
 base_initiative = 4
 base_health = 60
-base_min_damage = 6
-base_max_damage = 10
+base_min_damage_fraction = Vector2(1, 2)
+base_max_damage = 8
 base_ally_action_value = 2
 is_attack_action_group = false
 is_ally_action_group = false
-foe_action_text = "Наносит $dmg урона дважды одной цели.(WIP)"
-ally_action_text = "Накладывает $aav$attack на цель."
+foe_action_text = "Наносит $dmg урона дважды одной цели"
+ally_action_text = "Накладывает $aav$attack на цель"
+base_resist_array = Array[ExtResource("1_2ipv1")]([SubResource("Resource_3cet7")])
