@@ -234,10 +234,10 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	else:
 		for b in target_group:
 			b.stats.adjust_health(- action_value)
-			if target_battler.stats.health > 0:
-				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
+			if b.stats.health > 0:
+				b.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
 			else:
-				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
+				b.anim_value_label(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
 	
 	if type == Types.HERO_ROBBER and is_first_call:
 		await get_tree().create_timer(0.25).timeout
