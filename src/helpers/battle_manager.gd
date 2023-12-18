@@ -64,19 +64,23 @@ func init_turn():
 				enemy_stats.reduce_reward()
 				coins_reduced.emit()
 				
+				var group: Array[Battler] = []
+				if enemy_stats.is_attack_action_group:
+					group = battle_scene.get_alive_players()
+				
 				battle_animator.animate_enemy_prepare_completed.connect(
 						func():
 							proceed_turn()
 				, CONNECT_ONE_SHOT)
-				battle_animator.animate_enemy_prepare()
+				battle_animator.animate_enemy_prepare(group)
 		
 		else:
 			for b in battle_scene.battlers:
 				b.selection.hide()
 				b.selection_hover.hide()
-			var is_vicroty := not battle_scene.get_alive_players().is_empty()
-			battle_animator.animate_battle_end(is_vicroty)
-			battle_ended.emit(is_vicroty)
+			var is_victory := not battle_scene.get_alive_players().is_empty()
+			battle_animator.animate_battle_end(is_victory)
+			battle_ended.emit(is_victory)
 
 
 func proceed_turn():

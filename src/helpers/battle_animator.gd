@@ -100,15 +100,16 @@ func animate_turn(target_group: Array[Battler] = []):
 	
 	_tween = _new_tween()
 	if current_battler_index != target_battler_indexes[0]:
-		_tween.tween_callback(
-				func():
-					current_battler.position = left_position if current_battler_index < target_battler_indexes[0] else right_position
-		)
-		for i in target_battlers.size():
+		if target_battlers == one:
 			_tween.tween_callback(
 					func():
-						target_battlers[i].position = right_position + group_gap * i if current_battler_index < target_battlers[i].index else left_position
+						current_battler.position = left_position if current_battler_index < target_battler_indexes[0] else right_position
 			)
+			for i in target_battlers.size():
+				_tween.tween_callback(
+						func():
+							target_battlers[i].position = right_position + group_gap * i if current_battler_index < target_battlers[i].index else left_position
+				)
 		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type):
 			_tween.tween_property(
 					current_battler, "position",
@@ -184,9 +185,13 @@ func animate_turn(target_group: Array[Battler] = []):
 	animate_turn_completed.emit()
 
 
-func animate_enemy_prepare():
+func animate_enemy_prepare(target_group: Array[Battler] = []):
 	var current_battler: Battler = battle_scene.battlers[battle_manager.current_battler_index]
-	var target_battler: Battler = battle_scene.battlers[battle_manager.target_battler_index]
+	var one: Array[Battler] = [ battle_scene.battlers[battle_manager.target_battler_index] ]
+	var target_battlers: Array[Battler] = (
+			target_group if not target_group.is_empty()
+			else one
+	)
 	
 	_tween = _new_tween()
 	_tween.tween_interval(0.5)
@@ -196,10 +201,12 @@ func animate_enemy_prepare():
 				current_battler.selection_hover.show()
 				current_battler.selection.modulate = Global.TargetColors.CURRENT_BATTLER
 				current_battler.selection_hover.modulate = Global.TargetColors.CURRENT_BATTLER
-				target_battler.selection.show()
-				target_battler.selection_hover.show()
-				target_battler.selection.modulate = Global.TargetColors.FOE_BATTLER
-				target_battler.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
+				
+				for b in target_battlers:
+					b.selection.show()
+					b.selection_hover.show()
+					b.selection.modulate = Global.TargetColors.FOE_BATTLER
+					b.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
 				
 				current_battler.anim_prepare(Battler.ActionTypes.ATTACK)
 	)
