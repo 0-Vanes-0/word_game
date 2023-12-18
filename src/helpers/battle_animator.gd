@@ -63,10 +63,10 @@ func animate_turn(target_group: Array[Battler] = []):
 	var center_position := Vector2.RIGHT * Global.SCREEN_WIDTH / 2
 	var group_gap := Vector2.RIGHT * Global.SCREEN_WIDTH * 1 / 8
 	
+	# ----- ACTION ANIMATION START -----
+	
 	var black := battle_scene.black_screen
 	black.self_modulate.a = 0.5
-	
-	# ----- ACTION ANIMATION START -----
 	
 	current_battler.health_bar.hide()
 	current_battler.tokens_container.hide()
@@ -100,16 +100,14 @@ func animate_turn(target_group: Array[Battler] = []):
 	
 	_tween = _new_tween()
 	if current_battler_index != target_battler_indexes[0]:
-		_tween.tween_property(
-				current_battler, "position",
-				left_position if current_battler_index < target_battler_indexes[0] else right_position,
-				0.0
+		_tween.tween_callback(
+				func():
+					current_battler.position = left_position if current_battler_index < target_battler_indexes[0] else right_position
 		)
 		for i in target_battlers.size():
-			_tween.tween_property(
-					target_battlers[i], "position",
-					right_position + group_gap * i if current_battler_index < target_battlers[i].index else left_position,
-					0.0
+			_tween.tween_callback(
+					func():
+						target_battlers[i].position = right_position + group_gap * i if current_battler_index < target_battlers[i].index else left_position
 			)
 		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type):
 			_tween.tween_property(
@@ -120,10 +118,9 @@ func animate_turn(target_group: Array[Battler] = []):
 		else:
 			_tween.tween_interval(ACTION_TIME)
 	else:
-		_tween.tween_property(
-				current_battler, "position",
-				center_position,
-				0.0
+		_tween.tween_callback(
+				func():
+					current_battler.position = center_position
 		)
 		_tween.tween_interval(ACTION_TIME)
 	

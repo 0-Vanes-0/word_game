@@ -51,16 +51,16 @@ func appear(stats: BattlerStats):
 	ally_action_label.fit_content = true
 	ally_action_label.scroll_active = false
 	
-	resists_vbox.hide()
-	for child in resists_grid.get_children():
-		child.queue_free()
-	for resist in stats.resists:
-		var resist_label := IconLabel.create()
-		resist_label.set_icon(Resist.get_resist_icon(resist.type), IconLabel.Sizes.x24)
-		resist_label.set_text(str(resist.value) + "%")
-		resists_grid.add_child(resist_label)
-	if not stats.resists.is_empty():
-		resists_vbox.show()
+	resists_vbox.hide() # TODO: uncomment after runes and spells
+	#for child in resists_grid.get_children():
+		#child.queue_free()
+	#for resist in stats.resists:
+		#var resist_label := IconLabel.create()
+		#resist_label.set_icon(Resist.get_resist_icon(resist.type), IconLabel.Sizes.x24)
+		#resist_label.set_text(str(resist.value) + "%")
+		#resists_grid.add_child(resist_label)
+	#if not stats.resists.is_empty():
+		#resists_vbox.show()
 	
 	self.show()
 	_tween = _new_tween()

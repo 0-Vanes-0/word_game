@@ -145,6 +145,7 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	value_label.add_theme_font_size_override("normal_font_size", 24)
 	value_label.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
 	value_label.name = "ValueLabel"
+	value_label.z_index = 100
 	self.add_child(value_label)
 	
 	value_label2 = RichTextLabel.new()
@@ -156,7 +157,8 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	value_label2.add_theme_constant_override("outline_size", 8)
 	value_label2.add_theme_font_size_override("normal_font_size", 24)
 	value_label2.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
-	value_label2.name = "ValueLabel"
+	value_label2.name = "ValueLabel2"
+	value_label2.z_index = 101
 	self.add_child(value_label2)
 #endregion
 
@@ -219,15 +221,22 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 		action_value = shield_token.apply_token_effect(damage)
 	
 	if target_group.is_empty():
+		var death_resist := target_battler.stats.get_deaths_door_resist()
 		target_battler.stats.adjust_health(- action_value)
+		
 		if target_battler.stats.health > 0:
 			if is_first_call:
 				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
 			else:
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str(action_value))
+		elif death_resist != null and target_battler.is_alive:
+			if is_first_call:
+				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ")) # TODO: remove duplicate code
+			else:
+				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 		else:
 			if is_first_call:
-				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ")) # TODO: remove duplicate code
+				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("СМЕРТЬ")) # TODO: remove duplicate code
 			else:
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
 

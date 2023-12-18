@@ -6,13 +6,13 @@ enum Types {
 }
 
 @export var type: Types = Types.NONE
-@export_range(1, 100) var base_value: int
+@export_range(0, 100) var base_value: int
 
 var value: int
 
 
 func _is_stats_valid() -> bool:
-	return type != Types.NONE and 1 <= base_value and base_value <= 100
+	return type != Types.NONE and 0 <= base_value and base_value <= 100
 
 
 func get_resource() -> Resist:

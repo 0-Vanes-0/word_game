@@ -1,24 +1,30 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=6 format=3 uid="uid://b3l3x7xocpnw3"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=8 format=3 uid="uid://b3l3x7xocpnw3"]
 
-[ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="1_tfxh4"]
-[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_hxbic"]
-[ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="3_badom"]
+[ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="1_5ibmd"]
+[ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_knw3k"]
+[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_lcrcb"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="3_e301k"]
+
+[sub_resource type="Resource" id="Resource_37uiu"]
+script = ExtResource("1_knw3k")
+type = 1
+base_value = 0
 
 [sub_resource type="Resource" id="Resource_tbsf5"]
-script = ExtResource("2_hxbic")
+script = ExtResource("2_lcrcb")
 type = 0
 
 [sub_resource type="Resource" id="Resource_80k38"]
-script = ExtResource("2_hxbic")
+script = ExtResource("2_lcrcb")
 type = 0
 
 [resource]
-script = ExtResource("3_badom")
-runes = Array[ExtResource("2_hxbic")]([SubResource("Resource_tbsf5"), SubResource("Resource_80k38")])
+script = ExtResource("3_e301k")
+runes = Array[ExtResource("2_lcrcb")]([SubResource("Resource_tbsf5"), SubResource("Resource_80k38")])
 health_up_per_level = 20
 damage_up_per_level = 3
-icon = ExtResource("1_tfxh4")
-base_initiative = 5
+icon = ExtResource("1_5ibmd")
+base_initiative = 10
 base_health = 100
 base_min_damage_fraction = Vector2(2, 3)
 base_max_damage = 12
@@ -27,4 +33,4 @@ is_attack_action_group = false
 is_ally_action_group = false
 foe_action_text = "Наносит $dmg урона одной цели"
 ally_action_text = "Накладывает $aav$shield на цель"
-base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])
+base_resist_array = Array[ExtResource("1_knw3k")]([SubResource("Resource_37uiu")])
