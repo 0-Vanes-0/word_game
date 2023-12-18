@@ -235,10 +235,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 			else:
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 		else:
-			if is_first_call:
-				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("СМЕРТЬ")) # TODO: remove duplicate code
-			else:
-				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
+			target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
 
 	else:
 		for b in target_group:
