@@ -15,8 +15,8 @@ run/main_scene="res://src/scenes/scene_handler.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
 boot_splash/image="res://assets/sprites/boot.png"
-boot_splash/use_filter=false
 config/icon="res://assets/sprites/characters/Player Knight/knight.png"
+boot_splash/minimum_display_time=500
 
 [autoload]
 
@@ -37,7 +37,6 @@ gdscript/warnings/narrowing_conversion=0
 
 window/size/viewport_width=960
 window/size/viewport_height=540
-window/size/resizable=false
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"

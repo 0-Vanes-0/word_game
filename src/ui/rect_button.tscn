@@ -10,8 +10,8 @@ font_size = 24
 font_color = Color(0, 0, 0, 1)
 
 [node name="RectButton" type="TextureButton" node_paths=PackedStringArray("label")]
-offset_right = 240.0
-offset_bottom = 80.0
+offset_right = 170.0
+offset_bottom = 70.0
 size_flags_horizontal = 3
 theme = ExtResource("1_81yl7")
 toggle_mode = true
