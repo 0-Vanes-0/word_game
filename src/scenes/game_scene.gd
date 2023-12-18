@@ -16,6 +16,11 @@ var heroes_levels := {
 
 func _ready() -> void:
 	assert(game_info_box and level_up_container)
+	
+	if Global.get_player_last_seen_version() < Global.VERSION:
+		print("SHOW UPDATE INFO TO PLAYER!!!")
+		Global.set_player_last_seen_version(Global.VERSION)
+	
 	level_up_container.hide()
 	
 	chosen_heroes_types = Global.get_player_last_hero_choice()
@@ -41,7 +46,7 @@ func _ready() -> void:
 		elif game_info_box.get_child(i) is SpinBox:
 			enemy_level_spinbox = game_info_box.get_child(i) as SpinBox
 			enemy_level_spinbox.min_value = 1
-			enemy_level_spinbox.max_value = GameInfo.enemy_levels.size()
+			enemy_level_spinbox.max_value = mini(Global.get_player_last_enemy_level_reached(), GameInfo.enemy_levels.size())
 
 
 func _on_enter_battle_button_pressed() -> void:

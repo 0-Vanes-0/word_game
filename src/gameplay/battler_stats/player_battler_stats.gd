@@ -8,8 +8,8 @@ var level: int = 1
 
 
 func _is_stats_valid() -> bool:
-	return super() and (
-			2 <= runes.size() and runes.size() <= 4
+	return super() and (true
+			#and 2 <= runes.size() and runes.size() <= 4
 			and health_up_per_level > 0
 			and damage_up_per_level > 0
 	)

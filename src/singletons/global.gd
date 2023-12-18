@@ -4,8 +4,9 @@ extends Node
 
 # ---------------------- CONSTANTS ----------------------
 
+const VERSION := 0.1
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
-const CHARACTER_SIZE := Vector2(60, 120)
+const CHARACTER_SIZE := Vector2(100, 120)
 const TargetColors := {
 	CURRENT_BATTLER = Color.YELLOW,
 	FOE_BATTLER = Color.BROWN,
@@ -16,6 +17,7 @@ const DEFAULT_SETTINGS := {
 }
 const DEFAULT_DATA := {
 	"id": 1,
+	"last_seen_version": 0.0,
 	"levels": {
 		"knight_level": 1,
 		"robber_level": 1,
@@ -23,6 +25,7 @@ const DEFAULT_DATA := {
 	},
 	"coins": 0,
 	"last_hero_choice": [Battler.Types.HERO_MAGE, Battler.Types.HERO_ROBBER, Battler.Types.HERO_KNIGHT],
+	"last_enemy_level_reached": 1,
 }
 
 # ---------------------- VARIABLES ----------------------
@@ -54,6 +57,12 @@ func set_player_id(value: int):
 	SaveLoad.save_data()
 func get_player_id() -> int:
 	return player_data.get("id") as int
+
+func set_player_last_seen_version(value: float):
+	player_data["last_seen_version"] = value
+	SaveLoad.save_data()
+func get_player_last_seen_version() -> float:
+	return player_data.get("last_seen_version") as float
 
 func set_player_level(battler_type: Battler.Types, value: int):
 	match battler_type:
@@ -90,6 +99,12 @@ func set_player_last_hero_choice(value: Array):
 	SaveLoad.save_data()
 func get_player_last_hero_choice() -> Array:
 	return player_data.get("last_hero_choice") as Array
+
+func set_player_last_enemy_level_reached(value: int):
+	player_data["last_enemy_level_reached"] = value
+	SaveLoad.save_data()
+func get_player_last_enemy_level_reached() -> int:
+	return player_data.get("last_enemy_level_reached") as int
 
 # ---------------------- FUNCTIONS ----------------------
 

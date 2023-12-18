@@ -119,6 +119,7 @@ func _on_battle_ended(is_victory: bool):
 	var penalty: int = coins * (1 - float(get_alive_players().size()) / player_battlers.size())
 	
 	if is_victory:
+		Global.set_player_last_enemy_level_reached(mini(GameInfo.current_enemy_level + 1, GameInfo.enemy_levels.size()))
 		Global.set_player_coins(player_coins + coins - penalty)
 		label.text = (
 			"Ваша добыча: " + str(coins) + " монет"

@@ -7,10 +7,13 @@ const MAX_BATTLERS_COUNT: int = 6
 
 @export var battlers_types: Array[Battler.Types] = [Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE]
 @export var enemy_levels: Array[EnemyLeveling]
+@export var current_enemy_level: int
 
 
 func _ready() -> void:
 	assert(battlers_types.size() == MAX_BATTLERS_COUNT and enemy_levels.size() > 0)
+	for i in enemy_levels.size():
+		enemy_levels[i].level_number = i+1
 	
 	#var has_none := func() -> bool: 
 		#for type in battlers_types:
@@ -22,10 +25,10 @@ func _ready() -> void:
 
 
 func add_enemies(level_number: int):
-	level_number = clampi(level_number, 1, enemy_levels.size())
+	current_enemy_level = clampi(level_number, 1, enemy_levels.size())
 	var enemies: Array[Battler.Types]
 	for level in enemy_levels:
-		if level.level_number == level_number:
+		if level.level_number == current_enemy_level:
 			enemies = level.enemies
 	
 	assert(

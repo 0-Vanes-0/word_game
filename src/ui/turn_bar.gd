@@ -7,6 +7,8 @@ signal battlers_moved_by_one_tick
 var _battler_queue: Array[Battler] = []
 var _sliders: Array[HSlider] = []
 
+# TODO: EXPAND PLACES (TICKS) AFTER ADDING RUNES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# tick_count + max_value + custom_minimum_size = 64 * max_value
 
 func _ready() -> void:
 	assert(battle_scene)

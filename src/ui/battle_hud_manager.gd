@@ -9,17 +9,28 @@ signal to_proceed_turn
 @export var _reset_spell_button: TextureButton
 @export var _runes: HBoxContainer
 @export var _proceed_button: IconButton
+@export var _old_proceed_button: TextureButton
 
 var spell: Array[Rune] = []
 
 
 func _ready() -> void:
-	assert(_spell_label and _reset_spell_button and _runes and _proceed_button)
+	assert(_spell_label and _reset_spell_button and _runes and _proceed_button and _old_proceed_button)
+	
+	# TODO: remove this after adding runes and spells v
+	_old_proceed_button.disabled = true
+	_old_proceed_button.toggled.connect(
+			func(toggled_on: bool):
+				if toggled_on:
+					_old_proceed_button.disabled = true
+					_old_proceed_button.set_pressed_no_signal(false)
+					disappear()
+					to_proceed_turn.emit()
+	)
+	# TODO: remove this after adding runes and spells ^
 	
 	_proceed_button.set_enabled(false)
-	
 	_proceed_button.set_icons(Preloader.texture_arrow_right_black_icon, Preloader.texture_arrow_right_yellow_icon, Preloader.texture_arrow_right_black_icon)
-	
 	_proceed_button.set_on_press(
 			func():
 				_spell_label.text = ""
@@ -53,6 +64,9 @@ func _ready() -> void:
 
 func set_proceed_button_enabled(is_enabled: bool):
 	_proceed_button.set_enabled(is_enabled)
+	# TODO: remove this after adding runes and spells v
+	_old_proceed_button.disabled = not is_enabled
+	# TODO: remove this after adding runes and spells ^
 
 
 func appear(current_battler: Battler):

@@ -88,6 +88,7 @@ update_on_text_changed = true
 prefix = "Ур. противников"
 
 [node name="LevelUpContainer" parent="CanvasLayer/Control" instance=ExtResource("4_yejoq")]
+visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/StartBattleVBox/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]

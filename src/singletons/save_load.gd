@@ -6,6 +6,7 @@ const _DATA_FILENAME := "player.dat"
 const _USER_DATA_PREFIX := "user://"
 const _SETTINGS_FILE_PATH: String = _USER_DATA_PREFIX + _SETTINGS_FILENAME
 const _DATA_FILE_PATH: String = _USER_DATA_PREFIX + _DATA_FILENAME
+static var _MINIMUM_FILE_LENGTH: int
 
 
 #func _ready() -> void:
@@ -30,7 +31,8 @@ static func load_data() -> Dictionary:
 	var data: Dictionary = {}
 	var file := FileAccess.open(_DATA_FILE_PATH, FileAccess.READ)
 	var error: Error = FileAccess.get_open_error()
-	if error != OK or file.get_length() == 0:
+	_MINIMUM_FILE_LENGTH = JSON.stringify(Global.DEFAULT_DATA).length() - 1
+	if error != OK or file.get_length() < _MINIMUM_FILE_LENGTH:
 		_create_default_data_file(file)
 		file = FileAccess.open(_DATA_FILE_PATH, FileAccess.READ)
 	

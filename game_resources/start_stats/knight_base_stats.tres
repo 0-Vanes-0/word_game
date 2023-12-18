@@ -1,14 +1,8 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=8 format=3 uid="uid://b3l3x7xocpnw3"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=6 format=3 uid="uid://b3l3x7xocpnw3"]
 
-[ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_4nque"]
 [ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="1_tfxh4"]
 [ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_hxbic"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="3_badom"]
-
-[sub_resource type="Resource" id="Resource_7gt44"]
-script = ExtResource("1_4nque")
-type = 1
-base_value = 80
 
 [sub_resource type="Resource" id="Resource_tbsf5"]
 script = ExtResource("2_hxbic")
@@ -33,4 +27,4 @@ is_attack_action_group = false
 is_ally_action_group = false
 foe_action_text = "Наносит $dmg урона одной цели"
 ally_action_text = "Накладывает $aav$shield на цель"
-base_resist_array = Array[ExtResource("1_4nque")]([SubResource("Resource_7gt44")])
+base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])
