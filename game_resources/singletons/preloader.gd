@@ -32,6 +32,8 @@ extends Node
 @export var texture_person_black_icon: Texture2D
 @export var texture_arrow_right_yellow_icon: Texture2D
 @export var texture_arrow_right_black_icon: Texture2D
+@export var texture_arrow_left_yellow_icon: Texture2D
+@export var texture_arrow_left_black_icon: Texture2D
 @export var texture_under_progress_bar: Texture2D
 @export var texture_over_progress_bar: Texture2D
 @export var texture_red_progress_bar: Texture2D
@@ -40,6 +42,7 @@ extends Node
 @export var texture_yellow_progress_bar: Texture2D
 @export var texture_coin: Texture2D
 @export var texture_skull: Texture2D
+@export var texture_book: Texture2D
 
 @export_group("Runes", "rune_")
 @export var rune_comet: Rune
@@ -73,7 +76,8 @@ func _ready() -> void:
 			and texture_person_black_icon and texture_arrow_right_yellow_icon and texture_arrow_right_black_icon
 			and texture_under_progress_bar and texture_over_progress_bar and texture_red_progress_bar
 			and texture_green_progress_bar and texture_blue_progress_bar and texture_yellow_progress_bar
-			and texture_coin and texture_skull)
+			and texture_coin and texture_skull and texture_arrow_left_yellow_icon and texture_arrow_left_black_icon
+			and texture_book)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla
 			and rune_tornado and rune_water)
 	assert(token_fire and token_shield)

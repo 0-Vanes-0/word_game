@@ -80,9 +80,6 @@ func init_turn():
 
 
 func proceed_turn():
-	if hud_manager.visible:
-		hud_manager.disappear()
-	
 	for b in battle_scene.battlers:
 		b.set_area_inputable(false)
 	

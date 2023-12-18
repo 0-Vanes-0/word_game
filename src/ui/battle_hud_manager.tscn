@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dmphysqui0a6s"]
+[gd_scene load_steps=13 format=3 uid="uid://dmphysqui0a6s"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_gqh4m"]
 [ext_resource type="Script" path="res://src/ui/battle_hud_manager.gd" id="1_r71ia"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="6_4rak5"]
 [ext_resource type="PackedScene" uid="uid://d3di5wu6irnnt" path="res://src/ui/rune_button.tscn" id="7_v8cwb"]
 [ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="11_0d6gu"]
-[ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="12_by8sb"]
 [ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="12_s11gp"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
@@ -124,8 +123,6 @@ layout_mode = 2
 visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-texture_normal = ExtResource("12_by8sb")
-texture_pressed = ExtResource("13_nvbkp")
 texture_disabled = ExtResource("13_nvbkp")
 
 [node name="OldProceedButton" type="TextureButton" parent="HBoxContainer"]

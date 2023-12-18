@@ -6,11 +6,14 @@ signal proceed_turn_ended
 @export var battlers_node: Marker2D
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D#
+@export var back_button: IconButton
 @export var coins_counter: LineEdit
+@export var handbook_button: IconButton
 @export var turn_bar: TurnBar
 @export var battler_info: BattlerInfoContainer
 @export var hud_manager: BattleHUDManager
-@export var victory_defeat_container: MarginContainer
+@export var victory_defeat_container: VictoryDefeatContainer
+@export var back_confirm: BackConfirm
 @export var battle_animator: BattleAnimator
 @export var battle_manager: BattleManager
 
@@ -22,9 +25,8 @@ var enemy_battlers: Array[Battler]
 
 func _ready() -> void:
 	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
-			and battler_info and battle_manager and victory_defeat_container and coins_counter)
-	$"-----TEST-----".hide()
-	hud_manager.disappear()
+			and battler_info and battle_manager and victory_defeat_container and coins_counter
+			and back_button and handbook_button)
 	
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
 	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
@@ -66,16 +68,28 @@ func _ready() -> void:
 	
 	battlers_node.move_child(black_screen, -1)
 	battlers_node.move_child(effect_sprite, -1) # To remove
+	$"-----TEST-----".hide()
+	
+	back_button.set_icons(Preloader.texture_arrow_left_black_icon, Preloader.texture_arrow_left_black_icon)
+	back_button.pressed.connect(
+			func():
+				back_confirm.show()
+				get_tree().paused = true
+	)
+	_update_coins_label()
+	handbook_button.set_icons(Preloader.texture_book, Preloader.texture_book)
+	handbook_button.pressed.connect(
+			func():
+				pass
+	)
+	turn_bar.setup()
+	
+	battler_info.scale = Vector2.ZERO
 	
 	hud_manager.to_proceed_turn.connect( 
 			func():
 				battle_manager.proceed_turn()
 	)
-	battler_info.scale = Vector2.ZERO
-	
-	turn_bar.setup()
-	
-	_update_coins_label()
 	
 	battle_manager.init_turn()
 	battle_manager.coins_reduced.connect(_update_coins_label)
@@ -110,7 +124,6 @@ func _update_coins_label():
 
 
 func _on_battle_ended(is_victory: bool):
-	var label := $CanvasLayer/Control/VictoryDefeatContainer/VBox/MarginContainer/VBoxContainer/SomeLabel as Label
 	var coins: int = 0
 	for b in enemy_battlers:
 		var enemy_stats := b.stats as EnemyBattlerStats
@@ -118,10 +131,13 @@ func _on_battle_ended(is_victory: bool):
 	var player_coins := int(Global.get_player_coins())
 	var penalty: int = coins * (1 - float(get_alive_players().size()) / player_battlers.size())
 	
+	victory_defeat_container.victory_defeat_label.text = "ПОБЕДА" if is_victory else "ПОРАЖЕНИЕ"
 	if is_victory:
-		Global.set_player_last_enemy_level_reached(mini(GameInfo.current_enemy_level + 1, GameInfo.enemy_levels.size()))
+		if Global.get_player_last_enemy_level_reached() == GameInfo.current_enemy_level:
+			Global.set_player_last_enemy_level_reached( mini(GameInfo.current_enemy_level + 1, GameInfo.enemy_levels.size()) )
 		Global.set_player_coins(player_coins + coins - penalty)
-		label.text = (
+		
+		victory_defeat_container.result_label.text = (
 			"Ваша добыча: " + str(coins) + " монет"
 			+ ((" (-" + str(penalty) + " за смерть героев)") if penalty > 0 else "")
 		)
@@ -129,13 +145,13 @@ func _on_battle_ended(is_victory: bool):
 	else:
 		coins = 3
 		Global.set_player_coins(player_coins + coins)
-		label.text = (
+		victory_defeat_container.result_label.text = (
 			"Утешительный приз: " + str(coins) + " монет"
 		)
 	
-	label.text += "\n" + "Теперь у вас: " + str(player_coins + coins - penalty) + " монет"
+	victory_defeat_container.result_label.text += "\n" + "Теперь у вас: " + str(player_coins + coins - penalty) + " монет"
 	if get_alive_players().size() < 3:
-		label.text += "\n" + "Погибшие герои будут возрождены в городе."
+		victory_defeat_container.result_label.text += "\n" + "Погибшие герои будут возрождены в городе."
 
 
 func _process(delta: float) -> void:
@@ -156,5 +172,17 @@ func get_alive_enemies() -> Array[Battler]:
 	)
 
 
-func _on_back_button_pressed() -> void:
-	Global.switch_to_scene(Preloader.game_scene)
+func show_all_hud():
+	$CanvasLayer/Control.show()
+	var tween := create_tween()
+	tween.tween_property(
+			$CanvasLayer/Control, "modulate:a",
+			1.0,
+			0.25
+	)
+
+
+func hide_all_hud():
+	$CanvasLayer/Control.hide()
+	$CanvasLayer/Control.modulate.a = 0.0
+	hud_manager.disappear()

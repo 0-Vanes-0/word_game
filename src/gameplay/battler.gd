@@ -297,6 +297,7 @@ func update_token_labels():
 				current_t_label.amount = 1
 				current_t_label.duration = token.lifetime_turns
 				tokens_container.add_child(current_t_label)
+				current_t_label.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 			else:
 				current_t_label.amount += 1
 				current_t_label.duration = max(token.lifetime_turns, current_t_label.duration)

@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://dsxcfd5s1uhb4" path="res://assets/audio/Geometry Dash - Practice Mode - Stay Inside Me - Soundtrack.mp3" id="2_kikds"]
 
 [node name="SceneHandler" type="Node"]
+process_mode = 3
 script = ExtResource("1_pex0a")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

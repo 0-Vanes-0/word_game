@@ -18,11 +18,11 @@ func _ready() -> void:
 	assert(_spell_label and _reset_spell_button and _runes and _proceed_button and _old_proceed_button)
 	
 	# TODO: remove this after adding runes and spells v
-	_old_proceed_button.disabled = true
+	set_proceed_button_enabled(false)
 	_old_proceed_button.toggled.connect(
 			func(toggled_on: bool):
 				if toggled_on:
-					_old_proceed_button.disabled = true
+					set_proceed_button_enabled(false)
 					_old_proceed_button.set_pressed_no_signal(false)
 					disappear()
 					to_proceed_turn.emit()
@@ -66,17 +66,12 @@ func set_proceed_button_enabled(is_enabled: bool):
 	_proceed_button.set_enabled(is_enabled)
 	# TODO: remove this after adding runes and spells v
 	_old_proceed_button.disabled = not is_enabled
+	_old_proceed_button.get_node("CenterContainer/Label").text = "Начать ход" if is_enabled else "Выберите бойца"
 	# TODO: remove this after adding runes and spells ^
 
 
 func appear(current_battler: Battler):
 	self.show()
-	var tween := create_tween()
-	tween.tween_property(
-			self, "modulate:a",
-			1.0,
-			0.5
-	)
 	var player_stats := current_battler.stats as PlayerBattlerStats
 	var battler_runes: Array[Rune] = player_stats.runes
 	for i in battler_runes.size():
@@ -86,7 +81,6 @@ func appear(current_battler: Battler):
 
 
 func disappear():
-	self.modulate.a = 0.0
 	self.hide()
 	for button: RuneButton in _runes.get_children():
 		button.hide()

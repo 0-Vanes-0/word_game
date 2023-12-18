@@ -9,8 +9,8 @@ offset_right = 66.0
 offset_bottom = 66.0
 toggle_mode = true
 action_mode = 0
-texture_normal = ExtResource("1_2l2i5")
-texture_pressed = ExtResource("2_drhqy")
+texture_normal = ExtResource("2_drhqy")
+texture_pressed = ExtResource("1_2l2i5")
 stretch_mode = 5
 script = ExtResource("3_hamct")
 
@@ -21,19 +21,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="IconDisabled" type="TextureRect" parent="CenterContainer"]
 layout_mode = 2
+mouse_filter = 2
 stretch_mode = 5
 
 [node name="IconEnabled" type="TextureRect" parent="CenterContainer"]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 stretch_mode = 5
 
 [node name="Unpressable" type="TextureRect" parent="CenterContainer"]
 visible = false
 layout_mode = 2
+mouse_filter = 2
 stretch_mode = 5
 
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
 [connection signal="toggled" from="." to="." method="_on_toggled"]

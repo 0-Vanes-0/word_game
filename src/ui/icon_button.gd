@@ -4,6 +4,34 @@ extends TextureButton
 var _on_press := Callable()
 
 
+func _ready() -> void:
+	if toggle_mode:
+		$CenterContainer/IconEnabled.show()
+		$CenterContainer/IconDisabled.hide()
+	else:
+		$CenterContainer/IconDisabled.show()
+		$CenterContainer/IconEnabled.hide()
+	
+	$CenterContainer/IconEnabled.custom_minimum_size = ceil(Vector2.ONE * self.custom_minimum_size.x * 0.4)
+	$CenterContainer/IconDisabled.custom_minimum_size = ceil(Vector2.ONE * self.custom_minimum_size.x * 0.4)
+	$CenterContainer/Unpressable.custom_minimum_size = ceil(Vector2.ONE * self.custom_minimum_size.x * 0.4)
+	
+
+
+func _on_button_down() -> void:
+	if not self.toggle_mode:
+		$CenterContainer/IconEnabled.show()
+		$CenterContainer/IconDisabled.hide()
+		if not _on_press.is_null():
+			_on_press.call()
+
+
+func _on_button_up() -> void: # not working after pause?
+	if not self.toggle_mode:
+		$CenterContainer/IconDisabled.show()
+		$CenterContainer/IconEnabled.hide()
+
+
 func _on_toggled(button_pressed: bool) -> void:
 	if self.toggle_mode:
 		if button_pressed:
@@ -31,4 +59,5 @@ func set_enabled(is_enabled: bool):
 	self.disabled = not is_enabled
 	if $CenterContainer/Unpressable.texture != null:
 		$CenterContainer/Unpressable.visible = self.disabled
+
 

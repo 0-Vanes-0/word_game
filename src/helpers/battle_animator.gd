@@ -17,6 +17,12 @@ func _ready() -> void:
 
 
 func animate_turn(target_group: Array[Battler] = []):
+	# ----- HIDING EVERYTHING -----
+	
+	battle_scene.hide_all_hud()
+	
+	# ----- PREPARE ANIMATION -----
+	
 	var current_action_type: Battler.ActionTypes = battle_manager.current_action_type
 	
 	var current_battler: Battler = battle_scene.battlers[battle_manager.current_battler_index]
@@ -30,10 +36,10 @@ func animate_turn(target_group: Array[Battler] = []):
 			target_group if not target_group.is_empty()
 			else one
 	)
-	var target_battler_indexes: Array[int]
-	var target_battler_positions: Array[Vector2]
-	var target_battler_scales: Array[Vector2]
-	var target_battler_offsets: Array[Vector2]
+	var target_battler_indexes: Array[int] = []
+	var target_battler_positions: Array[Vector2] = []
+	var target_battler_scales: Array[Vector2] = []
+	var target_battler_offsets: Array[Vector2] = []
 	
 	target_battler_indexes.resize(target_battlers.size())
 	target_battler_positions.resize(target_battlers.size())
@@ -78,6 +84,7 @@ func animate_turn(target_group: Array[Battler] = []):
 			if b.is_alive:
 				b.anim_reaction(current_action_type)
 	
+									# to remove:
 	#if effect_type > 0:
 		#battle_scene.effect_sprite.offset = (battle_scene.effect_sprite.sprite_frames as MySpriteFrames).separate_offsets[Rune.get_type_string(effect_type)]
 		#battle_scene.effect_sprite.position = (
@@ -170,6 +177,7 @@ func animate_turn(target_group: Array[Battler] = []):
 	_tween.tween_callback(
 			func():
 				battle_scene.battlers_node.move_child(black, -1)
+				battle_scene.show_all_hud()
 	)
 	
 	await _tween.finished
@@ -211,9 +219,6 @@ func animate_battle_end(is_victory: bool):
 		b.anim_reaction(Battler.ActionTypes.ALLY)
 	
 	battle_scene.victory_defeat_container.modulate.a = 0.0
-	var label := battle_scene.victory_defeat_container.get_node("VBox/CenterContainer/VictoryDefeatLabel")
-	if label != null:
-		label.text = "ПОБЕДА" if is_victory else "ПОРАЖЕНИЕ"
 	_tween = _new_tween()
 	_tween.tween_interval(2.0)
 	_tween.tween_callback(battle_scene.victory_defeat_container.show)

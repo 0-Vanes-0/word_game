@@ -14,4 +14,5 @@ static func create() -> TokenLabel:
 
 func update_info():
 	self.set_icon(token.icon_texture, IconLabel.Sizes.x24)
-	self.set_text(str(amount) + "(" + str(duration) + ")")
+	#self.set_text(str(amount) + "(" + str(duration) + ")")
+	self.set_text(str(amount))
