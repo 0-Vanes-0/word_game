@@ -1,8 +1,8 @@
 class_name BackConfirm
 extends ColorRect
 
-@export var back_button: Button
-@export var hide_button: Button
+@export var back_button: RectButton
+@export var hide_button: RectButton
 
 
 func _ready() -> void:

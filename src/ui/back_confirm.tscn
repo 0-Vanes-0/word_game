@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhydmgtimjq8n"]
+[gd_scene load_steps=8 format=3 uid="uid://bhydmgtimjq8n"]
 
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_hg1i7"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_km4ur"]
 [ext_resource type="Script" path="res://src/ui/back_confirm.gd" id="2_qfbqf"]
+[ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="4_pjaj1"]
+[ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="5_lu15s"]
+[ext_resource type="Script" path="res://src/ui/rect_button.gd" id="6_1gp7l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ilqy"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
 
 [node name="BackConfirm" type="ColorRect" node_paths=PackedStringArray("back_button", "hide_button")]
 process_mode = 3
@@ -51,12 +58,50 @@ horizontal_alignment = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="BackButton" type="Button" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="BackButton" type="TextureButton" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label")]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Покинуть"
+theme = ExtResource("1_km4ur")
+texture_normal = ExtResource("4_pjaj1")
+texture_pressed = ExtResource("5_lu15s")
+texture_disabled = ExtResource("5_lu15s")
+stretch_mode = 5
+script = ExtResource("6_1gp7l")
+label = NodePath("CenterContainer/Label")
 
-[node name="HideButton" type="Button" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton/CenterContainer"]
+layout_mode = 2
+text = "Покинуть"
+label_settings = SubResource("LabelSettings_8ilqy")
+
+[node name="HideButton" type="TextureButton" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("label")]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("1_km4ur")
+texture_normal = ExtResource("4_pjaj1")
+texture_pressed = ExtResource("5_lu15s")
+texture_disabled = ExtResource("5_lu15s")
+stretch_mode = 5
+script = ExtResource("6_1gp7l")
+label = NodePath("CenterContainer/Label")
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/HideButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/HideButton/CenterContainer"]
+layout_mode = 2
 text = "Продолжить"
+label_settings = SubResource("LabelSettings_8ilqy")

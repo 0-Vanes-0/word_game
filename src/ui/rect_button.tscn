@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd0d60tyok5rf"]
+
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_81yl7"]
+[ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="1_tvylk"]
+[ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="2_d28px"]
+[ext_resource type="Script" path="res://src/ui/rect_button.gd" id="4_fy3hj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ilqy"]
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[node name="RectButton" type="TextureButton" node_paths=PackedStringArray("label")]
+offset_right = 240.0
+offset_bottom = 80.0
+size_flags_horizontal = 3
+theme = ExtResource("1_81yl7")
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("1_tvylk")
+texture_pressed = ExtResource("2_d28px")
+texture_disabled = ExtResource("2_d28px")
+stretch_mode = 5
+script = ExtResource("4_fy3hj")
+label = NodePath("CenterContainer/Label")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+text = "Начать ход"
+label_settings = SubResource("LabelSettings_8ilqy")
