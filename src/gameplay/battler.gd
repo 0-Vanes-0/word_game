@@ -10,13 +10,13 @@ enum Types {
 	NONE = 0,
 	HERO_KNIGHT = 11, HERO_ROBBER = 12, HERO_MAGE = 13,
 	
-	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23
+	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23, ENEMY_ENT = 24
 }
 enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
 const HEROES: Array[Types] = [Types.HERO_KNIGHT, Types.HERO_ROBBER, Types.HERO_MAGE]
-const MOBS: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR]
+const MOBS: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT]
 const Animations := {
 	IDLE = "idle",
 	PREPARE_ATTACK = "prepare_attack",
@@ -478,6 +478,8 @@ static func get_sprite_frames(type: Types) -> SpriteFrames:
 			return Preloader.sprite_frames_fire_imp
 		Types.ENEMY_BEAR:
 			return Preloader.sprite_frames_bear
+		Types.ENEMY_ENT:
+			return Preloader.sprite_frames_ent
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return null
@@ -497,6 +499,8 @@ static func get_offset(type: Types) -> Vector2:
 			return Preloader.sprite_frames_fire_imp.offset
 		Types.ENEMY_BEAR:
 			return Preloader.sprite_frames_bear.offset
+		Types.ENEMY_ENT:
+			return Preloader.sprite_frames_ent.offset
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return Vector2.ZERO
@@ -516,6 +520,8 @@ static func get_start_stats(type: Types) -> BattlerStats:
 			return Preloader.stats_fire_imp
 		Types.ENEMY_BEAR:
 			return Preloader.stats_bear
+		Types.ENEMY_ENT:
+			return Preloader.stats_ent
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return null
@@ -543,6 +549,10 @@ static func get_type_as_string(type: Types) -> String:
 			return "Гоблин"
 		Types.ENEMY_FIRE_IMP:
 			return "Чорт"
+		Types.ENEMY_BEAR:
+			return "Медведь"
+		Types.ENEMY_ENT:
+			return "Энт"
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return ""

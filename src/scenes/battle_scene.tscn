@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bv6nr7x5jrobq" path="res://assets/sprites/env/grass_trees.png" id="7_cxmis"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="SpriteFrames" uid="uid://xc71w5qk0l0q" path="res://game_resources/sprite_frames/sprite_frames_effects.tres" id="9_037nk"]
-[ext_resource type="SpriteFrames" uid="uid://bect0g6f4bvhb" path="res://game_resources/sprite_frames/sprite_frames_bear.tres" id="9_ro74f"]
+[ext_resource type="SpriteFrames" uid="uid://bxht187ek74ni" path="res://game_resources/sprite_frames/sprite_frames_ent.tres" id="9_xuu0t"]
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="10_168tf"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="10_vr0bk"]
 [ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="11_t7hoc"]
@@ -91,11 +91,11 @@ layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 52429
 [node name="-----TEST-----" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="-----TEST-----"]
-position = Vector2(558, 328)
+position = Vector2(574, 328)
 scale = Vector2(2, 2)
-sprite_frames = ExtResource("9_ro74f")
+sprite_frames = ExtResource("9_xuu0t")
 animation = &"prepare_attack"
-offset = Vector2(16, -48)
+offset = Vector2(12, -47.5)
 
 [node name="HFlowContainer" type="VBoxContainer" parent="-----TEST-----"]
 clip_contents = true

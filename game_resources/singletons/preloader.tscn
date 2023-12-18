@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=55 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -14,6 +14,7 @@
 [ext_resource type="Resource" uid="uid://7odoo3ujxvoy" path="res://game_resources/start_stats/bear_base_stats.tres" id="7_r1l67"]
 [ext_resource type="Resource" uid="uid://dvf258ty8bnm7" path="res://game_resources/start_stats/heroes/robber_base_stats.tres" id="8_5xyke"]
 [ext_resource type="SpriteFrames" uid="uid://cn38l01om6o2v" path="res://game_resources/sprite_frames/sprite_frames_goblin.tres" id="8_r525w"]
+[ext_resource type="Resource" uid="uid://36f4xv7loa2a" path="res://game_resources/start_stats/ent_base_stats.tres" id="8_rycwy"]
 [ext_resource type="Texture2D" uid="uid://cay0px1pbvcpn" path="res://assets/sprites/ui/selection.png" id="10_l5r3s"]
 [ext_resource type="SpriteFrames" uid="uid://cxd0gx3lpfnso" path="res://game_resources/sprite_frames/sprite_frames_fire_imp.tres" id="10_ln2yb"]
 [ext_resource type="Texture2D" uid="uid://cim7p0f0ynatd" path="res://assets/sprites/ui/selection_hover.png" id="11_nxxdl"]
@@ -22,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://kgices52mgxs" path="res://assets/sprites/ui/icons/sword.png" id="13_hax0l"]
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="14_xt4q3"]
 [ext_resource type="Texture2D" uid="uid://dpe3eg0phpyds" path="res://assets/sprites/ui/icons/shield.png" id="15_5aksj"]
+[ext_resource type="SpriteFrames" uid="uid://bxht187ek74ni" path="res://game_resources/sprite_frames/sprite_frames_ent.tres" id="15_c582y"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="16_ilmgl"]
 [ext_resource type="Texture2D" uid="uid://ct7v0iv8kddft" path="res://assets/sprites/ui/icons/person.png" id="17_ufejx"]
 [ext_resource type="Texture2D" uid="uid://dsov2a1l5ms8d" path="res://assets/sprites/ui/icons/play_button_yellow.png" id="18_d3g4s"]
@@ -61,12 +63,14 @@ http_test_scene = ExtResource("3_x778j")
 stats_fire_imp = ExtResource("5_1ed1q")
 stats_goblin = ExtResource("5_o2b78")
 stats_bear = ExtResource("7_r1l67")
+stats_ent = ExtResource("8_rycwy")
 stats_knight = ExtResource("6_s46mm")
 stats_mage = ExtResource("7_elr8a")
 stats_robber = ExtResource("8_5xyke")
 sprite_frames_fire_imp = ExtResource("10_ln2yb")
 sprite_frames_goblin = ExtResource("8_r525w")
 sprite_frames_bear = ExtResource("13_5efth")
+sprite_frames_ent = ExtResource("15_c582y")
 sprite_frames_knight = ExtResource("5_wh8vi")
 sprite_frames_mage = ExtResource("7_chvag")
 sprite_frames_robber = ExtResource("6_1v8hy")

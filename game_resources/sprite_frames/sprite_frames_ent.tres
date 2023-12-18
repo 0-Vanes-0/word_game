@@ -1,0 +1,112 @@
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=17 format=3 uid="uid://bxht187ek74ni"]
+
+[ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="1_3oakl"]
+[ext_resource type="Texture2D" uid="uid://dxsvgkpl5qoah" path="res://assets/sprites/characters/ent/attack3.png" id="1_ahln1"]
+[ext_resource type="Texture2D" uid="uid://dmxpxgow105h2" path="res://assets/sprites/characters/ent/idle2.png" id="2_vyfi3"]
+[ext_resource type="Texture2D" uid="uid://cj0i2mdi2i7gw" path="res://assets/sprites/characters/ent/death1.png" id="3_xn4mw"]
+[ext_resource type="Texture2D" uid="uid://5hogm207pqdk" path="res://assets/sprites/characters/ent/death2.png" id="4_gngku"]
+[ext_resource type="Texture2D" uid="uid://cv81nwsbaiph1" path="res://assets/sprites/characters/ent/death3.png" id="5_6gd7s"]
+[ext_resource type="Texture2D" uid="uid://xwfm2cws8lg1" path="res://assets/sprites/characters/ent/death4.png" id="6_klart"]
+[ext_resource type="Texture2D" uid="uid://c61tcyx7p1g4f" path="res://assets/sprites/characters/ent/death5.png" id="7_k633p"]
+[ext_resource type="Texture2D" uid="uid://c6uwojnsigaoa" path="res://assets/sprites/characters/ent/death6.png" id="8_msoa1"]
+[ext_resource type="Texture2D" uid="uid://bdpxidf2ht6ja" path="res://assets/sprites/characters/ent/death7.png" id="9_0d8c8"]
+[ext_resource type="Texture2D" uid="uid://b3aapyoauolml" path="res://assets/sprites/characters/ent/hurt1.png" id="10_dk0gd"]
+[ext_resource type="Texture2D" uid="uid://dg1mpme4psf0t" path="res://assets/sprites/characters/ent/idle1.png" id="11_me2oo"]
+[ext_resource type="Texture2D" uid="uid://c2rw78k3nd7vi" path="res://assets/sprites/characters/ent/idle3.png" id="12_fwln7"]
+[ext_resource type="Texture2D" uid="uid://c6uxpfojkok5h" path="res://assets/sprites/characters/ent/idle4.png" id="13_sc5qe"]
+[ext_resource type="Texture2D" uid="uid://ea5vvls7yspm" path="res://assets/sprites/characters/ent/attack1.png" id="14_elapu"]
+[ext_resource type="Texture2D" uid="uid://cfdk11fuu1cvf" path="res://assets/sprites/characters/ent/attack2.png" id="15_nf8e1"]
+
+[resource]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ahln1")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vyfi3")
+}],
+"loop": false,
+"name": &"buff",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xn4mw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gngku")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6gd7s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_klart")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_k633p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_msoa1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_0d8c8")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_dk0gd")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("11_me2oo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vyfi3")
+}, {
+"duration": 3.0,
+"texture": ExtResource("12_fwln7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_sc5qe")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("14_elapu")
+}, {
+"duration": 2.0,
+"texture": ExtResource("15_nf8e1")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("1_3oakl")
+offset = Vector2(12, -48)
+separate_offsets = {}
