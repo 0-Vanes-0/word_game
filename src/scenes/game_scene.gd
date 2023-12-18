@@ -47,10 +47,11 @@ func _ready() -> void:
 			enemy_level_spinbox = game_info_box.get_child(i) as SpinBox
 			enemy_level_spinbox.min_value = 1
 			enemy_level_spinbox.max_value = mini(Global.get_player_last_enemy_level_reached(), GameInfo.enemy_levels.size())
+			enemy_level_spinbox.value = GameInfo.current_enemy_level if GameInfo.current_enemy_level > 0 else enemy_level_spinbox.max_value
 
 
 func _on_enter_battle_button_pressed() -> void:
-	var arr := op_buttons.map( func(button: OptionButton): return button.get_item_id(button.selected) ) # get_selected_id()
+	var arr := op_buttons.map( func(button: OptionButton): return button.get_selected_id() )
 	for i in arr.size():
 		GameInfo.battlers_types[i] = arr[i]
 	GameInfo.add_enemies(enemy_level_spinbox.value)
@@ -64,5 +65,5 @@ func _on_upgrade_button_pressed() -> void:
 
 func _on_option_button_item_selected(_index: int): # _index is intended to be not used
 	for i in op_buttons.size():
-		chosen_heroes_types[i] = op_buttons[i].get_item_id(op_buttons[i].selected) # get_selected_id()
+		chosen_heroes_types[i] = op_buttons[i].get_selected_id()
 	Global.set_player_last_hero_choice(chosen_heroes_types)

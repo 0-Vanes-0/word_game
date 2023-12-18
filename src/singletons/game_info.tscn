@@ -6,32 +6,26 @@
 
 [sub_resource type="Resource" id="Resource_6cm0q"]
 script = ExtResource("2_jjiwg")
-level_number = 1
 enemies = Array[int]([21, 21, 0])
 
 [sub_resource type="Resource" id="Resource_gdosi"]
 script = ExtResource("2_jjiwg")
-level_number = 2
 enemies = Array[int]([21, 21, 21])
 
 [sub_resource type="Resource" id="Resource_v83hx"]
 script = ExtResource("2_jjiwg")
-level_number = 3
 enemies = Array[int]([21, 22, 0])
 
 [sub_resource type="Resource" id="Resource_ofu02"]
 script = ExtResource("2_jjiwg")
-level_number = 4
 enemies = Array[int]([21, 22, 22])
 
 [sub_resource type="Resource" id="Resource_l31bi"]
 script = ExtResource("2_jjiwg")
-level_number = 5
 enemies = Array[int]([23, 21, 22])
 
 [sub_resource type="Resource" id="Resource_1t2hn"]
 script = ExtResource("2_jjiwg")
-level_number = 6
 enemies = Array[int]([23, 23, 23])
 
 [node name="GameInfo" type="Node"]
