@@ -1,8 +1,12 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dk0tmfu7rmmc0"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://dk0tmfu7rmmc0"]
 
 [ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="1_glf6i"]
 [ext_resource type="FontFile" uid="uid://bfieqpushgxta" path="res://assets/fonts/Fairfax.ttf" id="1_woqwf"]
 [ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="2_pstp7"]
+[ext_resource type="Texture2D" uid="uid://bgu37xw77i1f7" path="res://assets/sprites/ui/char_bg.png" id="3_6qjo2"]
+[ext_resource type="Texture2D" uid="uid://bfa0icat2cclx" path="res://assets/sprites/ui/icons/check_mark.png" id="3_e1uqi"]
+[ext_resource type="Texture2D" uid="uid://bm6rijkr05day" path="res://assets/sprites/ui/square_border_big_full_empty.png" id="3_mh2ey"]
+[ext_resource type="Texture2D" uid="uid://gotmnwr5qomf" path="res://assets/sprites/ui/icons/x.png" id="4_hygxr"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ycvo"]
 texture = ExtResource("1_glf6i")
@@ -22,6 +26,16 @@ texture_margin_bottom = 5.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ffkx"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d50u0"]
+texture = ExtResource("3_mh2ey")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slccu"]
+texture = ExtResource("3_6qjo2")
+
 [resource]
 default_font = ExtResource("1_woqwf")
 default_font_size = 24
@@ -38,4 +52,10 @@ Button/styles/normal = SubResource("StyleBoxTexture_mvwb8")
 Button/styles/pressed = SubResource("StyleBoxTexture_3ycvo")
 Label/colors/font_color = Color(0, 0, 0, 1)
 OptionButton/icons/arrow = SubResource("AtlasTexture_0ffkx")
+PopupMenu/colors/font_color = Color(0, 0, 0, 1)
+PopupMenu/colors/font_hover_color = Color(0, 0, 0, 1)
+PopupMenu/icons/radio_checked = ExtResource("3_e1uqi")
+PopupMenu/icons/radio_unchecked = ExtResource("4_hygxr")
+PopupMenu/styles/hover = SubResource("StyleBoxTexture_d50u0")
+PopupMenu/styles/panel = SubResource("StyleBoxTexture_slccu")
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)

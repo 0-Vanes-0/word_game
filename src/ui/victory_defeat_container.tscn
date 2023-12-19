@@ -14,7 +14,7 @@ color = Color(0, 0, 0, 0.501961)
 script = ExtResource("1_kb3xd")
 victory_defeat_label = NodePath("MarginContainer/VBox/CenterContainer/VictoryDefeatLabel")
 result_label = NodePath("MarginContainer/VBox/MarginContainer/VBoxContainer/ResultLabel")
-back_button = NodePath("")
+back_button = NodePath("MarginContainer/VBox/MarginContainer/VBoxContainer/Button")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

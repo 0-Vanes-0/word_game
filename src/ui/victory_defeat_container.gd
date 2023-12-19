@@ -3,7 +3,7 @@ extends ColorRect
 
 @export var victory_defeat_label: Label
 @export var result_label: Label
-@export var back_button: RectButton
+@export var back_button: Button
 
 
 func _ready() -> void:
