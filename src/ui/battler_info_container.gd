@@ -13,7 +13,7 @@ extends MarginContainer
 @export var resists_grid: GridContainer
 const ICON_IN_LABEL_SIZE := Vector2.ONE * 24
 const TWEEN_TIME := 0.5
-var _tween
+var _tween: Tween
 
 
 func _ready() -> void:
@@ -24,6 +24,11 @@ func _ready() -> void:
 
 
 func appear(stats: BattlerStats):
+	if stats is PlayerBattlerStats:
+		self.size_flags_horizontal = Control.SIZE_SHRINK_END
+	elif stats is EnemyBattlerStats:
+		self.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	
 	ava.set_icon(stats.icon)
 	health_bar.min_value = 0
 	health_bar.max_value = stats.max_health
@@ -68,7 +73,7 @@ func appear(stats: BattlerStats):
 			self, "scale",
 			Vector2.ONE,
 			TWEEN_TIME
-	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT).from(Vector2.ZERO)
 
 
 func disappear():

@@ -23,6 +23,6 @@ base_max_damage = 4
 base_ally_action_value = 25
 is_attack_action_group = true
 is_ally_action_group = false
-foe_action_text = "Атакует все цели, нанося $dmg урона"
+foe_action_text = "Наносит $dmg урона всем целям"
 ally_action_text = "Восстанавливает $aav% здоровья"
 base_resist_array = Array[ExtResource("1_owyrr")]([SubResource("Resource_qefxs")])

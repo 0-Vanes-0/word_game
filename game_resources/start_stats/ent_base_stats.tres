@@ -15,6 +15,6 @@ base_max_damage = 15
 base_ally_action_value = 2
 is_attack_action_group = true
 is_ally_action_group = false
-foe_action_text = "Наносит $dmg урона по группе"
+foe_action_text = "Наносит $dmg урона всем целям"
 ally_action_text = "-"
 base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])

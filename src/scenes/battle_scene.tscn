@@ -211,17 +211,18 @@ layout_mode = 2
 layout_mode = 2
 battle_scene = NodePath("../../../..")
 
-[node name="CenterControl" type="Control" parent="CanvasLayer/Control/VBox"]
+[node name="CenterControl" type="MarginContainer" parent="CanvasLayer/Control/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+theme_override_constants/margin_left = 160
+theme_override_constants/margin_right = 160
 metadata/_edit_lock_ = true
 
 [node name="BattlerInfoContainer" parent="CanvasLayer/Control/VBox/CenterControl" instance=ExtResource("13_a0mw8")]
 visible = false
-layout_mode = 1
-offset_left = -160.0
-offset_right = 160.0
+layout_mode = 2
+size_flags_horizontal = 8
 mouse_filter = 2
 
 [node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" instance=ExtResource("14_3lqgt")]

@@ -84,7 +84,7 @@ func _ready() -> void:
 	)
 	turn_bar.setup()
 	
-	battler_info.scale = Vector2.ZERO
+	battler_info.hide()
 	
 	hud_manager.to_proceed_turn.connect( 
 			func():
