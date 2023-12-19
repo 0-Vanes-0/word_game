@@ -9,7 +9,7 @@ signal to_proceed_turn
 @export var _reset_spell_button: TextureButton
 @export var _runes: HBoxContainer
 @export var _proceed_button: IconButton
-@export var _old_proceed_button: RectButton
+@export var _old_proceed_button: Button
 
 var spell: Array[Rune] = []
 
@@ -19,7 +19,6 @@ func _ready() -> void:
 	
 	# TODO: remove this after adding runes and spells v
 	set_proceed_button_enabled(false)
-	_old_proceed_button.set_text_size(36)
 	_old_proceed_button.toggled.connect(
 			func(toggled_on: bool):
 				if toggled_on:
@@ -67,7 +66,7 @@ func set_proceed_button_enabled(is_enabled: bool):
 	_proceed_button.set_enabled(is_enabled)
 	# TODO: remove this after adding runes and spells v
 	_old_proceed_button.disabled = not is_enabled
-	_old_proceed_button.get_node("CenterContainer/Label").text = "Начать ход" if is_enabled else "Выберите цель"
+	_old_proceed_button.text = "Начать ход" if is_enabled else "Выберите цель"
 	# TODO: remove this after adding runes and spells ^
 
 

@@ -7,7 +7,7 @@ signal proceed_turn_ended
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D#
 @export var back_button: IconButton
-@export var coins_counter: LineEdit
+@export var coins_counter: IconLabel
 @export var handbook_button: IconButton
 @export var turn_bar: TurnBar
 @export var battler_info: BattlerInfoContainer
@@ -120,7 +120,7 @@ func _update_coins_label():
 	for b in enemy_battlers:
 		var stats := b.stats as EnemyBattlerStats
 		coins += stats.reward
-	coins_counter.text = str(coins)
+	coins_counter.set_text(coins)
 
 
 func _on_battle_ended(is_victory: bool):

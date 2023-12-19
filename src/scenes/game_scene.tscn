@@ -1,13 +1,654 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=69 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
+[ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_ickdt"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="2_it1rv"]
+[ext_resource type="Texture2D" uid="uid://b1xv0nfsg2kml" path="res://assets/sprites/env/grass_clouds_back_layer2.png" id="3_3g84f"]
+[ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="3_7myoy"]
+[ext_resource type="Texture2D" uid="uid://dstioj85wgme6" path="res://assets/sprites/env/door1.png" id="4_40ef4"]
+[ext_resource type="Texture2D" uid="uid://hequuj88t1g0" path="res://assets/sprites/env/grass_clouds_back_layer1.png" id="4_rwk3j"]
 [ext_resource type="PackedScene" uid="uid://b18imap80ic8m" path="res://src/ui/level_up_container.tscn" id="4_yejoq"]
+[ext_resource type="Texture2D" uid="uid://fbmo4b6a25a1" path="res://assets/sprites/env/barrel.png" id="5_70qm8"]
+[ext_resource type="Texture2D" uid="uid://ctggvrujj1eg2" path="res://assets/sprites/env/grass_mountains.png" id="5_jl0i4"]
+[ext_resource type="Texture2D" uid="uid://1xpuxquy5jj7" path="res://assets/sprites/env/grass_coluds_small.png" id="6_2pmkq"]
+[ext_resource type="Texture2D" uid="uid://bf7ubypuf3qfq" path="res://assets/sprites/env/chest2.png" id="6_jotej"]
+[ext_resource type="Texture2D" uid="uid://bv6nr7x5jrobq" path="res://assets/sprites/env/grass_trees.png" id="7_6f68v"]
+[ext_resource type="Texture2D" uid="uid://cyn16sgvkiq8g" path="res://assets/sprites/env/flag4.png" id="7_ajebl"]
+[ext_resource type="Texture2D" uid="uid://cypkttu8ddgrc" path="res://assets/sprites/env/flag6.png" id="8_tbj1v"]
+[ext_resource type="Texture2D" uid="uid://bbdci6605gct4" path="res://assets/sprites/env/window1.png" id="9_6jryw"]
+[ext_resource type="Texture2D" uid="uid://b44lvwd04x4ql" path="res://assets/sprites/env/window2.png" id="10_qjhnv"]
+[ext_resource type="Texture2D" uid="uid://8xniwiwokjfh" path="res://assets/sprites/env/window3.png" id="11_le771"]
+[ext_resource type="Texture2D" uid="uid://u82youabwf2v" path="res://assets/sprites/characters/Player Knight/Idle/idle4.png" id="12_3u0xj"]
+[ext_resource type="Texture2D" uid="uid://cmvk0rph4ku36" path="res://assets/sprites/characters/Player Knight/Attack/attack2.png" id="13_up3si"]
+[ext_resource type="Texture2D" uid="uid://vh2p5fdmfxox" path="res://assets/sprites/characters/Player Knight/Idle/idle10.png" id="14_1dpix"]
+[ext_resource type="Texture2D" uid="uid://1fgy41yxsbx7" path="res://assets/sprites/characters/Player Knight/Death/death2.png" id="15_glymc"]
+[ext_resource type="Texture2D" uid="uid://bkn762j0le64j" path="res://assets/sprites/characters/Player Knight/Death/death3.png" id="16_5xrse"]
+[ext_resource type="Texture2D" uid="uid://bvult0ne3ty5v" path="res://assets/sprites/characters/Player Knight/Death/death4.png" id="17_rb5vm"]
+[ext_resource type="Texture2D" uid="uid://d1d0m68jkbm2e" path="res://assets/sprites/characters/Player Knight/Death/death5.png" id="18_5p2qb"]
+[ext_resource type="Texture2D" uid="uid://bfjj017ba7gqu" path="res://assets/sprites/characters/Player Knight/Hurt/hurt1.png" id="19_2kt4e"]
+[ext_resource type="Texture2D" uid="uid://c8skek3rlrjs0" path="res://assets/sprites/characters/Player Merc/Walk/walk1.png" id="20_d5rbb"]
+[ext_resource type="Texture2D" uid="uid://b118auwtgaajk" path="res://assets/sprites/characters/Player Merc/Walk/walk2.png" id="21_85f4q"]
+[ext_resource type="Texture2D" uid="uid://cnanybh4kewj" path="res://assets/sprites/characters/Player Merc/Walk/walk3.png" id="22_c7n12"]
+[ext_resource type="Texture2D" uid="uid://dw3aedo643i0x" path="res://assets/sprites/characters/Player Knight/Walk/walk1.png" id="23_uk7rf"]
+[ext_resource type="Texture2D" uid="uid://bk1xvfaca385q" path="res://assets/sprites/characters/Player Knight/Idle/idle1.png" id="24_5efjn"]
+[ext_resource type="Texture2D" uid="uid://ccdiyac3q2wxq" path="res://assets/sprites/characters/Player Knight/Idle/idle2.png" id="25_08pj8"]
+[ext_resource type="Texture2D" uid="uid://dctcje5faa452" path="res://assets/sprites/characters/Player Knight/Idle/idle3.png" id="26_6eghd"]
+[ext_resource type="Texture2D" uid="uid://dt2cxa0gy61s3" path="res://assets/sprites/characters/Player Knight/Extra_Attack/attack_extra1.png" id="27_nl1h1"]
+[ext_resource type="Texture2D" uid="uid://dy1psma4dtio8" path="res://assets/sprites/characters/Player Knight/Extra_Attack/attack_extra2.png" id="28_tddgd"]
+[ext_resource type="Texture2D" uid="uid://bkwa8bhevfrp3" path="res://assets/sprites/characters/Player Knight/Attack/attack1.png" id="29_y2cpc"]
+[ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="30_uvo5x"]
+[ext_resource type="Texture2D" uid="uid://bkaj2dfcwqvmq" path="res://assets/sprites/characters/Player Knight/Walk/walk2.png" id="31_p0ocf"]
+[ext_resource type="Texture2D" uid="uid://dbwr3ofeyuw1o" path="res://assets/sprites/characters/Player Knight/Walk/walk3.png" id="32_jirmc"]
+[ext_resource type="Texture2D" uid="uid://bxbqlwahjphwd" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra5.png" id="33_03hs4"]
+[ext_resource type="Texture2D" uid="uid://boskqgiw7oo2i" path="res://assets/sprites/characters/Player Mage/Attack/attack5.png" id="34_dpg0r"]
+[ext_resource type="Texture2D" uid="uid://cms45ail84m8r" path="res://assets/sprites/characters/Player Mage/Idle/idle4.png" id="35_1qc41"]
+[ext_resource type="Texture2D" uid="uid://cac1nu2803veb" path="res://assets/sprites/characters/Player Mage/Death/death2.png" id="36_7vor0"]
+[ext_resource type="Texture2D" uid="uid://c8u4v6lagih68" path="res://assets/sprites/characters/Player Mage/Death/death3.png" id="37_k7ljx"]
+[ext_resource type="Texture2D" uid="uid://qbvpvplhnxef" path="res://assets/sprites/characters/Player Mage/Death/death4.png" id="38_0hbtk"]
+[ext_resource type="Texture2D" uid="uid://dkceqwpf6fxin" path="res://assets/sprites/characters/Player Mage/Death/death5.png" id="39_jnydo"]
+[ext_resource type="Texture2D" uid="uid://gdb4265uv8ip" path="res://assets/sprites/characters/Player Mage/Death/death1.png" id="40_ssvvf"]
+[ext_resource type="Texture2D" uid="uid://7eq5xf5n673v" path="res://assets/sprites/characters/Player Mage/Walk/walk1.png" id="41_iph2b"]
+[ext_resource type="Texture2D" uid="uid://dqcnwxbjlmwd2" path="res://assets/sprites/characters/Player Mage/Walk/walk2.png" id="42_n4xsx"]
+[ext_resource type="Texture2D" uid="uid://c3msdywbws3v2" path="res://assets/sprites/characters/Player Mage/Walk/walk3.png" id="43_anr8r"]
+[ext_resource type="Texture2D" uid="uid://bc5ujmnb6eyls" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra0.png" id="44_rv23e"]
+[ext_resource type="Texture2D" uid="uid://inden5abwk22" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra1.png" id="45_tgyce"]
+[ext_resource type="Texture2D" uid="uid://c6ohcicashsyq" path="res://assets/sprites/characters/Player Mage/Extra_attack/attack_extra2.png" id="46_pw4m6"]
+[ext_resource type="Texture2D" uid="uid://cottpdu57aj03" path="res://assets/sprites/characters/Player Mage/Attack/attack1.png" id="47_y6tmq"]
+[ext_resource type="Texture2D" uid="uid://bd4p1neom2khd" path="res://assets/sprites/characters/Player Mage/Attack/attack2.png" id="48_d5fsy"]
+[ext_resource type="Texture2D" uid="uid://c37qgwag4ngng" path="res://assets/sprites/characters/Player Alchemist/Walk/walk1.png" id="54_48nq8"]
+[ext_resource type="Texture2D" uid="uid://bpj4xj310lnl7" path="res://assets/sprites/characters/Player Alchemist/Walk/walk2.png" id="55_8l7du"]
+[ext_resource type="Texture2D" uid="uid://bhto5e1eedoym" path="res://assets/sprites/characters/Player Alchemist/Walk/walk3.png" id="56_xwxxb"]
+[ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="58_v3ta2"]
+[ext_resource type="Texture2D" uid="uid://14soiypa87g3" path="res://assets/sprites/characters/Player Alchemist/alchemist.png" id="59_81k04"]
+[ext_resource type="Texture2D" uid="uid://c3hyp2ogjdm7v" path="res://assets/sprites/ui/buttons/button_left.png" id="59_ivlnq"]
+[ext_resource type="Texture2D" uid="uid://bup8vvxriikht" path="res://assets/sprites/ui/buttons/button_left_pressed.png" id="60_0xg2h"]
+[ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="61_vy3ki"]
+[ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="62_7xxvr"]
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("game_info_box", "level_up_container")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_3uwmp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_3u0xj")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_up3si")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_1dpix")
+}],
+"loop": false,
+"name": &"buff",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_glymc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_5xrse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_rb5vm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5p2qb")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_2kt4e")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("20_d5rbb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_85f4q")
+}, {
+"duration": 3.0,
+"texture": ExtResource("22_c7n12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_85f4q")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_uk7rf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_5efjn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_08pj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_6eghd")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_nl1h1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_tddgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_y2cpc")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("30_uvo5x")
+offset = Vector2(20, -48)
+separate_offsets = {
+"die": Vector2(0, -28)
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gr4qy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_3u0xj")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_up3si")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_1dpix")
+}],
+"loop": false,
+"name": &"buff",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_glymc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_5xrse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_rb5vm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_5p2qb")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_2kt4e")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("23_uk7rf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_p0ocf")
+}, {
+"duration": 3.0,
+"texture": ExtResource("32_jirmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_p0ocf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_uk7rf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_5efjn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_08pj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_6eghd")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_nl1h1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_tddgd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_y2cpc")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("30_uvo5x")
+offset = Vector2(20, -48)
+separate_offsets = {
+"die": Vector2(0, -28)
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_31x3l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_03hs4")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_dpg0r")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_1qc41")
+}],
+"loop": false,
+"name": &"buff",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_7vor0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_k7ljx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_0hbtk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_jnydo")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_ssvvf")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("41_iph2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_n4xsx")
+}, {
+"duration": 3.0,
+"texture": ExtResource("43_anr8r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_n4xsx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_rv23e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_tgyce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_pw4m6")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_iph2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_y6tmq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_d5fsy")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("30_uvo5x")
+offset = Vector2(20, -48)
+separate_offsets = {
+"die": Vector2(0, -28),
+"hurt": Vector2(0, -28)
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6543b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_03hs4")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_dpg0r")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_1qc41")
+}],
+"loop": false,
+"name": &"buff",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_7vor0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_k7ljx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_0hbtk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_jnydo")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_ssvvf")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("54_48nq8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_8l7du")
+}, {
+"duration": 3.0,
+"texture": ExtResource("56_xwxxb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_8l7du")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_rv23e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_tgyce")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_pw4m6")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_iph2b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_y6tmq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_d5fsy")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("30_uvo5x")
+offset = Vector2(20, -48)
+separate_offsets = {
+"die": Vector2(0, -28),
+"hurt": Vector2(0, -28)
+}
+
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("level_up_container", "op_button1", "op_button2", "op_button3", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
 script = ExtResource("1_ypskv")
-game_info_box = NodePath("CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox")
 level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
+op_button1 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton1")
+op_button2 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton2")
+op_button3 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton3")
+enemy_level_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/PaperRect/CenterContainer/EnemyLevelLabel")
+enemy_level_up_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlUpButton")
+enemy_level_down_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlDownButton")
+
+[node name="Background" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
+
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="GrassSky" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
+modulate = Color(1, 0.768627, 0.768627, 1)
+texture = ExtResource("2_ickdt")
+centered = false
+
+[node name="GrassCloudsBackLayer2" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
+modulate = Color(0.792157, 0.796078, 0.929412, 1)
+position = Vector2(0, -100)
+texture = ExtResource("3_3g84f")
+centered = false
+
+[node name="GrassCloudsBackLayer1" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
+modulate = Color(0.792157, 0.796078, 0.929412, 1)
+position = Vector2(0, -100)
+texture = ExtResource("4_rwk3j")
+centered = false
+
+[node name="GrassMountains" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
+modulate = Color(0.658824, 0.658824, 0.658824, 1)
+position = Vector2(0, -50)
+texture = ExtResource("5_jl0i4")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2(960, 540)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="GrassColudsSmall" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("6_2pmkq")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="GrassTrees" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
+modulate = Color(0.505882, 0.678431, 0.490196, 1)
+position = Vector2(0, -10)
+texture = ExtResource("7_6f68v")
+centered = false
+
+[node name="TileMap" type="TileMap" parent="Background"]
+tile_set = ExtResource("3_7myoy")
+format = 2
+layer_0/name = "Towers"
+layer_0/tile_data = PackedInt32Array(262144, 1, 2, 196608, 1, 1, 131072, 65537, 0, 131073, 131073, 3, 131074, 131073, 3, 131075, 196609, 0, 196611, 1, 1, 262147, 1, 2, 262158, 1, 2, 196622, 1, 1, 131086, 196609, 0, 131085, 131073, 3, 131084, 131073, 3, 131083, 65537, 0, 196619, 1, 1, 262155, 1, 2)
+layer_1/name = "Castles"
+layer_1/tile_data = PackedInt32Array(393219, 720897, 3, 327683, 720897, 2, 262147, 720897, 0, 262146, 655361, 0, 327682, 589825, 2, 393218, 589825, 3, 393217, 589825, 3, 393216, 589825, 3, 327680, 589825, 2, 262144, 655361, 0, 262145, 655361, 0, 327681, 589825, 2, 393227, 524289, 3, 327691, 524289, 1, 262155, 524289, 0, 262156, 655361, 0, 262157, 655361, 0, 262158, 720897, 0, 327694, 720897, 2, 393230, 720897, 3, 393229, 589825, 3, 393228, 589825, 3, 327692, 589825, 2, 327693, 589825, 2, 327679, 524289, 0, 393215, 524289, 1, 458751, 524289, 3)
+layer_2/name = "Buildings"
+layer_2/tile_data = PackedInt32Array(458751, 524289, 0, 524287, 524289, 1, 458754, 589825, 2, 393218, 655361, 0, 393219, 655361, 0, 393220, 655361, 0, 458756, 589825, 2, 458755, 589825, 2, 458753, 589825, 2, 458752, 589825, 2, 393216, 655361, 0, 393217, 655361, 0, 393221, 720897, 0, 458757, 720897, 2, 589823, 524289, 3, 524288, 589825, 3, 524289, 589825, 3, 524290, 589825, 3, 524291, 589825, 3, 524292, 589825, 3, 524293, 720897, 3, 393226, 524289, 0, 458762, 524289, 1, 458763, 589825, 2, 458764, 589825, 2, 458765, 589825, 2, 458766, 589825, 2, 393230, 655361, 0, 393229, 655361, 0, 393228, 655361, 0, 393227, 655361, 0, 524298, 524289, 3, 524299, 589825, 3, 524300, 589825, 3, 524301, 589825, 3, 524302, 589825, 3, 393231, 720897, 0, 458767, 720897, 2, 524303, 720897, 3)
+layer_3/name = "Road"
+layer_3/tile_data = PackedInt32Array(589823, 65537, 2, 524288, 131073, 3, 524289, 131073, 3, 524290, 131073, 3, 524291, 131073, 3, 524292, 131073, 3, 524293, 131073, 3, 524294, 131073, 3, 524295, 131073, 3, 524296, 131073, 3, 524297, 131073, 3, 524298, 131073, 3, 524299, 131073, 3, 524300, 131073, 3, 524301, 131073, 3, 524302, 131073, 3, 524303, 196609, 2, 458767, 1, 0, 524287, 1, 0)
+
+[node name="AdditionalObjects" type="Node2D" parent="Background"]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Door" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(138, 422)
+texture = ExtResource("4_40ef4")
+centered = false
+
+[node name="Door3" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(60, 294)
+texture = ExtResource("4_40ef4")
+centered = false
+
+[node name="Door2" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(765, 422)
+texture = ExtResource("4_40ef4")
+centered = false
+
+[node name="Door4" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(765, 294)
+texture = ExtResource("4_40ef4")
+centered = false
+
+[node name="Barrel" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(152, 510)
+texture = ExtResource("5_70qm8")
+
+[node name="Barrel2" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(777, 510)
+texture = ExtResource("5_70qm8")
+
+[node name="Chest2" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(245, 385)
+texture = ExtResource("6_jotej")
+
+[node name="Flag4" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(53, 353)
+texture = ExtResource("7_ajebl")
+
+[node name="Flag5" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(195, 353)
+texture = ExtResource("7_ajebl")
+
+[node name="Flag6" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(294, 475)
+texture = ExtResource("8_tbj1v")
+
+[node name="Flag7" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(716, 475)
+texture = ExtResource("8_tbj1v")
+
+[node name="Window1" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(60, 470)
+texture = ExtResource("9_6jryw")
+
+[node name="Window2" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(919, 475)
+texture = ExtResource("10_qjhnv")
+
+[node name="Window3" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(758, 349)
+texture = ExtResource("11_le771")
+
+[node name="Window4" type="Sprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(899, 349)
+texture = ExtResource("11_le771")
+
+[node name="Knight" type="AnimatedSprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(356, 480)
+sprite_frames = SubResource("SpriteFrames_3uwmp")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+
+[node name="Knight2" type="AnimatedSprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(856, 480)
+sprite_frames = SubResource("SpriteFrames_gr4qy")
+animation = &"idle"
+autoplay = "idle"
+frame = 2
+flip_h = true
+
+[node name="Knight3" type="AnimatedSprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(891, 224)
+sprite_frames = SubResource("SpriteFrames_31x3l")
+animation = &"idle"
+autoplay = "idle"
+frame = 3
+
+[node name="Knight4" type="AnimatedSprite2D" parent="Background/AdditionalObjects"]
+position = Vector2(100, 224)
+sprite_frames = SubResource("SpriteFrames_6543b")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -28,68 +669,142 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StartBattleVBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer"]
 layout_mode = 2
 
-[node name="EnterBattleButton" type="Button" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
-text = " Начать бой "
+color = Color(0, 0, 0, 0.501961)
 
-[node name="UpgradeButton" type="Button" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox"]
+[node name="StartBattleVBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 60
-text = " Улучшить героев "
+theme_override_constants/separation = 10
 
-[node name="GameInfoHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox"]
+[node name="PaperRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox" instance=ExtResource("58_v3ta2")]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-clip_text = true
-item_count = 1
-selected = 0
-allow_reselect = true
-popup/item_0/text = "NONE"
-popup/item_0/id = 0
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/PaperRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="OptionButton1" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
-custom_minimum_size = Vector2(150, 150)
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/PaperRect/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-clip_text = true
-item_count = 1
-selected = 0
-allow_reselect = true
-popup/item_0/text = "NONE"
-popup/item_0/id = 0
+text = "Ваш текущий выбор героев:"
 
-[node name="OptionButton2" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
-custom_minimum_size = Vector2(150, 150)
+[node name="HeroesHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 36
-clip_text = true
-item_count = 1
-selected = 0
-allow_reselect = true
-popup/item_0/text = "NONE"
-popup/item_0/id = 0
+theme_override_constants/separation = 10
+alignment = 1
 
-[node name="MobLevelSpinBox" type="SpinBox" parent="CanvasLayer/Control/CenterContainer/StartBattleVBox/GameInfoHBox"]
-custom_minimum_size = Vector2(240, 0)
+[node name="OptionButton1" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/HeroesHBox"]
+custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = 1.0
-value = 1.0
-alignment = 2
-update_on_text_changed = true
-prefix = "Ур. противников"
+theme_override_font_sizes/font_size = 36
+alignment = 1
+clip_text = true
+icon_alignment = 1
+item_count = 1
+selected = 0
+allow_reselect = true
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
+
+[node name="OptionButton2" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/HeroesHBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+alignment = 1
+clip_text = true
+icon_alignment = 1
+item_count = 1
+selected = 0
+allow_reselect = true
+popup/item_0/text = "NONE"
+popup/item_0/id = 0
+
+[node name="OptionButton3" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/HeroesHBox"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+alignment = 1
+clip_text = true
+icon_alignment = 1
+expand_icon = true
+item_count = 1
+selected = 0
+allow_reselect = true
+popup/item_0/text = ""
+popup/item_0/icon = ExtResource("59_81k04")
+popup/item_0/id = 0
+
+[node name="UpgradeButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = " Улучшить героев "
+
+[node name="BattleHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="PaperRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox" instance=ExtResource("58_v3ta2")]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/PaperRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyLevelLabel" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/PaperRect/CenterContainer"]
+layout_mode = 2
+text = "Уровень противников: 0"
+
+[node name="LvlDownButton" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox"]
+custom_minimum_size = Vector2(60, 90)
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("59_ivlnq")
+texture_pressed = ExtResource("60_0xg2h")
+texture_disabled = ExtResource("60_0xg2h")
+stretch_mode = 0
+
+[node name="LvlUpButton" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox"]
+custom_minimum_size = Vector2(60, 90)
+layout_mode = 2
+size_flags_vertical = 3
+texture_normal = ExtResource("61_vy3ki")
+texture_pressed = ExtResource("62_7xxvr")
+texture_disabled = ExtResource("62_7xxvr")
+stretch_mode = 0
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="EnterBattleButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = " Начать бой "
 
 [node name="LevelUpContainer" parent="CanvasLayer/Control" instance=ExtResource("4_yejoq")]
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/StartBattleVBox/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/StartBattleVBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlDownButton" to="." method="_on_lvl_down_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlUpButton" to="." method="_on_lvl_up_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/StartBattleVBox/BattleHBox/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]

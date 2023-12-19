@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=26 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_2fgqw"]
@@ -18,7 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://dmphysqui0a6s" path="res://src/ui/battle_hud_manager.tscn" id="14_3lqgt"]
 [ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="14_eu16k"]
 [ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="14_f4jdd"]
+[ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="15_v8h8x"]
 [ext_resource type="Script" path="res://src/helpers/battle_animator.gd" id="15_ynmqs"]
+[ext_resource type="Script" path="res://src/ui/icon_label.gd" id="16_eohs1"]
 [ext_resource type="Script" path="res://src/helpers/battle_manager.gd" id="18_n0r4n"]
 [ext_resource type="PackedScene" uid="uid://fpykig60244t" path="res://src/ui/victory_defeat_container.tscn" id="19_pd8ys"]
 [ext_resource type="PackedScene" uid="uid://bhydmgtimjq8n" path="res://src/ui/back_confirm.tscn" id="20_ldhws"]
@@ -32,7 +34,7 @@ battlers_node = NodePath("Battlers")
 black_screen = NodePath("Battlers/BlackScreen")
 effect_sprite = NodePath("Battlers/EffectSprite")
 back_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/BackButton")
-coins_counter = NodePath("CanvasLayer/Control/VBox/HeaderHBox/MarginContainer/CoinsCounter")
+coins_counter = NodePath("CanvasLayer/Control/VBox/HeaderHBox/VBox/CoinsCounterContainer/MarginContainer/CoinsCounter")
 handbook_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/HandbookButton")
 turn_bar = NodePath("CanvasLayer/Control/VBox/TurnBar")
 battler_info = NodePath("CanvasLayer/Control/VBox/CenterControl/BattlerInfoContainer")
@@ -43,6 +45,8 @@ battle_animator = NodePath("BattleAnimator")
 battle_manager = NodePath("BattleManager")
 
 [node name="Background" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
 
@@ -91,7 +95,7 @@ layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 52429
 [node name="-----TEST-----" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="-----TEST-----"]
-position = Vector2(574, 328)
+position = Vector2(550, 329)
 scale = Vector2(2, 2)
 sprite_frames = ExtResource("9_xuu0t")
 animation = &"prepare_attack"
@@ -159,6 +163,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="EmptyControl" type="Control" parent="CanvasLayer/Control/VBox"]
 custom_minimum_size = Vector2(0, 10)
@@ -177,27 +182,41 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 toggle_mode = false
 
-[node name="MarginContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBox/HeaderHBox"]
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Control/VBox/HeaderHBox"]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 2
 
-[node name="CoinsCounter" type="LineEdit" parent="CanvasLayer/Control/VBox/HeaderHBox/MarginContainer"]
-custom_minimum_size = Vector2(0, 40)
+[node name="CoinsCounterContainer" type="MarginContainer" parent="CanvasLayer/Control/VBox/HeaderHBox/VBox"]
 layout_mode = 2
-size_flags_horizontal = 10
-text = "1"
-placeholder_text = "0"
-alignment = 1
-editable = false
-expand_to_text_length = true
-context_menu_enabled = false
-virtual_keyboard_enabled = false
-shortcut_keys_enabled = false
-middle_mouse_paste_enabled = false
-selecting_enabled = false
-drag_and_drop_selection_enabled = false
-right_icon = ExtResource("14_eu16k")
+
+[node name="PaperRect" parent="CanvasLayer/Control/VBox/HeaderHBox/VBox/CoinsCounterContainer" instance=ExtResource("15_v8h8x")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBox/HeaderHBox/VBox/CoinsCounterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="CoinsCounter" type="HBoxContainer" parent="CanvasLayer/Control/VBox/HeaderHBox/VBox/CoinsCounterContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("10_vr0bk")
+theme_override_constants/separation = 2
+script = ExtResource("16_eohs1")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Control/VBox/HeaderHBox/VBox/CoinsCounterContainer/MarginContainer/CoinsCounter"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("14_eu16k")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBox/HeaderHBox/VBox/CoinsCounterContainer/MarginContainer/CoinsCounter"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "999"
 
 [node name="HandbookButton" parent="CanvasLayer/Control/VBox/HeaderHBox" instance=ExtResource("14_f4jdd")]
 custom_minimum_size = Vector2(100, 0)

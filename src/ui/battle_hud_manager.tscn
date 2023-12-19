@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmphysqui0a6s"]
+[gd_scene load_steps=10 format=3 uid="uid://dmphysqui0a6s"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_gqh4m"]
 [ext_resource type="Script" path="res://src/ui/battle_hud_manager.gd" id="1_r71ia"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="5_qw2h8"]
 [ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="6_4rak5"]
 [ext_resource type="PackedScene" uid="uid://d3di5wu6irnnt" path="res://src/ui/rune_button.tscn" id="7_v8cwb"]
-[ext_resource type="PackedScene" uid="uid://bd0d60tyok5rf" path="res://src/ui/rect_button.tscn" id="10_iexey"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
 [node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_spell_label", "_reset_spell_button", "_runes", "_proceed_button", "_old_proceed_button")]
@@ -120,5 +119,10 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 texture_disabled = ExtResource("13_nvbkp")
 
-[node name="OldProceedButton" parent="HBoxContainer" instance=ExtResource("10_iexey")]
+[node name="OldProceedButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 36
+toggle_mode = true
+text = " Начать ход "

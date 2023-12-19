@@ -1,5 +1,5 @@
 class_name LevelUpContainer
-extends Control
+extends ColorRect
 
 @export var coins_icon_label: IconLabel
 @export var knight_button: Button

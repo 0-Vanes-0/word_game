@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b18imap80ic8m"]
+[gd_scene load_steps=13 format=3 uid="uid://b18imap80ic8m"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_4cbrw"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_qq3ip"]
@@ -6,19 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="2_ib5ep"]
 [ext_resource type="PackedScene" uid="uid://dhxktvlnk4yef" path="res://src/ui/backgrounded_icon.tscn" id="3_pifhd"]
 [ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="4_2eaps"]
+[ext_resource type="Script" path="res://src/ui/icon_label.gd" id="4_aujfk"]
 [ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="5_btmbs"]
 [ext_resource type="Texture2D" uid="uid://byqctj5057d22" path="res://assets/sprites/avas/con3.png" id="5_twdlc"]
 [ext_resource type="Texture2D" uid="uid://digotaoy3m3uw" path="res://assets/sprites/avas/con2.png" id="6_6glsd"]
 [ext_resource type="Texture2D" uid="uid://d0olvwfx035lc" path="res://assets/sprites/ui/icons/heart_yellow.png" id="8_i36dg"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="9_futtk"]
 
-[node name="LevelUpContainer" type="Control" node_paths=PackedStringArray("coins_icon_label", "knight_button", "knight_level_label", "knight_health", "knight_damage", "robber_button", "robber_level_label", "robber_health", "robber_damage", "mage_button", "mage_level_label", "mage_health", "mage_damage")]
-layout_mode = 3
+[node name="LevelUpContainer" type="ColorRect" node_paths=PackedStringArray("coins_icon_label", "knight_button", "knight_level_label", "knight_health", "knight_damage", "robber_button", "robber_level_label", "robber_health", "robber_damage", "mage_button", "mage_level_label", "mage_health", "mage_damage")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_4cbrw")
+color = Color(0, 0, 0, 0.501961)
 script = ExtResource("2_a0s1n")
 coins_icon_label = NodePath("MarginContainer/MarginContainer/VBox/CoinsHBox/CoinsIconLabel")
 knight_button = NodePath("MarginContainer/MarginContainer/VBox/GridContainer/KnightButton")
@@ -47,7 +49,6 @@ offset_right = 234.0
 offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_4cbrw")
 
 [node name="PaperRect" parent="MarginContainer" instance=ExtResource("1_qq3ip")]
 layout_mode = 2
@@ -61,6 +62,7 @@ theme_override_constants/margin_bottom = 24
 
 [node name="VBox" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBox"]
 layout_mode = 2
@@ -76,9 +78,24 @@ alignment = 1
 layout_mode = 2
 text = "Ваша казна:"
 
-[node name="CoinsIconLabel" parent="MarginContainer/MarginContainer/VBox/CoinsHBox" instance=ExtResource("2_ib5ep")]
+[node name="CoinsIconLabel" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBox/CoinsHBox"]
 layout_mode = 2
+theme = ExtResource("1_4cbrw")
+theme_override_constants/separation = 2
+script = ExtResource("4_aujfk")
 icon_texture = ExtResource("5_btmbs")
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MarginContainer/VBox/CoinsHBox/CoinsIconLabel"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("5_btmbs")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBox/CoinsHBox/CoinsIconLabel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "9999"
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBox"]
 layout_mode = 2
