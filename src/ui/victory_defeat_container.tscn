@@ -1,15 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://fpykig60244t"]
+[gd_scene load_steps=4 format=3 uid="uid://fpykig60244t"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_08scf"]
 [ext_resource type="Script" path="res://src/ui/victory_defeat_container.gd" id="1_kb3xd"]
 [ext_resource type="Texture2D" uid="uid://c78hn2760yfbh" path="res://assets/sprites/ui/panel_86_62_62_62.png" id="1_vxduq"]
-[ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="4_2ximj"]
-[ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="5_3qhrx"]
-[ext_resource type="Script" path="res://src/ui/rect_button.gd" id="6_8kxlu"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_8ilqy"]
-font_size = 24
-font_color = Color(0, 0, 0, 1)
 
 [node name="VictoryDefeatContainer" type="ColorRect" node_paths=PackedStringArray("victory_defeat_label", "result_label", "back_button")]
 anchors_preset = 15
@@ -21,7 +14,7 @@ color = Color(0, 0, 0, 0.501961)
 script = ExtResource("1_kb3xd")
 victory_defeat_label = NodePath("MarginContainer/VBox/CenterContainer/VictoryDefeatLabel")
 result_label = NodePath("MarginContainer/VBox/MarginContainer/VBoxContainer/ResultLabel")
-back_button = NodePath("MarginContainer/VBox/MarginContainer/VBoxContainer/RectButton")
+back_button = NodePath("")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -74,30 +67,9 @@ size_flags_vertical = 0
 text = "Тут будет какая-то инфа про добычу, про статисику, может даже очки, которые потом пойдут в рекорд"
 autowrap_mode = 3
 
-[node name="RectButton" type="TextureButton" parent="MarginContainer/VBox/MarginContainer/VBoxContainer" node_paths=PackedStringArray("label")]
-custom_minimum_size = Vector2(240, 0)
+[node name="Button" type="Button" parent="MarginContainer/VBox/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
-theme = ExtResource("1_08scf")
-toggle_mode = true
-action_mode = 0
-texture_normal = ExtResource("4_2ximj")
-texture_pressed = ExtResource("5_3qhrx")
-texture_disabled = ExtResource("5_3qhrx")
-stretch_mode = 0
-script = ExtResource("6_8kxlu")
-label = NodePath("CenterContainer/Label")
-
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBox/MarginContainer/VBoxContainer/RectButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MarginContainer/VBox/MarginContainer/VBoxContainer/RectButton/CenterContainer"]
-layout_mode = 2
-text = "Вернуться в город"
-label_settings = SubResource("LabelSettings_8ilqy")
+theme_override_font_sizes/font_size = 36
+text = " Вернуться в город "
