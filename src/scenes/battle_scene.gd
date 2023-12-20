@@ -160,8 +160,8 @@ func _on_battle_ended(is_victory: bool):
 		victory_defeat_container.result_label.text += "\n" + "Погибшие герои будут возрождены в городе."
 
 
-func _process(delta: float) -> void:
-	$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.RIGHT * 20 * delta
+#func _process(delta: float) -> void:
+	#$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.RIGHT * 20 * delta
 
 
 func get_alive_players() -> Array[Battler]:

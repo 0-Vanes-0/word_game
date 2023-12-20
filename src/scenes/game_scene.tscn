@@ -1,18 +1,13 @@
-[gd_scene load_steps=69 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=64 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
-[ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_ickdt"]
+[ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_atyqr"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="2_it1rv"]
-[ext_resource type="Texture2D" uid="uid://b1xv0nfsg2kml" path="res://assets/sprites/env/grass_clouds_back_layer2.png" id="3_3g84f"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="3_7myoy"]
 [ext_resource type="Texture2D" uid="uid://dstioj85wgme6" path="res://assets/sprites/env/door1.png" id="4_40ef4"]
-[ext_resource type="Texture2D" uid="uid://hequuj88t1g0" path="res://assets/sprites/env/grass_clouds_back_layer1.png" id="4_rwk3j"]
 [ext_resource type="PackedScene" uid="uid://b18imap80ic8m" path="res://src/ui/level_up_container.tscn" id="4_yejoq"]
 [ext_resource type="Texture2D" uid="uid://fbmo4b6a25a1" path="res://assets/sprites/env/barrel.png" id="5_70qm8"]
-[ext_resource type="Texture2D" uid="uid://ctggvrujj1eg2" path="res://assets/sprites/env/grass_mountains.png" id="5_jl0i4"]
-[ext_resource type="Texture2D" uid="uid://1xpuxquy5jj7" path="res://assets/sprites/env/grass_coluds_small.png" id="6_2pmkq"]
 [ext_resource type="Texture2D" uid="uid://bf7ubypuf3qfq" path="res://assets/sprites/env/chest2.png" id="6_jotej"]
-[ext_resource type="Texture2D" uid="uid://bv6nr7x5jrobq" path="res://assets/sprites/env/grass_trees.png" id="7_6f68v"]
 [ext_resource type="Texture2D" uid="uid://cyn16sgvkiq8g" path="res://assets/sprites/env/flag4.png" id="7_ajebl"]
 [ext_resource type="Texture2D" uid="uid://cypkttu8ddgrc" path="res://assets/sprites/env/flag6.png" id="8_tbj1v"]
 [ext_resource type="Texture2D" uid="uid://bbdci6605gct4" path="res://assets/sprites/env/window1.png" id="9_6jryw"]
@@ -494,53 +489,9 @@ enemy_level_down_button = NodePath("CanvasLayer/Control/CenterContainer/MarginCo
 [node name="Background" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
-
-[node name="ParallaxLayer1" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
-
-[node name="GrassSky" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-modulate = Color(1, 0.768627, 0.768627, 1)
-texture = ExtResource("2_ickdt")
-centered = false
-
-[node name="GrassCloudsBackLayer2" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-modulate = Color(0.792157, 0.796078, 0.929412, 1)
-position = Vector2(0, -100)
-texture = ExtResource("3_3g84f")
-centered = false
-
-[node name="GrassCloudsBackLayer1" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-modulate = Color(0.792157, 0.796078, 0.929412, 1)
-position = Vector2(0, -100)
-texture = ExtResource("4_rwk3j")
-centered = false
-
-[node name="GrassMountains" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-modulate = Color(0.658824, 0.658824, 0.658824, 1)
-position = Vector2(0, -50)
-texture = ExtResource("5_jl0i4")
-centered = false
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-motion_mirroring = Vector2(960, 540)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="GrassColudsSmall" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
-texture = ExtResource("6_2pmkq")
-centered = false
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="GrassTrees" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
-modulate = Color(0.505882, 0.678431, 0.490196, 1)
-position = Vector2(0, -10)
-texture = ExtResource("7_6f68v")
-centered = false
+[node name="GrassBackground" type="Sprite2D" parent="Background"]
+position = Vector2(480, 270)
+texture = ExtResource("2_atyqr")
 
 [node name="TileMap" type="TileMap" parent="Background"]
 tile_set = ExtResource("3_7myoy")

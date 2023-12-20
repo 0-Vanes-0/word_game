@@ -1,12 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=21 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
-[ext_resource type="Texture2D" uid="uid://cgf6u0g3wcb7e" path="res://assets/sprites/env/grass_sky.png" id="2_2fgqw"]
-[ext_resource type="Texture2D" uid="uid://b1xv0nfsg2kml" path="res://assets/sprites/env/grass_clouds_back_layer2.png" id="3_ullqu"]
-[ext_resource type="Texture2D" uid="uid://hequuj88t1g0" path="res://assets/sprites/env/grass_clouds_back_layer1.png" id="4_y42ly"]
-[ext_resource type="Texture2D" uid="uid://ctggvrujj1eg2" path="res://assets/sprites/env/grass_mountains.png" id="5_ukkpy"]
-[ext_resource type="Texture2D" uid="uid://1xpuxquy5jj7" path="res://assets/sprites/env/grass_coluds_small.png" id="6_s2onw"]
-[ext_resource type="Texture2D" uid="uid://bv6nr7x5jrobq" path="res://assets/sprites/env/grass_trees.png" id="7_cxmis"]
+[ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_lirsh"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="SpriteFrames" uid="uid://xc71w5qk0l0q" path="res://game_resources/sprite_frames/sprite_frames_effects.tres" id="9_037nk"]
 [ext_resource type="SpriteFrames" uid="uid://bxht187ek74ni" path="res://game_resources/sprite_frames/sprite_frames_ent.tres" id="9_xuu0t"]
@@ -48,43 +43,9 @@ battle_manager = NodePath("BattleManager")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
-
-[node name="ParallaxLayer1" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-
-[node name="GrassSky" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-position = Vector2(0, -180)
-texture = ExtResource("2_2fgqw")
-centered = false
-
-[node name="GrassCloudsBackLayer2" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-position = Vector2(0, -180)
-texture = ExtResource("3_ullqu")
-centered = false
-
-[node name="GrassCloudsBackLayer1" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-position = Vector2(0, -180)
-texture = ExtResource("4_y42ly")
-centered = false
-
-[node name="GrassMountains" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer1"]
-position = Vector2(0, -180)
-texture = ExtResource("5_ukkpy")
-centered = false
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-motion_mirroring = Vector2(960, 540)
-
-[node name="GrassColudsSmall" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer2"]
-position = Vector2(0, -180)
-texture = ExtResource("6_s2onw")
-centered = false
-
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
-
-[node name="GrassTrees" type="Sprite2D" parent="Background/ParallaxBackground/ParallaxLayer3"]
-position = Vector2(0, -180)
-texture = ExtResource("7_cxmis")
+[node name="GrassBackground" type="Sprite2D" parent="Background"]
+position = Vector2(0, -200)
+texture = ExtResource("2_lirsh")
 centered = false
 
 [node name="TileMap" type="TileMap" parent="Background"]

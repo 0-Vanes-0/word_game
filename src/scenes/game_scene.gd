@@ -89,7 +89,7 @@ func _on_enter_battle_button_pressed() -> void:
 	Global.switch_to_scene(Preloader.battle_scene)
 
 
-func _process(delta: float) -> void:
-	$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.LEFT * 20 * delta
+#func _process(delta: float) -> void:
+	#$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.LEFT * 20 * delta
 
 
