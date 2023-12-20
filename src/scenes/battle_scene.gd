@@ -28,6 +28,8 @@ func _ready() -> void:
 			and battler_info and battle_manager and victory_defeat_container and coins_counter
 			and back_button and handbook_button)
 	
+	SoundManager.play_music(Preloader.battle_musics.pick_random())
+	
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
 	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
 	battlers_positions[1] = Vector2.RIGHT * Global.SCREEN_WIDTH * 4 / 16
@@ -141,6 +143,8 @@ func _on_battle_ended(is_victory: bool):
 			"Ваша добыча: " + str(coins) + " монет"
 			+ ((" (-" + str(penalty) + " за смерть героев)") if penalty > 0 else "")
 		)
+		SoundManager.stop_music()
+		SoundManager.play_sound(Preloader.audio_sfx_victory)
 	
 	else:
 		coins = 3
@@ -148,6 +152,8 @@ func _on_battle_ended(is_victory: bool):
 		victory_defeat_container.result_label.text = (
 			"Утешительный приз: " + str(coins) + " монет"
 		)
+		SoundManager.stop_music()
+		SoundManager.play_sound(Preloader.audio_sfx_defeat)
 	
 	victory_defeat_container.result_label.text += "\n" + "Теперь у вас: " + str(player_coins + coins - penalty) + " монет"
 	if get_alive_players().size() < 3:

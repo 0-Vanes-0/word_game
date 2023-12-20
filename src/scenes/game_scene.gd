@@ -24,6 +24,8 @@ var enemy_level_value: int
 func _ready() -> void:
 	assert(level_up_container and op_button1 and op_button2 and op_button3 and enemy_level_label and enemy_level_up_button and enemy_level_down_button)
 	
+	SoundManager.play_music(Preloader.game_scene_musics.pick_random())
+	
 	if Global.get_player_last_seen_version() < Global.VERSION:
 		print("SHOW UPDATE INFO TO PLAYER!!!")
 		Global.set_player_last_seen_version(Global.VERSION)

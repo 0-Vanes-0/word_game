@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://beiw6s33pxqkv"
+path="res://.godot/imported/Action 5 (Loop).ogg-8becb8b713ccfa0861b9082d6e442488.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Action 5 (Loop).ogg"
+dest_files=["res://.godot/imported/Action 5 (Loop).ogg-8becb8b713ccfa0861b9082d6e442488.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

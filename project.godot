@@ -22,6 +22,7 @@ boot_splash/minimum_display_time=500
 
 Preloader="*res://game_resources/singletons/preloader.tscn"
 Global="*res://src/singletons/global.gd"
+SoundManager="*res://src/singletons/sound_manager.gd"
 GameInfo="*res://src/singletons/game_info.tscn"
 
 [debug]

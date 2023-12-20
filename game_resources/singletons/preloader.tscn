@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=67 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -50,10 +50,22 @@
 [ext_resource type="Texture2D" uid="uid://gq50mreupeul" path="res://assets/sprites/ui/icons/paper.png" id="37_ljdav"]
 [ext_resource type="Resource" uid="uid://d2q1usbyl1c41" path="res://game_resources/tokens/token_fire.tres" id="38_geoqu"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="38_ly5rc"]
+[ext_resource type="AudioStream" uid="uid://s7hfm4g5gif2" path="res://assets/audio/music/Light Ambient 1 (Loop).ogg" id="40_8i781"]
 [ext_resource type="Resource" uid="uid://due1nf4et7ntm" path="res://game_resources/tokens/token_attack.tres" id="40_ss4vf"]
 [ext_resource type="Resource" uid="uid://d41mwloyfune" path="res://game_resources/tokens/token_shield.tres" id="41_53e5x"]
+[ext_resource type="AudioStream" uid="uid://couxobd2vkp5q" path="res://assets/audio/music/Light Ambient 2 (Loop).ogg" id="41_58noi"]
+[ext_resource type="AudioStream" uid="uid://c47t3bbc80i2c" path="res://assets/audio/music/Light Ambient 3 (Loop).ogg" id="42_c1jod"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="42_m5nwt"]
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="42_v5dl2"]
+[ext_resource type="AudioStream" uid="uid://xnx1hlyt775g" path="res://assets/audio/music/Light Ambient 4 (Loop).ogg" id="43_7wx2l"]
+[ext_resource type="AudioStream" uid="uid://cw7igq2e3eab2" path="res://assets/audio/music/Light Ambient 5 (Loop).ogg" id="44_7sy3i"]
+[ext_resource type="AudioStream" uid="uid://b5qpa4tv3s2yh" path="res://assets/audio/music/Action 1 (Loop).ogg" id="45_2qaty"]
+[ext_resource type="AudioStream" uid="uid://cps5xg4xdg0xc" path="res://assets/audio/music/Action 2 (Loop).ogg" id="46_57ra7"]
+[ext_resource type="AudioStream" uid="uid://cc0k2kogv0ycq" path="res://assets/audio/music/Action 3 (Loop).ogg" id="47_oc7su"]
+[ext_resource type="AudioStream" uid="uid://bwcgk3ofbto2e" path="res://assets/audio/music/Action 4 (Loop).ogg" id="48_fc1pf"]
+[ext_resource type="AudioStream" uid="uid://beiw6s33pxqkv" path="res://assets/audio/music/Action 5 (Loop).ogg" id="49_qs7g6"]
+[ext_resource type="AudioStream" uid="uid://c8xy1vbqi4855" path="res://assets/audio/sfx/Victory.ogg" id="50_xg0tj"]
+[ext_resource type="AudioStream" uid="uid://co6fp1bc52dbs" path="res://assets/audio/sfx/Death.ogg" id="51_3ifh0"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
@@ -95,6 +107,18 @@ texture_yellow_progress_bar = ExtResource("28_xpvxx")
 texture_coin = ExtResource("31_mat87")
 texture_skull = ExtResource("34_b8o82")
 texture_book = ExtResource("37_ljdav")
+audio_game_scene1 = ExtResource("40_8i781")
+audio_game_scene2 = ExtResource("41_58noi")
+audio_game_scene3 = ExtResource("42_c1jod")
+audio_game_scene4 = ExtResource("43_7wx2l")
+audio_game_scene5 = ExtResource("44_7sy3i")
+audio_battle1 = ExtResource("45_2qaty")
+audio_battle2 = ExtResource("46_57ra7")
+audio_battle3 = ExtResource("47_oc7su")
+audio_battle4 = ExtResource("48_fc1pf")
+audio_battle5 = ExtResource("49_qs7g6")
+audio_sfx_victory = ExtResource("50_xg0tj")
+audio_sfx_defeat = ExtResource("51_3ifh0")
 rune_comet = ExtResource("20_arl4a")
 rune_dark = ExtResource("21_ywknp")
 rune_fire = ExtResource("22_vth3l")
