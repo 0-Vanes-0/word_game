@@ -174,7 +174,15 @@ func animate_turn(target_group: Array[Battler] = []):
 	
 	_tween.tween_callback(
 			func():
-				battle_scene.battlers_node.move_child(black, -1)
+				var battlers := battle_scene.battlers
+				var battlers_node := battle_scene.battlers_node
+				for i in range(battlers.size()-1, -1, -1):
+					if not battlers[i].is_alive:
+						battlers_node.move_child(battlers[i], -1)
+				for i in battlers.size():
+					if battlers[i].is_alive:
+						battlers_node.move_child(battlers[i], -1)
+				battlers_node.move_child(black, -1)
 				battle_scene.show_all_hud()
 	)
 	
