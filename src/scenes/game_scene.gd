@@ -30,6 +30,7 @@ func _ready() -> void:
 	
 	SoundManager.play_music(Preloader.game_scene_musics.pick_random())
 	
+	version_label.text = "[center][url={}]v" + str(Global.VERSION) + "(early access)[/url][/center]"
 	version_label.meta_clicked.connect(
 			func(meta: Variant):
 				print("SHOW UPDATE INFO TO PLAYER!!!")

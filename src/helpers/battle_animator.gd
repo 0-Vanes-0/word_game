@@ -51,13 +51,6 @@ func animate_turn(target_group: Array[Battler] = []):
 		target_battler_scales[i] = target_battlers[i].scale
 		target_battler_offsets[i] = target_battlers[i].sprite.offset
 	
-	if current_battler_index != target_battler_indexes[0]: # TODO: плохая проверка, надо проверять весь массив, но лучше отдельной функцией
-		for b in target_battlers:
-			battle_scene.battlers_node.move_child(b, -1)
-			b.scale *= 2.0
-	battle_scene.battlers_node.move_child(current_battler, -1)
-	current_battler.scale *= 2.0
-	
 	var left_position := Vector2.RIGHT * Global.SCREEN_WIDTH / 3
 	var right_position := Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 3
 	var center_position := Vector2.RIGHT * Global.SCREEN_WIDTH / 2
@@ -83,7 +76,11 @@ func animate_turn(target_group: Array[Battler] = []):
 		for b in target_battlers:
 			if b.is_alive:
 				b.anim_reaction(current_action_type)
+			battle_scene.battlers_node.move_child(b, -1)
+			b.scale *= 2.0
 	
+	battle_scene.battlers_node.move_child(current_battler, -1)
+	current_battler.scale *= 2.0
 									# to remove:
 	#if effect_type > 0:
 		#battle_scene.effect_sprite.offset = (battle_scene.effect_sprite.sprite_frames as MySpriteFrames).separate_offsets[Rune.get_type_string(effect_type)]

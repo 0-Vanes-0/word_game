@@ -23,6 +23,9 @@ func _ready() -> void:
 
 
 func init_turn():
+	for b in battle_scene.battlers:
+		b.set_area_inputable(false)
+	
 	current_action_type = Battler.ActionTypes.NONE
 	current_battler_index = turn_bar.get_current_battler_index()
 	

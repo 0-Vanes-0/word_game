@@ -142,7 +142,7 @@ func _on_battle_ended(is_victory: bool):
 		
 		victory_defeat_container.result_label.text = (
 			"Ваша добыча: " + str(coins) + " монет"
-			+ ((" (-" + str(penalty) + " за смерть героев)") if penalty > 0 else "")
+			+ "\n" + ((" (-" + str(penalty) + " за смерть героев)") if penalty > 0 else "")
 		)
 		SoundManager.stop_music()
 		SoundManager.play_sound(Preloader.audio_sfx_victory)
@@ -156,7 +156,7 @@ func _on_battle_ended(is_victory: bool):
 		SoundManager.stop_music()
 		SoundManager.play_sound(Preloader.audio_sfx_defeat)
 	
-	victory_defeat_container.result_label.text += "\n" + "Теперь у вас: " + str(player_coins + coins - penalty) + " монет"
+	victory_defeat_container.result_label.text += "\n"
 	if get_alive_players().size() < 3:
 		victory_defeat_container.result_label.text += "\n" + "Погибшие герои будут возрождены в городе."
 

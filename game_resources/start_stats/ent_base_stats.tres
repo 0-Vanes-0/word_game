@@ -6,12 +6,12 @@
 [resource]
 script = ExtResource("2_pcbxq")
 base_reward = 20
-reward_loss = 2
+reward_loss = 1
 icon = ExtResource("1_xqd7l")
 base_initiative = 8
-base_health = 45
-base_min_damage_fraction = Vector2(1, 3)
-base_max_damage = 15
+base_health = 80
+base_min_damage_fraction = Vector2(1, 2)
+base_max_damage = 30
 base_ally_action_value = 2
 is_attack_action_group = true
 is_ally_action_group = false

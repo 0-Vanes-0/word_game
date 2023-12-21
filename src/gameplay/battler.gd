@@ -221,7 +221,6 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 		action_value = shield_token.apply_token_effect(damage)
 	
 	if target_group.is_empty():
-		var death_resist := target_battler.stats.get_deaths_door_resist()
 		target_battler.stats.adjust_health(- action_value)
 		
 		if target_battler.stats.health > 0:
@@ -229,7 +228,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
 			else:
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str(action_value))
-		elif death_resist != null and target_battler.is_alive:
+		elif target_battler.is_alive:
 			if is_first_call:
 				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ")) # TODO: remove duplicate code
 			else:
@@ -242,6 +241,8 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 			b.stats.adjust_health(- action_value)
 			if b.stats.health > 0:
 				b.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
+			elif target_battler.is_alive:
+				b.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 			else:
 				b.anim_value_label(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
 	

@@ -24,4 +24,4 @@ func get_resource() -> BattlerStats:
 
 
 func reduce_reward():
-	reward = clampi(reward - reward_loss, 1, base_reward)
+	reward = clampi(reward - reward_loss, ceili(base_reward / 10.0), base_reward)
