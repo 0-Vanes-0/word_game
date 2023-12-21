@@ -54,9 +54,9 @@ size_flags_horizontal = 3
 tab_count = 3
 tab_0/title = "Бойцы"
 tab_0/icon = ExtResource("2_uocs0")
-tab_1/title = "Противники"
+tab_1/title = "Сражения"
 tab_1/icon = ExtResource("4_62lq4")
-tab_2/title = "Жетоны"
+tab_2/title = "Эффекты"
 tab_2/icon = ExtResource("3_nh548")
 
 [node name="HideButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBox"]
@@ -113,10 +113,12 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "	В бою сражаются две группы бойцов с целью уничтожить друг друга.
-	Каждый боец имеет хотя бы один из двух типов действий: атака противника и помощь союзнику.
-	Когда наступает ход героя игрока - даётся выбор между двумя действиями путём выбора текущей цели. Если цель - противник, будет произведена атака, если цель - союзник, будет оказана помощь.
-	Описания действий можно посмотреть в городе, кликнув на героя в меню улучшений,"
+text = "	В бою сражаются герои игрока с противниками. 
+	При получении хода участник боя выполняет хотя бы одно из двух типов действий:
+ - атака противника
+ - помощь союзнику
+В первом случае нужно выбрать противника, во втором - союзника. 
+	Описания действий можно посмотреть в городе, кликнув на героя в меню улучшений, или во время боя, удерживая палец на бойце.  "
 scroll_active = false
 
 [node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/BattlersTab" instance=ExtResource("1_5jyep")]
@@ -143,9 +145,8 @@ theme_override_constants/margin_bottom = 24
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/BattlersTab/RightPaperRect/HBox/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "или во время боя, удерживая палец на бойце.
-	Некоторые бойцы (например, герои) не умирают, если их очки здоровья равны 0, вместо этого они входят в состояние 
-\"При смерти\" (сопровождается красным миганием), во время которого любой входящий урон окажется смертельным. Если при этом состоянии боец восстановит хотя бы 1 очко здоровья - он выйдет из этого состояния в обычное."
+text = "	Некоторые бойцы не умирают сразу, если их очки здоровья равны 0, вместо этого они входят в состояние \"При смерти\"
+(сопровождается красным миганием), во время которого любой урон окажется смертельным. Если при этом состоянии боец восстановит хотя бы 1 очко здоровья - он вернется из этого состояния в обычное."
 scroll_active = false
 
 [node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/BattlersTab/RightPaperRect/HBox"]
@@ -159,16 +160,16 @@ texture_pressed = ExtResource("8_vsbps")
 texture_disabled = ExtResource("8_vsbps")
 stretch_mode = 5
 
-[node name="EnemiesTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+[node name="FightsTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="LeftPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab" instance=ExtResource("1_5jyep")]
+[node name="LeftPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab" instance=ExtResource("1_5jyep")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect"]
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/LeftPaperRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -176,7 +177,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LvlDownButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect/HBox"]
+[node name="LvlDownButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/LeftPaperRect/HBox"]
 visible = false
 custom_minimum_size = Vector2(30, 90)
 layout_mode = 2
@@ -186,7 +187,7 @@ texture_pressed = ExtResource("3_16s8j")
 texture_disabled = ExtResource("3_16s8j")
 stretch_mode = 5
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect/HBox"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/LeftPaperRect/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 24
@@ -194,20 +195,20 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect/HBox/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/LeftPaperRect/HBox/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "	В режиме кампании происходит выбор игрового уровня; чем он выше - тем он сложнее и с более высокой наградой.
-	После прохождения максимально доступного уровня открывается следующий.
-	Каждый раз, когда противник ходит - вы теряете немного награды. Также если кто-то из ваших героев погибает - вы теряете треть получаемой награды."
+text = "	В режиме кампании происходит выбор игрового уровня; чем он выше - тем сложнее и с более высокой наградой.
+	Чем меньше ходов вы сделаете, побеждая противников уровня - тем больше награды получите.
+	За погибшего в бою героя из награды отнимается штраф."
 scroll_active = false
 
-[node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab" instance=ExtResource("1_5jyep")]
+[node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab" instance=ExtResource("1_5jyep")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect"]
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/RightPaperRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -216,7 +217,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect/HBox"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/RightPaperRect/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 24
@@ -224,12 +225,12 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect/HBox/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/RightPaperRect/HBox/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
 scroll_active = false
 
-[node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect/HBox"]
+[node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab/RightPaperRect/HBox"]
 visible = false
 custom_minimum_size = Vector2(30, 90)
 layout_mode = 2
@@ -280,8 +281,8 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "	Жетон - иконка над бойцом, дающая какой-либо эффект в определённый момент битвы.
-	По умолчанию каждый жетон действует в течение 5 ходов владельца жетона, после чего он исчезает.
+text = "	В результате хода некоторые бойцы могут оставить некоторый эффект на союзнике или противнике.
+	По умолчанию каждый эффект действует в течение 5 ходов.
 
 [img=24x32]res://assets/sprites/ui/icons/sword_yellow.png[/img]: Следующая атака владельца нанесёт на 100% больше урона.
 [img=24x32]res://assets/sprites/ui/icons/shield_yellow.png[/img]: Следующая атака по владельцу нанесёт на 50% меньше урона."
