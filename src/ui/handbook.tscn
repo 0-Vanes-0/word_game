@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://8bkg2bxphf0g"]
+[gd_scene load_steps=12 format=3 uid="uid://8bkg2bxphf0g"]
 
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_5jyep"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_le6fj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c5tfps3r42hgy" path="res://assets/sprites/ui/icons/people_yellow.png" id="2_uocs0"]
 [ext_resource type="Texture2D" uid="uid://bup8vvxriikht" path="res://assets/sprites/ui/buttons/button_left_pressed.png" id="3_16s8j"]
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="3_nh548"]
+[ext_resource type="Texture2D" uid="uid://bvj1vkv5ale5v" path="res://assets/sprites/ui/icons/demon_yellow.png" id="4_62lq4"]
 [ext_resource type="Texture2D" uid="uid://cvu84qe72y0dj" path="res://assets/sprites/ui/icons/x_yellow.png" id="5_3pg2l"]
 [ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="7_m7rvb"]
 [ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="8_vsbps"]
@@ -50,11 +51,13 @@ layout_mode = 2
 [node name="TabBar" type="TabBar" parent="MarginContainer/VBoxContainer/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-tab_count = 2
+tab_count = 3
 tab_0/title = "Бойцы"
 tab_0/icon = ExtResource("2_uocs0")
-tab_1/title = "Жетоны"
-tab_1/icon = ExtResource("3_nh548")
+tab_1/title = "Противники"
+tab_1/icon = ExtResource("4_62lq4")
+tab_2/title = "Жетоны"
+tab_2/icon = ExtResource("3_nh548")
 
 [node name="HideButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBox"]
 layout_mode = 2
@@ -156,7 +159,89 @@ texture_pressed = ExtResource("8_vsbps")
 texture_disabled = ExtResource("8_vsbps")
 stretch_mode = 5
 
+[node name="EnemiesTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="LeftPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab" instance=ExtResource("1_5jyep")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LvlDownButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect/HBox"]
+visible = false
+custom_minimum_size = Vector2(30, 90)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("2_roq7l")
+texture_pressed = ExtResource("3_16s8j")
+texture_disabled = ExtResource("3_16s8j")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/LeftPaperRect/HBox/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "	В режиме кампании происходит выбор игрового уровня; чем он выше - тем он сложнее и с более высокой наградой.
+	После прохождения максимально доступного уровня открывается следующий.
+	Каждый раз, когда противник ходит - вы теряете немного награды. Также если кто-то из ваших героев погибает - вы теряете треть получаемой награды."
+scroll_active = false
+
+[node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab" instance=ExtResource("1_5jyep")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect/HBox/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+scroll_active = false
+
+[node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/EnemiesTab/RightPaperRect/HBox"]
+visible = false
+custom_minimum_size = Vector2(30, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("7_m7rvb")
+texture_pressed = ExtResource("8_vsbps")
+texture_disabled = ExtResource("8_vsbps")
+stretch_mode = 5
+
 [node name="TokensTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
