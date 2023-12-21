@@ -20,11 +20,12 @@ func get_resource() -> BattlerStats:
 	return resource_copy
 
 
-func assign_level(level: int):
+func assign_level(level: int) -> PlayerBattlerStats:
 	self.level = level
 	self.max_health = base_health + get_health_addition(level)
 	self.health = self.max_health
 	self.max_damage = base_max_damage + get_damage_addition(level)
+	return self
 
 
 func get_health_addition(level: int) -> int:

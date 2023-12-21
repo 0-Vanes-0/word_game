@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b18imap80ic8m"]
+[gd_scene load_steps=14 format=3 uid="uid://b18imap80ic8m"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_4cbrw"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_qq3ip"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://digotaoy3m3uw" path="res://assets/sprites/avas/con2.png" id="6_6glsd"]
 [ext_resource type="Texture2D" uid="uid://d0olvwfx035lc" path="res://assets/sprites/ui/icons/heart_yellow.png" id="8_i36dg"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="9_futtk"]
+[ext_resource type="PackedScene" uid="uid://d2vcave878atq" path="res://src/ui/battler_info_container.tscn" id="13_5wm1b"]
 
 [node name="LevelUpContainer" type="ColorRect" node_paths=PackedStringArray("coins_icon_label", "knight_button", "knight_level_label", "knight_health", "knight_damage", "robber_button", "robber_level_label", "robber_health", "robber_damage", "mage_button", "mage_level_label", "mage_health", "mage_damage")]
 anchors_preset = 15
@@ -181,4 +182,29 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = " Улучшить до 00 ур.: 0000 "
 
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BattlerInfoContainer" parent="ColorRect/CenterContainer" instance=ExtResource("13_5wm1b")]
+layout_mode = 2
+
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="gui_input" from="MarginContainer/MarginContainer/VBox/GridContainer/KnightIcon" to="." method="_on_knight_icon_gui_input"]
+[connection signal="gui_input" from="MarginContainer/MarginContainer/VBox/GridContainer/RobberIcon" to="." method="_on_robber_icon_gui_input"]
+[connection signal="gui_input" from="MarginContainer/MarginContainer/VBox/GridContainer/MageIcon" to="." method="_on_mage_icon_gui_input"]
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]

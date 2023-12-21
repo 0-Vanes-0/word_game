@@ -84,3 +84,29 @@ func _get_text(level: int, coins: int) -> String:
 
 func _on_back_button_pressed() -> void:
 	self.hide()
+
+
+func _on_color_rect_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		$ColorRect.hide()
+
+
+func _on_knight_icon_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		var knight := (Preloader.stats_knight.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.Types.HERO_KNIGHT))
+		$ColorRect/CenterContainer/BattlerInfoContainer.appear(knight)
+		$ColorRect.show()
+
+
+func _on_robber_icon_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		var robber := (Preloader.stats_robber.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.Types.HERO_ROBBER))
+		$ColorRect/CenterContainer/BattlerInfoContainer.appear(robber)
+		$ColorRect.show()
+
+
+func _on_mage_icon_gui_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch and event.is_pressed():
+		var mage := (Preloader.stats_mage.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.Types.HERO_MAGE))
+		$ColorRect/CenterContainer/BattlerInfoContainer.appear(mage)
+		$ColorRect.show()

@@ -74,6 +74,7 @@ size_flags_horizontal = 4
 [node name="FoeAllyGrid" type="GridContainer" parent="MarginContainer/VBox"]
 custom_minimum_size = Vector2(272, 0)
 layout_mode = 2
+theme_override_constants/h_separation = 10
 columns = 2
 
 [node name="FoeActionIcon" type="TextureRect" parent="MarginContainer/VBox/FoeAllyGrid"]
