@@ -1,6 +1,7 @@
 class_name GameScene
 extends Node2D
 
+@export var version_label: RichTextLabel
 @export var level_up_container: LevelUpContainer
 @export var op_button1: OptionButton
 @export var op_button2: OptionButton
@@ -25,12 +26,16 @@ var enemy_level_value: int
 
 func _ready() -> void:
 	assert(level_up_container and op_button1 and op_button2 and op_button3 and enemy_level_label 
-			and enemy_level_up_button and enemy_level_down_button and handbook_button and handbook)
+			and enemy_level_up_button and enemy_level_down_button and handbook_button and handbook and version_label)
 	
 	SoundManager.play_music(Preloader.game_scene_musics.pick_random())
 	
+	version_label.meta_clicked.connect(
+			func(meta: Variant):
+				print("SHOW UPDATE INFO TO PLAYER!!!")
+	)
 	if Global.get_player_last_seen_version() < Global.VERSION:
-		print("SHOW UPDATE INFO TO PLAYER!!!")
+		version_label.meta_clicked.emit()
 		Global.set_player_last_seen_version(Global.VERSION)
 	
 	level_up_container.hide()

@@ -481,8 +481,9 @@ separate_offsets = {
 "hurt": Vector2(0, -28)
 }
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("version_label", "level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
 script = ExtResource("1_ypskv")
+version_label = NodePath("CanvasLayer/Control/VersionLabel")
 level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
 op_button1 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton1")
 op_button2 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton2")
@@ -621,6 +622,17 @@ grow_vertical = 2
 theme = ExtResource("2_it1rv")
 metadata/_edit_lock_ = true
 
+[node name="VersionLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "[center][url={\"example\": \"value\"}]v0.1(early access)[/url][/center]"
+fit_content = true
+scroll_active = false
+meta_underlined = false
+
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
@@ -628,6 +640,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer"]
