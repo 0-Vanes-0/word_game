@@ -48,9 +48,9 @@ func _ready() -> void:
 	op_buttons = [op_button1, op_button2, op_button3] as Array[OptionButton]
 	for i in op_buttons.size():
 		op_buttons[i].remove_item(0)
-		op_buttons[i].add_icon_item(Preloader.sprite_frames_knight.get_placeholder_texture(), "", Battler.HEROES[0])
-		op_buttons[i].add_icon_item(Preloader.sprite_frames_robber.get_placeholder_texture(), "", Battler.HEROES[1])
-		op_buttons[i].add_icon_item(Preloader.sprite_frames_mage.get_placeholder_texture(), "", Battler.HEROES[2])
+		op_buttons[i].add_icon_item(Preloader.stats_knight.icon, "", Battler.HEROES[0])
+		op_buttons[i].add_icon_item(Preloader.stats_robber.icon, "", Battler.HEROES[1])
+		op_buttons[i].add_icon_item(Preloader.stats_mage.icon, "", Battler.HEROES[2])
 		for j in heroes_levels.keys().size():
 			if heroes_levels.keys()[j] == chosen_heroes_types[i]:
 				op_buttons[i].selected = j

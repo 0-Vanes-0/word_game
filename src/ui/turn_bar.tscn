@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dv6surfcxmvtm"]
+[gd_scene load_steps=7 format=3 uid="uid://dv6surfcxmvtm"]
 
 [ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="1_4assl"]
 [ext_resource type="Script" path="res://src/ui/turn_bar.gd" id="1_17jj6"]
+[ext_resource type="Texture2D" uid="uid://bm6rijkr05day" path="res://assets/sprites/ui/square_border_big_full_empty.png" id="3_d6j1i"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_3pi2u"]
 color = Color(0.588235, 0.411765, 0, 1)
@@ -38,3 +39,11 @@ editable = false
 scrollable = false
 tick_count = 6
 ticks_on_borders = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -72.0
+offset_right = 36.0
+offset_bottom = 7.0
+texture = ExtResource("3_d6j1i")
