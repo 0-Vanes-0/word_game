@@ -5,6 +5,8 @@ extends Node2D
 @export var op_button1: OptionButton
 @export var op_button2: OptionButton
 @export var op_button3: OptionButton
+@export var handbook_button: IconButton
+@export var handbook: Handbook
 @export var enemy_level_label: Label
 @export var enemy_level_up_button: TextureButton
 @export var enemy_level_down_button: TextureButton
@@ -22,7 +24,8 @@ var enemy_level_value: int
 
 
 func _ready() -> void:
-	assert(level_up_container and op_button1 and op_button2 and op_button3 and enemy_level_label and enemy_level_up_button and enemy_level_down_button)
+	assert(level_up_container and op_button1 and op_button2 and op_button3 and enemy_level_label 
+			and enemy_level_up_button and enemy_level_down_button and handbook_button and handbook)
 	
 	SoundManager.play_music(Preloader.game_scene_musics.pick_random())
 	
@@ -54,6 +57,8 @@ func _ready() -> void:
 	enemy_level_label.text = "Уровень противников: " + str(enemy_level_value)
 	enemy_level_up_button.disabled = enemy_level_value == enemy_level_max
 	enemy_level_down_button.disabled = enemy_level_value == enemy_level_min
+	
+	handbook_button.set_on_press( func(): handbook.show() )
 
 
 func _on_option_button_item_selected(_index: int): # _index is intended to be not used

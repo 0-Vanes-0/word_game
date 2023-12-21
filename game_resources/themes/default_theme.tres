@@ -1,10 +1,11 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dk0tmfu7rmmc0"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dk0tmfu7rmmc0"]
 
 [ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="1_glf6i"]
 [ext_resource type="FontFile" uid="uid://bfieqpushgxta" path="res://assets/fonts/Fairfax.ttf" id="1_woqwf"]
 [ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="2_pstp7"]
 [ext_resource type="Texture2D" uid="uid://bgu37xw77i1f7" path="res://assets/sprites/ui/char_bg.png" id="3_6qjo2"]
 [ext_resource type="Texture2D" uid="uid://bm6rijkr05day" path="res://assets/sprites/ui/square_border_big_full_empty.png" id="3_mh2ey"]
+[ext_resource type="Texture2D" uid="uid://bkuloxljiyk15" path="res://assets/sprites/ui/beige_border2.png" id="5_li4p3"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ycvo"]
 texture = ExtResource("1_glf6i")
@@ -34,6 +35,17 @@ texture_margin_bottom = 10.0
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_slccu"]
 texture = ExtResource("3_6qjo2")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_frply"]
+texture = ExtResource("5_li4p3")
+texture_margin_left = 10.0
+texture_margin_right = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uvc6l"]
+texture = ExtResource("5_li4p3")
+texture_margin_left = 10.0
+texture_margin_right = 10.0
+modulate_color = Color(0.701961, 0.701961, 0.701961, 1)
+
 [resource]
 default_font = ExtResource("1_woqwf")
 default_font_size = 24
@@ -55,3 +67,11 @@ PopupMenu/colors/font_hover_color = Color(0, 0, 0, 1)
 PopupMenu/styles/hover = SubResource("StyleBoxTexture_d50u0")
 PopupMenu/styles/panel = SubResource("StyleBoxTexture_slccu")
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+TabBar/colors/font_hovered_color = Color(0.2, 0.2, 0.2, 1)
+TabBar/colors/font_selected_color = Color(0, 0, 0, 1)
+TabBar/colors/font_unselected_color = Color(0.2, 0.2, 0.2, 1)
+TabBar/constants/h_separation = 6
+TabBar/styles/tab_focus = SubResource("StyleBoxTexture_frply")
+TabBar/styles/tab_hovered = SubResource("StyleBoxTexture_frply")
+TabBar/styles/tab_selected = SubResource("StyleBoxTexture_frply")
+TabBar/styles/tab_unselected = SubResource("StyleBoxTexture_uvc6l")

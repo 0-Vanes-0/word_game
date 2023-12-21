@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=69 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_atyqr"]
@@ -51,14 +51,19 @@
 [ext_resource type="Texture2D" uid="uid://cottpdu57aj03" path="res://assets/sprites/characters/Player Mage/Attack/attack1.png" id="47_y6tmq"]
 [ext_resource type="Texture2D" uid="uid://bd4p1neom2khd" path="res://assets/sprites/characters/Player Mage/Attack/attack2.png" id="48_d5fsy"]
 [ext_resource type="Texture2D" uid="uid://c37qgwag4ngng" path="res://assets/sprites/characters/Player Alchemist/Walk/walk1.png" id="54_48nq8"]
+[ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="55_3uxqc"]
 [ext_resource type="Texture2D" uid="uid://bpj4xj310lnl7" path="res://assets/sprites/characters/Player Alchemist/Walk/walk2.png" id="55_8l7du"]
+[ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="56_tf52a"]
 [ext_resource type="Texture2D" uid="uid://bhto5e1eedoym" path="res://assets/sprites/characters/Player Alchemist/Walk/walk3.png" id="56_xwxxb"]
+[ext_resource type="Script" path="res://src/ui/icon_button.gd" id="57_yku2b"]
+[ext_resource type="Texture2D" uid="uid://gq50mreupeul" path="res://assets/sprites/ui/icons/paper.png" id="58_a0flb"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="58_v3ta2"]
 [ext_resource type="Texture2D" uid="uid://14soiypa87g3" path="res://assets/sprites/characters/Player Alchemist/alchemist.png" id="59_81k04"]
 [ext_resource type="Texture2D" uid="uid://c3hyp2ogjdm7v" path="res://assets/sprites/ui/buttons/button_left.png" id="59_ivlnq"]
 [ext_resource type="Texture2D" uid="uid://bup8vvxriikht" path="res://assets/sprites/ui/buttons/button_left_pressed.png" id="60_0xg2h"]
 [ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="61_vy3ki"]
 [ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="62_7xxvr"]
+[ext_resource type="PackedScene" uid="uid://8bkg2bxphf0g" path="res://src/ui/handbook.tscn" id="64_ke84h"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3uwmp"]
 animations = [{
@@ -476,18 +481,21 @@ separate_offsets = {
 "hurt": Vector2(0, -28)
 }
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("level_up_container", "op_button1", "op_button2", "op_button3", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
 script = ExtResource("1_ypskv")
 level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
 op_button1 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton1")
 op_button2 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton2")
 op_button3 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton3")
+handbook_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton")
+handbook = NodePath("CanvasLayer/Control/Handbook")
 enemy_level_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/PaperRect/CenterContainer/EnemyLevelLabel")
 enemy_level_up_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlUpButton")
 enemy_level_down_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlDownButton")
 
 [node name="Background" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="GrassBackground" type="Sprite2D" parent="Background"]
 position = Vector2(480, 270)
@@ -611,6 +619,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_it1rv")
+metadata/_edit_lock_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -619,11 +628,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer"]
 layout_mode = 2
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer"]
 layout_mode = 2
@@ -706,11 +714,52 @@ popup/item_0/text = ""
 popup/item_0/icon = ExtResource("59_81k04")
 popup/item_0/id = 0
 
-[node name="UpgradeButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox"]
+[node name="HBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox"]
+layout_mode = 2
+
+[node name="UpgradeButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
 text = " Улучшить героев "
+
+[node name="HandbookButton" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture_normal = ExtResource("55_3uxqc")
+texture_pressed = ExtResource("56_tf52a")
+stretch_mode = 5
+script = ExtResource("57_yku2b")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="IconDisabled" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("58_a0flb")
+stretch_mode = 5
+
+[node name="IconEnabled" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("58_a0flb")
+stretch_mode = 5
+
+[node name="Unpressable" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+stretch_mode = 5
 
 [node name="BattleHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox"]
 layout_mode = 2
@@ -764,7 +813,14 @@ text = " Начать бой "
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[node name="Handbook" parent="CanvasLayer/Control" instance=ExtResource("64_ke84h")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="button_down" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" to="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" to="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" method="_on_button_up"]
+[connection signal="toggled" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" to="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" method="_on_toggled"]
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlDownButton" to="." method="_on_lvl_down_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlUpButton" to="." method="_on_lvl_up_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]

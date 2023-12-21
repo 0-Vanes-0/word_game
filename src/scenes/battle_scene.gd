@@ -12,6 +12,7 @@ signal proceed_turn_ended
 @export var turn_bar: TurnBar
 @export var battler_info: BattlerInfoContainer
 @export var hud_manager: BattleHUDManager
+@export var handbook: Handbook
 @export var victory_defeat_container: VictoryDefeatContainer
 @export var back_confirm: BackConfirm
 @export var battle_animator: BattleAnimator
@@ -26,7 +27,7 @@ var enemy_battlers: Array[Battler]
 func _ready() -> void:
 	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
 			and battler_info and battle_manager and victory_defeat_container and coins_counter
-			and back_button and handbook_button)
+			and back_button and handbook_button and handbook)
 	
 	SoundManager.play_music(Preloader.battle_musics.pick_random())
 	
@@ -82,7 +83,7 @@ func _ready() -> void:
 	handbook_button.set_icons(Preloader.texture_book, Preloader.texture_book)
 	handbook_button.pressed.connect(
 			func():
-				pass
+				handbook.show()
 	)
 	turn_bar.setup()
 	
