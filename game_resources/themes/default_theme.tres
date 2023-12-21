@@ -9,18 +9,18 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3ycvo"]
 texture = ExtResource("1_glf6i")
-texture_margin_left = 5.0
+texture_margin_left = 10.0
 texture_margin_top = 5.0
-texture_margin_right = 5.0
+texture_margin_right = 10.0
 texture_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fq4ax"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvwb8"]
 texture = ExtResource("2_pstp7")
-texture_margin_left = 5.0
+texture_margin_left = 10.0
 texture_margin_top = 5.0
-texture_margin_right = 5.0
+texture_margin_right = 10.0
 texture_margin_bottom = 5.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ffkx"]

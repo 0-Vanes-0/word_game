@@ -79,7 +79,7 @@ func _on_upgrade_button_pressed(hero_type: Battler.Types):
 
 
 func _get_text(level: int, coins: int) -> String:
-	return " Улучшить до " + str(level) + " ур: " + str(coins) + " "
+	return "Улучшить до " + str(level) + " ур: " + str(coins)
 
 
 func _on_back_button_pressed() -> void:

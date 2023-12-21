@@ -86,17 +86,17 @@ theme_override_constants/separation = 2
 script = ExtResource("4_aujfk")
 icon_texture = ExtResource("5_btmbs")
 
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBox/CoinsHBox/CoinsIconLabel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "9999"
+
 [node name="Icon" type="TextureRect" parent="MarginContainer/MarginContainer/VBox/CoinsHBox/CoinsIconLabel"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture = ExtResource("5_btmbs")
 expand_mode = 2
 stretch_mode = 4
-
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBox/CoinsHBox/CoinsIconLabel"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "9999"
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/MarginContainer/VBox"]
 layout_mode = 2
@@ -128,7 +128,10 @@ icon_texture = ExtResource("9_futtk")
 [node name="KnightButton" type="Button" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = " Улучшить до 00 ур.: 0000 "
+theme_override_constants/h_separation = 0
+text = " Улучшить до 00 ур.: 0000"
+icon = ExtResource("5_btmbs")
+icon_alignment = 2
 
 [node name="RobberIcon" parent="MarginContainer/MarginContainer/VBox/GridContainer" instance=ExtResource("3_pifhd")]
 custom_minimum_size = Vector2(96, 96)
@@ -154,7 +157,10 @@ icon_texture = ExtResource("9_futtk")
 [node name="RobberButton" type="Button" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = " Улучшить до 00 ур.: 0000 "
+theme_override_constants/h_separation = 0
+text = " Улучшить до 00 ур.: 0000"
+icon = ExtResource("5_btmbs")
+icon_alignment = 2
 
 [node name="MageIcon" parent="MarginContainer/MarginContainer/VBox/GridContainer" instance=ExtResource("3_pifhd")]
 custom_minimum_size = Vector2(96, 96)
@@ -180,7 +186,10 @@ icon_texture = ExtResource("9_futtk")
 [node name="MageButton" type="Button" parent="MarginContainer/MarginContainer/VBox/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = " Улучшить до 00 ур.: 0000 "
+theme_override_constants/h_separation = 0
+text = " Улучшить до 00 ур.: 0000"
+icon = ExtResource("5_btmbs")
+icon_alignment = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
