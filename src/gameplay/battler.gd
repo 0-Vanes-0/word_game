@@ -210,17 +210,17 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	action_value = -1
 	
 	var damage := int(stats.generate_damage_value())
-	action_value = damage
 	
 	var attack_token: Token = get_first_token(Token.Types.ATTACK)
 	if attack_token != null:
-		action_value = attack_token.apply_token_effect(damage)
+		damage = attack_token.apply_token_effect(damage)
 	
-	var shield_token: Token = target_battler.get_first_token(Token.Types.SHIELD)
-	if shield_token != null:
-		action_value = shield_token.apply_token_effect(damage)
+	action_value = damage
 	
 	if target_group.is_empty():
+		var shield_token: Token = target_battler.get_first_token(Token.Types.SHIELD)
+		if shield_token != null:
+			action_value = shield_token.apply_token_effect(action_value)
 		target_battler.stats.adjust_health(- action_value)
 		
 		if target_battler.stats.health > 0:
@@ -230,7 +230,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str(action_value))
 		elif target_battler.is_alive:
 			if is_first_call:
-				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ")) # TODO: remove duplicate code
+				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 			else:
 				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 		else:
@@ -238,9 +238,15 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 
 	else:
 		for b in target_group:
-			b.stats.adjust_health(- action_value)
+			var single_damage := int(action_value)
+			
+			var shield_token: Token = b.get_first_token(Token.Types.SHIELD)
+			if shield_token != null:
+				single_damage = shield_token.apply_token_effect(single_damage)
+			
+			b.stats.adjust_health(- single_damage)
 			if b.stats.health > 0:
-				b.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
+				b.anim_value_label(Battler.ActionTypes.ATTACK, str(single_damage))
 			elif target_battler.is_alive:
 				b.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 			else:
@@ -249,15 +255,13 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	if type == Types.HERO_ROBBER and is_first_call:
 		await get_tree().create_timer(0.25).timeout
 		do_attack_action(target_battler, [], false)
-	else: 
-		if attack_token != null:
-			attack_token.adjust_turn_count()
-		if shield_token != null:
-			shield_token.adjust_turn_count()
-	
-	for i in range(tokens.size()-1, -1, -1):
-		if tokens[i].is_need_delete():
-			tokens.remove_at(i)
+	else:
+		check_tokens()
+		if target_group.is_empty():
+			target_battler.check_tokens()
+		else:
+			for b in target_group:
+				b.check_tokens()
 
 
 func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
@@ -313,7 +317,7 @@ func update_token_labels():
 		t_label.update_info()
 
 
-func check_tokens(for_what_moment: Token.ApplyMoments):
+func check_tokens(for_what_moment: Token.ApplyMoments = Token.ApplyMoments.NONE):
 	var damage_value: int = 0
 	var heal_value: int = 0
 	for t in tokens:

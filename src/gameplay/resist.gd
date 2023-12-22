@@ -24,7 +24,7 @@ func get_resource() -> Resist:
 
 func try_to_resist() -> bool:
 	var random_value := randi_range(1, 100)
-	print_debug("random_value=", random_value, " value=", value)
+	#print_debug("random_value=", random_value, " value=", value)
 	if random_value <= value:
 		if type == Types.DEATHS_DOOR:
 			value = clampi(value - 10, 0, 100)
