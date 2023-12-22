@@ -6,7 +6,7 @@ extends Node
 const MAX_BATTLERS_COUNT: int = 6
 
 @export var battlers_types: Array[Battler.Types] = [Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE]
-@export var enemy_levels: Array[EnemyLeveling]
+@export var enemy_levels: Array[EnemyLevel]
 @export var current_enemy_level: int
 
 
