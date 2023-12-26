@@ -1,9 +1,8 @@
 ## This is global script which stores global variables and helps with some global processes
-## like pausing game, switching scenes etc.
+## like pausing game, switching scenes, getting player data etc.
 extends Node
 
-# ---------------------- CONSTANTS ----------------------
-
+#region CONSTANTS
 const VERSION := 0.1
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
 const CHARACTER_SIZE := Vector2(100, 120)
@@ -13,7 +12,9 @@ const TargetColors := {
 	ALLY_BATTLER = Color.CORNFLOWER_BLUE,
 }
 const DEFAULT_SETTINGS := {
-	MUSIC = true
+	"AUDIO": {
+		"MUSIC": true
+	},
 }
 const DEFAULT_DATA := {
 	"id": 1,
@@ -26,15 +27,16 @@ const DEFAULT_DATA := {
 	"coins": 0,
 	"last_hero_choice": [Battler.Types.HERO_MAGE, Battler.Types.HERO_ROBBER, Battler.Types.HERO_KNIGHT],
 	"last_enemy_level_reached": 1,
+	"total_coins": 0,
 }
+#endregion
 
-# ---------------------- VARIABLES ----------------------
-
+#region VARIABLES
 var settings: Dictionary
 var player_data: Dictionary
+#endregion
 
-# ---------------------- ON START ----------------------
-
+#region ON START
 func _ready() -> void:
 	setup()
 
@@ -49,9 +51,10 @@ func setup():
 	randomize()
 	
 	player_data = SaveLoad.load_data()
+	settings = SaveLoad.load_settings()
+#endregion
 
-# ---------------------- PLAYER DATA SETTERS & GETTERS ----------------------
-
+#region PLAYER DATA SETTERS & GETTERS
 func set_player_id(value: int):
 	player_data["id"] = value
 	SaveLoad.save_data()
@@ -106,8 +109,14 @@ func set_player_last_enemy_level_reached(value: int):
 func get_player_last_enemy_level_reached() -> int:
 	return player_data.get("last_enemy_level_reached") as int
 
-# ---------------------- FUNCTIONS ----------------------
+func set_player_total_coins(value: int):
+	player_data["total_coins"] = value
+	SaveLoad.save_data()
+func get_player_total_coins() -> int:
+	return player_data.get("total_coins") as int
+#endregion
 
+#region FUNCIONS
 ## Tells [SceneHandler] to switch to [PackedScene].
 func switch_to_scene(scene: PackedScene):
 	var scene_handler = get_tree().current_scene
@@ -133,3 +142,4 @@ func _gcd(a: int, b: int) -> int:
 		else:
 			b %= a
 	return a + b
+#endregion

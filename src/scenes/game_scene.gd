@@ -2,6 +2,7 @@ class_name GameScene
 extends Node2D
 
 @export var version_label: RichTextLabel
+@export var music_button: Button
 @export var level_up_container: LevelUpContainer
 @export var op_button1: OptionButton
 @export var op_button2: OptionButton
@@ -26,9 +27,19 @@ var enemy_level_value: int
 
 func _ready() -> void:
 	assert(level_up_container and op_button1 and op_button2 and op_button3 and enemy_level_label 
-			and enemy_level_up_button and enemy_level_down_button and handbook_button and handbook and version_label)
+			and enemy_level_up_button and enemy_level_down_button and handbook_button and handbook 
+			and version_label and music_button)
 	
-	SoundManager.play_music(Preloader.game_scene_musics.pick_random())
+	music_button.toggled.connect(
+			func(toggled_on: bool):
+				if toggled_on:
+					SoundManager.play_music(Preloader.game_scene_musics.pick_random())
+				else:
+					SoundManager.stop_music()
+				Global.settings["AUDIO"]["MUSIC"] = toggled_on
+				SaveLoad.save_settings()
+	)
+	music_button.button_pressed = Global.settings.get("AUDIO").get("MUSIC")
 	
 	version_label.text = "[center][url={}]v" + str(Global.VERSION) + "(early access)[/url][/center]"
 	version_label.meta_clicked.connect(
@@ -36,7 +47,7 @@ func _ready() -> void:
 				print("SHOW UPDATE INFO TO PLAYER!!!")
 	)
 	if Global.get_player_last_seen_version() < Global.VERSION:
-		version_label.meta_clicked.emit()
+		version_label.meta_clicked.emit("version")
 		Global.set_player_last_seen_version(Global.VERSION)
 	
 	level_up_container.hide()
@@ -102,5 +113,3 @@ func _on_enter_battle_button_pressed() -> void:
 
 #func _process(delta: float) -> void:
 	#$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.LEFT * 20 * delta
-
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=74 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_atyqr"]
@@ -64,6 +64,8 @@
 [ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="61_vy3ki"]
 [ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="62_7xxvr"]
 [ext_resource type="PackedScene" uid="uid://8bkg2bxphf0g" path="res://src/ui/handbook.tscn" id="64_ke84h"]
+[ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="65_3xbw5"]
+[ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="66_520ka"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3uwmp"]
 animations = [{
@@ -481,9 +483,26 @@ separate_offsets = {
 "hurt": Vector2(0, -28)
 }
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("version_label", "level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q1pin"]
+texture = ExtResource("65_3xbw5")
+texture_margin_left = 10.0
+texture_margin_top = 5.0
+texture_margin_right = 10.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jvul1"]
+texture = ExtResource("66_520ka")
+texture_margin_left = 10.0
+texture_margin_top = 5.0
+texture_margin_right = 10.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owynw"]
+
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("version_label", "music_button", "level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
 script = ExtResource("1_ypskv")
 version_label = NodePath("CanvasLayer/Control/VersionLabel")
+music_button = NodePath("CanvasLayer/Control/MusicButton")
 level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
 op_button1 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton1")
 op_button2 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton2")
@@ -621,6 +640,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_it1rv")
 metadata/_edit_lock_ = true
+
+[node name="MusicButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 50.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_q1pin")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jvul1")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_q1pin")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_owynw")
+toggle_mode = true
+action_mode = 0
+text = "Музыка"
 
 [node name="VersionLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
 layout_mode = 1

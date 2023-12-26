@@ -29,7 +29,8 @@ func _ready() -> void:
 			and battler_info and battle_manager and victory_defeat_container and coins_counter
 			and back_button and handbook_button and handbook)
 	
-	SoundManager.play_music(Preloader.battle_musics.pick_random())
+	if Global.settings.get("AUDIO").get("MUSIC") == true:
+		SoundManager.play_music(Preloader.battle_musics.pick_random())
 	
 	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
 	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
@@ -155,6 +156,9 @@ func _on_battle_ended(is_victory: bool):
 		)
 		SoundManager.stop_music()
 		SoundManager.play_sound(Preloader.audio_sfx_defeat)
+	
+	var total_coins := Global.get_player_total_coins()
+	Global.set_player_total_coins(total_coins + coins)
 	
 	victory_defeat_container.result_label.text += "\n"
 	if get_alive_players().size() < 3:

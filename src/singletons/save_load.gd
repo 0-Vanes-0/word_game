@@ -84,7 +84,6 @@ static func save_cookie(cookie: Dictionary):
 	var file := FileAccess.open(_COOKIE_FILE_PATH, FileAccess.WRITE)
 	var error: Error = FileAccess.get_open_error()
 	assert(error == OK)
-	var text := ""
 	for c: HTTPManagerCookie in cookie.values()[0].values():
 		if c.name == "mafarm_autologin":
 			file.store_line(c.get_as_string())

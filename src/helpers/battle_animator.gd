@@ -97,16 +97,18 @@ func animate_turn(target_group: Array[Battler] = []):
 	
 	_tween = _new_tween()
 	if current_battler_index != target_battler_indexes[0]:
-		if target_battlers == one:
+		_tween.tween_callback(
+				func():
+					current_battler.position = left_position if current_battler_index < target_battler_indexes[0] else right_position
+		)
+		for i in target_battlers.size():
 			_tween.tween_callback(
 					func():
-						current_battler.position = left_position if current_battler_index < target_battler_indexes[0] else right_position
+						if current_battler_index < target_battlers[i].index:
+							target_battlers[i].position = right_position + group_gap * i if target_battlers.size() > 1 else right_position
+						else: 
+							target_battlers[i].position = left_position - group_gap * (2 - i) if target_battlers.size() > 1 else left_position
 			)
-			for i in target_battlers.size():
-				_tween.tween_callback(
-						func():
-							target_battlers[i].position = right_position + group_gap * i if current_battler_index < target_battlers[i].index else left_position
-				)
 		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type):
 			_tween.tween_property(
 					current_battler, "position",
