@@ -1,7 +1,7 @@
 extends RefCounted
 class_name HTTPManagerJob
 
-var _manager
+var _manager:HTTPManager
 
 var url:String
 var request_method:int = -1
@@ -16,6 +16,7 @@ var unsafe_ssl:bool =false
 var force_mime:String
 var force_charset:String
 var use_cache:bool = true
+var use_proxy:bool = false
 
 var retries:int = 0
 var success:bool = false
@@ -155,7 +156,7 @@ func download( filepath:String, callback = null ):
 
 ##sends this job to the queue
 ## callback: a callable that will be called when job completes
-func launch( callback = null ):
+func fetch( callback = null ):
 	if callback is Callable:
 		callbacks.append({
 			"callback": callback
@@ -285,14 +286,16 @@ func dispatch( result:int, response_code:int, headers:PackedStringArray, body:Pa
 		regex.compile("(\\w+)\\/(\\w+)")
 		var r = regex.search(force_mime)
 		forced_mime = Array()
-		forced_mime.resize(3)
 		if r and r.strings.size() == 3:
 			forced_mime = Array(r.strings)
+		else:
+			printerr("HTTPManager: '",force_mime,"' is not a valid mime-type and will be ignored")
+			forced_mime = Array()
 	
 	if force_charset != "":
 		forced_charset = force_charset
 	
-	var response: ApplicationOctetStream = null
+	var response:BaseDecoder
 	var mime = ["","",""]
 	if response_mime.size() == 3:
 		mime = response_mime

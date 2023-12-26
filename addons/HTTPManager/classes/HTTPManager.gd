@@ -57,20 +57,34 @@ class_name HTTPManager
 			pipe.timeout = value
 ##maximal times the manager retries to request the job after failed connection
 @export var max_retries:int = 3
+
+@export_group("proxy")
+##use proxy
+@export var use_proxy:bool = false
+@export var http_proxy:String = "127.0.0.1"
+@export var http_port:int = 8080
+@export var https_proxy:String = "127.0.0.1"
+@export var https_port:int = 8080
+
+@export_group("cache")
 ##use caching
 @export var use_cache:bool = false
 ## cache directory
 @export var cache_directory:String = "user://http-manager-cache"
-##accept cookies
-@export var accept_cookies:bool = false
-##automatically go into pause mode when a job failed
-@export var pause_on_failure:bool = false
+
+@export_group("progress scene")
 ##the interval delay to update progress scene and fire progress signal
 @export var signal_progress_interval:float = 0.5
 ##automatically display the progress scene when the queue is progressed
 @export var display_progress:bool = false
 ##custom scene to display when the queue is progressed
 @export var progress_scene:PackedScene = null
+
+@export_group("")
+##accept cookies
+@export var accept_cookies:bool = false
+##automatically go into pause mode when a job failed
+@export var pause_on_failure:bool = false
 ##print debug messages
 @export var print_debug:bool = false
 
@@ -281,6 +295,8 @@ func job( url:String ) -> HTTPManagerJob:
 	job.url = url
 	#set defaults for jobs
 	job.use_cache = use_cache
+	#set proxy
+	job.use_proxy = use_proxy
 	return job
 
 

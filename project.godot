@@ -44,6 +44,10 @@ window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/handheld/orientation=4
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/HTTPManager/plugin.cfg")
+
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true

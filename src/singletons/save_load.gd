@@ -3,10 +3,12 @@ extends Object
 
 const _SETTINGS_FILENAME := "user_settings.cfg"
 const _DATA_FILENAME := "player.dat"
+const _COOKIE_FILENAME := "info.dat"
 const _USER_DATA_PREFIX := "user://"
 const _SETTINGS_FILE_PATH: String = _USER_DATA_PREFIX + _SETTINGS_FILENAME
 const _DATA_FILE_PATH: String = _USER_DATA_PREFIX + _DATA_FILENAME
-static var _MINIMUM_FILE_LENGTH: int
+const _COOKIE_FILE_PATH: String = _USER_DATA_PREFIX + _COOKIE_FILENAME
+static var _MINIMUM_DATA_FILE_LENGTH: int
 
 
 #func _ready() -> void:
@@ -31,8 +33,8 @@ static func load_data() -> Dictionary:
 	var data: Dictionary = {}
 	var file := FileAccess.open(_DATA_FILE_PATH, FileAccess.READ)
 	var error: Error = FileAccess.get_open_error()
-	_MINIMUM_FILE_LENGTH = JSON.stringify(Global.DEFAULT_DATA).length() - 1
-	if error != OK or file.get_length() < _MINIMUM_FILE_LENGTH:
+	_MINIMUM_DATA_FILE_LENGTH = JSON.stringify(Global.DEFAULT_DATA).length() - 1
+	if error != OK or file.get_length() < _MINIMUM_DATA_FILE_LENGTH:
 		_create_default_data_file(file)
 		file = FileAccess.open(_DATA_FILE_PATH, FileAccess.READ)
 	
@@ -47,6 +49,18 @@ static func load_data() -> Dictionary:
 	file.close()
 	return data
 
+
+static func load_cookie() -> String:
+	var cookie: String = ""
+	var file := FileAccess.open(_COOKIE_FILE_PATH, FileAccess.READ)
+	var error: Error = FileAccess.get_open_error()
+	if error != OK or file.get_length() == 0:
+		_create_default_cookie_file(file)
+		file = FileAccess.open(_COOKIE_FILE_PATH, FileAccess.READ)
+	cookie = file.get_line()
+	file.close()
+	return cookie
+
 ## Saves settings to file at user data path. 
 static func save_settings(settings: Dictionary = Global.settings):
 	var file := ConfigFile.new()
@@ -56,12 +70,24 @@ static func save_settings(settings: Dictionary = Global.settings):
 	file.save(_SETTINGS_FILE_PATH)
 
 ## WIP.
-static func save_data():
+static func save_data(data: Dictionary = Global.player_data):
 	var file := FileAccess.open(_DATA_FILE_PATH, FileAccess.WRITE)
 	var error: Error = FileAccess.get_open_error()
 	assert(error == OK)
-	var json_string = JSON.stringify(Global.player_data)
+	var json_string = JSON.stringify(data)
 	file.store_line(json_string)
+	file.close()
+
+
+static func save_cookie(cookie: Dictionary):
+	assert(not cookie.is_empty())
+	var file := FileAccess.open(_COOKIE_FILE_PATH, FileAccess.WRITE)
+	var error: Error = FileAccess.get_open_error()
+	assert(error == OK)
+	var text := ""
+	for c: HTTPManagerCookie in cookie.values()[0].values():
+		if c.name == "mafarm_autologin":
+			file.store_line(c.get_as_string())
 	file.close()
 
 
@@ -87,6 +113,14 @@ static func _create_default_data_file(file: FileAccess):
 		print_debug(error_string(error))
 	var json_string = JSON.stringify(Global.DEFAULT_DATA)
 	file.store_line(json_string)
+	file.close()
+
+
+static func _create_default_cookie_file(file: FileAccess):
+	file = FileAccess.open(_DATA_FILE_PATH, FileAccess.WRITE)
+	var error: Error = FileAccess.get_open_error()
+	if error != OK:
+		print_debug(error_string(error))
 	file.close()
 
 ## Writes settings to file.

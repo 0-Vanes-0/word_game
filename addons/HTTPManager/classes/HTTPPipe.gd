@@ -119,6 +119,12 @@ func dispatch( _job:HTTPManagerJob ):
 		if cookie_data.length() > 0:
 			headers.append("Cookie: "+cookie_data)
 	
+	if job.use_proxy and manager.use_proxy:
+		if manager.http_proxy and manager.http_port:
+			set_http_proxy(manager.http_proxy, manager.http_port)
+		if manager.https_proxy and manager.https_port:
+			set_https_proxy(manager.https_proxy, manager.https_port)
+
 	if job.unsafe_ssl:
 		set_tls_options ( TLSOptions.client_unsafe() )
 	else:
