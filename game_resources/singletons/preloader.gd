@@ -47,16 +47,11 @@ extends Node
 @export var texture_book: Texture2D
 
 @export_group("Audio", "audio_")
-@export var audio_game_scene1: AudioStreamOggVorbis
-@export var audio_game_scene2: AudioStreamOggVorbis
-@export var audio_game_scene3: AudioStreamOggVorbis
 @export var audio_game_scene4: AudioStreamOggVorbis
 @export var audio_game_scene5: AudioStreamOggVorbis
 @export var audio_battle1: AudioStreamOggVorbis
 @export var audio_battle2: AudioStreamOggVorbis
 @export var audio_battle3: AudioStreamOggVorbis
-@export var audio_battle4: AudioStreamOggVorbis
-@export var audio_battle5: AudioStreamOggVorbis
 @export var audio_sfx_victory: AudioStreamOggVorbis
 @export var audio_sfx_defeat: AudioStreamOggVorbis
 var game_scene_musics: Array[AudioStreamOggVorbis]
@@ -96,13 +91,13 @@ func _ready() -> void:
 			and texture_green_progress_bar and texture_blue_progress_bar and texture_yellow_progress_bar
 			and texture_coin and texture_skull and texture_arrow_left_yellow_icon and texture_arrow_left_black_icon
 			and texture_book)
-	assert(audio_battle1 and audio_battle2 and audio_battle3 and audio_battle4 and audio_battle5
-			and audio_game_scene1 and audio_game_scene2 and audio_game_scene3 and audio_game_scene4 and audio_game_scene5)
+	assert(audio_battle1 and audio_battle2 and audio_battle3
+			and audio_game_scene4 and audio_game_scene5)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla
 			and rune_tornado and rune_water)
 	assert(token_fire and token_shield)
 	assert(default_theme and my_progress_bar and icon_label)
 	
-	game_scene_musics = [ audio_game_scene1, audio_game_scene2, audio_game_scene3, audio_game_scene4, audio_game_scene5 ]
-	battle_musics = [ audio_battle1, audio_battle2, audio_battle3, audio_battle4, audio_battle5 ]
+	game_scene_musics = [ audio_game_scene4, audio_game_scene5 ]
+	battle_musics = [ audio_battle1, audio_battle2, audio_battle3 ]
 	test_runes = [ rune_comet , rune_dark , rune_fire , rune_ice , rune_spikes , rune_stun , rune_tornado , rune_water, rune_tesla ]
