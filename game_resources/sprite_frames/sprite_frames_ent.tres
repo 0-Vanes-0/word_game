@@ -1,21 +1,55 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=17 format=3 uid="uid://bxht187ek74ni"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=15 format=3 uid="uid://bxht187ek74ni"]
 
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="1_3oakl"]
-[ext_resource type="Texture2D" uid="uid://dxsvgkpl5qoah" path="res://assets/sprites/characters/ent/attack3.png" id="1_ahln1"]
-[ext_resource type="Texture2D" uid="uid://dmxpxgow105h2" path="res://assets/sprites/characters/ent/idle2.png" id="2_vyfi3"]
-[ext_resource type="Texture2D" uid="uid://cj0i2mdi2i7gw" path="res://assets/sprites/characters/ent/death1.png" id="3_xn4mw"]
-[ext_resource type="Texture2D" uid="uid://5hogm207pqdk" path="res://assets/sprites/characters/ent/death2.png" id="4_gngku"]
-[ext_resource type="Texture2D" uid="uid://cv81nwsbaiph1" path="res://assets/sprites/characters/ent/death3.png" id="5_6gd7s"]
-[ext_resource type="Texture2D" uid="uid://xwfm2cws8lg1" path="res://assets/sprites/characters/ent/death4.png" id="6_klart"]
-[ext_resource type="Texture2D" uid="uid://c61tcyx7p1g4f" path="res://assets/sprites/characters/ent/death5.png" id="7_k633p"]
-[ext_resource type="Texture2D" uid="uid://c6uwojnsigaoa" path="res://assets/sprites/characters/ent/death6.png" id="8_msoa1"]
-[ext_resource type="Texture2D" uid="uid://bdpxidf2ht6ja" path="res://assets/sprites/characters/ent/death7.png" id="9_0d8c8"]
-[ext_resource type="Texture2D" uid="uid://b3aapyoauolml" path="res://assets/sprites/characters/ent/hurt1.png" id="10_dk0gd"]
-[ext_resource type="Texture2D" uid="uid://dg1mpme4psf0t" path="res://assets/sprites/characters/ent/idle1.png" id="11_me2oo"]
-[ext_resource type="Texture2D" uid="uid://c2rw78k3nd7vi" path="res://assets/sprites/characters/ent/idle3.png" id="12_fwln7"]
-[ext_resource type="Texture2D" uid="uid://c6uxpfojkok5h" path="res://assets/sprites/characters/ent/idle4.png" id="13_sc5qe"]
-[ext_resource type="Texture2D" uid="uid://ea5vvls7yspm" path="res://assets/sprites/characters/ent/attack1.png" id="14_elapu"]
-[ext_resource type="Texture2D" uid="uid://cfdk11fuu1cvf" path="res://assets/sprites/characters/ent/attack2.png" id="15_nf8e1"]
+[ext_resource type="Texture2D" uid="uid://cv62ayjjjt4tj" path="res://assets/sprites/characters/ent_sheet.png" id="1_em5n5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jrwq"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(404, 0, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2wsb"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(606, 236, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xuft"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(606, 0, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8x6m6"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(0, 118, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo2fo"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(202, 118, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfixr"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(404, 118, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrxrt"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(606, 118, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ut0c"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(0, 236, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8sdmo"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(202, 236, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u85c3"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(404, 236, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo0rs"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(0, 0, 202, 118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c2wk"]
+atlas = ExtResource("1_em5n5")
+region = Rect2(202, 0, 202, 118)
 
 [resource]
 animations = [{
@@ -26,7 +60,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_ahln1")
+"texture": SubResource("AtlasTexture_6jrwq")
 }],
 "loop": false,
 "name": &"action_attack",
@@ -34,7 +68,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_vyfi3")
+"texture": SubResource("AtlasTexture_w2wsb")
 }],
 "loop": false,
 "name": &"buff",
@@ -42,25 +76,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_xn4mw")
+"texture": SubResource("AtlasTexture_8xuft")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_gngku")
+"texture": SubResource("AtlasTexture_8x6m6")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_6gd7s")
+"texture": SubResource("AtlasTexture_vo2fo")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_klart")
+"texture": SubResource("AtlasTexture_wfixr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_k633p")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_msoa1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_0d8c8")
+"texture": SubResource("AtlasTexture_hrxrt")
 }],
 "loop": false,
 "name": &"die",
@@ -68,7 +96,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("10_dk0gd")
+"texture": SubResource("AtlasTexture_8xuft")
 }],
 "loop": false,
 "name": &"hurt",
@@ -76,16 +104,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 3.0,
-"texture": ExtResource("11_me2oo")
+"texture": SubResource("AtlasTexture_3ut0c")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_vyfi3")
+"texture": SubResource("AtlasTexture_8sdmo")
 }, {
 "duration": 3.0,
-"texture": ExtResource("12_fwln7")
+"texture": SubResource("AtlasTexture_u85c3")
 }, {
 "duration": 1.0,
-"texture": ExtResource("13_sc5qe")
+"texture": SubResource("AtlasTexture_8sdmo")
 }],
 "loop": true,
 "name": &"idle",
@@ -97,16 +125,16 @@ animations = [{
 "speed": 4.0
 }, {
 "frames": [{
-"duration": 2.0,
-"texture": ExtResource("14_elapu")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo0rs")
 }, {
-"duration": 2.0,
-"texture": ExtResource("15_nf8e1")
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c2wk")
 }],
 "loop": false,
 "name": &"prepare_attack",
 "speed": 4.0
 }]
 script = ExtResource("1_3oakl")
-offset = Vector2(12, -48)
+offset = Vector2(32, -48)
 separate_offsets = {}

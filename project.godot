@@ -42,14 +42,21 @@ gdscript/warnings/int_as_enum_without_cast=0
 
 window/size/viewport_width=960
 window/size/viewport_height=540
-window/size/window_width_override=1280
-window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/handheld/orientation=4
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/HTTPManager/plugin.cfg")
+enabled=PackedStringArray("res://addons/SpritesheetGenerator/plugin.cfg")
+
+[importer_defaults]
+
+texture_atlas={
+"atlas_file": "res://assets/sprites/ui/ui_atlas.png",
+"crop_to_region": true,
+"import_mode": 0,
+"trim_alpha_border_from_region": true
+}
 
 [input_devices]
 

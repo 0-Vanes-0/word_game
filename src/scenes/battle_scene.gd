@@ -70,7 +70,7 @@ func _ready() -> void:
 		battlers_node.add_child(battler)
 		battlers.append(battler)
 	
-	battlers_node.move_child(black_screen, -1)
+	black_screen.move_to_front()
 	battlers_node.move_child(effect_sprite, -1) # To remove
 	$"-----TEST-----".hide()
 	

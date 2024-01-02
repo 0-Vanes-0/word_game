@@ -76,10 +76,10 @@ func animate_turn(target_group: Array[Battler] = []):
 		for b in target_battlers:
 			if b.is_alive:
 				b.anim_reaction(current_action_type)
-			battle_scene.battlers_node.move_child(b, -1)
+			b.move_to_front()
 			b.scale *= 2.0
 	
-	battle_scene.battlers_node.move_child(current_battler, -1)
+	current_battler.move_to_front()
 	current_battler.scale *= 2.0
 									# to remove:
 	#if effect_type > 0:
@@ -174,14 +174,13 @@ func animate_turn(target_group: Array[Battler] = []):
 	_tween.tween_callback(
 			func():
 				var battlers := battle_scene.battlers
-				var battlers_node := battle_scene.battlers_node
 				for i in range(battlers.size()-1, -1, -1):
 					if not battlers[i].is_alive:
-						battlers_node.move_child(battlers[i], -1)
+						battlers[i].move_to_front()
 				for i in battlers.size():
 					if battlers[i].is_alive:
-						battlers_node.move_child(battlers[i], -1)
-				battlers_node.move_child(black, -1)
+						battlers[i].move_to_front()
+				black.move_to_front()
 				battle_scene.show_all_hud()
 	)
 	

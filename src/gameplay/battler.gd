@@ -93,21 +93,22 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	sprite.name = "BattlerSprite"
 	self.add_child(sprite)
 	
-	selection_hover = Sprite2D.new()
-	selection_hover.texture = Preloader.texture_selection_hover
-	selection_hover.offset = Vector2.UP * 25
-	selection_hover.scale = Vector2.ONE * 2.5
-	selection_hover.name = "SelectionHoverSprite"
-	self.add_child(selection_hover)
-	selection_hover.hide()
-	
 	selection = Sprite2D.new()
 	selection.texture = Preloader.texture_selection
-	selection.offset = Vector2.UP * 25
+	selection.offset = Vector2.DOWN * selection.texture.get_height() / 2
 	selection.scale = Vector2.ONE * 2.5
 	selection.name = "SelectionSprite"
 	self.add_child(selection)
 	selection.hide()
+	
+	selection_hover = Sprite2D.new()
+	selection_hover.texture = Preloader.texture_selection_hover
+	selection_hover.offset = Vector2.UP * (selection_hover.texture.get_height() / 2 - selection.texture.get_height())
+	selection_hover.scale = Vector2.ONE * 2.5
+	selection_hover.name = "SelectionHoverSprite"
+	self.add_child(selection_hover)
+	selection.move_to_front()
+	selection_hover.hide()
 	
 	size_area = Area2D.new()
 	coll_shape = CollisionShape2D.new()

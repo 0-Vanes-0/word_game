@@ -45,7 +45,7 @@ func setup():
 		_sliders[battlers[next_battler].index].value = i
 		battlers.remove_at(next_battler)
 	
-	self.move_child($TextureRect, -1)
+	$TextureRect.move_to_front()
 
 
 func shift_battler(ticks: int = 1):
