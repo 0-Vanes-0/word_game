@@ -90,7 +90,7 @@ func _ready() -> void:
 	
 	hud_manager.to_proceed_turn.connect( 
 			func(spell: Spell):
-				battle_manager.proceed_turn()
+				battle_manager.proceed_turn(spell)
 	)
 	
 	battle_manager.init_turn()

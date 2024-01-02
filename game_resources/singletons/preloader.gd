@@ -27,15 +27,10 @@ extends Node
 @export var texture_selection: Texture2D
 @export var texture_selection_hover: Texture2D
 @export var texture_sword_yellow_icon: Texture2D
-#@export var texture_sword_black_icon: Texture2D
 @export var texture_shield_yellow_icon: Texture2D
-#@export var texture_shield_black_icon: Texture2D
 @export var texture_person_yellow_icon: Texture2D
-#@export var texture_person_black_icon: Texture2D
 @export var texture_arrow_right_yellow_icon: Texture2D
-#@export var texture_arrow_right_black_icon: Texture2D
 @export var texture_arrow_left_yellow_icon: Texture2D
-#@export var texture_arrow_left_black_icon: Texture2D
 @export var texture_under_progress_bar: Texture2D
 @export var texture_over_progress_bar: Texture2D
 @export var texture_red_progress_bar: Texture2D
@@ -44,7 +39,6 @@ extends Node
 @export var texture_yellow_progress_bar: Texture2D
 @export var texture_coin: Texture2D
 @export var texture_skull: Texture2D
-@export var texture_book: Texture2D
 
 @export_group("Audio", "audio_")
 @export var audio_game_scene4: AudioStreamOggVorbis
@@ -88,7 +82,7 @@ func _ready() -> void:
 			and texture_shield_yellow_icon and texture_person_yellow_icon and texture_arrow_right_yellow_icon
 			and texture_under_progress_bar and texture_over_progress_bar and texture_red_progress_bar
 			and texture_green_progress_bar and texture_blue_progress_bar and texture_yellow_progress_bar
-			and texture_coin and texture_skull and texture_arrow_left_yellow_icon and texture_book)
+			and texture_coin and texture_skull and texture_arrow_left_yellow_icon)
 	assert(audio_battle1 and audio_battle2 and audio_battle3
 			and audio_game_scene4 and audio_game_scene5)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla

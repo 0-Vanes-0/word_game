@@ -9,7 +9,7 @@ signal to_proceed_turn(spell: Spell)
 @export var _proceed_button: IconButton
 @export var _old_proceed_button: Button
 
-var _spell: Array[Rune] = []
+var _runes: Array[Rune] = []
 
 
 func _ready() -> void:
@@ -33,12 +33,12 @@ func _ready() -> void:
 				_proceed_button.set_pressable(false)
 				_proceed_button.button_pressed = false
 				disappear()
-				to_proceed_turn.emit(Spell.create(_spell))
+				to_proceed_turn.emit(Spell.create(_runes))
 	)
 	_reset_spell_button.pressed.connect(
 			func():
 				_spell_label.text = ""
-				_spell.clear()
+				_runes.clear()
 	)
 	
 	for rune_button: RuneButton in _rune_buttons.get_children():
@@ -50,10 +50,10 @@ func _ready() -> void:
 						var text := _spell_label.text
 						if text.length() == 0:
 							_spell_label.text = word.capitalize()
-							_spell.append(rune_button.rune)
+							_runes.append(rune_button.rune)
 						elif text.length() + word.length() < MAX_CHARS:
 							_spell_label.text += "-" + word
-							_spell.append(rune_button.rune)
+							_runes.append(rune_button.rune)
 		)
 	_spell_label.text = ""
 
@@ -68,7 +68,7 @@ func set_proceed_button_pressable(is_pressable: bool):
 
 func appear(current_battler: Battler):
 	_spell_label.text = ""
-	_spell.clear()
+	_runes.clear()
 	
 	var player_stats := current_battler.stats as PlayerBattlerStats
 	var battler_runes: Array[Rune] = player_stats.runes

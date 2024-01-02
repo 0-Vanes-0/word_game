@@ -207,7 +207,7 @@ func set_area_inputable(is_inputable: bool):
 
 
 #region Actions
-func do_attack_action(target_battler: Battler, target_group: Array[Battler] = [], is_first_call := true):
+func do_attack_action(target_battler: Battler, target_group: Array[Battler] = [], is_first_call := true): # TODO: bad code -> both target_battler and target_group :/
 	action_value = -1
 	
 	var damage := int(stats.generate_damage_value())
@@ -265,7 +265,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 				b.check_tokens()
 
 
-func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
+func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []): # TODO: bad code -> both target_battler and target_group :/
 	action_value = -1
 	
 	if type == Types.HERO_KNIGHT:

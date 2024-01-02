@@ -86,14 +86,14 @@ func init_turn():
 			battle_ended.emit(is_victory)
 
 
-func proceed_turn():
+func proceed_turn(spell: Spell = null):
 	for b in battle_scene.battlers:
 		b.set_area_inputable(false)
 	
 	var current_battler := battle_scene.battlers[current_battler_index]
 	var target_battler := battle_scene.battlers[target_battler_index]
-	
 	var group: Array[Battler] = []
+	
 	if current_action_type == Battler.ActionTypes.ATTACK:
 		if current_battler.stats.is_attack_action_group:
 			group = battle_scene.get_alive_enemies() if is_player_turn else battle_scene.get_alive_players()
@@ -108,17 +108,9 @@ func proceed_turn():
 		else:
 			current_battler.do_ally_action(target_battler)
 	
-#region TODO: Add Spell class later
-	var spell: Array[Rune] = hud_manager._spell
-	
-	for rune in spell:
-		if rune.type == Rune.Types.FIRE:
-			if group.is_empty():
-				target_battler.add_token(Token.Types.FIRE)
-			else:
-				for b in group:
-					b.add_token(Token.Types.FIRE)
-#endregion
+	if spell:
+		spell.apply_effects(target_battler, group)
+		spell.free()
 	
 	current_battler.update_token_labels()
 	if current_battler_index != target_battler_index:
