@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=26 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_lirsh"]
@@ -10,12 +10,16 @@
 [ext_resource type="Texture2D" uid="uid://b1kui8lxowoty" path="res://assets/sprites/magic_effects/icons/fire.png" id="11_t7hoc"]
 [ext_resource type="PackedScene" uid="uid://dv6surfcxmvtm" path="res://src/ui/turn_bar.tscn" id="12_6v3hf"]
 [ext_resource type="PackedScene" uid="uid://d2vcave878atq" path="res://src/ui/battler_info_container.tscn" id="13_a0mw8"]
+[ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="13_c3qnq"]
 [ext_resource type="PackedScene" uid="uid://dmphysqui0a6s" path="res://src/ui/battle_hud_manager.tscn" id="14_3lqgt"]
 [ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="14_eu16k"]
 [ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="14_f4jdd"]
+[ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="14_tudni"]
+[ext_resource type="Script" path="res://src/ui/icon_button.gd" id="15_penmo"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="15_v8h8x"]
 [ext_resource type="Script" path="res://src/helpers/battle_animator.gd" id="15_ynmqs"]
 [ext_resource type="PackedScene" uid="uid://8bkg2bxphf0g" path="res://src/ui/handbook.tscn" id="16_2vn8g"]
+[ext_resource type="Texture2D" uid="uid://1ohas5oe66bb" path="res://assets/sprites/ui/icons/__yellow.png" id="16_5scvb"]
 [ext_resource type="Script" path="res://src/ui/icon_label.gd" id="16_eohs1"]
 [ext_resource type="Script" path="res://src/helpers/battle_manager.gd" id="18_n0r4n"]
 [ext_resource type="PackedScene" uid="uid://fpykig60244t" path="res://src/ui/victory_defeat_container.tscn" id="19_pd8ys"]
@@ -183,10 +187,45 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "999"
 
-[node name="HandbookButton" parent="CanvasLayer/Control/VBox/HeaderHBox" instance=ExtResource("14_f4jdd")]
+[node name="HandbookButton" type="TextureButton" parent="CanvasLayer/Control/VBox/HeaderHBox"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-toggle_mode = false
+action_mode = 0
+texture_normal = ExtResource("13_c3qnq")
+texture_pressed = ExtResource("14_tudni")
+stretch_mode = 5
+script = ExtResource("15_penmo")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="IconDisabled" type="TextureRect" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton/CenterContainer"]
+modulate = Color(0.4, 0.4, 0.4, 1)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("16_5scvb")
+stretch_mode = 5
+
+[node name="IconEnabled" type="TextureRect" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton/CenterContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("16_5scvb")
+stretch_mode = 5
+
+[node name="Unpressable" type="TextureRect" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton/CenterContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+stretch_mode = 5
 
 [node name="EmptyControl2" type="Control" parent="CanvasLayer/Control/VBox/HeaderHBox"]
 layout_mode = 2
@@ -231,3 +270,7 @@ battle_scene = NodePath("..")
 [node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
 script = ExtResource("18_n0r4n")
 battle_scene = NodePath("..")
+
+[connection signal="button_down" from="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" to="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" to="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" method="_on_button_up"]
+[connection signal="toggled" from="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" to="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" method="_on_toggled"]

@@ -19,11 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://dre5affij51vb" path="res://assets/sprites/characters/heroes/alchemist_sheet.png" id="16_7ipb1"]
 [ext_resource type="Texture2D" uid="uid://bectqbcyn2wxe" path="res://assets/sprites/characters/heroes/mage_sheet.png" id="17_rbfyy"]
 [ext_resource type="Texture2D" uid="uid://8el1hovmv4cy" path="res://assets/sprites/characters/heroes/mage_deah_sheet.png" id="18_gu5ja"]
+[ext_resource type="Texture2D" uid="uid://1ohas5oe66bb" path="res://assets/sprites/ui/icons/__yellow.png" id="26_6l6c7"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="30_uvo5x"]
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="55_3uxqc"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="56_tf52a"]
 [ext_resource type="Script" path="res://src/ui/icon_button.gd" id="57_yku2b"]
-[ext_resource type="Texture2D" uid="uid://gq50mreupeul" path="res://assets/sprites/ui/icons/paper.png" id="58_a0flb"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="58_v3ta2"]
 [ext_resource type="Texture2D" uid="uid://c3hyp2ogjdm7v" path="res://assets/sprites/ui/buttons/button_left.png" id="59_ivlnq"]
 [ext_resource type="Texture2D" uid="uid://bup8vvxriikht" path="res://assets/sprites/ui/buttons/button_left_pressed.png" id="60_0xg2h"]
@@ -915,17 +915,19 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="IconDisabled" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
+modulate = Color(0.4, 0.4, 0.4, 1)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("58_a0flb")
+texture = ExtResource("26_6l6c7")
 stretch_mode = 5
 
 [node name="IconEnabled" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
 visible = false
+modulate = Color(0.4, 0.4, 0.4, 1)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("58_a0flb")
+texture = ExtResource("26_6l6c7")
 stretch_mode = 5
 
 [node name="Unpressable" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]

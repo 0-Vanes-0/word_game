@@ -81,7 +81,6 @@ func _ready() -> void:
 				get_tree().paused = true
 	)
 	_update_coins_label()
-	handbook_button.set_icons(Preloader.texture_book, Preloader.texture_book)
 	handbook_button.pressed.connect(
 			func():
 				handbook.show()
