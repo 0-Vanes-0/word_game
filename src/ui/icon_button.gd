@@ -5,12 +5,8 @@ var _on_press := Callable()
 
 
 func _ready() -> void:
-	if toggle_mode:
-		$CenterContainer/IconEnabled.show()
-		$CenterContainer/IconDisabled.hide()
-	else:
-		$CenterContainer/IconDisabled.show()
-		$CenterContainer/IconEnabled.hide()
+	$CenterContainer/IconDisabled.show()
+	$CenterContainer/IconEnabled.hide()
 	
 	$CenterContainer/IconEnabled.custom_minimum_size = ceil(Vector2.ONE * self.custom_minimum_size.x * 0.4)
 	$CenterContainer/IconDisabled.custom_minimum_size = ceil(Vector2.ONE * self.custom_minimum_size.x * 0.4)
@@ -55,8 +51,8 @@ func set_on_press(function: Callable):
 	_on_press = Callable(function)
 
 
-func set_enabled(is_enabled: bool):
-	self.disabled = not is_enabled
+func set_pressable(is_pressable: bool):
+	self.disabled = not is_pressable
 	if $CenterContainer/Unpressable.texture != null:
 		$CenterContainer/Unpressable.visible = self.disabled
 

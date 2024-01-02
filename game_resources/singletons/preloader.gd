@@ -27,15 +27,15 @@ extends Node
 @export var texture_selection: Texture2D
 @export var texture_selection_hover: Texture2D
 @export var texture_sword_yellow_icon: Texture2D
-@export var texture_sword_black_icon: Texture2D
+#@export var texture_sword_black_icon: Texture2D
 @export var texture_shield_yellow_icon: Texture2D
-@export var texture_shield_black_icon: Texture2D
+#@export var texture_shield_black_icon: Texture2D
 @export var texture_person_yellow_icon: Texture2D
-@export var texture_person_black_icon: Texture2D
+#@export var texture_person_black_icon: Texture2D
 @export var texture_arrow_right_yellow_icon: Texture2D
-@export var texture_arrow_right_black_icon: Texture2D
+#@export var texture_arrow_right_black_icon: Texture2D
 @export var texture_arrow_left_yellow_icon: Texture2D
-@export var texture_arrow_left_black_icon: Texture2D
+#@export var texture_arrow_left_black_icon: Texture2D
 @export var texture_under_progress_bar: Texture2D
 @export var texture_over_progress_bar: Texture2D
 @export var texture_red_progress_bar: Texture2D
@@ -84,13 +84,11 @@ func _ready() -> void:
 	assert(game_scene and http_test_scene and battle_scene)
 	assert(stats_goblin and stats_knight and stats_mage and stats_robber)
 	assert(sprite_frames_knight and sprite_frames_robber and sprite_frames_mage and sprite_frames_goblin)
-	assert(texture_selection and texture_selection_hover and texture_sword_yellow_icon and texture_sword_black_icon
-			and texture_shield_black_icon and texture_shield_yellow_icon and texture_person_yellow_icon
-			and texture_person_black_icon and texture_arrow_right_yellow_icon and texture_arrow_right_black_icon
+	assert(texture_selection and texture_selection_hover and texture_sword_yellow_icon
+			and texture_shield_yellow_icon and texture_person_yellow_icon and texture_arrow_right_yellow_icon
 			and texture_under_progress_bar and texture_over_progress_bar and texture_red_progress_bar
 			and texture_green_progress_bar and texture_blue_progress_bar and texture_yellow_progress_bar
-			and texture_coin and texture_skull and texture_arrow_left_yellow_icon and texture_arrow_left_black_icon
-			and texture_book)
+			and texture_coin and texture_skull and texture_arrow_left_yellow_icon and texture_book)
 	assert(audio_battle1 and audio_battle2 and audio_battle3
 			and audio_game_scene4 and audio_game_scene5)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla

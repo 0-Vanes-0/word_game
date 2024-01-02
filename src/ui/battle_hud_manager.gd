@@ -1,8 +1,6 @@
 class_name BattleHUDManager
 extends CenterContainer
 
-signal to_select_enemies
-signal to_select_allies
 signal to_proceed_turn
 
 @export var _spell_label: Label
@@ -18,23 +16,22 @@ func _ready() -> void:
 	assert(_spell_label and _reset_spell_button and _runes and _proceed_button and _old_proceed_button)
 	
 	# TODO: remove this after adding runes and spells v
-	set_proceed_button_enabled(false)
+	set_proceed_button_pressable(false)
 	_old_proceed_button.toggled.connect(
 			func(toggled_on: bool):
 				if toggled_on:
-					set_proceed_button_enabled(false)
+					set_proceed_button_pressable(false)
 					_old_proceed_button.set_pressed_no_signal(false)
 					disappear()
 					to_proceed_turn.emit()
 	)
 	# TODO: remove this after adding runes and spells ^
 	
-	_proceed_button.set_enabled(false)
-	_proceed_button.set_icons(Preloader.texture_arrow_right_black_icon, Preloader.texture_arrow_right_yellow_icon, Preloader.texture_arrow_right_black_icon)
+	_proceed_button.set_pressable(false)
 	_proceed_button.set_on_press(
 			func():
 				_spell_label.text = ""
-				_proceed_button.set_enabled(false)
+				_proceed_button.set_pressable(false)
 				_proceed_button.button_pressed = false
 				disappear()
 				to_proceed_turn.emit()
@@ -62,11 +59,11 @@ func _ready() -> void:
 	_spell_label.text = ""
 
 
-func set_proceed_button_enabled(is_enabled: bool):
-	_proceed_button.set_enabled(is_enabled)
+func set_proceed_button_pressable(is_pressable: bool):
+	_proceed_button.set_pressable(is_pressable)
 	# TODO: remove this after adding runes and spells v
-	_old_proceed_button.disabled = not is_enabled
-	_old_proceed_button.text = "Начать ход" if is_enabled else "Выберите цель"
+	_old_proceed_button.disabled = not is_pressable
+	_old_proceed_button.text = "Начать ход" if is_pressable else "Выберите цель"
 	# TODO: remove this after adding runes and spells ^
 
 

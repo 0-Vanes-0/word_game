@@ -1,13 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmphysqui0a6s"]
+[gd_scene load_steps=12 format=3 uid="uid://dmphysqui0a6s"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_gqh4m"]
 [ext_resource type="Script" path="res://src/ui/battle_hud_manager.gd" id="1_r71ia"]
-[ext_resource type="PackedScene" uid="uid://bs1ntiicw1vo3" path="res://src/ui/icon_button.tscn" id="2_lxj8w"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="3_i8csu"]
 [ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="4_0rgqq"]
 [ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="5_qw2h8"]
 [ext_resource type="Texture2D" uid="uid://eo30n2x140em" path="res://assets/sprites/ui/icons/restart_yellow.png" id="6_4rak5"]
 [ext_resource type="PackedScene" uid="uid://d3di5wu6irnnt" path="res://src/ui/rune_button.tscn" id="7_v8cwb"]
+[ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="8_36rnt"]
+[ext_resource type="Script" path="res://src/ui/icon_button.gd" id="10_02l2d"]
+[ext_resource type="Texture2D" uid="uid://sx0kxmc42bug" path="res://assets/sprites/ui/icons/check_mark_yellow.png" id="11_pgt1s"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
 [node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_spell_label", "_reset_spell_button", "_runes", "_proceed_button", "_old_proceed_button")]
@@ -25,7 +27,6 @@ layout_mode = 2
 theme_override_constants/separation = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-visible = false
 layout_mode = 2
 alignment = 1
 
@@ -58,9 +59,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="ResetSpellButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(46, 46)
+custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 texture_normal = ExtResource("4_0rgqq")
 ignore_texture_size = true
 stretch_mode = 4
@@ -113,16 +113,58 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="ProceedButton" parent="HBoxContainer" instance=ExtResource("2_lxj8w")]
-visible = false
+[node name="ProceedButton" type="TextureButton" parent="HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("8_36rnt")
+texture_pressed = ExtResource("13_nvbkp")
 texture_disabled = ExtResource("13_nvbkp")
+stretch_mode = 5
+script = ExtResource("10_02l2d")
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/ProceedButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="IconDisabled" type="TextureRect" parent="HBoxContainer/ProceedButton/CenterContainer"]
+modulate = Color(0.4, 0.4, 0.4, 1)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("11_pgt1s")
+stretch_mode = 5
+
+[node name="IconEnabled" type="TextureRect" parent="HBoxContainer/ProceedButton/CenterContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("11_pgt1s")
+stretch_mode = 5
+
+[node name="Unpressable" type="TextureRect" parent="HBoxContainer/ProceedButton/CenterContainer"]
+visible = false
+modulate = Color(0.4, 0.4, 0.4, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("11_pgt1s")
+stretch_mode = 5
 
 [node name="OldProceedButton" type="Button" parent="HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 toggle_mode = true
 text = " Начать ход "
+
+[connection signal="button_down" from="HBoxContainer/ProceedButton" to="HBoxContainer/ProceedButton" method="_on_button_down"]
+[connection signal="button_up" from="HBoxContainer/ProceedButton" to="HBoxContainer/ProceedButton" method="_on_button_up"]
+[connection signal="toggled" from="HBoxContainer/ProceedButton" to="HBoxContainer/ProceedButton" method="_on_toggled"]

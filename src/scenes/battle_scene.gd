@@ -113,7 +113,7 @@ func _on_battler_clicked(battler: Battler):
 	else:
 		battler.selection_hover.show()
 	
-	hud_manager.set_proceed_button_enabled(true)
+	hud_manager.set_proceed_button_pressable(true)
 	current_battler.anim_prepare(battle_manager.current_action_type)
 
 

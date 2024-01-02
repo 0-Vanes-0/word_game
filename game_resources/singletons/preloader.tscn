@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=57 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -20,14 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://cim7p0f0ynatd" path="res://assets/sprites/ui/selection_hover.png" id="11_nxxdl"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="12_aw57u"]
 [ext_resource type="SpriteFrames" uid="uid://bect0g6f4bvhb" path="res://game_resources/sprite_frames/sprite_frames_bear.tres" id="13_5efth"]
-[ext_resource type="Texture2D" uid="uid://kgices52mgxs" path="res://assets/sprites/ui/icons/sword.png" id="13_hax0l"]
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="14_xt4q3"]
-[ext_resource type="Texture2D" uid="uid://dpe3eg0phpyds" path="res://assets/sprites/ui/icons/shield.png" id="15_5aksj"]
 [ext_resource type="SpriteFrames" uid="uid://bxht187ek74ni" path="res://game_resources/sprite_frames/sprite_frames_ent.tres" id="15_c582y"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="16_ilmgl"]
-[ext_resource type="Texture2D" uid="uid://ct7v0iv8kddft" path="res://assets/sprites/ui/icons/person.png" id="17_ufejx"]
 [ext_resource type="Texture2D" uid="uid://dsov2a1l5ms8d" path="res://assets/sprites/ui/icons/play_button_yellow.png" id="18_d3g4s"]
-[ext_resource type="Texture2D" uid="uid://b1oi3kt628yhp" path="res://assets/sprites/ui/icons/play_button1.png" id="19_bq5fo"]
 [ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/comet.tres" id="20_arl4a"]
 [ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="21_ywknp"]
 [ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="22_vth3l"]
@@ -43,11 +39,9 @@
 [ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="27_t64hi"]
 [ext_resource type="Texture2D" uid="uid://bs1a72smy4nta" path="res://assets/sprites/ui/icons/play_button2_yellow.png" id="27_xv2u6"]
 [ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/water.tres" id="28_6buor"]
-[ext_resource type="Texture2D" uid="uid://cs1l0cataavw1" path="res://assets/sprites/ui/icons/play_button2.png" id="28_noh4t"]
 [ext_resource type="Texture2D" uid="uid://cmje7tp5yg8gu" path="res://assets/sprites/ui/bars/energy_full_bar.png" id="28_xpvxx"]
 [ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="31_mat87"]
 [ext_resource type="Texture2D" uid="uid://bldg3otakmidy" path="res://assets/sprites/ui/icons/scull_yellow.png" id="34_b8o82"]
-[ext_resource type="Texture2D" uid="uid://gq50mreupeul" path="res://assets/sprites/ui/icons/paper.png" id="37_ljdav"]
 [ext_resource type="Resource" uid="uid://d2q1usbyl1c41" path="res://game_resources/tokens/token_fire.tres" id="38_geoqu"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="38_ly5rc"]
 [ext_resource type="Resource" uid="uid://due1nf4et7ntm" path="res://game_resources/tokens/token_attack.tres" id="40_ss4vf"]
@@ -61,6 +55,9 @@
 [ext_resource type="AudioStream" uid="uid://cc0k2kogv0ycq" path="res://assets/audio/music/Action 3 (Loop).ogg" id="47_oc7su"]
 [ext_resource type="AudioStream" uid="uid://c8xy1vbqi4855" path="res://assets/audio/sfx/Victory.ogg" id="50_xg0tj"]
 [ext_resource type="AudioStream" uid="uid://co6fp1bc52dbs" path="res://assets/audio/sfx/Death.ogg" id="51_3ifh0"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ajuyo"]
+load_path = "res://.godot/imported/paper.png-b30bc32cd2862407def3e2718daaeabc.ctex"
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
@@ -84,15 +81,10 @@ sprite_frames_robber = ExtResource("6_1v8hy")
 texture_selection = ExtResource("10_l5r3s")
 texture_selection_hover = ExtResource("11_nxxdl")
 texture_sword_yellow_icon = ExtResource("12_aw57u")
-texture_sword_black_icon = ExtResource("13_hax0l")
 texture_shield_yellow_icon = ExtResource("14_xt4q3")
-texture_shield_black_icon = ExtResource("15_5aksj")
 texture_person_yellow_icon = ExtResource("16_ilmgl")
-texture_person_black_icon = ExtResource("17_ufejx")
 texture_arrow_right_yellow_icon = ExtResource("18_d3g4s")
-texture_arrow_right_black_icon = ExtResource("19_bq5fo")
 texture_arrow_left_yellow_icon = ExtResource("27_xv2u6")
-texture_arrow_left_black_icon = ExtResource("28_noh4t")
 texture_under_progress_bar = ExtResource("23_lgn4a")
 texture_over_progress_bar = ExtResource("24_mf617")
 texture_red_progress_bar = ExtResource("25_uq5xq")
@@ -101,7 +93,7 @@ texture_blue_progress_bar = ExtResource("27_t64hi")
 texture_yellow_progress_bar = ExtResource("28_xpvxx")
 texture_coin = ExtResource("31_mat87")
 texture_skull = ExtResource("34_b8o82")
-texture_book = ExtResource("37_ljdav")
+texture_book = SubResource("CompressedTexture2D_ajuyo")
 audio_game_scene4 = ExtResource("43_7wx2l")
 audio_game_scene5 = ExtResource("44_7sy3i")
 audio_battle1 = ExtResource("45_2qaty")
