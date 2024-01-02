@@ -13,6 +13,7 @@ config_version=5
 config/name="Word Game"
 config/version="0.1"
 run/main_scene="res://src/scenes/scene_handler.tscn"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60
 boot_splash/bg_color=Color(0.141176, 0.0509804, 0.0509804, 1)

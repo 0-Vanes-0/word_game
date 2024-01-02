@@ -196,3 +196,9 @@ func hide_all_hud():
 	$CanvasLayer/Control.hide()
 	$CanvasLayer/Control.modulate.a = 0.0
 	hud_manager.disappear()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST and not get_tree().paused:
+		back_confirm.show()
+		get_tree().paused = true
