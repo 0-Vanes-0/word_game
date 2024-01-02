@@ -3,15 +3,15 @@ extends Resource
 
 enum Types {
 	NONE = 0,
-	COMET = 1, DARK = 2, FIRE = 3, ICE = 4, SPIKES = 5, STUN = 6, TESLA = 7, TORNADO = 8, WATER = 9,
+	EXPLOSION = 1, DARK = 2, FIRE = 3, ICE = 4, SPIKES = 5, TAUNT = 6, TESLA = 7, TORNADO = 8, WATER = 9,
 }
 const WORDS := {
-	Types.COMET: "морадо",
+	Types.EXPLOSION: "морадо",
 	Types.DARK: "оскуро",
 	Types.FIRE: "фуего",
 	Types.ICE: "фрио",
 	Types.SPIKES: "тиерра",
-	Types.STUN: "атронадо",
+	Types.TAUNT: "атронадо",
 	Types.TESLA: "триси",
 	Types.TORNADO: "виенто",
 	Types.WATER: "агуа",

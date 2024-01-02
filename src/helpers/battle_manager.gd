@@ -109,7 +109,7 @@ func proceed_turn():
 			current_battler.do_ally_action(target_battler)
 	
 #region TODO: Add Spell class later
-	var spell: Array[Rune] = hud_manager.spell
+	var spell: Array[Rune] = hud_manager._spell
 	
 	for rune in spell:
 		if rune.type == Rune.Types.FIRE:
@@ -119,7 +119,6 @@ func proceed_turn():
 				for b in group:
 					b.add_token(Token.Types.FIRE)
 #endregion
-	hud_manager.spell.clear()
 	
 	current_battler.update_token_labels()
 	if current_battler_index != target_battler_index:

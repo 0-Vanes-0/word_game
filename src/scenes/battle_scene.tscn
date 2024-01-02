@@ -1,9 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://cjadhu3y22px2"]
+[gd_scene load_steps=28 format=3 uid="uid://cjadhu3y22px2"]
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_lirsh"]
 [ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="4_4bqb5"]
+[ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="7_7eskq"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
+[ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="8_u8eru"]
 [ext_resource type="SpriteFrames" uid="uid://xc71w5qk0l0q" path="res://game_resources/sprite_frames/sprite_frames_effects.tres" id="9_037nk"]
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="10_168tf"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="10_vr0bk"]
@@ -83,6 +85,11 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 4
 icon_texture = ExtResource("11_t7hoc")
+
+[node name="MyProgressBar" parent="-----TEST-----/HFlowContainer" instance=ExtResource("7_7eskq")]
+layout_mode = 2
+value = 57.0
+texture_progress = ExtResource("8_u8eru")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="-----TEST-----"]
 offset_left = 606.0

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Rune" load_steps=3 format=3 uid="uid://bjr00kkxd0ccr"]
+
+[ext_resource type="Texture2D" uid="uid://cer7rtp02o4nl" path="res://assets/sprites/magic_effects/icons/gypno.png" id="1_g55o4"]
+[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="2_j8snj"]
+
+[resource]
+script = ExtResource("2_j8snj")
+type = 6
+rune_icon = ExtResource("1_g55o4")

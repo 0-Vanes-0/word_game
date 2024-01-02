@@ -12,12 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://sx0kxmc42bug" path="res://assets/sprites/ui/icons/check_mark_yellow.png" id="11_pgt1s"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
-[node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_spell_label", "_reset_spell_button", "_runes", "_proceed_button", "_old_proceed_button")]
+[node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_spell_label", "_reset_spell_button", "_rune_buttons", "_proceed_button", "_old_proceed_button")]
 theme = ExtResource("1_gqh4m")
 script = ExtResource("1_r71ia")
 _spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/PaperRect/MarginContainer/SpellLabel")
 _reset_spell_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton")
-_runes = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
+_rune_buttons = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
 _proceed_button = NodePath("HBoxContainer/ProceedButton")
 _old_proceed_button = NodePath("HBoxContainer/OldProceedButton")
 

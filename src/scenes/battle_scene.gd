@@ -89,7 +89,7 @@ func _ready() -> void:
 	battler_info.hide()
 	
 	hud_manager.to_proceed_turn.connect( 
-			func():
+			func(spell: Spell):
 				battle_manager.proceed_turn()
 	)
 	
