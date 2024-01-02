@@ -74,7 +74,6 @@ func _ready() -> void:
 	battlers_node.move_child(effect_sprite, -1) # To remove
 	$"-----TEST-----".hide()
 	
-	back_button.set_icons(Preloader.texture_arrow_left_black_icon, Preloader.texture_arrow_left_black_icon)
 	back_button.pressed.connect(
 			func():
 				back_confirm.show()
