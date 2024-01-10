@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=68 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -24,21 +24,21 @@
 [ext_resource type="SpriteFrames" uid="uid://bxht187ek74ni" path="res://game_resources/sprite_frames/sprite_frames_ent.tres" id="15_c582y"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="16_ilmgl"]
 [ext_resource type="Texture2D" uid="uid://dsov2a1l5ms8d" path="res://assets/sprites/ui/icons/play_button_yellow.png" id="18_d3g4s"]
-[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/explosion.tres" id="20_arl4a"]
-[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="21_ywknp"]
-[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="22_vth3l"]
+[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/rune_explosion.tres" id="20_arl4a"]
+[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/rune_dark.tres" id="21_ywknp"]
+[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/rune_fire.tres" id="22_vth3l"]
 [ext_resource type="Texture2D" uid="uid://x84xcpjy7blk" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_bg.png" id="23_lgn4a"]
-[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="23_nehi5"]
-[ext_resource type="Resource" uid="uid://pthoxclx332h" path="res://game_resources/runes/spikes.tres" id="24_dxppb"]
+[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/rune_ice.tres" id="23_nehi5"]
+[ext_resource type="Resource" uid="uid://pthoxclx332h" path="res://game_resources/runes/rune_spikes.tres" id="24_dxppb"]
 [ext_resource type="Texture2D" uid="uid://c61cgmxcgp2vi" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_border.png" id="24_mf617"]
-[ext_resource type="Resource" uid="uid://bjr00kkxd0ccr" path="res://game_resources/runes/taunt.tres" id="25_stx8v"]
+[ext_resource type="Resource" uid="uid://bjr00kkxd0ccr" path="res://game_resources/runes/rune_taunt.tres" id="25_stx8v"]
 [ext_resource type="Texture2D" uid="uid://ber214afay0e" path="res://assets/sprites/ui/bars/hp_full.png" id="25_uq5xq"]
 [ext_resource type="Texture2D" uid="uid://dw4se0mw8vsbc" path="res://assets/sprites/ui/bars/stamina_full_bar.png" id="26_mldub"]
-[ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/tesla.tres" id="26_nob83"]
-[ext_resource type="Resource" uid="uid://cm775bcaxbhbx" path="res://game_resources/runes/tornado.tres" id="27_cgigl"]
+[ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/rune_tesla.tres" id="26_nob83"]
+[ext_resource type="Resource" uid="uid://cm775bcaxbhbx" path="res://game_resources/runes/rune_tornado.tres" id="27_cgigl"]
 [ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="27_t64hi"]
 [ext_resource type="Texture2D" uid="uid://bs1a72smy4nta" path="res://assets/sprites/ui/icons/play_button2_yellow.png" id="27_xv2u6"]
-[ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/water.tres" id="28_6buor"]
+[ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/rune_water.tres" id="28_6buor"]
 [ext_resource type="Texture2D" uid="uid://cmje7tp5yg8gu" path="res://assets/sprites/ui/bars/energy_full_bar.png" id="28_xpvxx"]
 [ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="31_mat87"]
 [ext_resource type="Texture2D" uid="uid://bldg3otakmidy" path="res://assets/sprites/ui/icons/scull_yellow.png" id="34_b8o82"]
@@ -55,9 +55,18 @@
 [ext_resource type="AudioStream" uid="uid://cc0k2kogv0ycq" path="res://assets/audio/music/Action 3 (Loop).ogg" id="47_oc7su"]
 [ext_resource type="AudioStream" uid="uid://c8xy1vbqi4855" path="res://assets/audio/sfx/Victory.ogg" id="50_xg0tj"]
 [ext_resource type="AudioStream" uid="uid://co6fp1bc52dbs" path="res://assets/audio/sfx/Death.ogg" id="51_3ifh0"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ajuyo"]
-load_path = "res://.godot/imported/paper.png-b30bc32cd2862407def3e2718daaeabc.ctex"
+[ext_resource type="Resource" uid="uid://doee5hty5rb2i" path="res://game_resources/tokens/token_mirror.tres" id="52_ickl8"]
+[ext_resource type="Resource" uid="uid://dpfa5eibcmwj5" path="res://game_resources/tokens/token_dodge.tres" id="53_duxrc"]
+[ext_resource type="Resource" uid="uid://canxykivl3fay" path="res://game_resources/tokens/token_heal_timed.tres" id="54_mh683"]
+[ext_resource type="Resource" uid="uid://dif0qmg30w7rr" path="res://game_resources/tokens/token_stim.tres" id="55_q0kcd"]
+[ext_resource type="Resource" uid="uid://bxia12eshh4vg" path="res://game_resources/tokens/token_reachless.tres" id="56_q0vu5"]
+[ext_resource type="Resource" uid="uid://c4xt7uobvjfdo" path="res://game_resources/tokens/token_stun.tres" id="58_06pb3"]
+[ext_resource type="Resource" uid="uid://dngsppn8qlruy" path="res://game_resources/tokens/token_antishield.tres" id="59_26m6r"]
+[ext_resource type="Resource" uid="uid://dihx547w4e18u" path="res://game_resources/tokens/token_antiattack.tres" id="60_e8o1b"]
+[ext_resource type="Resource" uid="uid://lemlpsxcmrhn" path="res://game_resources/tokens/token_blind.tres" id="61_cwrcy"]
+[ext_resource type="Resource" uid="uid://b8l4lcic0fbpf" path="res://game_resources/tokens/token_taunt.tres" id="62_y63td"]
+[ext_resource type="Resource" uid="uid://cu18rcerp1tdk" path="res://game_resources/tokens/token_more_death_resist.tres" id="63_vioxd"]
+[ext_resource type="Resource" uid="uid://b5j3ydiia2s58" path="res://game_resources/tokens/token_less_death_resist.tres" id="64_m65uw"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
@@ -93,7 +102,6 @@ texture_blue_progress_bar = ExtResource("27_t64hi")
 texture_yellow_progress_bar = ExtResource("28_xpvxx")
 texture_coin = ExtResource("31_mat87")
 texture_skull = ExtResource("34_b8o82")
-texture_book = SubResource("CompressedTexture2D_ajuyo")
 audio_game_scene4 = ExtResource("43_7wx2l")
 audio_game_scene5 = ExtResource("44_7sy3i")
 audio_battle1 = ExtResource("45_2qaty")
@@ -111,8 +119,20 @@ rune_tesla = ExtResource("26_nob83")
 rune_tornado = ExtResource("27_cgigl")
 rune_water = ExtResource("28_6buor")
 token_attack = ExtResource("40_ss4vf")
-token_fire = ExtResource("38_geoqu")
 token_shield = ExtResource("41_53e5x")
+token_mirror = ExtResource("52_ickl8")
+token_dodge = ExtResource("53_duxrc")
+token_heal_timed = ExtResource("54_mh683")
+token_stim = ExtResource("55_q0kcd")
+token_reachless = ExtResource("56_q0vu5")
+token_fire = ExtResource("38_geoqu")
+token_stun = ExtResource("58_06pb3")
+token_antishield = ExtResource("59_26m6r")
+token_antiattack = ExtResource("60_e8o1b")
+token_blind = ExtResource("61_cwrcy")
+token_taunt = ExtResource("62_y63td")
+token_more_death_resist = ExtResource("63_vioxd")
+token_less_death_resist = ExtResource("64_m65uw")
 default_theme = ExtResource("42_m5nwt")
 my_progress_bar = ExtResource("38_ly5rc")
 icon_label = ExtResource("42_v5dl2")

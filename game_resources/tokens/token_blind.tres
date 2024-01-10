@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Token" load_steps=2 format=3 uid="uid://lemlpsxcmrhn"]
+
+[ext_resource type="Script" path="res://src/gameplay/token.gd" id="1_in8b5"]
+
+[resource]
+script = ExtResource("1_in8b5")
+type = 25
+apply_moment = 3
+is_hidden = false
+base_lifetime_turns = 1

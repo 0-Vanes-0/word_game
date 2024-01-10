@@ -92,6 +92,7 @@ func _ready() -> void:
 			func(spell: Spell):
 				battle_manager.proceed_turn(spell)
 	)
+	hud_manager.disappear()
 	
 	battle_manager.init_turn()
 	battle_manager.coins_reduced.connect(_update_coins_label)

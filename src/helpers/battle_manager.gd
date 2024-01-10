@@ -109,7 +109,7 @@ func proceed_turn(spell: Spell = null):
 			current_battler.do_ally_action(target_battler)
 	
 	if spell:
-		spell.apply_effects(target_battler, group)
+		spell.apply_effects(current_action_type, target_battler, group)
 		spell.free()
 	
 	current_battler.update_token_labels()

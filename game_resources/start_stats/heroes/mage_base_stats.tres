@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://digotaoy3m3uw" path="res://assets/sprites/avas/con2.png" id="1_m4r7y"]
 [ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_owyrr"]
-[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/fire.tres" id="2_a7d30"]
+[ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/rune_fire.tres" id="2_a7d30"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="3_c1itw"]
-[ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/water.tres" id="4_s1m6b"]
-[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/ice.tres" id="5_nu8yp"]
-[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/dark.tres" id="6_wptqu"]
+[ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/rune_water.tres" id="4_s1m6b"]
+[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/rune_ice.tres" id="5_nu8yp"]
+[ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/rune_dark.tres" id="6_wptqu"]
 
 [sub_resource type="Resource" id="Resource_qefxs"]
 script = ExtResource("1_owyrr")

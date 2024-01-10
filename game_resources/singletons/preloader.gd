@@ -61,12 +61,23 @@ var battle_musics: Array[AudioStreamOggVorbis]
 @export var rune_tesla: Rune
 @export var rune_tornado: Rune
 @export var rune_water: Rune
-var test_runes: Array[Rune]
 
 @export_group("Tokens", "token_")
 @export var token_attack: Token
-@export var token_fire: Token
 @export var token_shield: Token
+@export var token_mirror: Token
+@export var token_dodge: Token
+@export var token_heal_timed: Token
+@export var token_stim: Token
+@export var token_reachless: Token
+@export var token_fire: Token
+@export var token_stun: Token
+@export var token_antishield: Token
+@export var token_antiattack: Token
+@export var token_blind: Token
+@export var token_taunt: Token
+@export var token_more_death_resist: Token
+@export var token_less_death_resist: Token
 
 @export_group("UIs")
 @export var default_theme: Theme
@@ -87,9 +98,10 @@ func _ready() -> void:
 			and audio_game_scene4 and audio_game_scene5)
 	assert(rune_comet and rune_dark and rune_fire and rune_ice and rune_spikes and rune_stun and rune_tesla
 			and rune_tornado and rune_water)
-	assert(token_fire and token_shield)
+	assert(token_fire and token_shield and token_antiattack and token_antishield and token_blind 
+			and token_dodge and token_heal_timed and token_less_death_resist and token_mirror 
+			and token_more_death_resist and token_reachless and token_stim and token_stun and token_taunt)
 	assert(default_theme and my_progress_bar and icon_label)
 	
 	game_scene_musics = [ audio_game_scene4, audio_game_scene5 ]
 	battle_musics = [ audio_battle1, audio_battle2, audio_battle3 ]
-	test_runes = [ rune_comet , rune_dark , rune_fire , rune_ice , rune_spikes , rune_stun , rune_tornado , rune_water, rune_tesla ]

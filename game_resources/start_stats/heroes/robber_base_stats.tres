@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://byqctj5057d22" path="res://assets/sprites/avas/con3.png" id="1_1i5cj"]
 [ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_2o1t3"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="3_k7r6m"]
-[ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/tesla.tres" id="3_nlx53"]
-[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/explosion.tres" id="4_3ihsp"]
+[ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/rune_tesla.tres" id="3_nlx53"]
+[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/rune_explosion.tres" id="4_3ihsp"]
 
 [sub_resource type="Resource" id="Resource_devme"]
 script = ExtResource("1_2o1t3")

@@ -22,6 +22,57 @@ const WORDS := {
 		return rune_icon if rune_icon != null else Texture2D.new()
 
 
+func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
+	match type:
+		Types.TAUNT:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.FIRE:
+			if action_type == Battler.ActionTypes.ATTACK:
+				battler.add_token(Token.Types.FIRE)
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.SPIKES:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.TESLA:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.TORNADO:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.EXPLOSION:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.DARK:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.ICE:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		Types.WATER:
+			if action_type == Battler.ActionTypes.ATTACK:
+				pass
+			elif action_type == Battler.ActionTypes.ALLY:
+				pass
+		_:
+			assert(false, "Rune has no type")
+
+
 static func create() -> Rune:
 	return Rune.new()
 
