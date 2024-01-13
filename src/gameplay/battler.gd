@@ -61,7 +61,7 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	self.stats = stats.get_resource()
 	self.stats.health_changed.connect(
 			func(value: int):
-				health_bar.value = value
+				health_bar.set_bar_value(value)
 				if value > 0 and is_about_to_die:
 					anim_and_set_about_to_die(false)
 	)
@@ -121,13 +121,13 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	self.add_child(size_area)
 	size_area.input_event.connect(_on_pressed)
 	
-	health_bar = MyProgressBar.create(MyProgressBar.Colors.RED)
+	health_bar = MyProgressBar.create(MyProgressBar.Colors.RED, MyProgressBar.ValueDisplayType.FRACTION)
 	health_bar.name = "HealthBar"
 	self.add_child(health_bar)
 	health_bar.position = Vector2.LEFT * health_bar.custom_minimum_size.x / 2
-	health_bar.min_value = 0 - 1
-	health_bar.max_value = self.stats.max_health + 1
-	health_bar.value = health_bar.max_value
+	health_bar.min_value = 0
+	health_bar.max_value = self.stats.max_health
+	health_bar.set_bar_value(health_bar.max_value)
 	
 	tokens_container = VBoxContainer.new()
 	tokens_container.alignment = BoxContainer.ALIGNMENT_END

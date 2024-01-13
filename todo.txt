@@ -28,7 +28,7 @@ TODO:
 
 ISSUES:
 	Названия героев в GameScene и BattlerInfo
-	Числа хп в HealthBar
+	Числа хп в HealthBar (+ nasrtojka)
 	ПРОПИСАТЬ ИНИЦИАТИВУ + справочник (sdelat´ animaciju!!!!!!!!!!!!!!!!!!!!!)
 	
 	[ЕСТЬ] Добавить + и - на action_label

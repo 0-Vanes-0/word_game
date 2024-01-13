@@ -35,6 +35,8 @@ func setup(color: Colors, display: ValueDisplayType) -> MyProgressBar:
 		label.hide()
 	
 	is_setup = true
+	color_from_editor = color
+	value_display_type = display
 	return self
 
 
