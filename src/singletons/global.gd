@@ -7,6 +7,7 @@ const VERSION := 0.1
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
 const CHARACTER_SIZE := Vector2(100, 120)
 const TargetColors := {
+	DEFAULT = Color.WHITE,
 	CURRENT_BATTLER = Color.YELLOW,
 	FOE_BATTLER = Color.BROWN,
 	ALLY_BATTLER = Color.CORNFLOWER_BLUE,

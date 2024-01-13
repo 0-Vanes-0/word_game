@@ -284,8 +284,8 @@ bbcode_enabled = true
 text = "	В результате хода некоторые бойцы могут оставить некоторый эффект на союзнике или противнике.
 	По умолчанию каждый эффект действует в течение 5 ходов.
 
-[img=24x32]res://assets/sprites/ui/icons/sword_yellow.png[/img]: Следующая атака владельца нанесёт на 100% больше урона.
-[img=24x32]res://assets/sprites/ui/icons/shield_yellow.png[/img]: Следующая атака по владельцу нанесёт на 50% меньше урона."
+[img=24x32]res://assets/sprites/ui/icons/sword_yellow.png[/img]: Следующая атака владельца нанесёт на 100% больше урона. Эффект тратится.
+[img=24x32]res://assets/sprites/ui/icons/shield_yellow.png[/img]: Следующая атака по владельцу нанесёт на 50% меньше урона. Эффект тратится."
 scroll_active = false
 
 [node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/TokensTab" instance=ExtResource("1_5jyep")]
