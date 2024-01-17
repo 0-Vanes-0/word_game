@@ -1,7 +1,7 @@
 class_name BattlerStats
 extends Resource
 
-signal health_changed(value: int)
+signal health_changed(value: int, delta: int)
 signal health_depleted
 
 @export var icon: Texture2D
@@ -51,9 +51,9 @@ func get_resource() -> BattlerStats:
 	return resoure_copy
 
 
-func adjust_health(value: int):
-	health = clampi(health + value, 0, max_health)
-	health_changed.emit(health)
+func adjust_health(delta: int):
+	health = clampi(health + delta, 0, max_health)
+	health_changed.emit(health, delta)
 	if health == 0:
 		health_depleted.emit()
 

@@ -38,7 +38,15 @@ var is_about_to_die: bool = false
 var tokens: Array[Token] = []
 
 var tween_dying: Tween
-var action_value: int = -1
+var action_value: int = 0
+var damage_modifier: int = 0
+var defense_modifier: int = 0
+var mirror_modifier: int = 0
+var dodge_chance: int = 0
+var miss_chance: int = 0
+var pre_damage: int = 0
+var pre_heal: int = 0
+var stun_turns: int = 0
 
 var sprite: AnimatedSprite2D
 var selection_hover: Sprite2D
@@ -47,8 +55,6 @@ var size_area: Area2D
 var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
 var tokens_container: VBoxContainer
-var value_label: RichTextLabel
-var value_label2: RichTextLabel
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
@@ -59,28 +65,8 @@ static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
 func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	self.type = type
 	self.stats = stats.get_resource()
-	self.stats.health_changed.connect(
-			func(value: int):
-				health_bar.set_bar_value(value)
-				if value > 0 and is_about_to_die:
-					anim_and_set_about_to_die(false)
-	)
-	self.stats.health_depleted.connect(
-			func() -> void:
-				var deaths_door_resist := self.stats.get_deaths_door_resist()
-				if deaths_door_resist != null:
-					if not is_about_to_die or deaths_door_resist.try_to_resist():
-						anim_and_set_about_to_die(true)
-						return
-				
-				anim_and_set_about_to_die(false)
-				is_alive = false
-				health_bar.hide()
-				tokens_container.hide()
-				tokens.clear()
-				anim_die()
-				died.emit()
-	)
+	self.stats.health_changed.connect(_on_health_changed)
+	self.stats.health_depleted.connect(_on_health_depleted)
 	if self.stats is PlayerBattlerStats:
 		self.stats.assign_level(Global.get_player_level(type))
 	
@@ -135,32 +121,6 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	tokens_container.name = "TokensContainer"
 	self.add_child(tokens_container)
 	tokens_container.position = Vector2(- Global.CHARACTER_SIZE.x / 2, - Global.CHARACTER_SIZE.y * 2)
-	
-	value_label = RichTextLabel.new()
-	value_label.theme = Preloader.default_theme
-	value_label.bbcode_enabled = true
-	value_label.scroll_active = false
-	value_label.add_theme_color_override("default_color", Color.WHITE)
-	value_label.add_theme_color_override("font_outline_color", Color.BLACK)
-	value_label.add_theme_constant_override("outline_size", 8)
-	value_label.add_theme_font_size_override("normal_font_size", 24)
-	value_label.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
-	value_label.name = "ValueLabel"
-	value_label.z_index = 100
-	self.add_child(value_label)
-	
-	value_label2 = RichTextLabel.new()
-	value_label2.theme = Preloader.default_theme
-	value_label2.bbcode_enabled = true
-	value_label2.scroll_active = false
-	value_label2.add_theme_color_override("default_color", Color.WHITE)
-	value_label2.add_theme_color_override("font_outline_color", Color.BLACK)
-	value_label2.add_theme_constant_override("outline_size", 8)
-	value_label2.add_theme_font_size_override("normal_font_size", 24)
-	value_label2.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
-	value_label2.name = "ValueLabel2"
-	value_label2.z_index = 101
-	self.add_child(value_label2)
 #endregion
 
 
@@ -208,50 +168,21 @@ func set_area_inputable(is_inputable: bool):
 
 #region Actions
 func do_attack_action(target_battler: Battler, target_group: Array[Battler] = [], is_first_call := true): # TODO: bad code -> both target_battler and target_group :/
-	action_value = -1
+	action_value = int(stats.generate_damage_value())
+	damage_modifier = 0
+	miss_chance = 0
 	
-	var damage := int(stats.generate_damage_value())
-	
-	var attack_token: Token = get_first_token(Token.Types.ATTACK)
-	if attack_token != null:
-		damage = attack_token.apply_token_effect(damage)
-	
-	action_value = damage
+	var applied_types: Array[Token.Types] = []
+	for t in tokens:
+		if t.apply_moment == Token.ApplyMoments.ON_ATTACKING and not applied_types.has(t.type):
+			applied_types.append(t.type)
+			t.apply_token_effect()
 	
 	if target_group.is_empty():
-		var shield_token: Token = target_battler.get_first_token(Token.Types.SHIELD)
-		if shield_token != null:
-			action_value = shield_token.apply_token_effect(action_value)
-		target_battler.stats.adjust_health(- action_value)
-		
-		if target_battler.stats.health > 0:
-			if is_first_call:
-				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str(action_value))
-			else:
-				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str(action_value))
-		elif target_battler.is_alive:
-			if is_first_call:
-				target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
-			else:
-				target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
-		else:
-			target_battler.anim_value_label2(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
-
+		_perform_attack(target_battler, is_first_call)
 	else:
 		for b in target_group:
-			var single_damage := int(action_value)
-			
-			var shield_token: Token = b.get_first_token(Token.Types.SHIELD)
-			if shield_token != null:
-				single_damage = shield_token.apply_token_effect(single_damage)
-			
-			b.stats.adjust_health(- single_damage)
-			if b.stats.health > 0:
-				b.anim_value_label(Battler.ActionTypes.ATTACK, str(single_damage))
-			elif target_battler.is_alive:
-				b.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
-			else:
-				b.anim_value_label(Battler.ActionTypes.ATTACK, str("СМЕРТЬ"))
+			_perform_attack(b, is_first_call)
 	
 	if type == Types.HERO_ROBBER and is_first_call:
 		await get_tree().create_timer(0.25).timeout
@@ -265,8 +196,36 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 				b.check_tokens()
 
 
+func _perform_attack(target_battler: Battler, is_first_call: bool):
+	target_battler.defense_modifier = 0
+	target_battler.mirror_modifier = 0
+	target_battler.dodge_chance = 0
+	
+	var applied_types: Array[Token.Types] = []
+	
+	var dodge_tokens: Array[Token] = target_battler.tokens.filter(func(t: Token): return t.type == Token.Types.DODGE)
+	if not dodge_tokens.is_empty():
+		applied_types.append(Token.Types.DODGE)
+		dodge_tokens[0].apply_token_effect()
+	var is_avoid := randf() < 1.0 - (1.0 - miss_chance / 100.0) * (1.0 - target_battler.dodge_chance / 100.0)
+	
+	if is_avoid:
+		target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРОМАХ"))
+	else:
+		for t in target_battler.tokens:
+			if t.apply_moment == Token.ApplyMoments.ON_GET_ATTACKED and not applied_types.has(t.type):
+				applied_types.append(t.type)
+				t.apply_token_effect()
+		var result := roundi( action_value * (1 + damage_modifier / 100.0 - target_battler.defense_modifier / 100.0) )
+		target_battler.stats.adjust_health(- result)
+	
+		if target_battler.mirror_modifier > 0:
+			await get_tree().create_timer(0.25).timeout
+			self.stats.adjust_health(- ceili(result * target_battler.mirror_modifier / 100.0) )
+
+
 func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []): # TODO: bad code -> both target_battler and target_group :/
-	action_value = -1
+	action_value = 0
 	
 	if type == Types.HERO_KNIGHT:
 		target_battler.add_token(Token.Types.SHIELD, stats.ally_action_value)
@@ -278,6 +237,40 @@ func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
 		action_value = int(target_battler.stats.max_health * (stats.ally_action_value / 100.0))
 		target_battler.stats.adjust_health(action_value)
 		target_battler.anim_value_label(Battler.ActionTypes.ALLY, str(action_value))
+
+
+func _on_health_changed(value: int, delta: int):
+	health_bar.set_bar_value(value)
+	if value > 0 and is_about_to_die:
+		anim_and_set_about_to_die(false)
+	
+	var action_type := (
+			Battler.ActionTypes.ATTACK if delta < 0
+			else Battler.ActionTypes.ALLY if delta > 0
+			else Battler.ActionTypes.NONE
+	)
+	if self.stats.health > 0 or delta == 0:
+		anim_value_label(action_type, str(delta))
+	elif is_alive:
+		anim_value_label(action_type, str("ПРИ СМЕРТИ"))
+	else:
+		anim_value_label(action_type, str("СМЕРТЬ"))
+
+
+func _on_health_depleted():
+	var deaths_door_resist := self.stats.get_deaths_door_resist()
+	if deaths_door_resist != null:
+		if not is_about_to_die or deaths_door_resist.try_to_resist():
+			anim_and_set_about_to_die(true)
+			return
+	
+	anim_and_set_about_to_die(false)
+	is_alive = false
+	health_bar.hide()
+	tokens_container.hide()
+	tokens.clear()
+	anim_die()
+	died.emit()
 #endregion
 
 
@@ -319,23 +312,28 @@ func update_token_labels():
 
 
 func check_tokens(for_what_moment: Token.ApplyMoments = Token.ApplyMoments.NONE):
-	var damage_value: int = 0
-	var heal_value: int = 0
+	pre_damage = 0
+	pre_heal = 0
+	stun_turns = 0
+	
 	for t in tokens:
-		if for_what_moment == Token.ApplyMoments.ON_TURN_START:
-			if t.type == Token.Types.FIRE:
-				damage_value += t.apply_token_effect()
+		if t.apply_moment == for_what_moment:
+			t.apply_token_effect()
+		if t.apply_moment == Token.ApplyMoments.ON_TURN_START:
 			t.adjust_turn_count()
+		
+	
+	if pre_heal > 0:
+		stats.adjust_health(pre_heal)
+		anim_value_label(Battler.ActionTypes.ALLY, str(pre_heal))
+		await get_tree().create_timer(0.25).timeout
+	if pre_damage > 0:
+		stats.adjust_health(-pre_damage)
+		anim_value_label(Battler.ActionTypes.ATTACK, str(pre_damage))
 	
 	for i in range(tokens.size()-1, -1, -1):
 		if tokens[i].is_need_delete():
 			tokens.remove_at(i)
-	
-	if heal_value > 0:
-		anim_value_label(Battler.ActionTypes.ALLY, str(heal_value))
-		await get_tree().create_timer(0.1).timeout
-	if damage_value > 0:
-		anim_value_label2(Battler.ActionTypes.ATTACK, str(damage_value))
 	
 	update_token_labels()
 
@@ -412,13 +410,27 @@ func check_offset(anim: String):
 		sprite.offset = (sprite.sprite_frames as MySpriteFrames).offset
 
 
-func anim_value_label(current_action_type: Battler.ActionTypes, text: String, value_label := self.value_label):
+func anim_value_label(current_action_type: Battler.ActionTypes, text: String):
+	var value_label := RichTextLabel.new()
+	value_label.theme = Preloader.default_theme
+	value_label.bbcode_enabled = true
+	value_label.scroll_active = false
+	value_label.add_theme_color_override("default_color", Color.WHITE)
+	value_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	value_label.add_theme_constant_override("outline_size", 8)
+	value_label.add_theme_font_size_override("normal_font_size", 24)
+	value_label.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
+	value_label.name = "ValueLabel"
+	value_label.z_index = 100
+	self.add_child(value_label)
+	
 	value_label.text = (
 			"[center]"
+			+ ("" if not text.is_valid_int() or text.begins_with("-") or text == "0" else "+")
 			+ text
 			+ "[/center]"
 	)
-	value_label.show()
+	value_label.update_minimum_size()
 	value_label.position = Vector2.UP * Global.CHARACTER_SIZE.y / 2 + Vector2.LEFT * value_label.size.x / 2
 	value_label.modulate = (
 				Global.TargetColors.FOE_BATTLER if current_action_type == Battler.ActionTypes.ATTACK
@@ -435,11 +447,8 @@ func anim_value_label(current_action_type: Battler.ActionTypes, text: String, va
 			0.0,
 			0.1
 	)
-	tween.tween_callback(value_label.hide)
-
-
-func anim_value_label2(current_action_type: Battler.ActionTypes, text: String):
-	anim_value_label(current_action_type, text, value_label2)
+	tween.tween_interval(0.1)
+	tween.tween_callback(value_label.queue_free)
 
 
 func anim_and_set_about_to_die(value: bool):

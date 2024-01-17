@@ -6,5 +6,5 @@
 script = ExtResource("1_7mktk")
 type = 27
 apply_moment = 1
-is_hidden = false
+is_hidden = true
 base_lifetime_turns = 1

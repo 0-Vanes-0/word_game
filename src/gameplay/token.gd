@@ -81,48 +81,55 @@ static func create(token_type: Types, battler: Battler) -> Token:
 	return token
 
 
-func apply_token_effect(some_value: int = 0) -> int:
+func apply_token_effect():
+	if apply_moment == ApplyMoments.ON_ATTACKING or apply_moment == ApplyMoments.ON_GET_ATTACKED:
+		lifetime_turns = 0
+	
 	match type:
 		Types.SHIELD:
-			lifetime_turns = 0
-			return some_value / 2
+			owner.defense_modifier += 50
+			print_debug("defense_modifier=", owner.defense_modifier)
 		Types.ATTACK:
-			lifetime_turns = 0
-			return some_value * 2
+			owner.damage_modifier += 50
+			print_debug("damage_modifier=", owner.damage_modifier)
 		Types.MIRROR:
-			return 0
+			owner.mirror_modifier += 10
+			print_debug("mirror_modifier=", owner.mirror_modifier)
 		Types.DODGE:
-			return 0
+			owner.dodge_chance = 50
+			print_debug("Can dodge!")
 		Types.HEAL_TIMED:
-			return 0
+			owner.pre_heal += 1 # TODO: rework heal value?
+			print_debug("Healed!")
 		Types.STIM:
-			return 0
+			owner.action_value = owner.stats.max_damage
+			print_debug("Stimulated!")
 		Types.REACHLESS:
-			return 0
+			pass # TODO
 		Types.MORE_DEATH_RESIST:
-			return 0
+			pass # TODO 10
 		
 		Types.LESS_DEATH_RESIST:
-			return 0
-		Types.MIRROR:
-			return 0
+			pass # TODO 10
 		Types.FIRE:
-			owner.stats.adjust_health(-1)
-			return 1
+			owner.pre_damage += 1 # TODO: rework fire dmg value?
+			print_debug("Burnt!")
 		Types.STUN:
-			return 0
+			owner.stun_turns += 1
 		Types.ANTIATTACK:
-			return 0
+			owner.damage_modifier -= 50
+			print_debug("damage_modifier=", owner.damage_modifier)
 		Types.ANTISHIELD:
-			return 0
+			owner.defense_modifier -= 50
+			print_debug("defense_modifier=", owner.defense_modifier)
 		Types.BLIND:
-			return 0
+			owner.miss_chance = 50
+			print_debug("Can miss!")
 		Types.TAUNT:
-			return 0
+			pass # TODO
 		
 		_:
 			assert(false, "Wrong token type=" + str(type))
-			return 0
 
 
 func adjust_turn_count(value: int = -1):

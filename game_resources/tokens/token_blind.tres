@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="Token" load_steps=2 format=3 uid="uid://lemlpsxcmrhn"]
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://lemlpsxcmrhn"]
 
+[ext_resource type="Texture2D" uid="uid://ccyhhllfvk4jh" path="res://assets/sprites/ui/icons/eye_blue.png" id="1_h0shy"]
 [ext_resource type="Script" path="res://src/gameplay/token.gd" id="1_in8b5"]
 
 [resource]
 script = ExtResource("1_in8b5")
 type = 25
 apply_moment = 3
+icon_texture = ExtResource("1_h0shy")
 is_hidden = false
 base_lifetime_turns = 1

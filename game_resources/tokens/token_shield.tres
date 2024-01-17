@@ -8,4 +8,5 @@ script = ExtResource("2_qrh0a")
 type = 11
 apply_moment = 2
 icon_texture = ExtResource("1_x6w0f")
-base_lifetime_turns = 5
+is_hidden = false
+base_lifetime_turns = 3

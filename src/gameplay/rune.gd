@@ -25,30 +25,28 @@ const WORDS := {
 func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 	match type:
 		Types.TAUNT:
-			if action_type == Battler.ActionTypes.ATTACK:
-				pass
-			elif action_type == Battler.ActionTypes.ALLY:
-				pass
+			pass
+			#battler.add_token(Token.Types.TAUNT)
 		Types.FIRE:
 			if action_type == Battler.ActionTypes.ATTACK:
 				battler.add_token(Token.Types.FIRE)
 			elif action_type == Battler.ActionTypes.ALLY:
-				pass
-		Types.SPIKES:
-			if action_type == Battler.ActionTypes.ATTACK:
-				pass
-			elif action_type == Battler.ActionTypes.ALLY:
-				pass
+				battler.add_token(Token.Types.MIRROR)
+		#Types.SPIKES:
+			#if action_type == Battler.ActionTypes.ATTACK:
+				#pass
+			#elif action_type == Battler.ActionTypes.ALLY:
+				#pass
 		Types.TESLA:
 			if action_type == Battler.ActionTypes.ATTACK:
-				pass
+				battler.add_token(Token.Types.BLIND)
 			elif action_type == Battler.ActionTypes.ALLY:
-				pass
+				battler.add_token(Token.Types.STIM)
 		Types.TORNADO:
 			if action_type == Battler.ActionTypes.ATTACK:
-				pass
+				battler.add_token(Token.Types.STUN)
 			elif action_type == Battler.ActionTypes.ALLY:
-				pass
+				battler.add_token(Token.Types.DODGE)
 		Types.EXPLOSION:
 			if action_type == Battler.ActionTypes.ATTACK:
 				pass
@@ -56,19 +54,19 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 				pass
 		Types.DARK:
 			if action_type == Battler.ActionTypes.ATTACK:
-				pass
+				battler.add_token(Token.Types.MORE_DEATH_RESIST)
 			elif action_type == Battler.ActionTypes.ALLY:
-				pass
+				battler.add_token(Token.Types.LESS_DEATH_RESIST)
 		Types.ICE:
 			if action_type == Battler.ActionTypes.ATTACK:
-				pass
+				battler.add_token(Token.Types.ANTISHIELD)
 			elif action_type == Battler.ActionTypes.ALLY:
 				pass
 		Types.WATER:
 			if action_type == Battler.ActionTypes.ATTACK:
-				pass
+				battler.add_token(Token.Types.ANTIATTACK)
 			elif action_type == Battler.ActionTypes.ALLY:
-				pass
+				battler.add_token(Token.Types.HEAL_TIMED)
 		_:
 			assert(false, "Rune has no type")
 

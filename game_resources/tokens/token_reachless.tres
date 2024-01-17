@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_f72hm")
-type = 0
-apply_moment = 0
+type = 17
+apply_moment = 1
+is_hidden = false
 base_lifetime_turns = 1

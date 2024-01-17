@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="Token" load_steps=2 format=3 uid="uid://dif0qmg30w7rr"]
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://dif0qmg30w7rr"]
 
 [ext_resource type="Script" path="res://src/gameplay/token.gd" id="1_i83ta"]
+[ext_resource type="Texture2D" uid="uid://bgsuymjoqrjvp" path="res://assets/sprites/ui/icons/power_yellow.png" id="1_m67sh"]
 
 [resource]
 script = ExtResource("1_i83ta")
 type = 16
 apply_moment = 3
+icon_texture = ExtResource("1_m67sh")
 is_hidden = false
-base_lifetime_turns = 1
+base_lifetime_turns = 3

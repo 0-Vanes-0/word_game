@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="Token" load_steps=2 format=3 uid="uid://dpfa5eibcmwj5"]
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://dpfa5eibcmwj5"]
 
 [ext_resource type="Script" path="res://src/gameplay/token.gd" id="1_a66ft"]
+[ext_resource type="Texture2D" uid="uid://bcy53566pw8gu" path="res://assets/sprites/ui/icons/dodge_yellow.png" id="1_w385o"]
 
 [resource]
 script = ExtResource("1_a66ft")
 type = 14
 apply_moment = 2
+icon_texture = ExtResource("1_w385o")
 is_hidden = false
 base_lifetime_turns = 1

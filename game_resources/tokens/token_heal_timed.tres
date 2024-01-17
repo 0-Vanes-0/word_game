@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="Token" load_steps=2 format=3 uid="uid://canxykivl3fay"]
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://canxykivl3fay"]
 
+[ext_resource type="Texture2D" uid="uid://cuxufw08d8pit" path="res://assets/sprites/ui/icons/plus_yellow.png" id="1_1mu12"]
 [ext_resource type="Script" path="res://src/gameplay/token.gd" id="1_pi6jf"]
 
 [resource]
 script = ExtResource("1_pi6jf")
 type = 15
 apply_moment = 1
+icon_texture = ExtResource("1_1mu12")
 is_hidden = false
 base_lifetime_turns = 1

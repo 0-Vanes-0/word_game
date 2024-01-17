@@ -28,9 +28,12 @@ func init_turn():
 	
 	current_action_type = Battler.ActionTypes.NONE
 	current_battler_index = turn_bar.get_current_battler_index()
+	var current_battler := battle_scene.battlers[current_battler_index]
 	
-	battle_scene.battlers[current_battler_index].check_tokens(Token.ApplyMoments.ON_TURN_START)
-	if not battle_scene.battlers[current_battler_index].is_alive:
+	current_battler.check_tokens(Token.ApplyMoments.ON_TURN_START)
+	if not current_battler.is_alive or current_battler.stun_turns > 0:
+		if current_battler.stun_turns > 0:
+			turn_bar.shift_battler(current_battler.stun_turns)
 		await get_tree().create_timer(1.0).timeout
 		init_turn()
 	
@@ -39,7 +42,7 @@ func init_turn():
 			
 			is_player_turn = current_battler_index in _get_player_indexes()
 			if is_player_turn:
-				hud_manager.appear(battle_scene.battlers[current_battler_index])
+				hud_manager.appear(current_battler)
 				for b in battle_scene.battlers:
 					if b.is_alive:
 						if b.index == current_battler_index:
@@ -63,7 +66,7 @@ func init_turn():
 				
 				# Some enemy AI stuff here
 				set_target_and_action(battle_scene.get_alive_players().pick_random().index)
-				var enemy_stats := battle_scene.battlers[current_battler_index].stats as EnemyBattlerStats
+				var enemy_stats := current_battler.stats as EnemyBattlerStats
 				enemy_stats.reduce_reward()
 				coins_reduced.emit()
 				
