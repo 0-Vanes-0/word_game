@@ -319,9 +319,8 @@ func check_tokens(for_what_moment: Token.ApplyMoments = Token.ApplyMoments.NONE)
 	for t in tokens:
 		if t.apply_moment == for_what_moment:
 			t.apply_token_effect()
-		if t.apply_moment == Token.ApplyMoments.ON_TURN_START:
+		if for_what_moment == Token.ApplyMoments.ON_TURN_START:
 			t.adjust_turn_count()
-		
 	
 	if pre_heal > 0:
 		stats.adjust_health(pre_heal)

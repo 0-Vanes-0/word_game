@@ -51,11 +51,18 @@ text = " Закрыть "
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBox"]
 custom_minimum_size = Vector2(480, 360)
 layout_mode = 2
-text = "Версия 0.2:
+bbcode_enabled = true
+text = "	Версия 0.21:
+• Фиксы поведения руны [img=32x32]res://assets/sprites/magic_effects/icons/kill_all.png[/img] и эффекта [img=32x32]res://assets/sprites/ui/icons/fire_yellow.png[/img]
+• Урон эффекта [img=32x32]res://assets/sprites/ui/icons/fire_yellow.png[/img] снижен с 10 до 5
+
+	Версия 0.2:
 • Добавлены \"Руны\" для героев (WIP: добавлены 6/8)
 • Добавлены новые \"Эффекты\", накладываемые на бойцов
 • Добавлено отображение количества здоровья в бою
 • Обновлена справочная информация
-• Мелкие правки"
+• Мелкие правки
+
+[img=32x32][/img]"
 
 [connection signal="pressed" from="MarginContainer/MarginContainer/VBox/BackButton" to="." method="_on_back_button_pressed"]

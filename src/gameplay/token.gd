@@ -57,11 +57,13 @@ static func create(token_type: Types, battler: Battler) -> Token:
 			token = Preloader.token_reachless.duplicate()
 		Types.MORE_DEATH_RESIST:
 			token = Preloader.token_less_death_resist.duplicate()
-			battler.stats.get_deaths_door_resist().adjust_value(10)
+			if battler.stats.get_deaths_door_resist() != null:
+				battler.stats.get_deaths_door_resist().adjust_value(10)
 		
 		Types.LESS_DEATH_RESIST:
 			token = Preloader.token_less_death_resist.duplicate()
-			battler.stats.get_deaths_door_resist().adjust_value(-10)
+			if battler.stats.get_deaths_door_resist() != null:
+				battler.stats.get_deaths_door_resist().adjust_value(-10)
 		Types.FIRE:
 			token = Preloader.token_fire.duplicate()
 		Types.STUN:
@@ -113,7 +115,7 @@ func apply_token_effect():
 		Types.LESS_DEATH_RESIST:
 			pass # TODO 10
 		Types.FIRE:
-			owner.pre_damage += 10 # TODO: rework fire dmg value?
+			owner.pre_damage += 5 # TODO: rework fire dmg value?
 			print_debug("Burnt!")
 		Types.STUN:
 			owner.stun_turns += 1
