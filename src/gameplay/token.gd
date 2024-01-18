@@ -57,13 +57,11 @@ static func create(token_type: Types, battler: Battler) -> Token:
 			token = Preloader.token_reachless.duplicate()
 		Types.MORE_DEATH_RESIST:
 			token = Preloader.token_less_death_resist.duplicate()
-			if battler.stats.get_deaths_door_resist() != null:
-				battler.stats.get_deaths_door_resist().adjust_value(10)
+			battler.stats.get_deaths_door_resist().adjust_value(10)
 		
 		Types.LESS_DEATH_RESIST:
 			token = Preloader.token_less_death_resist.duplicate()
-			if battler.stats.get_deaths_door_resist() != null:
-				battler.stats.get_deaths_door_resist().adjust_value(-10)
+			battler.stats.get_deaths_door_resist().adjust_value(-10)
 		Types.FIRE:
 			token = Preloader.token_fire.duplicate()
 		Types.STUN:

@@ -276,6 +276,8 @@ func _on_health_depleted():
 
 #region Tokens
 func add_token(token_type: Token.Types, amount: int = 1):
+	if (token_type == Token.Types.LESS_DEATH_RESIST or token_type == Token.Types.MORE_DEATH_RESIST) and stats.get_deaths_door_resist() == null:
+		return
 	for i in amount:
 		var token := Token.create(token_type, self)
 		tokens.append(token)
