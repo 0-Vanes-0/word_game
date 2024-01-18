@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=82 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_atyqr"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://8el1hovmv4cy" path="res://assets/sprites/characters/heroes/mage_deah_sheet.png" id="18_gu5ja"]
 [ext_resource type="Texture2D" uid="uid://1ohas5oe66bb" path="res://assets/sprites/ui/icons/__yellow.png" id="26_6l6c7"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="30_uvo5x"]
+[ext_resource type="PackedScene" uid="uid://bdcjxv73fliif" path="res://src/ui/changelog.tscn" id="33_lrfs7"]
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="55_3uxqc"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="56_tf52a"]
 [ext_resource type="Script" path="res://src/ui/icon_button.gd" id="57_yku2b"]
@@ -630,9 +631,10 @@ texture_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owynw"]
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("version_label", "music_button", "level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("version_label", "changelog", "music_button", "level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
 script = ExtResource("1_ypskv")
 version_label = NodePath("CanvasLayer/Control/VersionLabel")
+changelog = NodePath("CanvasLayer/Control/Changelog")
 music_button = NodePath("CanvasLayer/Control/MusicButton")
 level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
 op_button1 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton1")
@@ -743,6 +745,7 @@ position = Vector2(857, 487)
 sprite_frames = SubResource("SpriteFrames_usrs8")
 animation = &"idle"
 autoplay = "idle"
+frame = 1
 flip_h = true
 
 [node name="Knight3" type="AnimatedSprite2D" parent="Background/AdditionalObjects"]
@@ -750,12 +753,14 @@ position = Vector2(901, 237)
 sprite_frames = SubResource("SpriteFrames_31x3l")
 animation = &"idle"
 autoplay = "idle"
+frame = 2
 
 [node name="Knight4" type="AnimatedSprite2D" parent="Background/AdditionalObjects"]
 position = Vector2(80, 237)
 sprite_frames = SubResource("SpriteFrames_vghxk")
 animation = &"idle"
 autoplay = "idle"
+frame = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -790,7 +795,6 @@ bbcode_enabled = true
 text = "[center][url={\"example\": \"value\"}]v0.0(early access)[/url][/center]"
 fit_content = true
 scroll_active = false
-meta_underlined = false
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -989,6 +993,10 @@ visible = false
 layout_mode = 1
 
 [node name="Handbook" parent="CanvasLayer/Control" instance=ExtResource("64_ke84h")]
+visible = false
+layout_mode = 1
+
+[node name="Changelog" parent="CanvasLayer/Control" instance=ExtResource("33_lrfs7")]
 visible = false
 layout_mode = 1
 

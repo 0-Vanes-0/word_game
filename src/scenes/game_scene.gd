@@ -2,6 +2,7 @@ class_name GameScene
 extends Node2D
 
 @export var version_label: RichTextLabel
+@export var changelog: Changelog
 @export var music_button: Button
 @export var level_up_container: LevelUpContainer
 @export var op_button1: OptionButton
@@ -44,7 +45,7 @@ func _ready() -> void:
 	version_label.text = "[center][url={}]v" + str(Global.VERSION) + "(early access)[/url][/center]"
 	version_label.meta_clicked.connect(
 			func(meta: Variant):
-				print("SHOW UPDATE INFO TO PLAYER!!!")
+				changelog.show()
 	)
 	if Global.get_player_last_seen_version() < Global.VERSION:
 		version_label.meta_clicked.emit("version")
