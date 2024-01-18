@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Resource_devme"]
 script = ExtResource("1_2o1t3")
 type = 1
-base_value = 0
+base_value = 70
 
 [sub_resource type="Resource" id="Resource_01u22"]
 script = ExtResource("4_75rke")

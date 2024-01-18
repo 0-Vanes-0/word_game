@@ -34,7 +34,6 @@ const NAMES := {
 @export var is_hidden: bool
 @export_range(1, 10) var base_lifetime_turns: int = 1
 
-
 var owner: Battler
 var lifetime_turns: int
 
@@ -58,9 +57,11 @@ static func create(token_type: Types, battler: Battler) -> Token:
 			token = Preloader.token_reachless.duplicate()
 		Types.MORE_DEATH_RESIST:
 			token = Preloader.token_less_death_resist.duplicate()
+			battler.stats.get_deaths_door_resist().adjust_value(10)
 		
 		Types.LESS_DEATH_RESIST:
 			token = Preloader.token_less_death_resist.duplicate()
+			battler.stats.get_deaths_door_resist().adjust_value(-10)
 		Types.FIRE:
 			token = Preloader.token_fire.duplicate()
 		Types.STUN:
@@ -93,13 +94,13 @@ func apply_token_effect():
 			owner.damage_modifier += 50
 			print_debug("damage_modifier=", owner.damage_modifier)
 		Types.MIRROR:
-			owner.mirror_modifier += 10
+			owner.mirror_modifier += 50
 			print_debug("mirror_modifier=", owner.mirror_modifier)
 		Types.DODGE:
 			owner.dodge_chance = 50
 			print_debug("Can dodge!")
 		Types.HEAL_TIMED:
-			owner.pre_heal += 1 # TODO: rework heal value?
+			owner.pre_heal += 10 # TODO: rework heal value?
 			print_debug("Healed!")
 		Types.STIM:
 			owner.action_value = owner.stats.max_damage
@@ -112,7 +113,7 @@ func apply_token_effect():
 		Types.LESS_DEATH_RESIST:
 			pass # TODO 10
 		Types.FIRE:
-			owner.pre_damage += 1 # TODO: rework fire dmg value?
+			owner.pre_damage += 10 # TODO: rework fire dmg value?
 			print_debug("Burnt!")
 		Types.STUN:
 			owner.stun_turns += 1
@@ -126,7 +127,7 @@ func apply_token_effect():
 			owner.miss_chance = 50
 			print_debug("Can miss!")
 		Types.TAUNT:
-			pass # TODO
+			pass
 		
 		_:
 			assert(false, "Wrong token type=" + str(type))
@@ -137,6 +138,10 @@ func adjust_turn_count(value: int = -1):
 
 
 func is_need_delete() -> bool:
+	if type == Types.MORE_DEATH_RESIST:
+		owner.stats.get_deaths_door_resist().adjust_value(-10 * int(lifetime_turns == 0))
+	elif type == Types.LESS_DEATH_RESIST:
+		owner.stats.get_deaths_door_resist().adjust_value(10 * int(lifetime_turns == 0))
 	return lifetime_turns == 0
 
 

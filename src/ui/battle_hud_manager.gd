@@ -3,29 +3,17 @@ extends CenterContainer
 
 signal to_proceed_turn(spell: Spell)
 
+@export var _battle_scene: BattleScene
 @export var _spell_label: Label
 @export var _reset_spell_button: TextureButton
 @export var _rune_buttons: HBoxContainer
 @export var _proceed_button: IconButton
-@export var _old_proceed_button: Button
 
 var _runes: Array[Rune] = []
 
 
 func _ready() -> void:
-	assert(_spell_label and _reset_spell_button and _rune_buttons and _proceed_button and _old_proceed_button)
-	
-	# TODO: remove this after adding runes and spells v
-	#set_proceed_button_pressable(false)
-	#_old_proceed_button.toggled.connect(
-			#func(toggled_on: bool):
-				#if toggled_on:
-					#set_proceed_button_pressable(false)
-					#_old_proceed_button.set_pressed_no_signal(false)
-					#disappear()
-					#to_proceed_turn.emit(null)
-	#)
-	# TODO: remove this after adding runes and spells ^
+	assert(_battle_scene and _spell_label and _reset_spell_button and _rune_buttons and _proceed_button)
 	
 	_proceed_button.set_pressable(false)
 	_proceed_button.set_on_press(
@@ -33,7 +21,7 @@ func _ready() -> void:
 				_proceed_button.set_pressable(false)
 				_proceed_button.button_pressed = false
 				disappear()
-				to_proceed_turn.emit(Spell.create(_runes))
+				to_proceed_turn.emit(Spell.create(_battle_scene.battlers[_battle_scene.battle_manager.current_battler_index], _runes))
 	)
 	_reset_spell_button.pressed.connect(
 			func():
@@ -60,10 +48,6 @@ func _ready() -> void:
 
 func set_proceed_button_pressable(is_pressable: bool):
 	_proceed_button.set_pressable(is_pressable)
-	# TODO: remove this after adding runes and spells v
-	#_old_proceed_button.disabled = not is_pressable
-	#_old_proceed_button.text = "Начать ход" if is_pressable else "Выберите цель"
-	# TODO: remove this after adding runes and spells ^
 
 
 func appear(current_battler: Battler):

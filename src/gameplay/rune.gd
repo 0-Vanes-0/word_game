@@ -6,15 +6,15 @@ enum Types {
 	EXPLOSION = 1, DARK = 2, FIRE = 3, ICE = 4, SPIKES = 5, TAUNT = 6, TESLA = 7, TORNADO = 8, WATER = 9,
 }
 const WORDS := {
-	Types.EXPLOSION: "морадо",
+	Types.EXPLOSION: "_",
+	Types.FIRE: "промет",
 	Types.DARK: "оскуро",
-	Types.FIRE: "фуего",
-	Types.ICE: "фрио",
+	Types.ICE: "фризкидо",
 	Types.SPIKES: "тиерра",
 	Types.TAUNT: "атронадо",
-	Types.TESLA: "триси",
-	Types.TORNADO: "виенто",
-	Types.WATER: "агуа",
+	Types.TESLA: "вольтэка",
+	Types.TORNADO: "виент",
+	Types.WATER: "аликид",
 }
 @export var type: Types = Types.NONE
 @export var rune_icon: Texture2D :
@@ -25,8 +25,7 @@ const WORDS := {
 func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 	match type:
 		Types.TAUNT:
-			pass
-			#battler.add_token(Token.Types.TAUNT)
+			battler.add_token(Token.Types.TAUNT)
 		Types.FIRE:
 			if action_type == Battler.ActionTypes.ATTACK:
 				battler.add_token(Token.Types.FIRE)
@@ -54,9 +53,9 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 				pass
 		Types.DARK:
 			if action_type == Battler.ActionTypes.ATTACK:
-				battler.add_token(Token.Types.MORE_DEATH_RESIST)
-			elif action_type == Battler.ActionTypes.ALLY:
 				battler.add_token(Token.Types.LESS_DEATH_RESIST)
+			elif action_type == Battler.ActionTypes.ALLY:
+				battler.add_token(Token.Types.MORE_DEATH_RESIST)
 		Types.ICE:
 			if action_type == Battler.ActionTypes.ATTACK:
 				battler.add_token(Token.Types.ANTISHIELD)

@@ -7,4 +7,4 @@ script = ExtResource("1_v17vp")
 type = 18
 apply_moment = 1
 is_hidden = true
-base_lifetime_turns = 1
+base_lifetime_turns = 3

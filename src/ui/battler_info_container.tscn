@@ -10,12 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="6_tu6at"]
 
 [node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "coins_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label", "resists_vbox", "resists_grid")]
-anchors_preset = 13
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -108.0
-offset_right = 108.0
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -126.0
+offset_right = 160.0
+offset_bottom = 126.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_10rvu")

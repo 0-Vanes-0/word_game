@@ -1,6 +1,8 @@
 class_name BattlerInfoContainer
 extends MarginContainer
 
+@export var fade_color_rect: ColorRect
+@export_group("Children")
 @export var ava: BackgroundedIcon
 @export var health_bar: MyProgressBar
 @export var health_label: Label
@@ -56,17 +58,18 @@ func appear(stats: BattlerStats):
 	ally_action_label.fit_content = true
 	ally_action_label.scroll_active = false
 	
-	resists_vbox.hide() # TODO: uncomment after runes and spells
-	#for child in resists_grid.get_children():
-		#child.queue_free()
-	#for resist in stats.resists:
-		#var resist_label := IconLabel.create()
-		#resist_label.set_icon(Resist.get_resist_icon(resist.type), IconLabel.Sizes.x24)
-		#resist_label.set_text(str(resist.value) + "%")
-		#resists_grid.add_child(resist_label)
-	#if not stats.resists.is_empty():
-		#resists_vbox.show()
+	resists_vbox.hide()
+	for child in resists_grid.get_children():
+		child.queue_free()
+	for resist in stats.resists:
+		var resist_label := IconLabel.create()
+		resist_label.set_icon(Resist.get_resist_icon(resist.type), IconLabel.Sizes.x24)
+		resist_label.set_text(str(resist.value) + "%")
+		resists_grid.add_child(resist_label)
+	if not stats.resists.is_empty():
+		resists_vbox.show()
 	
+	fade_color_rect.show()
 	self.show()
 	_tween = _new_tween()
 	_tween.tween_property(
@@ -74,6 +77,11 @@ func appear(stats: BattlerStats):
 			Vector2.ONE,
 			TWEEN_TIME
 	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT).from(Vector2.ZERO)
+	_tween.parallel().tween_property(
+			fade_color_rect, "color:a",
+			0.5,
+			TWEEN_TIME
+	)
 
 
 func disappear():
@@ -83,9 +91,15 @@ func disappear():
 			Vector2.ZERO,
 			TWEEN_TIME / 2
 	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+	_tween.parallel().tween_property(
+			fade_color_rect, "color:a",
+			0.0,
+			TWEEN_TIME
+	)
 	_tween.tween_callback(
 			func():
 				self.hide()
+				fade_color_rect.hide()
 	)
 
 

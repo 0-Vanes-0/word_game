@@ -9,4 +9,4 @@ type = 15
 apply_moment = 1
 icon_texture = ExtResource("1_1mu12")
 is_hidden = false
-base_lifetime_turns = 1
+base_lifetime_turns = 3

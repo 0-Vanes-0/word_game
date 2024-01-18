@@ -11,7 +11,7 @@
 [sub_resource type="Resource" id="Resource_qefxs"]
 script = ExtResource("1_owyrr")
 type = 1
-base_value = 0
+base_value = 60
 
 [sub_resource type="Resource" id="Resource_jjsy4"]
 script = ExtResource("5_d4mk3")

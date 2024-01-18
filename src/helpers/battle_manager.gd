@@ -43,21 +43,32 @@ func init_turn():
 			is_player_turn = current_battler_index in _get_player_indexes()
 			if is_player_turn:
 				hud_manager.appear(current_battler)
+				
+				var taunters_indexes: Array[int] = []
+				for b in battle_scene.enemy_battlers:
+					if b.get_first_token(Token.Types.TAUNT) != null:
+						taunters_indexes.append(b.index)
+				
 				for b in battle_scene.battlers:
 					if b.is_alive:
-						if b.index == current_battler_index:
-							b.selection.modulate = Global.TargetColors.CURRENT_BATTLER
-							b.selection_hover.modulate = Global.TargetColors.CURRENT_BATTLER
-						elif b.index in _get_player_indexes():
-							b.selection.modulate = Global.TargetColors.ALLY_BATTLER
-							b.selection_hover.modulate = Global.TargetColors.ALLY_BATTLER
-						else:
+						if b.index in _get_player_indexes():
+							if b.index == current_battler_index:
+								b.selection.modulate = Global.TargetColors.CURRENT_BATTLER
+								b.selection_hover.modulate = Global.TargetColors.CURRENT_BATTLER
+							else:
+								b.selection.modulate = Global.TargetColors.ALLY_BATTLER
+								b.selection_hover.modulate = Global.TargetColors.ALLY_BATTLER
+							b.selection_hover.hide()
+							b.selection.show()
+							b.set_area_inputable(true)
+						elif taunters_indexes.is_empty() or taunters_indexes.has(b.index):
 							b.selection.modulate = Global.TargetColors.FOE_BATTLER
 							b.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
-					
-						b.selection_hover.hide()
-						b.selection.show()
-						b.set_area_inputable(true)
+							b.selection_hover.hide()
+							b.selection.show()
+							b.set_area_inputable(true)
+						else:
+							b.selection.hide() # For some reason it's not hidden
 			
 			else:
 				for b in battle_scene.battlers:
@@ -65,7 +76,11 @@ func init_turn():
 					b.selection_hover.hide()
 				
 				# Some enemy AI stuff here
-				set_target_and_action(battle_scene.get_alive_players().pick_random().index)
+				var taunter_index := -1
+				for b in battle_scene.get_alive_players():
+					if b.get_first_token(Token.Types.TAUNT) != null:
+						taunter_index = b.index
+				set_target_and_action(battle_scene.get_alive_players().pick_random().index if taunter_index == -1 else taunter_index)
 				var enemy_stats := current_battler.stats as EnemyBattlerStats
 				enemy_stats.reduce_reward()
 				coins_reduced.emit()

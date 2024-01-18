@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://8bkg2bxphf0g"]
+[gd_scene load_steps=13 format=3 uid="uid://8bkg2bxphf0g"]
 
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_5jyep"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_le6fj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="3_nh548"]
 [ext_resource type="Texture2D" uid="uid://bvj1vkv5ale5v" path="res://assets/sprites/ui/icons/demon_yellow.png" id="4_62lq4"]
 [ext_resource type="Texture2D" uid="uid://cvu84qe72y0dj" path="res://assets/sprites/ui/icons/x_yellow.png" id="5_3pg2l"]
+[ext_resource type="Texture2D" uid="uid://bt0ouvy8e4ak0" path="res://assets/sprites/ui/icons/paper_yellow.png" id="5_pi103"]
 [ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="7_m7rvb"]
 [ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="8_vsbps"]
 
@@ -51,13 +52,18 @@ layout_mode = 2
 [node name="TabBar" type="TabBar" parent="MarginContainer/VBoxContainer/HBox"]
 layout_mode = 2
 size_flags_horizontal = 3
-tab_count = 3
-tab_0/title = "Бойцы"
+tab_count = 4
+tab_alignment = 1
+scrolling_enabled = false
+scroll_to_selected = false
+tab_0/title = "Бойцы "
 tab_0/icon = ExtResource("2_uocs0")
-tab_1/title = "Сражения"
+tab_1/title = "Сражения "
 tab_1/icon = ExtResource("4_62lq4")
-tab_2/title = "Эффекты"
-tab_2/icon = ExtResource("3_nh548")
+tab_2/title = "Руны "
+tab_2/icon = ExtResource("5_pi103")
+tab_3/title = "Эффекты "
+tab_3/icon = ExtResource("3_nh548")
 
 [node name="HideButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBox"]
 layout_mode = 2
@@ -70,7 +76,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 2
 tabs_visible = false
 
 [node name="BattlersTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
@@ -145,8 +151,8 @@ theme_override_constants/margin_bottom = 24
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/BattlersTab/RightPaperRect/HBox/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "	Некоторые бойцы не умирают сразу, если их очки здоровья равны 0, вместо этого они входят в состояние \"При смерти\"
-(сопровождается красным миганием), во время которого любой урон окажется смертельным. Если при этом состоянии боец восстановит хотя бы 1 очко здоровья - он вернется из этого состояния в обычное."
+text = "	Некоторые бойцы обладают сопротивлениями к рунам; они обозначаются в процентах. Когда идёт попытка сопротивления руне - с указанным шансом в процентах воздействие отменится.
+	Также существует сопротивление к смертельным ударам ([img=32x32]res://assets/sprites/ui/icons/scull_yellow.png[/img]). С ним боец не умрёт, если здоровье равно 0, а войдёт в состояние \"При смерти\". Любой удар может оказаться смертельным с указанным в процентах шансом. Любое лечение вернёт бойца из этого состояния в обычное."
 scroll_active = false
 
 [node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/BattlersTab/RightPaperRect/HBox"]
@@ -161,6 +167,7 @@ texture_disabled = ExtResource("8_vsbps")
 stretch_mode = 5
 
 [node name="FightsTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
@@ -241,6 +248,96 @@ texture_pressed = ExtResource("8_vsbps")
 texture_disabled = ExtResource("8_vsbps")
 stretch_mode = 5
 
+[node name="RunesTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="LeftPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab" instance=ExtResource("1_5jyep")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/LeftPaperRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LvlDownButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/LeftPaperRect/HBox"]
+visible = false
+custom_minimum_size = Vector2(30, 90)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("2_roq7l")
+texture_pressed = ExtResource("3_16s8j")
+texture_disabled = ExtResource("3_16s8j")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/LeftPaperRect/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/LeftPaperRect/HBox/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "	Каждая руна обладает уникальным свойством в зависимости от цели: враг или союзник.
+[img=40x40]res://assets/sprites/magic_effects/icons/fire.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/fire_yellow.png[/img] на врага 
+ИЛИ [img=32x32]res://assets/sprites/ui/icons/spikes_yellow.png[/img] на союзника.
+[img=40x40]res://assets/sprites/magic_effects/icons/tesla_ball.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/eye_blue.png[/img] на врага 
+ИЛИ [img=32x32]res://assets/sprites/ui/icons/power_yellow.png[/img] на союзника.
+[img=40x40]res://assets/sprites/magic_effects/icons/tornado.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/stun_blue.png[/img] на врага 
+ИЛИ [img=32x32]res://assets/sprites/ui/icons/dodge_yellow.png[/img] на союзника.
+[img=40x40]res://assets/sprites/magic_effects/icons/water.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/sword_x2_blue.png[/img] на врага 
+ИЛИ [img=32x32]res://assets/sprites/ui/icons/plus_yellow.png[/img] на союзника."
+scroll_active = false
+
+[node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab" instance=ExtResource("1_5jyep")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/RightPaperRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/RightPaperRect/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/RightPaperRect/HBox/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[img=40x40]res://assets/sprites/magic_effects/icons/kill_all.png[/img]: Уменьшает [img=32x32]res://assets/sprites/ui/icons/scull_yellow.png[/img] врага на 10% 
+ИЛИ увеличивает [img=32x32]res://assets/sprites/ui/icons/scull_yellow.png[/img] союзника на 10%.
+[img=40x40]res://assets/sprites/magic_effects/icons/gypno.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/target_blue.png[/img] на себя при атаке врага ИЛИ накладывает [img=32x32]res://assets/sprites/ui/icons/target_blue.png[/img] на союзника."
+scroll_active = false
+
+[node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/RightPaperRect/HBox"]
+visible = false
+custom_minimum_size = Vector2(30, 90)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("7_m7rvb")
+texture_pressed = ExtResource("8_vsbps")
+texture_disabled = ExtResource("8_vsbps")
+stretch_mode = 5
+
 [node name="TokensTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
@@ -281,11 +378,12 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "	В результате хода некоторые бойцы могут оставить некоторый эффект на союзнике или противнике.
-	По умолчанию каждый эффект действует в течение 5 ходов.
-
-[img=24x32]res://assets/sprites/ui/icons/sword_yellow.png[/img]: Следующая атака владельца нанесёт на 100% больше урона. Эффект тратится.
-[img=24x32]res://assets/sprites/ui/icons/shield_yellow.png[/img]: Следующая атака по владельцу нанесёт на 50% меньше урона. Эффект тратится."
+text = "[img=32x32]res://assets/sprites/ui/icons/sword_x2_yellow.png[/img]: Следующая атака владельца нанесёт +50% урона.
+[img=32x32]res://assets/sprites/ui/icons/shield_yellow.png[/img]: Следующая атака по владельцу нанесёт -50% урона.
+[img=32x32]res://assets/sprites/ui/icons/dodge_yellow.png[/img]: Следующая атака по владельцу имеет шанс промаха 50%.
+[img=32x32]res://assets/sprites/ui/icons/power_yellow.png[/img]: Базовый урон следующей атаки владельца станет максимальным.
+[img=32x32]res://assets/sprites/ui/icons/spikes_yellow.png[/img]: Следующая атака по владельцу нанесёт ответный урон в размере 10%.
+[img=32x32]res://assets/sprites/ui/icons/plus_yellow.png[/img]: Исцеляет в начале хода владельца."
 scroll_active = false
 
 [node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/TokensTab" instance=ExtResource("1_5jyep")]
@@ -312,6 +410,12 @@ theme_override_constants/margin_bottom = 24
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/TokensTab/RightPaperRect/HBox/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
+text = "[img=32x32]res://assets/sprites/ui/icons/fire_yellow.png[/img]: Наносит урон в начале хода владельца.
+[img=32x32]res://assets/sprites/ui/icons/eye_blue.png[/img]: Следующая атака владельца имеет шанс промаха 50%.
+[img=32x32]res://assets/sprites/ui/icons/shield_blue.png[/img]: Следующая атака по владельцу нанесёт +50% урона.
+[img=32x32]res://assets/sprites/ui/icons/sword_x2_blue.png[/img]: Следующая атака владельца нанесёт -50% урона.
+[img=32x32]res://assets/sprites/ui/icons/target_blue.png[/img]: Владелец вынуждает противников атаковать себя.
+[img=32x32]res://assets/sprites/ui/icons/stun_blue.png[/img]: Владелец пропустит ход."
 scroll_active = false
 
 [node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/TokensTab/RightPaperRect/HBox"]

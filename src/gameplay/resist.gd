@@ -22,12 +22,16 @@ func get_resource() -> Resist:
 	return resource_copy
 
 
+func adjust_value(delta: int):
+	value = clamp(value + delta, 0, 200)
+
+
 func try_to_resist() -> bool:
 	var random_value := randi_range(1, 100)
 	#print_debug("random_value=", random_value, " value=", value)
 	if random_value <= value:
 		if type == Types.DEATHS_DOOR:
-			value = clampi(value - 10, 0, 100)
+			adjust_value(-10)
 		return true
 	else:
 		return false

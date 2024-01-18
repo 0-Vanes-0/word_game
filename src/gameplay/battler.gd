@@ -251,8 +251,6 @@ func _on_health_changed(value: int, delta: int):
 	)
 	if self.stats.health > 0 or delta == 0:
 		anim_value_label(action_type, str(delta))
-	elif is_alive:
-		anim_value_label(action_type, str("ПРИ СМЕРТИ"))
 	else:
 		anim_value_label(action_type, str("СМЕРТЬ"))
 
@@ -261,9 +259,11 @@ func _on_health_depleted():
 	var deaths_door_resist := self.stats.get_deaths_door_resist()
 	if deaths_door_resist != null:
 		if not is_about_to_die or deaths_door_resist.try_to_resist():
+			anim_value_label(ActionTypes.ATTACK, str("СОПРОТИВЛЕНИЕ"))
 			anim_and_set_about_to_die(true)
 			return
 	
+	anim_value_label(ActionTypes.ATTACK, str("СМЕРТЬ"))
 	anim_and_set_about_to_die(false)
 	is_alive = false
 	health_bar.hide()
@@ -287,7 +287,7 @@ func update_token_labels():
 		t_label.queue_free()
 	
 	for token in tokens:
-		if token.lifetime_turns > 0:
+		if not token.is_hidden and token.lifetime_turns > 0:
 			var current_t_label: TokenLabel
 			var found_label: bool = false
 			for t_label: TokenLabel in tokens_container.get_children():
@@ -329,7 +329,7 @@ func check_tokens(for_what_moment: Token.ApplyMoments = Token.ApplyMoments.NONE)
 		await get_tree().create_timer(0.25).timeout
 	if pre_damage > 0:
 		stats.adjust_health(-pre_damage)
-		anim_value_label(Battler.ActionTypes.ATTACK, str(pre_damage))
+		anim_value_label(Battler.ActionTypes.ATTACK, str(-pre_damage))
 	
 	for i in range(tokens.size()-1, -1, -1):
 		if tokens[i].is_need_delete():

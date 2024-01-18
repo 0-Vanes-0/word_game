@@ -39,7 +39,7 @@ back_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/BackButton")
 coins_counter = NodePath("CanvasLayer/Control/VBox/HeaderHBox/VBox/CoinsCounterContainer/MarginContainer/CoinsCounter")
 handbook_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/HandbookButton")
 turn_bar = NodePath("CanvasLayer/Control/VBox/TurnBar")
-battler_info = NodePath("CanvasLayer/Control/VBox/CenterControl/BattlerInfoContainer")
+battler_info = NodePath("CanvasLayer/Control/MarginContainer/MarginContainer/BattlerInfoContainer")
 hud_manager = NodePath("CanvasLayer/Control/VBox/BattleHUDManager")
 handbook = NodePath("CanvasLayer/Control/Handbook")
 victory_defeat_container = NodePath("CanvasLayer/Control/VictoryDefeatContainer")
@@ -277,22 +277,46 @@ layout_mode = 2
 layout_mode = 2
 battle_scene = NodePath("../../../..")
 
-[node name="CenterControl" type="MarginContainer" parent="CanvasLayer/Control/VBox"]
+[node name="CenterControl" type="Control" parent="CanvasLayer/Control/VBox"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 mouse_filter = 2
-theme_override_constants/margin_left = 160
-theme_override_constants/margin_right = 160
 metadata/_edit_lock_ = true
 
-[node name="BattlerInfoContainer" parent="CanvasLayer/Control/VBox/CenterControl" instance=ExtResource("13_a0mw8")]
+[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("14_3lqgt")]
+layout_mode = 2
+_battle_scene = NodePath("../../../..")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="FadeColorRect" type="ColorRect" parent="CanvasLayer/Control/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 180
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 180
+theme_override_constants/margin_bottom = 120
+
+[node name="BattlerInfoContainer" parent="CanvasLayer/Control/MarginContainer/MarginContainer" node_paths=PackedStringArray("fade_color_rect") instance=ExtResource("13_a0mw8")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 mouse_filter = 2
-
-[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" instance=ExtResource("14_3lqgt")]
-layout_mode = 2
+fade_color_rect = NodePath("../../FadeColorRect")
 
 [node name="Handbook" parent="CanvasLayer/Control" instance=ExtResource("16_2vn8g")]
 visible = false
