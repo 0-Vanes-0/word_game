@@ -4,6 +4,7 @@ extends Object
 const MAX_CHARS: int = 25
 var caster: Battler
 var runes: Array[Rune]
+var shifted_turns: int = 1
 
 
 static func create(caster: Battler, runes: Array[Rune]) -> Spell:
@@ -26,3 +27,5 @@ func apply_effects(action_type: Battler.ActionTypes, target_battler: Battler, ta
 		else:
 			for b in target_group:
 				rune.apply_effect(action_type, b)
+	
+	shifted_turns = clampi(runes.size(), 1, 3)

@@ -128,7 +128,6 @@ func proceed_turn(spell: Spell = null):
 	
 	if spell:
 		spell.apply_effects(current_action_type, target_battler, group)
-		spell.free()
 	
 	current_battler.update_token_labels()
 	if current_battler_index != target_battler_index:
@@ -141,7 +140,12 @@ func proceed_turn(spell: Spell = null):
 	battle_animator.animate_turn(group)
 	await battle_animator.animate_turn_completed
 	
-	turn_bar.shift_battler()
+	if spell:
+		turn_bar.shift_battler(spell.shifted_turns)
+		spell.free()
+	else:
+		turn_bar.shift_battler()
+	
 	init_turn()
 
 

@@ -184,7 +184,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 		for b in target_group:
 			_perform_attack(b, is_first_call)
 	
-	if type == Types.HERO_ROBBER and is_first_call:
+	if type == Types.HERO_ROBBER and is_first_call and target_battler.is_alive:
 		await get_tree().create_timer(0.25).timeout
 		do_attack_action(target_battler, [], false)
 	else:
@@ -203,10 +203,10 @@ func _perform_attack(target_battler: Battler, is_first_call: bool):
 	
 	var applied_types: Array[Token.Types] = []
 	
-	var dodge_tokens: Array[Token] = target_battler.tokens.filter(func(t: Token): return t.type == Token.Types.DODGE)
-	if not dodge_tokens.is_empty():
-		applied_types.append(Token.Types.DODGE)
-		dodge_tokens[0].apply_token_effect()
+	for t in tokens:
+		if t.apply_moment == Token.ApplyMoments.BEFORE_GET_ATTACKED and not applied_types.has(t.type):
+			applied_types.append(t.type)
+			t.apply_token_effect()
 	var is_avoid := randf() < 1.0 - (1.0 - miss_chance / 100.0) * (1.0 - target_battler.dodge_chance / 100.0)
 	
 	if is_avoid:
@@ -278,7 +278,14 @@ func _on_health_depleted():
 func add_token(token_type: Token.Types, amount: int = 1):
 	if (token_type == Token.Types.LESS_DEATH_RESIST or token_type == Token.Types.MORE_DEATH_RESIST) and stats.get_deaths_door_resist() == null:
 		return
-	for i in amount:
+	
+	var having_amount: int = 0
+	for t in tokens:
+		if t.type == token_type:
+			having_amount += 1
+	
+	var to_add := mini(Token.get_max_amount(token_type) - having_amount, amount)
+	for i in to_add:
 		var token := Token.create(token_type, self)
 		tokens.append(token)
 

@@ -10,3 +10,4 @@ apply_moment = 2
 icon_texture = ExtResource("1_aoqtl")
 is_hidden = false
 base_lifetime_turns = 3
+max_amount = 4

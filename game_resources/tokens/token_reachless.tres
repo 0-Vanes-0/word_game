@@ -8,3 +8,4 @@ type = 17
 apply_moment = 1
 is_hidden = false
 base_lifetime_turns = 3
+max_amount = 1

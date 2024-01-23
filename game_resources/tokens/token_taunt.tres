@@ -6,7 +6,8 @@
 [resource]
 script = ExtResource("1_jmk46")
 type = 26
-apply_moment = 2
+apply_moment = 4
 icon_texture = ExtResource("1_0851s")
 is_hidden = false
 base_lifetime_turns = 3
+max_amount = 3

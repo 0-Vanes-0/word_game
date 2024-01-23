@@ -8,7 +8,7 @@ enum Types {
 	FIRE = 21, STUN = 22, ANTISHIELD = 23, ANTIATTACK = 24, BLIND = 25, TAUNT = 26, LESS_DEATH_RESIST = 27,
 }
 enum ApplyMoments {
-	NONE, ON_TURN_START, ON_GET_ATTACKED, ON_ATTACKING
+	NONE, ON_TURN_START, ON_GET_ATTACKED, ON_ATTACKING, BEFORE_GET_ATTACKED
 }
 const NAMES := {
 	Types.SHIELD: "Щит",
@@ -33,6 +33,7 @@ const NAMES := {
 @export var icon_texture: Texture2D
 @export var is_hidden: bool
 @export_range(1, 10) var base_lifetime_turns: int = 1
+@export_range(0, 4) var max_amount: int = 3
 
 var owner: Battler
 var lifetime_turns: int
@@ -83,7 +84,7 @@ static func create(token_type: Types, battler: Battler) -> Token:
 
 
 func apply_token_effect():
-	if apply_moment == ApplyMoments.ON_ATTACKING or apply_moment == ApplyMoments.ON_GET_ATTACKED:
+	if apply_moment == ApplyMoments.ON_ATTACKING or apply_moment == ApplyMoments.ON_GET_ATTACKED or apply_moment == ApplyMoments.BEFORE_GET_ATTACKED:
 		lifetime_turns = 0
 	
 	match type:
@@ -147,3 +148,42 @@ func is_need_delete() -> bool:
 
 static func get_token_name(type: Types) -> String:
 	return NAMES[type]
+
+
+static func get_max_amount(type: Types) -> int:
+	match type:
+		Types.SHIELD:
+			return Preloader.token_shield.max_amount
+		Types.ATTACK:
+			return Preloader.token_attack.max_amount
+		Types.MIRROR:
+			return Preloader.token_mirror.max_amount
+		Types.DODGE:
+			return Preloader.token_dodge.max_amount
+		Types.HEAL_TIMED:
+			return Preloader.token_heal_timed.max_amount
+		Types.STIM:
+			return Preloader.token_stim.max_amount
+		Types.REACHLESS:
+			return Preloader.token_reachless.max_amount
+		Types.MORE_DEATH_RESIST:
+			return Preloader.token_less_death_resist.max_amount
+		
+		Types.LESS_DEATH_RESIST:
+			return Preloader.token_less_death_resist.max_amount
+		Types.FIRE:
+			return Preloader.token_fire.max_amount
+		Types.STUN:
+			return Preloader.token_stun.max_amount
+		Types.ANTIATTACK:
+			return Preloader.token_antiattack.max_amount
+		Types.ANTISHIELD:
+			return Preloader.token_antishield.max_amount
+		Types.BLIND:
+			return Preloader.token_blind.max_amount
+		Types.TAUNT:
+			return Preloader.token_taunt.max_amount
+		
+		_:
+			assert(false, "Wrong token type=" + str(type))
+			return -1
