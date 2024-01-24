@@ -5,7 +5,7 @@ signal coins_reduced
 signal battle_ended(is_victory: bool)
 
 @export var battle_scene: BattleScene
-var turn_bar: TurnBar
+var turn_manager: TurnManager
 var battle_animator: BattleAnimator
 var hud_manager: BattleHUDManager
 
@@ -17,7 +17,7 @@ var current_action_type: Battler.ActionTypes = Battler.ActionTypes.NONE
 
 func _ready() -> void:
 	assert(battle_scene)
-	turn_bar = battle_scene.turn_bar
+	turn_manager = battle_scene.turn_manager
 	battle_animator = battle_scene.battle_animator
 	hud_manager = battle_scene.hud_manager
 
@@ -27,13 +27,13 @@ func init_turn():
 		b.set_area_inputable(false)
 	
 	current_action_type = Battler.ActionTypes.NONE
-	current_battler_index = turn_bar.get_current_battler_index()
+	current_battler_index = turn_manager.get_current_battler_index()
 	var current_battler := battle_scene.battlers[current_battler_index]
 	
 	current_battler.check_tokens(Token.ApplyMoments.ON_TURN_START)
 	if not current_battler.is_alive or current_battler.stun_turns > 0:
 		if current_battler.stun_turns > 0:
-			turn_bar.shift_battler(current_battler.stun_turns)
+			turn_manager.shift_battler(current_battler.stun_turns)
 		await get_tree().create_timer(1.0).timeout
 		init_turn()
 	
@@ -141,10 +141,10 @@ func proceed_turn(spell: Spell = null):
 	await battle_animator.animate_turn_completed
 	
 	if spell:
-		turn_bar.shift_battler(spell.shifted_turns)
+		turn_manager.shift_battler(spell.shifted_turns)
 		spell.free()
 	else:
-		turn_bar.shift_battler()
+		turn_manager.shift_battler()
 	
 	init_turn()
 

@@ -7,9 +7,8 @@ signal proceed_turn_ended
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D#
 @export var back_button: IconButton
-@export var coins_counter: IconLabel
 @export var handbook_button: IconButton
-@export var turn_bar: TurnBar
+@export var turn_manager: TurnManager
 @export var battler_info: BattlerInfoContainer
 @export var hud_manager: BattleHUDManager
 @export var handbook: Handbook
@@ -26,8 +25,8 @@ var enemy_battlers: Array[Battler]
 
 func _ready() -> void:
 	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
-			and battler_info and battle_manager and victory_defeat_container and coins_counter
-			and back_button and handbook_button and handbook)
+			and battler_info and battle_manager and victory_defeat_container
+			and back_button and handbook_button and handbook and turn_manager)
 	
 	if Global.settings.get("AUDIO").get("MUSIC") == true:
 		SoundManager.play_music(Preloader.battle_musics.pick_random())
@@ -56,14 +55,14 @@ func _ready() -> void:
 			player_battlers.append(battler)
 			battler.died.connect(
 					func():
-						turn_bar.remove_battler(index)
+						turn_manager.remove_battler(index)
 			)
 			battler.name = "Player" + str(index)
 		else:
 			enemy_battlers.append(battler)
 			battler.died.connect(
 					func():
-						turn_bar.remove_battler(index)
+						turn_manager.remove_battler(index)
 			)
 			battler.name = "Enemy" + str(index)
 		
@@ -84,7 +83,7 @@ func _ready() -> void:
 			func():
 				handbook.show()
 	)
-	turn_bar.setup()
+	turn_manager.setup()
 	
 	battler_info.hide()
 	
@@ -120,10 +119,10 @@ func _on_battler_clicked(battler: Battler):
 
 func _update_coins_label():
 	var coins: int = 0
-	for b in enemy_battlers:
-		var stats := b.stats as EnemyBattlerStats
-		coins += stats.reward
-	coins_counter.set_text(coins)
+	#for b in enemy_battlers:
+		#var stats := b.stats as EnemyBattlerStats
+		#coins += stats.reward
+	#coins_counter.set_text(coins)
 
 
 func _on_battle_ended(is_victory: bool):
