@@ -284,7 +284,12 @@ func add_token(token_type: Token.Types, amount: int = 1):
 		if t.type == token_type:
 			having_amount += 1
 	
-	var to_add := mini(Token.get_max_amount(token_type) - having_amount, amount)
+	var to_add: int
+	if Token.get_max_amount(token_type) == 0:
+		to_add = amount
+	else:
+		to_add = mini(Token.get_max_amount(token_type) - having_amount, amount)
+	
 	for i in to_add:
 		var token := Token.create(token_type, self)
 		tokens.append(token)
