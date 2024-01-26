@@ -47,7 +47,10 @@ func appear(stats: BattlerStats):
 		coins_label.set_icon(Preloader.texture_coin, IconLabel.Sizes.x24)
 		coins_label.set_text(stats.reward)
 	
-	speed_label.text = "Скорость: " + str(stats.initiative)
+	speed_label.text = "Скорость: " + (
+			str(stats.base_min_initiative) 
+			+ (("-" + str(stats.base_max_initiative)) if stats.base_min_initiative != stats.base_max_initiative else "")
+	)
 	
 	foe_action_label.queue_free()
 	foe_action_label = stats.get_foe_action_text_as_label()

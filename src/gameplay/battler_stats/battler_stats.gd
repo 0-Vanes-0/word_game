@@ -5,7 +5,8 @@ signal health_changed(value: int, delta: int)
 signal health_depleted
 
 @export var icon: Texture2D
-@export var base_initiative: int
+@export var base_min_initiative: int
+@export var base_max_initiative: int
 @export var base_health: int
 @export var base_min_damage_fraction := Vector2.ONE
 @export var base_max_damage: int
@@ -28,7 +29,8 @@ var resists: Array[Resist]
 func _is_stats_valid() -> bool:
 	return (
 			icon
-			and base_initiative > 0
+			and base_min_initiative > 0
+			and base_max_initiative > 0
 			and base_health > 0 
 			and base_min_damage_fraction.x <= base_min_damage_fraction.y and base_min_damage_fraction >= Vector2.ZERO
 			and base_max_damage >= 0
@@ -40,7 +42,7 @@ func _is_stats_valid() -> bool:
 func get_resource() -> BattlerStats:
 	var resoure_copy: BattlerStats = self.duplicate()
 	assert(_is_stats_valid())
-	resoure_copy.initiative = base_initiative
+	resoure_copy.initiative = randi_range(base_min_initiative, base_max_initiative)
 	resoure_copy.health = base_health
 	resoure_copy.max_health = base_health
 	resoure_copy.min_damage_fraction = base_min_damage_fraction
