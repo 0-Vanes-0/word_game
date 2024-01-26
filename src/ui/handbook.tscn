@@ -76,11 +76,9 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 2
 tabs_visible = false
 
 [node name="BattlersTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
@@ -119,7 +117,7 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "	В бою сражаются герои игрока с противниками. 
+text = "	В бою сражаются герои игрока с противниками. Первоначальный порядок хода определяется по скорости каждого бойца.
 	При получении хода участник боя выполняет хотя бы одно из двух типов действий:
  - атака противника
  - помощь союзнику
@@ -249,6 +247,7 @@ texture_disabled = ExtResource("8_vsbps")
 stretch_mode = 5
 
 [node name="RunesTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
@@ -287,7 +286,7 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "	Каждая руна обладает уникальным свойством в зависимости от цели: враг или союзник.
+text = "Каждая руна обладает уникальным свойством в зависимости от цели: враг или союзник. Чем больше рун в заклинании - тем позже следующий ход.
 [img=40x40]res://assets/sprites/magic_effects/icons/fire.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/fire_yellow.png[/img] на врага 
 ИЛИ [img=32x32]res://assets/sprites/ui/icons/spikes_yellow.png[/img] на союзника.
 [img=40x40]res://assets/sprites/magic_effects/icons/tesla_ball.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/eye_blue.png[/img] на врага 

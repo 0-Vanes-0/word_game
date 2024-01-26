@@ -7,6 +7,8 @@ extends MarginContainer
 @export var health_bar: MyProgressBar
 @export var health_label: Label
 @export var coins_label: IconLabel
+@export var speed_icon: TextureRect
+@export var speed_label: RichTextLabel
 @export var foe_action_icon: TextureRect
 @export var foe_action_label: RichTextLabel
 @export var ally_action_icon: TextureRect
@@ -20,7 +22,8 @@ var _tween: Tween
 
 func _ready() -> void:
 	assert(ava and health_bar and health_label and foe_action_icon and foe_action_label and ally_action_icon 
-			and ally_action_label and coins_label and resists_vbox and resists_grid)
+			and ally_action_label and coins_label and resists_vbox and resists_grid
+			and speed_icon and speed_label)
 	await Global.get_current_scene().ready
 	self.pivot_offset = self.size / 2
 
@@ -43,6 +46,8 @@ func appear(stats: BattlerStats):
 		coins_label.show()
 		coins_label.set_icon(Preloader.texture_coin, IconLabel.Sizes.x24)
 		coins_label.set_text(stats.reward)
+	
+	speed_label.text = "Скорость: " + str(stats.initiative)
 	
 	foe_action_label.queue_free()
 	foe_action_label = stats.get_foe_action_text_as_label()
@@ -69,7 +74,8 @@ func appear(stats: BattlerStats):
 	if not stats.resists.is_empty():
 		resists_vbox.show()
 	
-	fade_color_rect.show()
+	if fade_color_rect:
+		fade_color_rect.show()
 	self.show()
 	_tween = _new_tween()
 	_tween.tween_property(
@@ -77,11 +83,12 @@ func appear(stats: BattlerStats):
 			Vector2.ONE,
 			TWEEN_TIME
 	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT).from(Vector2.ZERO)
-	_tween.parallel().tween_property(
-			fade_color_rect, "color:a",
-			0.5,
-			TWEEN_TIME
-	)
+	if fade_color_rect:
+		_tween.parallel().tween_property(
+				fade_color_rect, "color:a",
+				0.5,
+				TWEEN_TIME
+		)
 
 
 func disappear():
@@ -91,15 +98,17 @@ func disappear():
 			Vector2.ZERO,
 			TWEEN_TIME / 2
 	).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
-	_tween.parallel().tween_property(
-			fade_color_rect, "color:a",
-			0.0,
-			TWEEN_TIME
-	)
+	if fade_color_rect:
+		_tween.parallel().tween_property(
+				fade_color_rect, "color:a",
+				0.0,
+				TWEEN_TIME
+		)
 	_tween.tween_callback(
 			func():
 				self.hide()
-				fade_color_rect.hide()
+				if fade_color_rect:
+					fade_color_rect.hide()
 	)
 
 

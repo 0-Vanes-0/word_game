@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2vcave878atq"]
+[gd_scene load_steps=10 format=3 uid="uid://d2vcave878atq"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_10rvu"]
 [ext_resource type="Script" path="res://src/ui/battler_info_container.gd" id="2_vsbf0"]
@@ -8,8 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="5_xcwb8"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="6_1lxaf"]
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="6_tu6at"]
+[ext_resource type="Texture2D" uid="uid://bxh1wkxum6b0v" path="res://assets/sprites/ui/icons/speed_yellow.png" id="7_yrxux"]
 
-[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "coins_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label", "resists_vbox", "resists_grid")]
+[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "coins_label", "speed_icon", "speed_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label", "resists_vbox", "resists_grid")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -27,6 +28,8 @@ ava = NodePath("MarginContainer/VBox/Ava+HealthHBox/Ava")
 health_bar = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/HealthBar")
 health_label = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/HealthLabel")
 coins_label = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/CoinsLabel")
+speed_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/SpeedIcon")
+speed_label = NodePath("MarginContainer/VBox/FoeAllyGrid/SpeedLabel")
 foe_action_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/FoeActionIcon")
 foe_action_label = NodePath("MarginContainer/VBox/FoeAllyGrid/FoeActionLabel")
 ally_action_icon = NodePath("MarginContainer/VBox/FoeAllyGrid/AllyActionIcon")
@@ -79,6 +82,20 @@ custom_minimum_size = Vector2(272, 0)
 layout_mode = 2
 theme_override_constants/h_separation = 10
 columns = 2
+
+[node name="SpeedIcon" type="TextureRect" parent="MarginContainer/VBox/FoeAllyGrid"]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("7_yrxux")
+stretch_mode = 2
+
+[node name="SpeedLabel" type="RichTextLabel" parent="MarginContainer/VBox/FoeAllyGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "Скорость: 00"
+fit_content = true
+scroll_active = false
 
 [node name="FoeActionIcon" type="TextureRect" parent="MarginContainer/VBox/FoeAllyGrid"]
 layout_mode = 2
