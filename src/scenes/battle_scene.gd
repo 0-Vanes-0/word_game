@@ -87,6 +87,7 @@ func _ready() -> void:
 				handbook.show()
 	)
 	
+	preview_color_rect.show()
 	turn_manager.queue_ready.connect(
 			func():
 				var tween := create_tween()

@@ -145,9 +145,10 @@ layout_mode = 2
 [node name="HeaderHBox" type="HBoxContainer" parent="CanvasLayer/Control/VBox"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 0
 
 [node name="EmptyControl" type="Control" parent="CanvasLayer/Control/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="BackButton" type="TextureButton" parent="CanvasLayer/Control/VBox/HeaderHBox"]
@@ -238,6 +239,7 @@ mouse_filter = 2
 stretch_mode = 5
 
 [node name="EmptyControl2" type="Control" parent="CanvasLayer/Control/VBox/HeaderHBox"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
 [node name="CenterControl" type="Control" parent="CanvasLayer/Control/VBox"]
@@ -282,6 +284,7 @@ mouse_filter = 2
 fade_color_rect = NodePath("../../FadeColorRect")
 
 [node name="PreviewColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
