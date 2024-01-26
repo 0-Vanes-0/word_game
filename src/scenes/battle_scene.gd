@@ -3,14 +3,16 @@ extends Node2D
 
 signal proceed_turn_ended
 
+@export_group("Children")
 @export var battlers_node: Marker2D
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D#
 @export var back_button: IconButton
-@export var handbook_button: IconButton
 @export var turn_manager: TurnManager
-@export var battler_info: BattlerInfoContainer
+@export var handbook_button: IconButton
 @export var hud_manager: BattleHUDManager
+@export var battler_info: BattlerInfoContainer
+@export var preview_color_rect: ColorRect
 @export var handbook: Handbook
 @export var victory_defeat_container: VictoryDefeatContainer
 @export var back_confirm: BackConfirm
@@ -26,7 +28,8 @@ var enemy_battlers: Array[Battler]
 func _ready() -> void:
 	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
 			and battler_info and battle_manager and victory_defeat_container
-			and back_button and handbook_button and handbook and turn_manager)
+			and back_button and handbook_button and handbook and turn_manager 
+			and preview_color_rect)
 	
 	if Global.settings.get("AUDIO").get("MUSIC") == true:
 		SoundManager.play_music(Preloader.battle_musics.pick_random())
@@ -83,6 +86,23 @@ func _ready() -> void:
 			func():
 				handbook.show()
 	)
+	
+	turn_manager.queue_ready.connect(
+			func():
+				var tween := create_tween()
+				tween.tween_property(
+						preview_color_rect, "modulate:a",
+						0.0,
+						0.5
+				)
+				tween.tween_callback(
+						func():
+							preview_color_rect.hide()
+							battle_manager.init_turn()
+							battle_manager.coins_reduced.connect(_update_coins_label)
+							battle_manager.battle_ended.connect(_on_battle_ended)
+				)
+	)
 	turn_manager.setup()
 	
 	battler_info.hide()
@@ -92,10 +112,6 @@ func _ready() -> void:
 				battle_manager.proceed_turn(spell)
 	)
 	hud_manager.disappear()
-	
-	battle_manager.init_turn()
-	battle_manager.coins_reduced.connect(_update_coins_label)
-	battle_manager.battle_ended.connect(_on_battle_ended)
 
 
 func _on_battler_clicked(battler: Battler):

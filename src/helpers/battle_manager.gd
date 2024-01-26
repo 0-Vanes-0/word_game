@@ -146,7 +146,7 @@ func proceed_turn(spell: Spell = null):
 	else:
 		turn_manager.shift_battler()
 	
-	init_turn()
+	turn_manager.battlers_moved_by_one_tick.connect(init_turn, CONNECT_ONE_SHOT)
 
 
 func set_target_and_action(index: int):

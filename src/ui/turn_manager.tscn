@@ -1,20 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://0r6661gt0ld7"]
+[gd_scene load_steps=7 format=3 uid="uid://0r6661gt0ld7"]
 
 [ext_resource type="Script" path="res://src/ui/turn_manager.gd" id="1_ar4um"]
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_uwlp7"]
 [ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="2_wfl0v"]
 [ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="3_qssq5"]
 [ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="3_yckcx"]
 [ext_resource type="Texture2D" uid="uid://bm6rijkr05day" path="res://assets/sprites/ui/square_border_big_full_empty.png" id="4_twfpf"]
 
-[node name="TurnManager" type="MarginContainer" node_paths=PackedStringArray("ava_template")]
+[node name="TurnManager" type="MarginContainer" node_paths=PackedStringArray("_ava_template", "_label_template", "_wtf_label")]
 offset_right = 652.0
 offset_bottom = 80.0
 size_flags_horizontal = 4
+theme = ExtResource("1_uwlp7")
 script = ExtResource("1_ar4um")
-ava_template = NodePath("Avas/Battler")
+_ava_template = NodePath("Avas/Battler")
+_label_template = NodePath("Avas/Label")
+_wtf_label = NodePath("Avas/CheTakoeLabel")
 
 [node name="Avas" type="Control" parent="."]
 layout_mode = 2
+
+[node name="CheTakoeLabel" type="Label" parent="Avas"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 650.0
+offset_bottom = 116.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+text = "Распределение по скорости"
+horizontal_alignment = 1
 
 [node name="Battler" type="TextureRect" parent="Avas"]
 layout_mode = 0
@@ -25,6 +41,18 @@ offset_bottom = 76.0
 texture = ExtResource("2_wfl0v")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="Label" type="Label" parent="Avas"]
+layout_mode = 0
+offset_top = 100.0
+offset_right = 24.0
+offset_bottom = 124.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 36
+text = "10"
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

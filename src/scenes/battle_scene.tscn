@@ -27,16 +27,17 @@
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "back_button", "handbook_button", "turn_manager", "battler_info", "hud_manager", "handbook", "victory_defeat_container", "back_confirm", "battle_animator", "battle_manager")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "back_button", "turn_manager", "handbook_button", "hud_manager", "battler_info", "preview_color_rect", "handbook", "victory_defeat_container", "back_confirm", "battle_animator", "battle_manager")]
 script = ExtResource("1_2ge4k")
 battlers_node = NodePath("Battlers")
 black_screen = NodePath("Battlers/BlackScreen")
 effect_sprite = NodePath("Battlers/EffectSprite")
 back_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/BackButton")
-handbook_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/HandbookButton")
 turn_manager = NodePath("CanvasLayer/Control/VBox/HeaderHBox/TurnManager")
-battler_info = NodePath("CanvasLayer/Control/OverlayContainer/MarginContainer/BattlerInfoContainer")
+handbook_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/HandbookButton")
 hud_manager = NodePath("CanvasLayer/Control/VBox/BattleHUDManager")
+battler_info = NodePath("CanvasLayer/Control/OverlayContainer/MarginContainer/BattlerInfoContainer")
+preview_color_rect = NodePath("CanvasLayer/Control/PreviewColorRect")
 handbook = NodePath("CanvasLayer/Control/Handbook")
 victory_defeat_container = NodePath("CanvasLayer/Control/VictoryDefeatContainer")
 back_confirm = NodePath("CanvasLayer/Control/BackConfirm")
@@ -190,11 +191,11 @@ layout_mode = 2
 mouse_filter = 2
 stretch_mode = 5
 
-[node name="TurnManager" parent="CanvasLayer/Control/VBox/HeaderHBox" node_paths=PackedStringArray("battle_scene") instance=ExtResource("15_die4i")]
+[node name="TurnManager" parent="CanvasLayer/Control/VBox/HeaderHBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("15_die4i")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-battle_scene = NodePath("../../../../..")
+_battle_scene = NodePath("../../../../..")
 
 [node name="HandbookButton" type="TextureButton" parent="CanvasLayer/Control/VBox/HeaderHBox"]
 custom_minimum_size = Vector2(100, 0)
@@ -279,6 +280,15 @@ layout_mode = 2
 size_flags_horizontal = 8
 mouse_filter = 2
 fade_color_rect = NodePath("../../FadeColorRect")
+
+[node name="PreviewColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
 
 [node name="Handbook" parent="CanvasLayer/Control" instance=ExtResource("16_2vn8g")]
 visible = false
