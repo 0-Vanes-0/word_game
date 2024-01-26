@@ -203,7 +203,7 @@ func _perform_attack(target_battler: Battler, is_first_call: bool):
 	
 	var applied_types: Array[Token.Types] = []
 	
-	for t in tokens:
+	for t in target_battler.tokens:
 		if t.apply_moment == Token.ApplyMoments.BEFORE_GET_ATTACKED and not applied_types.has(t.type):
 			applied_types.append(t.type)
 			t.apply_token_effect()
