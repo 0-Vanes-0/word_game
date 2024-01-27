@@ -95,6 +95,7 @@ func shift_battler(ticks: int = 1):
 		print_debug("_battler_queue[0] == null!!!")
 	
 	move_battlers()
+	await get_tree().create_timer(AVA_MOVE_TIME).timeout
 	battlers_moved_by_one_tick.emit()
 
 

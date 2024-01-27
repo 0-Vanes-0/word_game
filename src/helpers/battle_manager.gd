@@ -34,7 +34,7 @@ func init_turn():
 	if not current_battler.is_alive or current_battler.stun_turns > 0:
 		if current_battler.stun_turns > 0:
 			turn_manager.shift_battler(current_battler.stun_turns)
-		await turn_manager.battlers_moved_by_one_tick
+		await get_tree().create_timer(1.0).timeout
 		init_turn()
 	
 	else:
@@ -69,7 +69,8 @@ func init_turn():
 							b.set_area_inputable(true)
 						else:
 							b.selection.hide() # For some reason it's not hidden
-			
+					else:
+						b.selection.hide() # For some reason it's not hidden
 			else:
 				for b in battle_scene.battlers:
 					b.selection.hide()
@@ -146,11 +147,7 @@ func proceed_turn(spell: Spell = null):
 	else:
 		turn_manager.shift_battler()
 	
-	turn_manager.battlers_moved_by_one_tick.connect(
-			func():
-				await get_tree().create_timer(0.5).timeout
-				init_turn()
-	, CONNECT_ONE_SHOT)
+	turn_manager.battlers_moved_by_one_tick.connect(init_turn, CONNECT_ONE_SHOT)
 
 
 func set_target_and_action(index: int):
