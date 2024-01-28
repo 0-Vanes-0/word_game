@@ -3,7 +3,7 @@
 extends Node
 
 #region CONSTANTS
-const VERSION := 0.221
+const VERSION := 0.222
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
 const CHARACTER_SIZE := Vector2(100, 120)
 const TargetColors := {

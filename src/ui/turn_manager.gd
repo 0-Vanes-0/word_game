@@ -100,7 +100,14 @@ func shift_battler(ticks: int = 1):
 
 
 func get_current_battler_index() -> int:
-	return _battler_queue[0].index
+	if _battler_queue.any(func(b: Battler): return b != null):
+		if _battler_queue[0] == null:
+			move_battlers()
+			return get_current_battler_index()
+		return _battler_queue[0].index
+	else:
+		assert(false, "_battler_queue is empty!!!")
+		return -1
 
 
 func move_battlers():

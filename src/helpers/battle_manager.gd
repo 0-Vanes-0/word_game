@@ -28,6 +28,10 @@ func init_turn():
 	
 	current_action_type = Battler.ActionTypes.NONE
 	current_battler_index = turn_manager.get_current_battler_index()
+	if current_battler_index == -1:
+		_proceed_end_battle()
+		return
+	
 	var current_battler := battle_scene.battlers[current_battler_index]
 	
 	current_battler.check_tokens(Token.ApplyMoments.ON_TURN_START)
@@ -97,12 +101,7 @@ func init_turn():
 				battle_animator.animate_enemy_prepare(group)
 		
 		else:
-			for b in battle_scene.battlers:
-				b.selection.hide()
-				b.selection_hover.hide()
-			var is_victory := not battle_scene.get_alive_players().is_empty()
-			battle_animator.animate_battle_end(is_victory)
-			battle_ended.emit(is_victory)
+			_proceed_end_battle()
 
 
 func proceed_turn(spell: Spell = null):
@@ -157,6 +156,15 @@ func set_target_and_action(index: int):
 		current_action_type = Battler.ActionTypes.ALLY if target_battler_index in _get_player_indexes() else Battler.ActionTypes.ATTACK
 	else:
 		current_action_type = Battler.ActionTypes.ATTACK if target_battler_index in _get_player_indexes() else Battler.ActionTypes.ALLY
+
+
+func _proceed_end_battle():
+	for b in battle_scene.battlers:
+		b.selection.hide()
+		b.selection_hover.hide()
+	var is_victory := not battle_scene.get_alive_players().is_empty()
+	battle_animator.animate_battle_end(is_victory)
+	battle_ended.emit(is_victory)
 
 
 func _get_player_indexes() -> Array[int]:
