@@ -3,6 +3,7 @@ extends MarginContainer
 
 @export var fade_color_rect: ColorRect
 @export_group("Children")
+@export var name_label: Label
 @export var ava: BackgroundedIcon
 @export var health_bar: MyProgressBar
 @export var health_label: Label
@@ -23,7 +24,7 @@ var _tween: Tween
 func _ready() -> void:
 	assert(ava and health_bar and health_label and foe_action_icon and foe_action_label and ally_action_icon 
 			and ally_action_label and coins_label and resists_vbox and resists_grid
-			and speed_icon and speed_label)
+			and speed_icon and speed_label and name_label)
 	await Global.get_current_scene().ready
 	self.pivot_offset = self.size / 2
 
@@ -33,6 +34,8 @@ func appear(stats: BattlerStats):
 		self.size_flags_horizontal = Control.SIZE_SHRINK_END
 	elif stats is EnemyBattlerStats:
 		self.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	
+	name_label.text = stats.battler_name
 	
 	ava.set_icon(stats.icon)
 	health_bar.min_value = 0

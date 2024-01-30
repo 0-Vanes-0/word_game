@@ -27,7 +27,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_lc3p6"]
 size = Vector3(960, 540, 1)
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "back_button", "turn_manager", "handbook_button", "hud_manager", "wtf_label", "battler_info", "preview_color_rect", "handbook", "victory_defeat_container", "back_confirm", "battle_animator", "battle_manager")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("battlers_node", "black_screen", "effect_sprite", "back_button", "turn_manager", "handbook_button", "hud_manager", "battler_info", "preview_color_rect", "handbook", "victory_defeat_container", "back_confirm", "battle_animator", "battle_manager")]
 script = ExtResource("1_2ge4k")
 battlers_node = NodePath("Battlers")
 black_screen = NodePath("Battlers/BlackScreen")
@@ -36,7 +36,6 @@ back_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/BackButton")
 turn_manager = NodePath("CanvasLayer/Control/VBox/HeaderHBox/TurnManager")
 handbook_button = NodePath("CanvasLayer/Control/VBox/HeaderHBox/HandbookButton")
 hud_manager = NodePath("CanvasLayer/Control/VBox/BattleHUDManager")
-wtf_label = NodePath("CanvasLayer/Control/OverlayContainer/WtfLabel")
 battler_info = NodePath("CanvasLayer/Control/OverlayContainer/MarginContainer/BattlerInfoContainer")
 preview_color_rect = NodePath("CanvasLayer/Control/PreviewColorRect")
 handbook = NodePath("CanvasLayer/Control/Handbook")
@@ -193,149 +192,10 @@ layout_mode = 2
 mouse_filter = 2
 stretch_mode = 5
 
-[node name="TurnManager" parent="CanvasLayer/Control/VBox/HeaderHBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("15_die4i")]
+[node name="TurnManager" parent="CanvasLayer/Control/VBox/HeaderHBox" instance=ExtResource("15_die4i")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-_battle_scene = NodePath("../../../../..")
+_ava_template = Object(TextureRect,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":0,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":4.0,"offset_top":4.0,"offset_right":76.0,"offset_bottom":76.0,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":1,"size_flags_stretch_ratio":1.0,"auto_translate":true,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":1,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","texture":Resource("res://assets/sprites/avas/con1.png"),"expand_mode":1,"stretch_mode":4,"flip_h":false,"flip_v":false,"script":null)
 
-[node name="HandbookButton" type="TextureButton" parent="CanvasLayer/Control/VBox/HeaderHBox"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-action_mode = 0
-texture_normal = ExtResource("13_c3qnq")
-texture_pressed = ExtResource("14_tudni")
-stretch_mode = 5
-script = ExtResource("15_penmo")
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="IconDisabled" type="TextureRect" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton/CenterContainer"]
-modulate = Color(0.4, 0.4, 0.4, 1)
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("16_5scvb")
-stretch_mode = 5
-
-[node name="IconEnabled" type="TextureRect" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton/CenterContainer"]
-visible = false
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("16_5scvb")
-stretch_mode = 5
-
-[node name="Unpressable" type="TextureRect" parent="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton/CenterContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-stretch_mode = 5
-
-[node name="EmptyControl2" type="Control" parent="CanvasLayer/Control/VBox/HeaderHBox"]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
-
-[node name="CenterControl" type="Control" parent="CanvasLayer/Control/VBox"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-mouse_filter = 2
-metadata/_edit_lock_ = true
-
-[node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("14_3lqgt")]
-layout_mode = 2
-_battle_scene = NodePath("../../../..")
-
-[node name="OverlayContainer" type="MarginContainer" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-metadata/_edit_lock_ = true
-
-[node name="WtfLabel" type="RichTextLabel" parent="CanvasLayer/Control/OverlayContainer"]
-z_index = 999
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-size_flags_vertical = 0
-mouse_filter = 2
-theme_override_colors/default_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/line_separation = 14
-theme_override_constants/outline_size = 12
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "
-
-[center]Распределение по скорости[/center]"
-scroll_active = false
-autowrap_mode = 0
-
-[node name="FadeColorRect" type="ColorRect" parent="CanvasLayer/Control/OverlayContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0)
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/OverlayContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 120
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 120
-
-[node name="BattlerInfoContainer" parent="CanvasLayer/Control/OverlayContainer/MarginContainer" node_paths=PackedStringArray("fade_color_rect") instance=ExtResource("13_a0mw8")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 8
-mouse_filter = 2
-fade_color_rect = NodePath("../../FadeColorRect")
-
-[node name="PreviewColorRect" type="ColorRect" parent="CanvasLayer/Control"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.501961)
-
-[node name="Handbook" parent="CanvasLayer/Control" instance=ExtResource("16_2vn8g")]
-visible = false
-layout_mode = 1
-
-[node name="VictoryDefeatContainer" parent="CanvasLayer/Control" instance=ExtResource("19_pd8ys")]
-visible = false
-layout_mode = 1
-
-[node name="BackConfirm" parent="CanvasLayer/Control" instance=ExtResource("20_ldhws")]
-visible = false
-layout_mode = 1
-
-[node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
-script = ExtResource("15_ynmqs")
-battle_scene = NodePath("..")
-
-[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
-script = ExtResource("18_n0r4n")
-battle_scene = NodePath("..")
-
-[connection signal="button_down" from="CanvasLayer/Control/VBox/HeaderHBox/BackButton" to="CanvasLayer/Control/VBox/HeaderHBox/BackButton" method="_on_button_down"]
-[connection signal="button_up" from="CanvasLayer/Control/VBox/HeaderHBox/BackButton" to="CanvasLayer/Control/VBox/HeaderHBox/BackButton" method="_on_button_up"]
-[connection signal="toggled" from="CanvasLayer/Control/VBox/HeaderHBox/BackButton" to="CanvasLayer/Control/VBox/HeaderHBox/BackButton" method="_on_toggled"]
-[connection signal="button_down" from="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" to="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" method="_on_button_down"]
-[connection signal="button_up" from="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" to="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" method="_on_button_up"]
-[connection signal="toggled" from="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" to="CanvasLayer/Control/VBox/HeaderHBox/HandbookButton" method="_on_toggled"]
+_label_template = Object(Label,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,

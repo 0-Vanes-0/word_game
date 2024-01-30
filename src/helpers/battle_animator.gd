@@ -58,6 +58,8 @@ func animate_turn(target_group: Array[Battler] = []):
 	
 	# ----- ACTION ANIMATION START -----
 	
+	battle_scene.show_wtf_label(current_battler.stats.get_action_name(current_action_type), ACTION_TIME)
+	
 	var black := battle_scene.black_screen
 	black.self_modulate.a = 0.5
 	

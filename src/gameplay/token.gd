@@ -8,7 +8,7 @@ enum Types {
 	FIRE = 21, STUN = 22, ANTISHIELD = 23, ANTIATTACK = 24, BLIND = 25, TAUNT = 26, LESS_DEATH_RESIST = 27,
 }
 enum ApplyMoments {
-	NONE, ON_TURN_START, ON_GET_ATTACKED, ON_ATTACKING, BEFORE_GET_ATTACKED
+	NONE, ON_TURN_START, ON_GET_ATTACKED, ON_ATTACKING, BEFORE_GET_ATTACKED, BEFORE_ATTACKING
 }
 const NAMES := {
 	Types.SHIELD: "Щит",
@@ -83,8 +83,12 @@ static func create(token_type: Types, battler: Battler) -> Token:
 	return token
 
 
-func apply_token_effect():
-	if apply_moment == ApplyMoments.ON_ATTACKING or apply_moment == ApplyMoments.ON_GET_ATTACKED or apply_moment == ApplyMoments.BEFORE_GET_ATTACKED:
+func apply_token_effect(should_be_spent := true):
+	if should_be_spent and (
+			apply_moment == ApplyMoments.ON_ATTACKING 
+			or apply_moment == ApplyMoments.ON_GET_ATTACKED 
+			or apply_moment == ApplyMoments.BEFORE_GET_ATTACKED
+		):
 		lifetime_turns = 0
 	
 	match type:
@@ -105,6 +109,7 @@ func apply_token_effect():
 			print_debug("Healed!")
 		Types.STIM:
 			owner.action_value = owner.stats.max_damage
+			owner.is_stimed = true
 			print_debug("Stimulated!")
 		Types.REACHLESS:
 			pass # TODO

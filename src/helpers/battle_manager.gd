@@ -158,6 +158,10 @@ func set_target_and_action(index: int):
 		current_action_type = Battler.ActionTypes.ATTACK if target_battler_index in _get_player_indexes() else Battler.ActionTypes.ALLY
 
 
+func get_current_battler() -> Battler:
+	return battle_scene.battlers[current_battler_index]
+
+
 func _proceed_end_battle():
 	for b in battle_scene.battlers:
 		b.selection.hide()

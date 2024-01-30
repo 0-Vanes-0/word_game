@@ -4,6 +4,8 @@ extends CenterContainer
 signal to_proceed_turn(spell: Spell)
 
 @export var _battle_scene: BattleScene
+@export_group("Children")
+@export var _status_label: RichTextLabel
 @export var _spell_label: Label
 @export var _reset_spell_button: TextureButton
 @export var _rune_buttons: HBoxContainer
@@ -46,13 +48,66 @@ func _ready() -> void:
 	_spell_label.text = ""
 
 
-func set_proceed_button_pressable(is_pressable: bool):
-	_proceed_button.set_pressable(is_pressable)
+func on_battler_clicked(battler: Battler):
+	var current_battler := _battle_scene.battle_manager.get_current_battler()
+	current_battler.action_value = 0
+	current_battler.damage_modifier = 0
+	current_battler.is_stimed = false
+	current_battler.miss_chance = 0
+	var target_battler := battler
+	target_battler.defense_modifier = 0
+	target_battler.mirror_modifier = 0
+	target_battler.dodge_chance = 0
+	target_battler.mirror_modifier = 0
+	var action_type := _battle_scene.battle_manager.current_action_type
+	if action_type == Battler.ActionTypes.ATTACK:
+		current_battler.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING, false)
+		current_battler.apply_tokens(Token.ApplyMoments.ON_ATTACKING, false)
+		if current_battler.index != target_battler.index:
+			target_battler.apply_tokens(Token.ApplyMoments.BEFORE_GET_ATTACKED, false)
+			target_battler.apply_tokens(Token.ApplyMoments.ON_GET_ATTACKED, false)
+	
+	
+	_status_label.text = (
+		"[center]"
+		+ current_battler.stats.battler_name
+		+ "\n"
+		+ "Действие: " + current_battler.stats.get_action_name(action_type)
+		+ "\n"
+		+ "Шанс действия: " + str( roundi(current_battler.calc_hit_chance(target_battler) * 100.0) ) + "%"
+		+ (
+			(
+				"\nУрон: " +
+				(
+					str( roundi(current_battler.calc_damage_value(current_battler.stats.max_damage, target_battler)) )
+					if current_battler.is_stimed
+					else 
+					(
+						str( roundi(current_battler.calc_damage_value(current_battler.stats.get_min_damage(), target_battler)) )
+						+ "-"
+						+ str( roundi(current_battler.calc_damage_value(current_battler.stats.max_damage, target_battler)) )
+					)
+				)
+			)
+			if action_type == Battler.ActionTypes.ATTACK
+			else ""
+		)
+		+ "[/center]"
+	)
+	if _status_label.modulate.a == 0.0:
+		create_tween().tween_property(
+				_status_label, "modulate:a",
+				1.0,
+				0.25
+		)
+	
+	_proceed_button.set_pressable(true)
 
 
 func appear(current_battler: Battler):
 	_spell_label.text = ""
 	_runes.clear()
+	_status_label.modulate.a = 0.0
 	
 	var player_stats := current_battler.stats as PlayerBattlerStats
 	var battler_runes: Array[Rune] = player_stats.runes

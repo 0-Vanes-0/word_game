@@ -11,6 +11,7 @@ signal proceed_turn_ended
 @export var turn_manager: TurnManager
 @export var handbook_button: IconButton
 @export var hud_manager: BattleHUDManager
+@export var wtf_label: RichTextLabel
 @export var battler_info: BattlerInfoContainer
 @export var preview_color_rect: ColorRect
 @export var handbook: Handbook
@@ -29,7 +30,7 @@ func _ready() -> void:
 	assert(hud_manager and battlers_node and black_screen and effect_sprite and battle_animator 
 			and battler_info and battle_manager and victory_defeat_container
 			and back_button and handbook_button and handbook and turn_manager 
-			and preview_color_rect)
+			and preview_color_rect and wtf_label)
 	
 	if Global.settings.get("AUDIO").get("MUSIC") == true:
 		SoundManager.play_music(Preloader.battle_musics.pick_random())
@@ -130,7 +131,7 @@ func _on_battler_clicked(battler: Battler):
 	else:
 		battler.selection_hover.show()
 	
-	hud_manager.set_proceed_button_pressable(true)
+	hud_manager.on_battler_clicked(battler)
 	current_battler.anim_prepare(battle_manager.current_action_type)
 
 
@@ -199,19 +200,31 @@ func get_alive_enemies() -> Array[Battler]:
 
 
 func show_all_hud():
-	$CanvasLayer/Control.show()
+	$CanvasLayer/Control/VBox.show()
 	var tween := create_tween()
 	tween.tween_property(
-			$CanvasLayer/Control, "modulate:a",
+			$CanvasLayer/Control/VBox, "modulate:a",
 			1.0,
 			0.25
 	)
 
 
 func hide_all_hud():
-	$CanvasLayer/Control.hide()
-	$CanvasLayer/Control.modulate.a = 0.0
+	$CanvasLayer/Control/VBox.hide()
+	$CanvasLayer/Control/VBox.modulate.a = 0.0
 	hud_manager.disappear()
+
+
+func show_wtf_label(text: String, time: float):
+	wtf_label.text = "\n\n[center]" + text + "[/center]"
+	wtf_label.modulate.a = 1.0
+	var tween := create_tween()
+	tween.tween_interval(time)
+	tween.tween_property(
+			wtf_label, "modulate:a",
+			0.0,
+			0.5
+	)
 
 
 func _notification(what: int) -> void:

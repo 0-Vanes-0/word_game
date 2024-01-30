@@ -5,6 +5,7 @@ signal health_changed(value: int, delta: int)
 signal health_depleted
 
 @export var icon: Texture2D
+@export var battler_name: String
 @export var base_min_initiative: int
 @export var base_max_initiative: int
 @export var base_health: int
@@ -13,7 +14,9 @@ signal health_depleted
 @export var base_ally_action_value: int
 @export var is_attack_action_group: bool
 @export var is_ally_action_group: bool
+@export var foe_action_name: String
 @export_multiline var foe_action_text: String
+@export var ally_action_name: String
 @export_multiline var ally_action_text: String
 @export var base_resist_array: Array[Resist]
 
@@ -76,14 +79,14 @@ func get_min_damage() -> int:
 
 
 func get_foe_action_text_as_label() -> RichTextLabel:
-	var text := String(foe_action_text)
+	var text := String(foe_action_name) + ": " + String(foe_action_text)
 	var label := _get_label_with_info(text)
 	label.name = "FoeActionLabel"
 	return label
 
 
 func get_ally_action_text_as_label() -> RichTextLabel:
-	var text := String(ally_action_text)
+	var text := String(ally_action_name) + ": " + String(ally_action_text)
 	var label := _get_label_with_info(text)
 	label.name = "AllyActionLabel"
 	return label
@@ -132,3 +135,10 @@ func _get_label_with_info(text: String) -> RichTextLabel:
 		label.callv(function, c.get(function))
 	
 	return label
+
+
+func get_action_name(action_type: Battler.ActionTypes) -> String:
+	if action_type == Battler.ActionTypes.ATTACK:
+		return "[color=#" + Global.TargetColors.FOE_BATTLER.to_html(false) + "]" + foe_action_name + "[/color]"
+	else:
+		return "[color=#" + Global.TargetColors.ALLY_BATTLER.to_html(false) + "]" + ally_action_name + "[/color]"

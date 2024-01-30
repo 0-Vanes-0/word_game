@@ -47,6 +47,7 @@ var miss_chance: int = 0
 var pre_damage: int = 0
 var pre_heal: int = 0
 var stun_turns: int = 0
+var is_stimed := false
 
 var sprite: AnimatedSprite2D
 var selection_hover: Sprite2D
@@ -170,13 +171,10 @@ func set_area_inputable(is_inputable: bool):
 func do_attack_action(target_battler: Battler, target_group: Array[Battler] = [], is_first_call := true): # TODO: bad code -> both target_battler and target_group :/
 	action_value = int(stats.generate_damage_value())
 	damage_modifier = 0
+	is_stimed = false
 	miss_chance = 0
 	
-	var applied_types: Array[Token.Types] = []
-	for t in tokens:
-		if t.apply_moment == Token.ApplyMoments.ON_ATTACKING and not applied_types.has(t.type):
-			applied_types.append(t.type)
-			t.apply_token_effect()
+	self.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING)
 	
 	if target_group.is_empty():
 		_perform_attack(target_battler, is_first_call)
@@ -201,27 +199,28 @@ func _perform_attack(target_battler: Battler, is_first_call: bool):
 	target_battler.mirror_modifier = 0
 	target_battler.dodge_chance = 0
 	
-	var applied_types: Array[Token.Types] = []
-	
-	for t in target_battler.tokens:
-		if t.apply_moment == Token.ApplyMoments.BEFORE_GET_ATTACKED and not applied_types.has(t.type):
-			applied_types.append(t.type)
-			t.apply_token_effect()
-	var is_avoid := randf() < 1.0 - (1.0 - miss_chance / 100.0) * (1.0 - target_battler.dodge_chance / 100.0)
+	target_battler.apply_tokens(Token.ApplyMoments.BEFORE_GET_ATTACKED)
+	var is_avoid := randf() < 1.0 - calc_hit_chance(target_battler)
 	
 	if is_avoid:
 		target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРОМАХ"))
 	else:
-		for t in target_battler.tokens:
-			if t.apply_moment == Token.ApplyMoments.ON_GET_ATTACKED and not applied_types.has(t.type):
-				applied_types.append(t.type)
-				t.apply_token_effect()
-		var result := roundi( action_value * (1 + damage_modifier / 100.0 - target_battler.defense_modifier / 100.0) )
+		self.apply_tokens(Token.ApplyMoments.ON_ATTACKING)
+		target_battler.apply_tokens(Token.ApplyMoments.ON_GET_ATTACKED)
+		var result := calc_damage_value(action_value, target_battler)
 		target_battler.stats.adjust_health(- result)
 	
 		if target_battler.mirror_modifier > 0:
 			await get_tree().create_timer(0.25).timeout
 			self.stats.adjust_health(- ceili(result * target_battler.mirror_modifier / 100.0) )
+
+
+func calc_damage_value(value: int, target_battler: Battler) -> int:
+	return roundi( value * (1 + damage_modifier / 100.0 - target_battler.defense_modifier / 100.0) )
+
+
+func calc_hit_chance(target_battler: Battler) -> float:
+	return (1.0 - miss_chance / 100.0) * (1.0 - target_battler.dodge_chance / 100.0)
 
 
 func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []): # TODO: bad code -> both target_battler and target_group :/
@@ -293,6 +292,14 @@ func add_token(token_type: Token.Types, amount: int = 1):
 	for i in to_add:
 		var token := Token.create(token_type, self)
 		tokens.append(token)
+
+
+func apply_tokens(for_what_moment: Token.ApplyMoments, should_be_spent := true):
+	var applied_types: Array[Token.Types] = []
+	for t in tokens:
+		if t.apply_moment == for_what_moment and not applied_types.has(t.type):
+			applied_types.append(t.type)
+			t.apply_token_effect(should_be_spent)
 
 
 func update_token_labels():

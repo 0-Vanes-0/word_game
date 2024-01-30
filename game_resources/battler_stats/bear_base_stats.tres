@@ -1,13 +1,14 @@
 [gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://7odoo3ujxvoy"]
 
-[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="1_1jmey"]
-[ext_resource type="Texture2D" uid="uid://4ov1hws8bqyb" path="res://assets/sprites/avas/con31.png" id="1_ujh5y"]
+[ext_resource type="Texture2D" uid="uid://4ov1hws8bqyb" path="res://assets/sprites/avas/con31.png" id="1_f33o3"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_88wjd"]
 
 [resource]
-script = ExtResource("1_1jmey")
+script = ExtResource("2_88wjd")
 base_reward = 20
 reward_loss = 2
-icon = ExtResource("1_ujh5y")
+icon = ExtResource("1_f33o3")
+battler_name = "Медвед"
 base_min_initiative = 5
 base_max_initiative = 7
 base_health = 100
@@ -16,6 +17,8 @@ base_max_damage = 25
 base_ally_action_value = 2
 is_attack_action_group = false
 is_ally_action_group = false
+foe_action_name = "Мощный Превед"
 foe_action_text = "Наносит $dmg урона одной цели"
+ally_action_name = "Медвежья услуга"
 ally_action_text = "-"
 base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])

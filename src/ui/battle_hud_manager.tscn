@@ -12,32 +12,53 @@
 [ext_resource type="Texture2D" uid="uid://sx0kxmc42bug" path="res://assets/sprites/ui/icons/check_mark_yellow.png" id="11_pgt1s"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
-[node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_spell_label", "_reset_spell_button", "_rune_buttons", "_proceed_button")]
+[node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_status_label", "_spell_label", "_reset_spell_button", "_rune_buttons", "_proceed_button")]
+offset_right = 880.0
+offset_bottom = 240.0
 theme = ExtResource("1_gqh4m")
 script = ExtResource("1_r71ia")
-_spell_label = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/PaperRect/MarginContainer/SpellLabel")
-_reset_spell_button = NodePath("HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton")
-_rune_buttons = NodePath("HBoxContainer/VBoxContainer/RunesGrid")
+_status_label = NodePath("HBoxContainer/StatusVBox/StatusLabel")
+_spell_label = NodePath("HBoxContainer/SpellVBox/SpellHBox/PaperRect/MarginContainer/SpellLabel")
+_reset_spell_button = NodePath("HBoxContainer/SpellVBox/SpellHBox/ResetSpellButton")
+_rune_buttons = NodePath("HBoxContainer/SpellVBox/RunesGrid")
 _proceed_button = NodePath("HBoxContainer/ProceedButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(400, 180)
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 32
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="StatusVBox" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="StatusLabel" type="RichTextLabel" parent="HBoxContainer/StatusVBox"]
+custom_minimum_size = Vector2(300, 132)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.952941, 0.854902, 0.521569, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+bbcode_enabled = true
+text = "[center]Имя бойца
+Действие: [color=cornflower_blue]Защита[/color]
+Чота-чота-чота-чота-чота-чота-чота-чота-чота
+Шанс действия: 100%
+[/center]"
+scroll_active = false
+
+[node name="SpellVBox" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="SpellHBox" type="HBoxContainer" parent="HBoxContainer/SpellVBox"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="PaperRect" parent="HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_i8csu")]
+[node name="PaperRect" parent="HBoxContainer/SpellVBox/SpellHBox" instance=ExtResource("3_i8csu")]
 custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/PaperRect"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SpellVBox/SpellHBox/PaperRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -49,7 +70,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 18
 theme_override_constants/margin_bottom = 10
 
-[node name="SpellLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer/PaperRect/MarginContainer"]
+[node name="SpellLabel" type="Label" parent="HBoxContainer/SpellVBox/SpellHBox/PaperRect/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -57,14 +78,14 @@ text = "1234567890123456789012345"
 vertical_alignment = 1
 clip_text = true
 
-[node name="ResetSpellButton" type="TextureButton" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ResetSpellButton" type="TextureButton" parent="HBoxContainer/SpellVBox/SpellHBox"]
 custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 texture_normal = ExtResource("5_qw2h8")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="ButtonBackground" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
+[node name="ButtonBackground" type="TextureRect" parent="HBoxContainer/SpellVBox/SpellHBox/ResetSpellButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,7 +95,7 @@ grow_vertical = 2
 texture = ExtResource("4_0rgqq")
 stretch_mode = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/SpellVBox/SpellHBox/ResetSpellButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,28 +107,28 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ResetIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/ResetSpellButton/MarginContainer"]
+[node name="ResetIcon" type="TextureRect" parent="HBoxContainer/SpellVBox/SpellHBox/ResetSpellButton/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("6_4rak5")
 stretch_mode = 4
 
-[node name="RunesGrid" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="RunesGrid" type="HBoxContainer" parent="HBoxContainer/SpellVBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="RuneButton" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+[node name="RuneButton" parent="HBoxContainer/SpellVBox/RunesGrid" instance=ExtResource("7_v8cwb")]
 layout_mode = 2
 
-[node name="RuneButton2" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+[node name="RuneButton2" parent="HBoxContainer/SpellVBox/RunesGrid" instance=ExtResource("7_v8cwb")]
 layout_mode = 2
 
-[node name="RuneButton3" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+[node name="RuneButton3" parent="HBoxContainer/SpellVBox/RunesGrid" instance=ExtResource("7_v8cwb")]
 visible = false
 layout_mode = 2
 
-[node name="RuneButton4" parent="HBoxContainer/VBoxContainer/RunesGrid" instance=ExtResource("7_v8cwb")]
+[node name="RuneButton4" parent="HBoxContainer/SpellVBox/RunesGrid" instance=ExtResource("7_v8cwb")]
 visible = false
 layout_mode = 2
 

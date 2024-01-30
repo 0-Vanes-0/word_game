@@ -16,7 +16,6 @@ const AVA_MOVE_TIME := 0.25
 @export_group("Children")
 @export var _ava_template: TextureRect
 @export var _label_template: Label
-@export var _wtf_label: Label
 
 var _battler_queue: Array[Battler] = []
 var _avas: Array[TextureRect] = []
@@ -24,7 +23,7 @@ var _labels: Array[Label] = []
 
 
 func _ready() -> void:
-	assert(_battle_scene and _ava_template and _label_template and _wtf_label)
+	assert(_battle_scene and _ava_template and _label_template)
 
 
 func setup():
@@ -51,6 +50,7 @@ func setup():
 	_battler_queue.resize(10)
 	var size := int(battlers.size())
 	
+	_battle_scene.show_wtf_label("Распределение по скорости", PREVIEW_TIME)
 	await get_tree().create_timer(PREVIEW_TIME).timeout
 	$Avas.z_index = 0
 	for i in size:
@@ -71,11 +71,6 @@ func setup():
 		
 		await get_tree().create_timer(0.15).timeout
 	
-	create_tween().tween_property(
-			_wtf_label, "modulate:a",
-			0.0,
-			1.0
-	)
 	queue_ready.emit()
 
 

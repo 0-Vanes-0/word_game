@@ -1,13 +1,14 @@
 [gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://coausqeuq5nxy"]
 
-[ext_resource type="Texture2D" uid="uid://bw03lb6mbio7b" path="res://assets/sprites/avas/con26.png" id="1_3gopb"]
-[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_2wb6o"]
+[ext_resource type="Texture2D" uid="uid://bw03lb6mbio7b" path="res://assets/sprites/avas/con26.png" id="1_xq1iw"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_bhiad"]
 
 [resource]
-script = ExtResource("2_2wb6o")
+script = ExtResource("2_bhiad")
 base_reward = 15
 reward_loss = 1
-icon = ExtResource("1_3gopb")
+icon = ExtResource("1_xq1iw")
+battler_name = "Бесюка"
 base_min_initiative = 7
 base_max_initiative = 9
 base_health = 30
@@ -16,6 +17,8 @@ base_max_damage = 30
 base_ally_action_value = 0
 is_attack_action_group = false
 is_ally_action_group = false
+foe_action_name = "Бесячий огонь"
 foe_action_text = "Наносит $dmg урона одной цели"
+ally_action_name = ""
 ally_action_text = "-"
 base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])

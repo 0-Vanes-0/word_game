@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cadmoqo0jqjmq" path="res://src/ui/icon_label.tscn" id="6_tu6at"]
 [ext_resource type="Texture2D" uid="uid://bxh1wkxum6b0v" path="res://assets/sprites/ui/icons/speed_yellow.png" id="7_yrxux"]
 
-[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("ava", "health_bar", "health_label", "coins_label", "speed_icon", "speed_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label", "resists_vbox", "resists_grid")]
+[node name="BattlerInfoContainer" type="MarginContainer" node_paths=PackedStringArray("name_label", "ava", "health_bar", "health_label", "coins_label", "speed_icon", "speed_label", "foe_action_icon", "foe_action_label", "ally_action_icon", "ally_action_label", "resists_vbox", "resists_grid")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -24,6 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_10rvu")
 script = ExtResource("2_vsbf0")
+name_label = NodePath("MarginContainer/VBox/NameLabel")
 ava = NodePath("MarginContainer/VBox/Ava+HealthHBox/Ava")
 health_bar = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/HealthBar")
 health_label = NodePath("MarginContainer/VBox/Ava+HealthHBox/HealthVBox/HealthLabel")
@@ -51,6 +52,11 @@ theme_override_constants/margin_bottom = 24
 layout_mode = 2
 theme_override_constants/separation = 20
 
+[node name="NameLabel" type="Label" parent="MarginContainer/VBox"]
+layout_mode = 2
+text = "Рыцарь"
+horizontal_alignment = 1
+
 [node name="Ava+HealthHBox" type="HBoxContainer" parent="MarginContainer/VBox"]
 layout_mode = 2
 
@@ -64,6 +70,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
 [node name="HealthBar" parent="MarginContainer/VBox/Ava+HealthHBox/HealthVBox" instance=ExtResource("4_labw7")]
+custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 size_flags_vertical = 4
 color_from_editor = 1
@@ -78,7 +85,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="FoeAllyGrid" type="GridContainer" parent="MarginContainer/VBox"]
-custom_minimum_size = Vector2(272, 0)
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 theme_override_constants/h_separation = 10
 columns = 2
