@@ -73,11 +73,11 @@ func animate_turn(target_group: Array[Battler] = []):
 		b.selection.hide()
 		b.selection_hover.hide()
 	
-	current_battler.anim_action(current_action_type)
+	current_battler.anim_handler.anim_action(current_action_type)
 	if current_battler_index != target_battler_indexes[0]:
 		for b in target_battlers:
 			if b.is_alive:
-				b.anim_reaction(current_action_type)
+				b.anim_handler.anim_reaction(current_action_type)
 			b.move_to_front()
 			b.scale *= 2.0
 	
@@ -147,7 +147,7 @@ func animate_turn(target_group: Array[Battler] = []):
 			func():
 				current_battler.sprite.offset = current_battler_offset
 				if current_battler.is_alive:
-					current_battler.anim_idle()
+					current_battler.anim_handler.anim_idle()
 					current_battler.health_bar.show()
 					current_battler.tokens_container.show()
 	)
@@ -168,7 +168,7 @@ func animate_turn(target_group: Array[Battler] = []):
 					func():
 						target_battlers[i].sprite.offset = target_battler_offsets[i]
 						if target_battlers[i].is_alive:
-							target_battlers[i].anim_idle()
+							target_battlers[i].anim_handler.anim_idle()
 							target_battlers[i].health_bar.show()
 							target_battlers[i].tokens_container.show()
 			)
@@ -216,7 +216,7 @@ func animate_enemy_prepare(target_group: Array[Battler] = []):
 					b.selection.modulate = Global.TargetColors.FOE_BATTLER
 					b.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
 				
-				current_battler.anim_prepare(Battler.ActionTypes.ATTACK)
+				current_battler.anim_handler.anim_prepare(Battler.ActionTypes.ATTACK)
 	)
 	_tween.tween_interval(1.0)
 	
@@ -228,7 +228,7 @@ func animate_enemy_prepare(target_group: Array[Battler] = []):
 func animate_battle_end(is_victory: bool):
 	var battlers := battle_scene.get_alive_players() if is_victory else battle_scene.get_alive_enemies()
 	for b in battlers:
-		b.anim_reaction(Battler.ActionTypes.ALLY)
+		b.anim_handler.anim_reaction(Battler.ActionTypes.ALLY)
 	
 	battle_scene.victory_defeat_container.modulate.a = 0.0
 	_tween = _new_tween()

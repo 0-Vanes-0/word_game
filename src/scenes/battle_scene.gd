@@ -132,7 +132,7 @@ func _on_battler_clicked(battler: Battler):
 		battler.selection_hover.show()
 	
 	hud_manager.on_battler_clicked(battler)
-	current_battler.anim_prepare(battle_manager.current_action_type)
+	current_battler.anim_handler.anim_prepare(battle_manager.current_action_type)
 
 
 func _update_coins_label():

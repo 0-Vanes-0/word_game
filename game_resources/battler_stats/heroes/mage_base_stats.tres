@@ -19,7 +19,7 @@ type = 0
 
 [resource]
 script = ExtResource("7_p5y81")
-runes = Array[ExtResource("5_n4gp6")]([ExtResource("3_61mmn"), ExtResource("4_vkmjq"), SubResource("Resource_jjsy4"), ExtResource("6_nx46c")])
+runes = [ExtResource("3_61mmn"), ExtResource("4_vkmjq"), SubResource("Resource_jjsy4"), ExtResource("6_nx46c")]
 health_up_per_level = 10
 damage_up_per_level = 1
 icon = ExtResource("2_pud63")
