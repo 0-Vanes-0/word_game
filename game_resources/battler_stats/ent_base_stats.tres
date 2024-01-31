@@ -20,5 +20,5 @@ is_ally_action_group = false
 foe_action_name = "Пропаганда вегана"
 foe_action_text = "Наносит $dmg урона всем целям"
 ally_action_name = ""
-ally_action_text = "-"
+ally_action_text = ""
 base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])

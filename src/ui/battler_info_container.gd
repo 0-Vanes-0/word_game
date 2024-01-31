@@ -55,19 +55,29 @@ func appear(stats: BattlerStats):
 			+ (("-" + str(stats.base_max_initiative)) if stats.base_min_initiative != stats.base_max_initiative else "")
 	)
 	
-	foe_action_label.queue_free()
-	foe_action_label = stats.get_foe_action_text_as_label()
-	foe_action_icon.add_sibling(foe_action_label)
-	foe_action_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	foe_action_label.fit_content = true
-	foe_action_label.scroll_active = false
+	if foe_action_label:
+		foe_action_label.queue_free()
+	if stats.foe_action_name.is_empty() or stats.foe_action_text.is_empty():
+		foe_action_icon.hide()
+	else:
+		foe_action_icon.show()
+		foe_action_label = stats.get_foe_action_text_as_label()
+		foe_action_icon.add_sibling(foe_action_label)
+		foe_action_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		foe_action_label.fit_content = true
+		foe_action_label.scroll_active = false
 	
-	ally_action_label.queue_free()
-	ally_action_label = stats.get_ally_action_text_as_label()
-	ally_action_icon.add_sibling(ally_action_label)
-	ally_action_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	ally_action_label.fit_content = true
-	ally_action_label.scroll_active = false
+	if ally_action_label:
+		ally_action_label.queue_free()
+	if stats.ally_action_name.is_empty() or stats.ally_action_text.is_empty():
+		ally_action_icon.hide()
+	else:
+		ally_action_icon.show()
+		ally_action_label = stats.get_ally_action_text_as_label()
+		ally_action_icon.add_sibling(ally_action_label)
+		ally_action_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		ally_action_label.fit_content = true
+		ally_action_label.scroll_active = false
 	
 	resists_vbox.hide()
 	for child in resists_grid.get_children():
