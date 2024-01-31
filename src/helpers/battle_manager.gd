@@ -129,13 +129,9 @@ func proceed_turn(spell: Spell = null):
 	if spell:
 		spell.apply_effects(current_action_type, target_battler, group)
 	
-	current_battler.token_handler.update_token_labels()
-	if current_battler_index != target_battler_index:
-		if group.is_empty():
-			target_battler.token_handler.update_token_labels()
-		else:
-			for b in group:
-				b.token_handler.update_token_labels()
+	for b in battle_scene.battlers:
+		if b.is_alive:
+			b.token_handler.update_token_labels()
 	
 	battle_animator.animate_turn(group)
 	await battle_animator.animate_turn_completed

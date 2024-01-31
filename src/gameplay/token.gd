@@ -88,6 +88,7 @@ func apply_token_effect(should_be_spent := true):
 			apply_moment == ApplyMoments.ON_ATTACKING 
 			or apply_moment == ApplyMoments.ON_GET_ATTACKED 
 			or apply_moment == ApplyMoments.BEFORE_GET_ATTACKED
+			or apply_moment == ApplyMoments.BEFORE_ATTACKING
 		):
 		lifetime_turns = 0
 	

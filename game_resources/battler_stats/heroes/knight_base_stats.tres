@@ -13,7 +13,7 @@ base_value = 80
 
 [resource]
 script = ExtResource("5_7yg8s")
-runes = [ExtResource("3_1fdcs"), ExtResource("4_p5ex4")]
+runes = Array[Resource("res://src/gameplay/rune.gd")]([ExtResource("3_1fdcs"), ExtResource("4_p5ex4")])
 health_up_per_level = 20
 damage_up_per_level = 3
 icon = ExtResource("2_a6f17")
