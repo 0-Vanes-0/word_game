@@ -9,5 +9,5 @@ type = 16
 apply_moment = 3
 icon_texture = ExtResource("1_m67sh")
 is_hidden = false
-base_lifetime_turns = 2
+base_lifetime_turns = 3
 max_amount = 3

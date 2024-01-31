@@ -235,23 +235,20 @@ func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
 	elif type == Types.HERO_MAGE:
 		action_value = int(target_battler.stats.max_health * (stats.ally_action_value / 100.0))
 		target_battler.stats.adjust_health(action_value)
-		target_battler.anim_value_label(Battler.ActionTypes.ALLY, str(action_value))
 
 
 func _on_health_changed(value: int, delta: int):
 	health_bar.set_bar_value(value)
-	if value > 0 and is_about_to_die:
-		anim_and_set_about_to_die(false)
-	
 	var action_type := (
 			Battler.ActionTypes.ATTACK if delta < 0
 			else Battler.ActionTypes.ALLY if delta > 0
 			else Battler.ActionTypes.NONE
 	)
-	if self.stats.health > 0 or delta == 0:
-		anim_value_label(action_type, str(delta))
-	else:
-		anim_value_label(action_type, str("СМЕРТЬ"))
+	if value > 0:
+		if is_about_to_die:
+			anim_and_set_about_to_die(false)
+		else:
+			anim_value_label(action_type, str(delta))
 
 
 func _on_health_depleted():
@@ -345,11 +342,9 @@ func check_tokens(for_what_moment: Token.ApplyMoments = Token.ApplyMoments.NONE)
 	
 	if pre_heal > 0:
 		stats.adjust_health(pre_heal)
-		anim_value_label(Battler.ActionTypes.ALLY, str(pre_heal))
 		await get_tree().create_timer(0.25).timeout
 	if pre_damage > 0:
 		stats.adjust_health(-pre_damage)
-		anim_value_label(Battler.ActionTypes.ATTACK, str(-pre_damage))
 	
 	for i in range(tokens.size()-1, -1, -1):
 		if tokens[i].is_need_delete():
