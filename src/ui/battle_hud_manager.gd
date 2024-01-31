@@ -61,11 +61,11 @@ func on_battler_clicked(battler: Battler):
 	target_battler.mirror_modifier = 0
 	var action_type := _battle_scene.battle_manager.current_action_type
 	if action_type == Battler.ActionTypes.ATTACK:
-		current_battler.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING, false)
-		current_battler.apply_tokens(Token.ApplyMoments.ON_ATTACKING, false)
+		current_battler.token_handler.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING, false)
+		current_battler.token_handler.apply_tokens(Token.ApplyMoments.ON_ATTACKING, false)
 		if current_battler.index != target_battler.index:
-			target_battler.apply_tokens(Token.ApplyMoments.BEFORE_GET_ATTACKED, false)
-			target_battler.apply_tokens(Token.ApplyMoments.ON_GET_ATTACKED, false)
+			target_battler.token_handler.apply_tokens(Token.ApplyMoments.BEFORE_GET_ATTACKED, false)
+			target_battler.token_handler.apply_tokens(Token.ApplyMoments.ON_GET_ATTACKED, false)
 	
 	
 	_status_label.text = (

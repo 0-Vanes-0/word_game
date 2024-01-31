@@ -34,7 +34,7 @@ func init_turn():
 	
 	var current_battler := battle_scene.battlers[current_battler_index]
 	
-	current_battler.check_tokens(Token.ApplyMoments.ON_TURN_START)
+	current_battler.token_handler.check_tokens(Token.ApplyMoments.ON_TURN_START)
 	if not current_battler.is_alive or current_battler.stun_turns > 0:
 		if current_battler.stun_turns > 0:
 			turn_manager.shift_battler(current_battler.stun_turns)
@@ -50,7 +50,7 @@ func init_turn():
 				
 				var taunters_indexes: Array[int] = []
 				for b in battle_scene.enemy_battlers:
-					if b.get_first_token(Token.Types.TAUNT) != null:
+					if b.token_handler.get_first_token(Token.Types.TAUNT) != null:
 						taunters_indexes.append(b.index)
 				
 				for b in battle_scene.battlers:
@@ -83,7 +83,7 @@ func init_turn():
 				# Some enemy AI stuff here
 				var taunter_index := -1
 				for b in battle_scene.get_alive_players():
-					if b.get_first_token(Token.Types.TAUNT) != null:
+					if b.token_handler.get_first_token(Token.Types.TAUNT) != null:
 						taunter_index = b.index
 				set_target_and_action(battle_scene.get_alive_players().pick_random().index if taunter_index == -1 else taunter_index)
 				var enemy_stats := current_battler.stats as EnemyBattlerStats
@@ -129,13 +129,13 @@ func proceed_turn(spell: Spell = null):
 	if spell:
 		spell.apply_effects(current_action_type, target_battler, group)
 	
-	current_battler.update_token_labels()
+	current_battler.token_handler.update_token_labels()
 	if current_battler_index != target_battler_index:
 		if group.is_empty():
-			target_battler.update_token_labels()
+			target_battler.token_handler.update_token_labels()
 		else:
 			for b in group:
-				b.update_token_labels()
+				b.token_handler.update_token_labels()
 	
 	battle_animator.animate_turn(group)
 	await battle_animator.animate_turn_completed

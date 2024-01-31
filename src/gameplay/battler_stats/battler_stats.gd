@@ -37,8 +37,6 @@ func _is_stats_valid() -> bool:
 			and base_health > 0 
 			and base_min_damage_fraction.x <= base_min_damage_fraction.y and base_min_damage_fraction >= Vector2.ZERO
 			and base_max_damage >= 0
-			and not foe_action_text.is_empty()
-			and not ally_action_text.is_empty()
 	)
 
 

@@ -56,6 +56,7 @@ var size_area: Area2D
 var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
 var tokens_container: VBoxContainer
+var token_handler: TokenHandler
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
@@ -72,6 +73,9 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 		self.stats.assign_level(Global.get_player_level(type))
 	
 	self.index = index
+	
+	token_handler = TokenHandler.new()
+	self.add_child(token_handler)
 	
 	sprite = AnimatedSprite2D.new()
 	sprite.sprite_frames = Battler.get_sprite_frames(type)
@@ -174,7 +178,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	is_stimed = false
 	miss_chance = 0
 	
-	self.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING)
+	self.token_handler.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING)
 	
 	if target_group.is_empty():
 		_perform_attack(target_battler, is_first_call)
@@ -186,12 +190,12 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 		await get_tree().create_timer(0.25).timeout
 		do_attack_action(target_battler, [], false)
 	else:
-		check_tokens()
+		self.token_handler.check_tokens()
 		if target_group.is_empty():
-			target_battler.check_tokens()
+			target_battler.token_handler.check_tokens()
 		else:
 			for b in target_group:
-				b.check_tokens()
+				b.token_handler.check_tokens()
 
 
 func _perform_attack(target_battler: Battler, is_first_call: bool):
@@ -199,14 +203,14 @@ func _perform_attack(target_battler: Battler, is_first_call: bool):
 	target_battler.mirror_modifier = 0
 	target_battler.dodge_chance = 0
 	
-	target_battler.apply_tokens(Token.ApplyMoments.BEFORE_GET_ATTACKED)
+	target_battler.token_handler.apply_tokens(Token.ApplyMoments.BEFORE_GET_ATTACKED)
 	var is_avoid := randf() < 1.0 - calc_hit_chance(target_battler)
 	
 	if is_avoid:
 		target_battler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРОМАХ"))
 	else:
-		self.apply_tokens(Token.ApplyMoments.ON_ATTACKING)
-		target_battler.apply_tokens(Token.ApplyMoments.ON_GET_ATTACKED)
+		self.token_handler.apply_tokens(Token.ApplyMoments.ON_ATTACKING)
+		target_battler.token_handler.apply_tokens(Token.ApplyMoments.ON_GET_ATTACKED)
 		var result := calc_damage_value(action_value, target_battler)
 		target_battler.stats.adjust_health(- result)
 	
@@ -227,10 +231,10 @@ func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
 	action_value = 0
 	
 	if type == Types.HERO_KNIGHT:
-		target_battler.add_token(Token.Types.SHIELD, stats.ally_action_value)
+		target_battler.token_handler.add_token(Token.Types.SHIELD, stats.ally_action_value)
 	
 	elif type == Types.HERO_ROBBER:
-		target_battler.add_token(Token.Types.ATTACK, stats.ally_action_value)
+		target_battler.token_handler.add_token(Token.Types.ATTACK, stats.ally_action_value)
 	
 	elif type == Types.HERO_MAGE:
 		action_value = int(target_battler.stats.max_health * (stats.ally_action_value / 100.0))
@@ -271,93 +275,7 @@ func _on_health_depleted():
 
 
 #region Tokens
-func add_token(token_type: Token.Types, amount: int = 1):
-	if (token_type == Token.Types.LESS_DEATH_RESIST or token_type == Token.Types.MORE_DEATH_RESIST) and stats.get_deaths_door_resist() == null:
-		return
-	
-	var having_amount: int = 0
-	for t in tokens:
-		if t.type == token_type:
-			having_amount += 1
-	
-	var to_add: int
-	if Token.get_max_amount(token_type) == 0:
-		to_add = amount
-	else:
-		to_add = mini(Token.get_max_amount(token_type) - having_amount, amount)
-	
-	for i in to_add:
-		var token := Token.create(token_type, self)
-		tokens.append(token)
 
-
-func apply_tokens(for_what_moment: Token.ApplyMoments, should_be_spent := true):
-	var applied_types: Array[Token.Types] = []
-	for t in tokens:
-		if t.apply_moment == for_what_moment and not applied_types.has(t.type):
-			applied_types.append(t.type)
-			t.apply_token_effect(should_be_spent)
-
-
-func update_token_labels():
-	for t_label: TokenLabel in tokens_container.get_children():
-		tokens_container.remove_child(t_label) # For some reason we need this line, do not remove it
-		t_label.queue_free()
-	
-	for token in tokens:
-		if not token.is_hidden and token.lifetime_turns > 0:
-			var current_t_label: TokenLabel
-			var found_label: bool = false
-			for t_label: TokenLabel in tokens_container.get_children():
-				if t_label.token.type == token.type:
-					found_label = true
-					current_t_label = t_label
-					break
-			
-			if not found_label:
-				current_t_label = TokenLabel.create()
-				current_t_label.token = token
-				current_t_label.amount = 1
-				current_t_label.duration = token.lifetime_turns
-				tokens_container.add_child(current_t_label)
-				current_t_label.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-			else:
-				current_t_label.amount += 1
-				current_t_label.duration = max(token.lifetime_turns, current_t_label.duration)
-	
-	for t_label: TokenLabel in tokens_container.get_children():
-		t_label.update_info()
-
-
-func check_tokens(for_what_moment: Token.ApplyMoments = Token.ApplyMoments.NONE):
-	pre_damage = 0
-	pre_heal = 0
-	stun_turns = 0
-	
-	for t in tokens:
-		if t.apply_moment == for_what_moment:
-			t.apply_token_effect()
-		if for_what_moment == Token.ApplyMoments.ON_TURN_START:
-			t.adjust_turn_count()
-	
-	if pre_heal > 0:
-		stats.adjust_health(pre_heal)
-		await get_tree().create_timer(0.25).timeout
-	if pre_damage > 0:
-		stats.adjust_health(-pre_damage)
-	
-	for i in range(tokens.size()-1, -1, -1):
-		if tokens[i].is_need_delete():
-			tokens.remove_at(i)
-	
-	update_token_labels()
-
-
-func get_first_token(type: Token.Types) -> Token:
-	for t in tokens:
-		if t.type == type:
-			return t
-	return null
 #endregion
 
 
