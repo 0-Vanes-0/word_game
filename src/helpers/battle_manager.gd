@@ -80,25 +80,18 @@ func init_turn():
 					b.selection.hide()
 					b.selection_hover.hide()
 				
-				# Some enemy AI stuff here
-				var taunter_index := -1
-				for b in battle_scene.get_alive_players():
-					if b.token_handler.get_first_token(Token.Types.TAUNT) != null:
-						taunter_index = b.index
-				set_target_and_action(battle_scene.get_alive_players().pick_random().index if taunter_index == -1 else taunter_index)
-				var enemy_stats := current_battler.stats as EnemyBattlerStats
-				enemy_stats.reduce_reward()
-				coins_reduced.emit()
+				set_target_and_action(AI.pick_target(current_battler, battle_scene.battlers))
+				#coins_reduced.emit()
 				
 				var group: Array[Battler] = []
-				if enemy_stats.is_attack_action_group:
+				if current_battler.stats.is_attack_action_group:
 					group = battle_scene.get_alive_players()
 				
 				battle_animator.animate_enemy_prepare_completed.connect(
 						func():
 							proceed_turn()
 				, CONNECT_ONE_SHOT)
-				battle_animator.animate_enemy_prepare(group)
+				battle_animator.animate_enemy_prepare(Battler.ActionTypes.ATTACK, group)
 		
 		else:
 			_proceed_end_battle()
@@ -112,22 +105,26 @@ func proceed_turn(spell: Spell = null):
 	var target_battler := battle_scene.battlers[target_battler_index]
 	var group: Array[Battler] = []
 	
-	if current_action_type == Battler.ActionTypes.ATTACK:
-		if current_battler.stats.is_attack_action_group:
-			group = battle_scene.get_alive_enemies() if is_player_turn else battle_scene.get_alive_players()
-			current_battler.do_attack_action(target_battler, group)
-		else:
-			current_battler.do_attack_action(target_battler)
-			
-	elif current_action_type == Battler.ActionTypes.ALLY:
-		if current_battler.stats.is_ally_action_group:
-			group = battle_scene.player_battlers if is_player_turn else battle_scene.get_alive_enemies()
-			current_battler.do_ally_action(target_battler, group)
-		else:
-			current_battler.do_ally_action(target_battler)
+	if is_player_turn:
+		if current_action_type == Battler.ActionTypes.ATTACK:
+			if current_battler.stats.is_attack_action_group:
+				group = battle_scene.get_alive_enemies()
+				current_battler.do_attack_action(target_battler, group)
+			else:
+				current_battler.do_attack_action(target_battler)
+				
+		elif current_action_type == Battler.ActionTypes.ALLY:
+			if current_battler.stats.is_ally_action_group:
+				group = battle_scene.get_alive_players()
+				current_battler.do_ally_action(target_battler, group)
+			else:
+				current_battler.do_ally_action(target_battler)
+		
+		if spell:
+			spell.apply_effects(current_action_type, target_battler, group)
 	
-	if spell:
-		spell.apply_effects(current_action_type, target_battler, group)
+	else:
+		AI.do_action(current_battler, target_battler, group)
 	
 	for b in battle_scene.battlers:
 		if b.is_alive:
@@ -156,6 +153,10 @@ func set_target_and_action(index: int):
 
 func get_current_battler() -> Battler:
 	return battle_scene.battlers[current_battler_index]
+
+
+func get_target_battler() -> Battler:
+	return battle_scene.battlers[target_battler_index]
 
 
 func _proceed_end_battle():

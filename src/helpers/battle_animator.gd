@@ -193,9 +193,9 @@ func animate_turn(target_group: Array[Battler] = []):
 	animate_turn_completed.emit()
 
 
-func animate_enemy_prepare(target_group: Array[Battler] = []):
-	var current_battler: Battler = battle_scene.battlers[battle_manager.current_battler_index]
-	var one: Array[Battler] = [ battle_scene.battlers[battle_manager.target_battler_index] ]
+func animate_enemy_prepare(action_type: Battler.ActionTypes, target_group: Array[Battler] = []):
+	var current_battler: Battler = battle_manager.get_current_battler()
+	var one: Array[Battler] = [ battle_manager.get_target_battler() ]
 	var target_battlers: Array[Battler] = (
 			target_group if not target_group.is_empty()
 			else one
@@ -216,7 +216,7 @@ func animate_enemy_prepare(target_group: Array[Battler] = []):
 					b.selection.modulate = Global.TargetColors.FOE_BATTLER
 					b.selection_hover.modulate = Global.TargetColors.FOE_BATTLER
 				
-				current_battler.anim_handler.anim_prepare(Battler.ActionTypes.ATTACK)
+				current_battler.anim_handler.anim_prepare(action_type)
 	)
 	_tween.tween_interval(1.0)
 	
