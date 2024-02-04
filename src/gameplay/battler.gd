@@ -16,7 +16,7 @@ enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
 const HEROES: Array[Types] = [Types.HERO_KNIGHT, Types.HERO_ROBBER, Types.HERO_MAGE]
-const MOBS: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT]
+const ENEMIES: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT]
 
 var type: Types
 var stats: BattlerStats
@@ -250,9 +250,11 @@ func _on_health_changed(value: int, delta: int):
 func _on_health_depleted():
 	var deaths_door_resist := self.stats.get_deaths_door_resist()
 	if deaths_door_resist != null:
-		if not is_about_to_die or deaths_door_resist.try_to_resist():
-			anim_handler.anim_value_label(ActionTypes.ATTACK, str("СОПРОТИВЛЕНИЕ"))
+		if not is_about_to_die:
+			anim_handler.anim_value_label(ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 			anim_handler.anim_and_set_about_to_die(true)
+		elif deaths_door_resist.try_to_resist():
+			anim_handler.anim_value_label(ActionTypes.ATTACK, str("СОПРОТИВЛЕНИЕ"))
 			return
 	
 	anim_handler.anim_value_label(ActionTypes.ATTACK, str("СМЕРТЬ"))
@@ -333,7 +335,7 @@ static func _get_offset(type: Types) -> Vector2:
 static func _get_scale_x(type: Types) -> int:
 	if type in HEROES:
 		return 1
-	elif type in MOBS:
+	elif type in ENEMIES:
 		return -1
 	else:
 		assert(false, "Wrong type: " + str(type))

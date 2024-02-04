@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=10 format=3 uid="uid://bhpntspmp1b5e"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=9 format=3 uid="uid://bhpntspmp1b5e"]
 
 [ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_lj0vr"]
 [ext_resource type="Texture2D" uid="uid://digotaoy3m3uw" path="res://assets/sprites/avas/con2.png" id="2_pud63"]
 [ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/rune_fire.tres" id="3_61mmn"]
 [ext_resource type="Resource" uid="uid://dqu5j8plewfet" path="res://game_resources/runes/rune_water.tres" id="4_vkmjq"]
-[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="5_n4gp6"]
+[ext_resource type="Resource" uid="uid://d7dbhtclco1q" path="res://game_resources/runes/rune_ice.tres" id="5_gc1gy"]
 [ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/rune_dark.tres" id="6_nx46c"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="7_p5y81"]
 
@@ -13,13 +13,9 @@ script = ExtResource("1_lj0vr")
 type = 1
 base_value = 60
 
-[sub_resource type="Resource" id="Resource_jjsy4"]
-script = ExtResource("5_n4gp6")
-type = 0
-
 [resource]
 script = ExtResource("7_p5y81")
-runes = Array[ExtResource("5_n4gp6")]([ExtResource("3_61mmn"), ExtResource("4_vkmjq"), SubResource("Resource_jjsy4"), ExtResource("6_nx46c")])
+runes = Array[Resource("res://src/gameplay/rune.gd")]([ExtResource("3_61mmn"), ExtResource("4_vkmjq"), ExtResource("5_gc1gy"), ExtResource("6_nx46c")])
 health_up_per_level = 10
 damage_up_per_level = 1
 icon = ExtResource("2_pud63")

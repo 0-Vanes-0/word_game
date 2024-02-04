@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=8 format=3 uid="uid://dvf258ty8bnm7"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=7 format=3 uid="uid://dvf258ty8bnm7"]
 
 [ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_iy8yc"]
 [ext_resource type="Texture2D" uid="uid://byqctj5057d22" path="res://assets/sprites/avas/con3.png" id="2_sljw5"]
 [ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/rune_tesla.tres" id="3_ouejy"]
-[ext_resource type="Script" path="res://src/gameplay/rune.gd" id="4_ap55k"]
+[ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/rune_explosion.tres" id="4_3icyl"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/player_battler_stats.gd" id="5_o02tt"]
 
 [sub_resource type="Resource" id="Resource_devme"]
@@ -11,13 +11,9 @@ script = ExtResource("1_iy8yc")
 type = 1
 base_value = 70
 
-[sub_resource type="Resource" id="Resource_01u22"]
-script = ExtResource("4_ap55k")
-type = 0
-
 [resource]
 script = ExtResource("5_o02tt")
-runes = Array[ExtResource("4_ap55k")]([ExtResource("3_ouejy"), SubResource("Resource_01u22")])
+runes = Array[Resource("res://src/gameplay/rune.gd")]([ExtResource("3_ouejy"), ExtResource("4_3icyl")])
 health_up_per_level = 15
 damage_up_per_level = 2
 icon = ExtResource("2_sljw5")
