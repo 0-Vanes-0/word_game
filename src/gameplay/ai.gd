@@ -5,40 +5,54 @@ extends Object
 static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) -> int:
 	assert(current_battler.type in Battler.ENEMIES)
 	var heroes: Array[Battler] = all_battlers.filter(func(b: Battler): return b.type in Battler.HEROES and b.is_alive)
-	var enemies: Array[Battler] = all_battlers.filter(func(b: Battler): return b.type in Battler.ENEMIES and b.is_alive)
+	var enemies: Array[Battler] = all_battlers.filter(func(b: Battler): return b.type in Battler.ENEMIES and b.is_alive and b.index != current_battler.index)
 	
 	match current_battler.type:
 		Battler.Types.ENEMY_GOBLIN:
 			# Strategy: Attack priority on hero with lowest hp
 			var chances: Array[int] = []
-			chances.resize(heroes.size())
 			
 			var lowest := _get_lowest_health(heroes)
 			for i in heroes.size():
 				if heroes[i].token_handler.get_first_token(Token.Types.TAUNT) != null:
 					return heroes[i].index
 				if heroes[i].stats.health == lowest:
-					chances[i] = 100
+					chances.append(100)
 				else:
-					chances[i] = 10
+					chances.append(10)
 			
 			return (RouletteWheel.spin(heroes, chances) as Battler).index
 		
 		Battler.Types.ENEMY_FIRE_IMP:
 			# Strategy: Attack priority on hero with highest hp
 			var chances: Array[int] = []
-			chances.resize(heroes.size())
 			
 			var highest := _get_highest_health(heroes)
 			for i in heroes.size():
 				if heroes[i].token_handler.get_first_token(Token.Types.TAUNT) != null:
 					return heroes[i].index
 				if heroes[i].stats.health == highest:
-					chances[i] = 100
+					chances.append(100)
 				else:
-					chances[i] = 10
+					chances.append(10)
 			
 			return (RouletteWheel.spin(heroes, chances) as Battler).index
+		
+		Battler.Types.ENEMY_BEAR:
+			# Strategy: Random attack and defends if someone has hp <50% and is without SHIELD
+			var chances: Array[int] = []
+			
+			for i in heroes.size():
+				chances.append(100)
+			for i in enemies.size():
+				if enemies[i].stats.health < enemies[i].stats.base_health * 0.5 and enemies[i].token_handler.get_first_token(Token.Types.SHIELD) == null:
+					chances.append(300)
+				else:
+					chances.append(10)
+			
+			print_debug(chances)
+			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
+			return (RouletteWheel.spin(all_alive, chances) as Battler).index
 		
 		_:
 			return (heroes.pick_random() as Battler).index
@@ -57,7 +71,8 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 	elif action_type == Battler.ActionTypes.ALLY:
 		match current_battler.type:
 			Battler.Types.ENEMY_BEAR:
-				pass
+				target_battler.token_handler.add_token(Token.Types.SHIELD, 2)
+				current_battler.token_handler.add_token(Token.Types.ANTISHIELD, 2)
 	
 	(current_battler.stats as EnemyBattlerStats).reduce_reward()
 

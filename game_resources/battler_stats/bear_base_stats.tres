@@ -20,5 +20,5 @@ is_ally_action_group = false
 foe_action_name = "Мощный Превед"
 foe_action_text = "Наносит $dmg урона одной цели"
 ally_action_name = "Медвежья услуга"
-ally_action_text = ""
+ally_action_text = "Накладывает 2$shield на цель и 2$antishield на себя."
 base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])

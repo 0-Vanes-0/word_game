@@ -76,9 +76,11 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+current_tab = 3
 tabs_visible = false
 
 [node name="BattlersTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
@@ -323,7 +325,11 @@ layout_mode = 2
 bbcode_enabled = true
 text = "[img=40x40]res://assets/sprites/magic_effects/icons/kill_all.png[/img]: Уменьшает [img=32x32]res://assets/sprites/ui/icons/scull_yellow.png[/img] врага на 10% 
 ИЛИ увеличивает [img=32x32]res://assets/sprites/ui/icons/scull_yellow.png[/img] союзника на 10%.
-[img=40x40]res://assets/sprites/magic_effects/icons/gypno.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/target_blue.png[/img] на себя при атаке врага ИЛИ накладывает [img=32x32]res://assets/sprites/ui/icons/target_blue.png[/img] на союзника."
+[img=40x40]res://assets/sprites/magic_effects/icons/gypno.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/target_blue.png[/img] на себя при атаке врага ИЛИ накладывает [img=32x32]res://assets/sprites/ui/icons/target_blue.png[/img] на союзника.
+[img=40x40]res://assets/sprites/magic_effects/icons/ice.png[/img]: Накладывает [img=32x32]res://assets/sprites/ui/icons/shield_blue.png[/img] на врага
+ИЛИ снимает 1 случайный тип негативного эффекта у союзника.
+[img=40x40]res://assets/sprites/magic_effects/icons/comet.png[/img]: Снимает 1 случайный тип позитивного эффекта у врага
+ИЛИ накладывает [img=32x32]res://assets/sprites/ui/icons/x_yellow.png[/img] на союзника."
 scroll_active = false
 
 [node name="LvlUpButton" type="TextureButton" parent="MarginContainer/VBoxContainer/TabContainer/RunesTab/RightPaperRect/HBox"]
@@ -338,7 +344,6 @@ texture_disabled = ExtResource("8_vsbps")
 stretch_mode = 5
 
 [node name="TokensTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
@@ -381,8 +386,9 @@ text = "[img=32x32]res://assets/sprites/ui/icons/sword_x2_yellow.png[/img]: Сл
 [img=32x32]res://assets/sprites/ui/icons/shield_yellow.png[/img]: Следующая атака по владельцу нанесёт -50% урона.
 [img=32x32]res://assets/sprites/ui/icons/dodge_yellow.png[/img]: Следующая атака по владельцу имеет шанс промаха 50%.
 [img=32x32]res://assets/sprites/ui/icons/power_yellow.png[/img]: Базовый урон следующей атаки владельца станет максимальным.
-[img=32x32]res://assets/sprites/ui/icons/spikes_yellow.png[/img]: Следующая атака по владельцу нанесёт ответный урон в размере 10%.
-[img=32x32]res://assets/sprites/ui/icons/plus_yellow.png[/img]: Исцеляет в начале хода владельца."
+[img=32x32]res://assets/sprites/ui/icons/spikes_yellow.png[/img]: Следующая атака по владельцу нанесёт ответный урон =10%.
+[img=32x32]res://assets/sprites/ui/icons/plus_yellow.png[/img]: Исцеляет в начале хода владельца.
+[img=32x32]res://assets/sprites/ui/icons/x_yellow.png[/img]: Владелец не может быть выбран как цель для атаки."
 scroll_active = false
 
 [node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/TokensTab" instance=ExtResource("1_5jyep")]
