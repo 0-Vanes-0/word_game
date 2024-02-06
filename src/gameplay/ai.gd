@@ -64,6 +64,7 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 	
 	if action_type == Battler.ActionTypes.ATTACK:
 		current_battler.do_attack_action(target_battler, target_group)
+		
 		match current_battler.type:
 			Battler.Types.ENEMY_FIRE_IMP:
 				target_battler.token_handler.add_token(Token.Types.FIRE, 2)

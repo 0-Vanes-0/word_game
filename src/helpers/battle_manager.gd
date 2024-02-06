@@ -109,21 +109,21 @@ func proceed_turn(spell: Spell = null):
 		if current_action_type == Battler.ActionTypes.ATTACK:
 			if current_battler.stats.is_attack_action_group:
 				group = battle_scene.get_alive_enemies()
-				current_battler.do_attack_action(target_battler, group)
-			else:
-				current_battler.do_attack_action(target_battler)
+			current_battler.do_attack_action(target_battler, group)
 				
 		elif current_action_type == Battler.ActionTypes.ALLY:
 			if current_battler.stats.is_ally_action_group:
 				group = battle_scene.get_alive_players()
-				current_battler.do_ally_action(target_battler, group)
-			else:
-				current_battler.do_ally_action(target_battler)
+			current_battler.do_ally_action(target_battler, group)
 		
 		if spell:
 			spell.apply_effects(current_action_type, target_battler, group)
 	
 	else:
+		if current_action_type == Battler.ActionTypes.ATTACK and current_battler.stats.is_attack_action_group:
+			group = battle_scene.get_alive_players()
+		elif current_action_type == Battler.ActionTypes.ALLY and current_battler.stats.is_ally_action_group:
+			group = battle_scene.get_alive_enemies()
 		AI.do_action(current_battler, target_battler, group)
 	
 	for b in battle_scene.battlers:

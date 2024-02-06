@@ -27,10 +27,11 @@ TODO:
 
 
 ISSUES:
-	Названия героев в GameScene и BattlerInfo
-	Числа хп в HealthBar (+ nasrtojka)
-	ПРОПИСАТЬ ИНИЦИАТИВУ + справочник (sdelat´ animaciju!!!!!!!!!!!!!!!!!!!!!)
 	
+	
+	[ЕСТЬ] Числа хп в HealthBar (+ nasrtojka)
+	[ЕСТЬ] Названия героев в GameScene и BattlerInfo
+	[ЕСТЬ] ПРОПИСАТЬ ИНИЦИАТИВУ + справочник (sdelat´ animaciju!!!!!!!!!!!!!!!!!!!!!)
 	[ЕСТЬ] Добавить + и - на action_label
 	[ЕСТЬ] Написать, что эффекты убираются
 	[ЕСТЬ] После notification back не киллять приложение

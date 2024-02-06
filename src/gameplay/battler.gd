@@ -253,6 +253,7 @@ func _on_health_depleted():
 		if not is_about_to_die:
 			anim_handler.anim_value_label(ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
 			anim_handler.anim_and_set_about_to_die(true)
+			return
 		elif deaths_door_resist.try_to_resist():
 			anim_handler.anim_value_label(ActionTypes.ATTACK, str("СОПРОТИВЛЕНИЕ"))
 			return
