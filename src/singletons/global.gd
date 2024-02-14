@@ -29,6 +29,7 @@ const DEFAULT_DATA := {
 	"last_hero_choice": [Battler.Types.HERO_MAGE, Battler.Types.HERO_ROBBER, Battler.Types.HERO_KNIGHT],
 	"last_enemy_level_reached": 1,
 	"total_coins": 0,
+	"enemy_level_stars": [0],
 }
 #endregion
 
@@ -106,6 +107,8 @@ func get_player_last_hero_choice() -> Array:
 
 func set_player_last_enemy_level_reached(value: int):
 	player_data["last_enemy_level_reached"] = value
+	(player_data["enemy_level_stars"] as Array).resize(value)
+	(player_data["enemy_level_stars"] as Array)[value-1] = 0
 	SaveLoad.save_data()
 func get_player_last_enemy_level_reached() -> int:
 	return player_data.get("last_enemy_level_reached") as int
@@ -115,6 +118,13 @@ func set_player_total_coins(value: int):
 	SaveLoad.save_data()
 func get_player_total_coins() -> int:
 	return player_data.get("total_coins") as int
+
+func set_player_enemy_level_stars(level: int, value: int):
+	assert(level <= get_player_last_enemy_level_reached() and 0 <= value and value <= 3)
+	(player_data["enemy_level_stars"] as Array)[level-1] = value
+	SaveLoad.save_data()
+func get_player_enemy_level_stars(level: int) -> int:
+	return (player_data["enemy_level_stars"] as Array)[level-1]
 #endregion
 
 #region FUNCIONS

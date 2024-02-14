@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://bup8vvxriikht" path="res://assets/sprites/ui/buttons/button_left_pressed.png" id="3_16s8j"]
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="3_nh548"]
 [ext_resource type="Texture2D" uid="uid://bvj1vkv5ale5v" path="res://assets/sprites/ui/icons/demon_yellow.png" id="4_62lq4"]
-[ext_resource type="Texture2D" uid="uid://cvu84qe72y0dj" path="res://assets/sprites/ui/icons/x_yellow.png" id="5_3pg2l"]
 [ext_resource type="Texture2D" uid="uid://bt0ouvy8e4ak0" path="res://assets/sprites/ui/icons/paper_yellow.png" id="5_pi103"]
 [ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="7_m7rvb"]
+[ext_resource type="Texture2D" uid="uid://4c436v4ll01o" path="res://assets/sprites/ui/x_button.png" id="7_p6vph"]
 [ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="8_vsbps"]
 
 [node name="Handbook" type="ColorRect" node_paths=PackedStringArray("tabbar", "tab_container", "hide_button")]
@@ -66,8 +66,10 @@ tab_3/title = "Эффекты "
 tab_3/icon = ExtResource("3_nh548")
 
 [node name="HideButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBox"]
+custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
-texture_normal = ExtResource("5_3pg2l")
+texture_normal = ExtResource("7_p6vph")
+stretch_mode = 5
 
 [node name="EmptyControl2" type="Control" parent="MarginContainer/VBoxContainer/HBox"]
 custom_minimum_size = Vector2(10, 0)

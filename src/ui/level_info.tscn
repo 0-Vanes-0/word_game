@@ -1,0 +1,119 @@
+[gd_scene load_steps=8 format=3 uid="uid://inw0r0oa3s83"]
+
+[ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_m5hyt"]
+[ext_resource type="Script" path="res://src/ui/level_info.gd" id="2_am48x"]
+[ext_resource type="PackedScene" uid="uid://dhxktvlnk4yef" path="res://src/ui/backgrounded_icon.tscn" id="2_q5v0y"]
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="3_pprh2"]
+[ext_resource type="Script" path="res://src/ui/icon_label.gd" id="4_a57vi"]
+[ext_resource type="Texture2D" uid="uid://4c436v4ll01o" path="res://assets/sprites/ui/x_button.png" id="4_cvfpt"]
+[ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="5_k3l7t"]
+
+[node name="LevelInfo" type="ColorRect" node_paths=PackedStringArray("close_button", "level_label", "enemies_icons", "coin_label", "play_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_pprh2")
+color = Color(0, 0, 0, 0.501961)
+script = ExtResource("2_am48x")
+close_button = NodePath("MarginContainer/CloseButton")
+level_label = NodePath("MarginContainer/MarginContainer/VBox/LevelLabel")
+enemies_icons = [NodePath("MarginContainer/MarginContainer/VBox/HBox/Enemy1"), NodePath("MarginContainer/MarginContainer/VBox/HBox/Enemy2"), NodePath("MarginContainer/MarginContainer/VBox/HBox/Enemy3")]
+coin_label = NodePath("MarginContainer/MarginContainer/VBox/HBox2/CoinLabel")
+play_button = NodePath("MarginContainer/MarginContainer/VBox/PlayButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(360, 270)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PaperRect" parent="MarginContainer" instance=ExtResource("1_m5hyt")]
+layout_mode = 2
+
+[node name="CloseButton" type="TextureButton" parent="MarginContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("4_cvfpt")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="LevelLabel" type="Label" parent="MarginContainer/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Уровень противников: 99"
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBox/HBox"]
+layout_mode = 2
+text = "Состав:"
+
+[node name="Enemy1" parent="MarginContainer/MarginContainer/VBox/HBox" instance=ExtResource("2_q5v0y")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Enemy2" parent="MarginContainer/MarginContainer/VBox/HBox" instance=ExtResource("2_q5v0y")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="Enemy3" parent="MarginContainer/MarginContainer/VBox/HBox" instance=ExtResource("2_q5v0y")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="HBox2" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBox/HBox2"]
+layout_mode = 2
+text = "Награда:"
+
+[node name="CoinLabel" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBox/HBox2"]
+layout_mode = 2
+theme = ExtResource("3_pprh2")
+theme_override_constants/separation = 2
+script = ExtResource("4_a57vi")
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/MarginContainer/VBox/HBox2/CoinLabel"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("5_k3l7t")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/VBox/HBox2/CoinLabel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "999"
+
+[node name="PlayButton" type="Button" parent="MarginContainer/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = " В бой! "

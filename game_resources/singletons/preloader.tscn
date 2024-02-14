@@ -1,9 +1,10 @@
-[gd_scene load_steps=68 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=71 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
 [ext_resource type="PackedScene" uid="uid://cjadhu3y22px2" path="res://src/scenes/battle_scene.tscn" id="3_mm2kd"]
 [ext_resource type="PackedScene" uid="uid://bd17qjyt657fn" path="res://src/scenes/http_test_scene.tscn" id="3_x778j"]
+[ext_resource type="PackedScene" uid="uid://sncq6xl7ntsu" path="res://src/scenes/level_scene.tscn" id="4_yt2dt"]
 [ext_resource type="Resource" uid="uid://coausqeuq5nxy" path="res://game_resources/battler_stats/fire_imp_base_stats.tres" id="5_1ed1q"]
 [ext_resource type="Resource" uid="uid://bx8m2l8lc15c4" path="res://game_resources/battler_stats/goblin_base_stats.tres" id="5_o2b78"]
 [ext_resource type="SpriteFrames" uid="uid://c71of80kg874k" path="res://game_resources/sprite_frames/sprite_frames_knight.tres" id="5_wh8vi"]
@@ -67,11 +68,14 @@
 [ext_resource type="Resource" uid="uid://b8l4lcic0fbpf" path="res://game_resources/tokens/token_taunt.tres" id="62_y63td"]
 [ext_resource type="Resource" uid="uid://cu18rcerp1tdk" path="res://game_resources/tokens/token_more_death_resist.tres" id="63_vioxd"]
 [ext_resource type="Resource" uid="uid://b5j3ydiia2s58" path="res://game_resources/tokens/token_less_death_resist.tres" id="64_m65uw"]
+[ext_resource type="PackedScene" uid="uid://co1wty0nrsnxw" path="res://src/ui/level_container.tscn" id="69_redp6"]
+[ext_resource type="PackedScene" uid="uid://byoci31hrw0pl" path="res://src/ui/level_page.tscn" id="70_hsjhf"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
 battle_scene = ExtResource("3_mm2kd")
 game_scene = ExtResource("2_mq5gj")
+level_scene = ExtResource("4_yt2dt")
 http_test_scene = ExtResource("3_x778j")
 stats_fire_imp = ExtResource("5_1ed1q")
 stats_goblin = ExtResource("5_o2b78")
@@ -136,3 +140,5 @@ token_less_death_resist = ExtResource("64_m65uw")
 default_theme = ExtResource("42_m5nwt")
 my_progress_bar = ExtResource("38_ly5rc")
 icon_label = ExtResource("42_v5dl2")
+level_container = ExtResource("69_redp6")
+level_page = ExtResource("70_hsjhf")

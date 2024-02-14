@@ -64,3 +64,10 @@ func has_coins(coins: int) -> bool:
 		return true
 	else:
 		return false
+
+
+func get_enemy_level(level: int) -> EnemyLevel:
+	for enemy_level in enemy_levels:
+		if enemy_level.level_number == level:
+			return enemy_level
+	return null

@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpxqftjda0jvt"]
+
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_e406r"]
+[ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_y7cbf"]
+[ext_resource type="Script" path="res://src/ui/settings.gd" id="2_2iu14"]
+
+[node name="Settings" type="ColorRect" node_paths=PackedStringArray("back_button", "music_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_e406r")
+color = Color(0, 0, 0, 0.501961)
+script = ExtResource("2_2iu14")
+back_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/BackButton")
+music_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/MusicHBox/MusicButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(480, 270)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PaperRect" parent="MarginContainer" instance=ExtResource("1_y7cbf")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = " Закрыть "
+
+[node name="MusicHBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Music" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/MusicHBox"]
+layout_mode = 2
+text = "Музыка"
+
+[node name="MusicButton" type="CheckButton" parent="MarginContainer/MarginContainer/VBoxContainer/MusicHBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 10
+flat = true

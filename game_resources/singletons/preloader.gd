@@ -3,6 +3,7 @@ extends Node
 @export_group("Game Screens")
 @export var battle_scene: PackedScene
 @export var game_scene: PackedScene
+@export var level_scene: PackedScene
 @export var http_test_scene: PackedScene
 
 @export_group("Battler Stats", "stats_")
@@ -83,10 +84,12 @@ var battle_musics: Array[AudioStreamOggVorbis]
 @export var default_theme: Theme
 @export var my_progress_bar: PackedScene
 @export var icon_label: PackedScene
+@export var level_container: PackedScene
+@export var level_page: PackedScene
 
 
 func _ready() -> void:
-	assert(game_scene and http_test_scene and battle_scene)
+	assert(game_scene and http_test_scene and battle_scene and level_scene)
 	assert(stats_goblin and stats_knight and stats_mage and stats_robber)
 	assert(sprite_frames_knight and sprite_frames_robber and sprite_frames_mage and sprite_frames_goblin)
 	assert(texture_selection and texture_selection_hover and texture_sword_yellow_icon
@@ -101,7 +104,7 @@ func _ready() -> void:
 	assert(token_fire and token_shield and token_antiattack and token_antishield and token_blind 
 			and token_dodge and token_heal_timed and token_less_death_resist and token_mirror 
 			and token_more_death_resist and token_reachless and token_stim and token_stun and token_taunt)
-	assert(default_theme and my_progress_bar and icon_label)
+	assert(default_theme and my_progress_bar and icon_label and level_container and level_page)
 	
 	game_scene_musics = [ audio_game_scene4, audio_game_scene5 ]
 	battle_musics = [ audio_battle1, audio_battle2, audio_battle3 ]

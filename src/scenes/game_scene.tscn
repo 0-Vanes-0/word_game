@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=79 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_atyqr"]
@@ -19,20 +19,20 @@
 [ext_resource type="Texture2D" uid="uid://dre5affij51vb" path="res://assets/sprites/characters/heroes/alchemist_sheet.png" id="16_7ipb1"]
 [ext_resource type="Texture2D" uid="uid://bectqbcyn2wxe" path="res://assets/sprites/characters/heroes/mage_sheet.png" id="17_rbfyy"]
 [ext_resource type="Texture2D" uid="uid://8el1hovmv4cy" path="res://assets/sprites/characters/heroes/mage_deah_sheet.png" id="18_gu5ja"]
+[ext_resource type="Texture2D" uid="uid://dufp54d3pskw1" path="res://assets/sprites/ui/icons/settings_big_yellow.png" id="23_i6ugr"]
 [ext_resource type="Texture2D" uid="uid://1ohas5oe66bb" path="res://assets/sprites/ui/icons/__yellow.png" id="26_6l6c7"]
+[ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="26_7gem3"]
+[ext_resource type="Script" path="res://src/ui/backgrounded_icon.gd" id="26_awvdd"]
+[ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="27_mdsfe"]
+[ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="29_gw7o5"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="30_uvo5x"]
+[ext_resource type="PackedScene" uid="uid://dpxqftjda0jvt" path="res://src/ui/settings.tscn" id="33_7hm1v"]
 [ext_resource type="PackedScene" uid="uid://bdcjxv73fliif" path="res://src/ui/changelog.tscn" id="33_lrfs7"]
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="55_3uxqc"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="56_tf52a"]
 [ext_resource type="Script" path="res://src/ui/icon_button.gd" id="57_yku2b"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="58_v3ta2"]
-[ext_resource type="Texture2D" uid="uid://c3hyp2ogjdm7v" path="res://assets/sprites/ui/buttons/button_left.png" id="59_ivlnq"]
-[ext_resource type="Texture2D" uid="uid://bup8vvxriikht" path="res://assets/sprites/ui/buttons/button_left_pressed.png" id="60_0xg2h"]
-[ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="61_vy3ki"]
-[ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="62_7xxvr"]
 [ext_resource type="PackedScene" uid="uid://8bkg2bxphf0g" path="res://src/ui/handbook.tscn" id="64_ke84h"]
-[ext_resource type="Texture2D" uid="uid://clpgf1rr00spa" path="res://assets/sprites/ui/buttons/buttons1.png" id="65_3xbw5"]
-[ext_resource type="Texture2D" uid="uid://cje7yjrfl70hf" path="res://assets/sprites/ui/buttons/buttons1_yellow.png" id="66_520ka"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v008f"]
 atlas = ExtResource("12_xc6fn")
@@ -615,36 +615,18 @@ separate_offsets = {
 "hurt": Vector2(4, -24)
 }
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q1pin"]
-texture = ExtResource("65_3xbw5")
-texture_margin_left = 10.0
-texture_margin_top = 5.0
-texture_margin_right = 10.0
-texture_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jvul1"]
-texture = ExtResource("66_520ka")
-texture_margin_left = 10.0
-texture_margin_top = 5.0
-texture_margin_right = 10.0
-texture_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owynw"]
-
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("version_label", "changelog", "music_button", "level_up_container", "op_button1", "op_button2", "op_button3", "handbook_button", "handbook", "enemy_level_label", "enemy_level_up_button", "enemy_level_down_button")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("settings_button", "handbook_button", "version_label", "hero_grid_container", "upgrade_button", "play_button", "level_up_container", "handbook", "changelog", "settings")]
 script = ExtResource("1_ypskv")
+settings_button = NodePath("CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton")
+handbook_button = NodePath("CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton")
 version_label = NodePath("CanvasLayer/Control/VersionLabel")
-changelog = NodePath("CanvasLayer/Control/Changelog")
-music_button = NodePath("CanvasLayer/Control/MusicButton")
+hero_grid_container = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer")
+upgrade_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/HBox/UpgradeButton")
+play_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/HBox/GameButton")
 level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
-op_button1 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton1")
-op_button2 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton2")
-op_button3 = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox/OptionButton3")
-handbook_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton")
 handbook = NodePath("CanvasLayer/Control/Handbook")
-enemy_level_label = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/PaperRect/CenterContainer/EnemyLevelLabel")
-enemy_level_up_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlUpButton")
-enemy_level_down_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlDownButton")
+changelog = NodePath("CanvasLayer/Control/Changelog")
+settings = NodePath("CanvasLayer/Control/Settings")
 
 [node name="Background" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
@@ -774,17 +756,98 @@ grow_vertical = 2
 theme = ExtResource("2_it1rv")
 metadata/_edit_lock_ = true
 
-[node name="MusicButton" type="Button" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_right = 120.0
-offset_bottom = 50.0
-theme_override_styles/normal = SubResource("StyleBoxTexture_q1pin")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_jvul1")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_q1pin")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_owynw")
-toggle_mode = true
-action_mode = 0
-text = "Музыка"
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HeaderHBox" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="SettingsButton" type="TextureButton" parent="CanvasLayer/Control/MarginContainer/HeaderHBox"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = ExtResource("55_3uxqc")
+texture_pressed = ExtResource("56_tf52a")
+stretch_mode = 5
+script = ExtResource("57_yku2b")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="IconDisabled" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton/CenterContainer"]
+modulate = Color(0.3, 0.3, 0.3, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("23_i6ugr")
+stretch_mode = 5
+
+[node name="IconEnabled" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton/CenterContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("23_i6ugr")
+stretch_mode = 5
+
+[node name="Unpressable" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton/CenterContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+stretch_mode = 5
+
+[node name="HandbookButton" type="TextureButton" parent="CanvasLayer/Control/MarginContainer/HeaderHBox"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 10
+texture_normal = ExtResource("55_3uxqc")
+texture_pressed = ExtResource("56_tf52a")
+stretch_mode = 5
+script = ExtResource("57_yku2b")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="IconDisabled" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton/CenterContainer"]
+modulate = Color(0.4, 0.4, 0.4, 1)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("26_6l6c7")
+stretch_mode = 5
+
+[node name="IconEnabled" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton/CenterContainer"]
+visible = false
+modulate = Color(0.4, 0.4, 0.4, 1)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("26_6l6c7")
+stretch_mode = 5
+
+[node name="Unpressable" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton/CenterContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+stretch_mode = 5
 
 [node name="VersionLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -820,15 +883,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="StartBattleVBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer"]
+[node name="HeroesVBox" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="PaperRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox" instance=ExtResource("58_v3ta2")]
+[node name="TextPaper" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox" instance=ExtResource("58_v3ta2")]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/PaperRect"]
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/TextPaper"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -836,157 +899,150 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/PaperRect/CenterContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/TextPaper/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "Ваш текущий выбор героев:"
 
-[node name="HeroesHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox"]
+layout_mode = 2
+columns = 3
+
+[node name="Hero1" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer"]
+layout_mode = 2
+script = ExtResource("26_awvdd")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero1"]
+layout_mode = 2
+texture = ExtResource("27_mdsfe")
+expand_mode = 4
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero1"]
+layout_mode = 2
+texture = ExtResource("26_7gem3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Bounds" type="NinePatchRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero1"]
+layout_mode = 2
+texture = ExtResource("29_gw7o5")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Hero2" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer"]
+layout_mode = 2
+script = ExtResource("26_awvdd")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero2"]
+layout_mode = 2
+texture = ExtResource("27_mdsfe")
+expand_mode = 4
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero2"]
+layout_mode = 2
+texture = ExtResource("26_7gem3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Bounds" type="NinePatchRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero2"]
+layout_mode = 2
+texture = ExtResource("29_gw7o5")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Hero3" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer"]
+layout_mode = 2
+script = ExtResource("26_awvdd")
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero3"]
+layout_mode = 2
+texture = ExtResource("27_mdsfe")
+expand_mode = 4
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero3"]
+layout_mode = 2
+texture = ExtResource("26_7gem3")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Bounds" type="NinePatchRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero3"]
+layout_mode = 2
+texture = ExtResource("29_gw7o5")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="Hero1Options" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="OptionButton1" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox"]
-custom_minimum_size = Vector2(150, 150)
+[node name="Hero1" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero1Options"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 36
+texture_normal = ExtResource("26_7gem3")
+
+[node name="Hero2" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero1Options"]
+layout_mode = 2
+texture_normal = ExtResource("26_7gem3")
+
+[node name="Hero3" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero1Options"]
+layout_mode = 2
+texture_normal = ExtResource("26_7gem3")
+
+[node name="Hero2Options" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
 alignment = 1
-clip_text = true
-icon_alignment = 1
-expand_icon = true
-item_count = 1
-selected = 0
-allow_reselect = true
-popup/item_0/text = "NONE"
-popup/item_0/id = 0
 
-[node name="OptionButton2" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox"]
-custom_minimum_size = Vector2(150, 150)
+[node name="Hero1" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero2Options"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 36
+texture_normal = ExtResource("26_7gem3")
+
+[node name="Hero2" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero2Options"]
+layout_mode = 2
+texture_normal = ExtResource("26_7gem3")
+
+[node name="Hero3" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero2Options"]
+layout_mode = 2
+texture_normal = ExtResource("26_7gem3")
+
+[node name="Hero3Options" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
 alignment = 1
-clip_text = true
-icon_alignment = 1
-expand_icon = true
-item_count = 1
-selected = 0
-allow_reselect = true
-popup/item_0/text = "NONE"
-popup/item_0/id = 0
 
-[node name="OptionButton3" type="OptionButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HeroesHBox"]
-custom_minimum_size = Vector2(150, 150)
+[node name="Hero1" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero3Options"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 36
-alignment = 1
-clip_text = true
-icon_alignment = 1
-expand_icon = true
-item_count = 1
-selected = 0
-allow_reselect = true
-popup/item_0/text = ""
-popup/item_0/id = 0
+texture_normal = ExtResource("26_7gem3")
 
-[node name="HBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox"]
+[node name="Hero2" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero3Options"]
+layout_mode = 2
+texture_normal = ExtResource("26_7gem3")
+
+[node name="Hero3" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer/Hero3Options"]
+layout_mode = 2
+texture_normal = ExtResource("26_7gem3")
+
+[node name="HBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox"]
 layout_mode = 2
 
-[node name="UpgradeButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox"]
+[node name="UpgradeButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/HBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 36
-text = " Улучшить героев "
+text = " Алтарь героев "
 
-[node name="HandbookButton" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox"]
-custom_minimum_size = Vector2(100, 0)
+[node name="GameButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/HBox"]
 layout_mode = 2
-texture_normal = ExtResource("55_3uxqc")
-texture_pressed = ExtResource("56_tf52a")
-stretch_mode = 5
-script = ExtResource("57_yku2b")
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="IconDisabled" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
-modulate = Color(0.4, 0.4, 0.4, 1)
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("26_6l6c7")
-stretch_mode = 5
-
-[node name="IconEnabled" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
-visible = false
-modulate = Color(0.4, 0.4, 0.4, 1)
-layout_mode = 2
-mouse_filter = 2
-texture = ExtResource("26_6l6c7")
-stretch_mode = 5
-
-[node name="Unpressable" type="TextureRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton/CenterContainer"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-stretch_mode = 5
-
-[node name="BattleHBox" type="HBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox"]
-layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="PaperRect" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox" instance=ExtResource("58_v3ta2")]
-custom_minimum_size = Vector2(320, 0)
-layout_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/PaperRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="EnemyLevelLabel" type="Label" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/PaperRect/CenterContainer"]
-layout_mode = 2
-text = "Уровень противников: 0"
-
-[node name="LvlDownButton" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox"]
-custom_minimum_size = Vector2(60, 90)
-layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("59_ivlnq")
-texture_pressed = ExtResource("60_0xg2h")
-texture_disabled = ExtResource("60_0xg2h")
-stretch_mode = 0
-
-[node name="LvlUpButton" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox"]
-custom_minimum_size = Vector2(60, 90)
-layout_mode = 2
-size_flags_vertical = 3
-texture_normal = ExtResource("61_vy3ki")
-texture_pressed = ExtResource("62_7xxvr")
-texture_disabled = ExtResource("62_7xxvr")
-stretch_mode = 0
-
-[node name="Control" type="Control" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox"]
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-
-[node name="EnterBattleButton" type="Button" parent="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 48
-text = " Начать бой "
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 36
+text = "Начать поход"
 
 [node name="LevelUpContainer" parent="CanvasLayer/Control" instance=ExtResource("4_yejoq")]
 visible = false
@@ -1000,10 +1056,13 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
-[connection signal="button_down" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" to="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" method="_on_button_down"]
-[connection signal="button_up" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" to="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" method="_on_button_up"]
-[connection signal="toggled" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" to="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/HBox/HandbookButton" method="_on_toggled"]
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlDownButton" to="." method="_on_lvl_down_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/LvlUpButton" to="." method="_on_lvl_up_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/StartBattleVBox/BattleHBox/EnterBattleButton" to="." method="_on_enter_battle_button_pressed"]
+[node name="Settings" parent="CanvasLayer/Control" instance=ExtResource("33_7hm1v")]
+visible = false
+layout_mode = 1
+
+[connection signal="button_down" from="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton" to="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton" to="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton" method="_on_button_up"]
+[connection signal="toggled" from="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton" to="CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton" method="_on_toggled"]
+[connection signal="button_down" from="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton" to="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton" to="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton" method="_on_button_up"]
+[connection signal="toggled" from="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton" to="CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton" method="_on_toggled"]

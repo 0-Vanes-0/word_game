@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://byoci31hrw0pl"]
+
+[ext_resource type="Theme" uid="uid://dm1fv17xko1xa" path="res://game_resources/themes/arrow_button_theme.tres" id="1_184gj"]
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_vx0y7"]
+[ext_resource type="Script" path="res://src/ui/level_page.gd" id="2_15vx4"]
+[ext_resource type="Texture2D" uid="uid://bs1a72smy4nta" path="res://assets/sprites/ui/icons/play_button2_yellow.png" id="2_pbt4b"]
+[ext_resource type="Texture2D" uid="uid://dsov2a1l5ms8d" path="res://assets/sprites/ui/icons/play_button_yellow.png" id="3_x4074"]
+
+[node name="LevelPage" type="HBoxContainer" node_paths=PackedStringArray("previous_button", "grid", "next_button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_vx0y7")
+theme_override_constants/separation = 0
+script = ExtResource("2_15vx4")
+previous_button = NodePath("PreviousButton")
+grid = NodePath("CenterContainer/GridContainer")
+next_button = NodePath("NextButton")
+
+[node name="PreviousButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("1_184gj")
+icon = ExtResource("2_pbt4b")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="NextButton" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("1_184gj")
+icon = ExtResource("3_x4074")

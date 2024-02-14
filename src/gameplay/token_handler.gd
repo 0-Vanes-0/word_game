@@ -73,7 +73,7 @@ func check_tokens(for_what_moment: Token.ApplyMoments = Token.ApplyMoments.NONE)
 	battler.stun_turns = 0
 	
 	for t in battler.tokens:
-		if t.apply_moment == for_what_moment:
+		if t.apply_moment == for_what_moment and not t.is_need_delete():
 			t.apply_token_effect()
 		if for_what_moment == Token.ApplyMoments.ON_TURN_START:
 			t.adjust_turn_count()

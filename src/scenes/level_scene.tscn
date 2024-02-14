@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://sncq6xl7ntsu"]
+
+[ext_resource type="Script" path="res://src/scenes/level_scene.gd" id="1_g4mmp"]
+[ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="2_5y2v6"]
+[ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="3_45ne4"]
+[ext_resource type="Texture2D" uid="uid://cxsi7syw5tx7w" path="res://assets/sprites/ui/icons/play_button4_yellow.png" id="4_p6h2l"]
+[ext_resource type="Theme" uid="uid://dm1fv17xko1xa" path="res://game_resources/themes/arrow_button_theme.tres" id="4_tdcs7"]
+[ext_resource type="PackedScene" uid="uid://inw0r0oa3s83" path="res://src/ui/level_info.tscn" id="6_qkelb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2yjx4"]
+bg_color = Color(0, 0, 0, 0.501961)
+
+[node name="LevelScene" type="Node2D" node_paths=PackedStringArray("back_button", "pager", "level_info")]
+script = ExtResource("1_g4mmp")
+back_button = NodePath("CanvasLayer/Control/MarginContainer/VBoxContainer/BackButton")
+pager = NodePath("CanvasLayer/Control/MarginContainer/VBoxContainer/TabContainer")
+level_info = NodePath("CanvasLayer/Control/LevelInfo")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Background"]
+tile_set = ExtResource("2_5y2v6")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 589825, 2, 65536, 589825, 2, 131072, 589825, 2, 196608, 589825, 2, 1, 589825, 2, 2, 589825, 2, 65538, 589825, 2, 65537, 589825, 2, 65535, 524289, 1, -1, 524289, 0, -65536, 655361, 0, -65535, 655361, 0, -65534, 655361, 0, -65533, 655361, 0, -65532, 655361, 0, -65531, 655361, 0, -65530, 655361, 0, -65529, 655361, 0, -65528, 655361, 0, -65527, 655361, 0, -65526, 655361, 0, -65525, 655361, 0, -65524, 655361, 0, -65523, 655361, 0, -65522, 655361, 0, -65521, 720897, 0, 15, 720897, 2, 65551, 720897, 2, 131087, 720897, 2, 196623, 720897, 2, 262159, 720897, 2, 327695, 720897, 2, 393231, 720897, 2, 458767, 720897, 2, 524303, 720897, 3, 524302, 589825, 3, 524301, 589825, 3, 524300, 589825, 3, 524299, 589825, 3, 524298, 589825, 3, 524297, 589825, 3, 524296, 589825, 3, 524295, 589825, 3, 524294, 589825, 3, 524293, 589825, 3, 524292, 589825, 3, 524291, 589825, 3, 524290, 589825, 3, 524289, 589825, 3, 524288, 589825, 3, 589823, 524289, 3, 524287, 524289, 1, 458751, 524289, 1, 393215, 524289, 1, 327679, 524289, 1, 262143, 524289, 1, 196607, 524289, 1, 131071, 524289, 1, 262144, 589825, 2, 327680, 589825, 2, 458752, 589825, 2, 458753, 589825, 2, 393217, 589825, 2, 393216, 589825, 2, 327681, 589825, 2, 458766, 589825, 2, 393230, 589825, 2, 327694, 589825, 2, 262158, 589825, 2, 196622, 589825, 2, 131086, 589825, 2, 65550, 589825, 2, 14, 589825, 2, 458765, 589825, 2, 393229, 589825, 2, 327693, 589825, 2, 262157, 589825, 2, 196621, 589825, 2, 131085, 589825, 2, 65549, 589825, 2, 13, 589825, 2, 458764, 589825, 2, 393228, 589825, 2, 327692, 589825, 2, 262156, 589825, 2, 196620, 589825, 2, 131084, 589825, 2, 65548, 589825, 2, 12, 589825, 2, 458763, 589825, 2, 393227, 589825, 2, 327691, 589825, 2, 262155, 589825, 2, 196619, 589825, 2, 131083, 589825, 2, 65547, 589825, 2, 11, 589825, 2, 458762, 589825, 2, 393226, 589825, 2, 327690, 589825, 2, 262154, 589825, 2, 196618, 589825, 2, 131082, 589825, 2, 65546, 589825, 2, 10, 589825, 2, 458761, 589825, 2, 393225, 589825, 2, 327689, 589825, 2, 262153, 589825, 2, 196617, 589825, 2, 131081, 589825, 2, 65545, 589825, 2, 9, 589825, 2, 458760, 589825, 2, 393224, 589825, 2, 327688, 589825, 2, 262152, 589825, 2, 196616, 589825, 2, 131080, 589825, 2, 65544, 589825, 2, 8, 589825, 2, 458759, 589825, 2, 393223, 589825, 2, 327687, 589825, 2, 262151, 589825, 2, 196615, 589825, 2, 131079, 589825, 2, 65543, 589825, 2, 7, 589825, 2, 458758, 589825, 2, 393222, 589825, 2, 327686, 589825, 2, 262150, 589825, 2, 196614, 589825, 2, 131078, 589825, 2, 65542, 589825, 2, 6, 589825, 2, 458757, 589825, 2, 393221, 589825, 2, 327685, 589825, 2, 262149, 589825, 2, 196613, 589825, 2, 131077, 589825, 2, 65541, 589825, 2, 5, 589825, 2, 458756, 589825, 2, 393220, 589825, 2, 327684, 589825, 2, 262148, 589825, 2, 196612, 589825, 2, 131076, 589825, 2, 65540, 589825, 2, 4, 589825, 2, 458755, 589825, 2, 393219, 589825, 2, 327683, 589825, 2, 262147, 589825, 2, 196611, 589825, 2, 131075, 589825, 2, 65539, 589825, 2, 3, 589825, 2, 458754, 589825, 2, 393218, 589825, 2, 327682, 589825, 2, 262146, 589825, 2, 196610, 589825, 2, 131074, 589825, 2, 262145, 589825, 2, 196609, 589825, 2, 131073, 589825, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_45ne4")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_tdcs7")
+icon = ExtResource("4_p6h2l")
+icon_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_2yjx4")
+tabs_visible = false
+
+[node name="LevelInfo" parent="CanvasLayer/Control" instance=ExtResource("6_qkelb")]
+visible = false
+layout_mode = 1

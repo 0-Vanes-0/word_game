@@ -1,19 +1,19 @@
 class_name GameScene
 extends Node2D
 
-@export var version_label: RichTextLabel
-@export var changelog: Changelog
-@export var music_button: Button
-@export var level_up_container: LevelUpContainer
-@export var op_button1: OptionButton
-@export var op_button2: OptionButton
-@export var op_button3: OptionButton
+@export var settings_button: IconButton
 @export var handbook_button: IconButton
+@export var version_label: RichTextLabel
+@export var hero_grid_container: GridContainer
+@export var upgrade_button: Button
+@export var play_button: Button
+@export var level_up_container: LevelUpContainer
 @export var handbook: Handbook
-@export var enemy_level_label: Label
-@export var enemy_level_up_button: TextureButton
-@export var enemy_level_down_button: TextureButton
-var op_buttons: Array[OptionButton]
+@export var changelog: Changelog
+@export var settings: Settings
+var heroes_icons: Array[BackgroundedIcon]
+var heroes_options: Array[HBoxContainer]
+var heroes: Array[Battler.Types]
 
 var chosen_heroes_types: Array
 var heroes_levels := {
@@ -21,26 +21,16 @@ var heroes_levels := {
 	Battler.Types.HERO_ROBBER: 1,
 	Battler.Types.HERO_MAGE: 1,
 }
-var enemy_level_min: int
-var enemy_level_max: int
-var enemy_level_value: int
+var hero_icon_textures := {
+	Battler.Types.HERO_KNIGHT: Preloader.stats_knight.icon,
+	Battler.Types.HERO_ROBBER: Preloader.stats_robber.icon,
+	Battler.Types.HERO_MAGE: Preloader.stats_mage.icon,
+}
 
 
 func _ready() -> void:
-	assert(level_up_container and op_button1 and op_button2 and op_button3 and enemy_level_label 
-			and enemy_level_up_button and enemy_level_down_button and handbook_button and handbook 
-			and version_label and music_button)
-	
-	music_button.toggled.connect(
-			func(toggled_on: bool):
-				if toggled_on:
-					SoundManager.play_music(Preloader.game_scene_musics.pick_random())
-				else:
-					SoundManager.stop_music()
-				Global.settings["AUDIO"]["MUSIC"] = toggled_on
-				SaveLoad.save_settings()
-	)
-	music_button.button_pressed = Global.settings.get("AUDIO").get("MUSIC")
+	assert(level_up_container and handbook_button and handbook and version_label and settings_button and hero_grid_container and changelog and upgrade_button and play_button and settings)
+	level_up_container.hide(); handbook.hide(); changelog.hide(); settings.hide()
 	
 	version_label.text = "[center][url={}]v" + str(Global.VERSION) + "(early access)[/url][/center]"
 	version_label.meta_clicked.connect(
@@ -51,65 +41,62 @@ func _ready() -> void:
 		version_label.meta_clicked.emit("version")
 		Global.set_player_last_seen_version(Global.VERSION)
 	
-	level_up_container.hide()
+	settings_button.set_on_press( func(): settings.show() )
+	handbook_button.set_on_press( func(): handbook.show() )
 	
+	for child in hero_grid_container.get_children():
+		if child is BackgroundedIcon:
+			heroes_icons.append(child)
+		elif child is HBoxContainer:
+			heroes_options.append(child)
+	
+#region Grid Container
 	chosen_heroes_types = Global.get_player_last_hero_choice()
 	heroes_levels[Battler.Types.HERO_KNIGHT] = Global.get_player_level(Battler.Types.HERO_KNIGHT)
 	heroes_levels[Battler.Types.HERO_ROBBER] = Global.get_player_level(Battler.Types.HERO_ROBBER)
 	heroes_levels[Battler.Types.HERO_MAGE] = Global.get_player_level(Battler.Types.HERO_MAGE)
 	
-	op_buttons = [op_button1, op_button2, op_button3] as Array[OptionButton]
-	for i in op_buttons.size():
-		op_buttons[i].remove_item(0)
-		op_buttons[i].add_icon_item(Preloader.stats_knight.icon, "", Battler.HEROES[0])
-		op_buttons[i].add_icon_item(Preloader.stats_robber.icon, "", Battler.HEROES[1])
-		op_buttons[i].add_icon_item(Preloader.stats_mage.icon, "", Battler.HEROES[2])
-		for j in heroes_levels.keys().size():
-			if heroes_levels.keys()[j] == chosen_heroes_types[i]:
-				op_buttons[i].selected = j
-		op_buttons[i].item_selected.connect(_on_option_button_item_selected)
+	assert(heroes_icons.size() == chosen_heroes_types.size())
+	for i in heroes_icons.size():
+		heroes_icons[i].set_icon(hero_icon_textures.get(chosen_heroes_types[i] as Battler.Types))
+		heroes_icons[i].gui_input.connect(
+				func(event: InputEvent):
+					if event is InputEventMouseButton and event.is_pressed():
+						for option in heroes_options:
+							option.modulate.a = 0.0
+							for button: TextureButton in option.get_children():
+								button.disabled = true
+						
+						heroes_options[i].modulate.a = 1.0
+						for button: TextureButton in heroes_options[i].get_children():
+							button.disabled = false
+		)
 	
-	enemy_level_min = 1
-	enemy_level_max = mini(Global.get_player_last_enemy_level_reached(), GameInfo.enemy_levels.size())
-	enemy_level_value = GameInfo.current_enemy_level if GameInfo.current_enemy_level > 0 else enemy_level_max
-	enemy_level_label.text = "Уровень противников: " + str(enemy_level_value)
-	enemy_level_up_button.disabled = enemy_level_value == enemy_level_max
-	enemy_level_down_button.disabled = enemy_level_value == enemy_level_min
+	for i in heroes_options.size():
+		heroes_options[i].modulate.a = 0.0
+		for j in heroes_options[i].get_child_count():
+			var button := heroes_options[i].get_child(j) as TextureButton
+			button.texture_normal = hero_icon_textures.values()[j]
+			button.pressed.connect(
+					func():
+						chosen_heroes_types[i] = hero_icon_textures.keys()[j]
+						heroes_icons[i].set_icon(hero_icon_textures.get(chosen_heroes_types[i] as Battler.Types))
+						heroes_options[i].modulate.a = 0.0
+						for b: TextureButton in heroes_options[i].get_children():
+							b.disabled = false
+						Global.set_player_last_hero_choice(chosen_heroes_types)
+			)
+			button.disabled = true
+#endregion
 	
-	handbook_button.set_on_press( func(): handbook.show() )
-
-
-func _on_option_button_item_selected(_index: int): # _index is intended to be not used
-	for i in op_buttons.size():
-		chosen_heroes_types[i] = op_buttons[i].get_selected_id()
-	Global.set_player_last_hero_choice(chosen_heroes_types)
-
-
-func _on_lvl_down_button_pressed() -> void:
-	enemy_level_value = clampi(enemy_level_value - 1, enemy_level_min, enemy_level_max)
-	enemy_level_label.text = "Уровень противников: " + str(enemy_level_value)
-	enemy_level_up_button.disabled = enemy_level_value == enemy_level_max
-	enemy_level_down_button.disabled = enemy_level_value == enemy_level_min
-
-
-func _on_lvl_up_button_pressed() -> void:
-	enemy_level_value = clampi(enemy_level_value + 1, enemy_level_min, enemy_level_max)
-	enemy_level_label.text = "Уровень противников: " + str(enemy_level_value)
-	enemy_level_up_button.disabled = enemy_level_value == enemy_level_max
-	enemy_level_down_button.disabled = enemy_level_value == enemy_level_min
-
-
-func _on_upgrade_button_pressed() -> void:
-	level_up_container.show()
-
-
-func _on_enter_battle_button_pressed() -> void:
-	var arr := op_buttons.map( func(button: OptionButton): return button.get_selected_id() )
-	for i in arr.size():
-		GameInfo.battlers_types[i] = arr[i]
-	GameInfo.add_enemies(enemy_level_value)
-	
-	Global.switch_to_scene(Preloader.battle_scene)
+	upgrade_button.pressed.connect( func(): level_up_container.show() )
+	play_button.pressed.connect(
+			func():
+				var arr := Global.get_player_last_hero_choice()
+				for i in arr.size():
+					GameInfo.battlers_types[i] = arr[i] as Battler.Types
+				Global.switch_to_scene(Preloader.level_scene)
+	)
 
 
 #func _process(delta: float) -> void:

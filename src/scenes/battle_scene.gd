@@ -82,7 +82,6 @@ func _ready() -> void:
 				back_confirm.show()
 				get_tree().paused = true
 	)
-	_update_coins_label()
 	handbook_button.pressed.connect(
 			func():
 				handbook.show()
@@ -101,7 +100,6 @@ func _ready() -> void:
 						func():
 							preview_color_rect.hide()
 							battle_manager.init_turn()
-							battle_manager.coins_reduced.connect(_update_coins_label)
 							battle_manager.battle_ended.connect(_on_battle_ended)
 				)
 	)
@@ -135,14 +133,6 @@ func _on_battler_clicked(battler: Battler):
 	current_battler.anim_handler.anim_prepare(battle_manager.current_action_type)
 
 
-func _update_coins_label():
-	var coins: int = 0
-	#for b in enemy_battlers:
-		#var stats := b.stats as EnemyBattlerStats
-		#coins += stats.reward
-	#coins_counter.set_text(coins)
-
-
 func _on_battle_ended(is_victory: bool):
 	var coins: int = 0
 	for b in enemy_battlers:
@@ -156,6 +146,10 @@ func _on_battle_ended(is_victory: bool):
 		if Global.get_player_last_enemy_level_reached() == GameInfo.current_enemy_level:
 			Global.set_player_last_enemy_level_reached( mini(GameInfo.current_enemy_level + 1, GameInfo.enemy_levels.size()) )
 		Global.set_player_coins(player_coins + coins - penalty)
+		Global.set_player_enemy_level_stars(
+				GameInfo.current_enemy_level,
+				maxi( Global.get_player_enemy_level_stars(GameInfo.current_enemy_level), get_alive_players().size() )
+		)
 		
 		victory_defeat_container.result_label.text = (
 			"Ваша добыча: " + str(coins) + " монет"

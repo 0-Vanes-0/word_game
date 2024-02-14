@@ -55,7 +55,7 @@ func appear(stats: BattlerStats):
 			+ (("-" + str(stats.base_max_initiative)) if stats.base_min_initiative != stats.base_max_initiative else "")
 	)
 	
-	if foe_action_label:
+	if foe_action_label != null:
 		foe_action_label.queue_free()
 	if stats.foe_action_name.is_empty() or stats.foe_action_text.is_empty():
 		foe_action_icon.hide()
@@ -67,8 +67,8 @@ func appear(stats: BattlerStats):
 		foe_action_label.fit_content = true
 		foe_action_label.scroll_active = false
 	
-	if ally_action_label:
-		ally_action_label.queue_free()
+	if ally_action_label != null:
+		ally_action_label.queue_free() # TODO
 	if stats.ally_action_name.is_empty() or stats.ally_action_text.is_empty():
 		ally_action_icon.hide()
 	else:
