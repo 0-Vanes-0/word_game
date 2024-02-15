@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="3_nh548"]
 [ext_resource type="Texture2D" uid="uid://bvj1vkv5ale5v" path="res://assets/sprites/ui/icons/demon_yellow.png" id="4_62lq4"]
 [ext_resource type="Texture2D" uid="uid://bt0ouvy8e4ak0" path="res://assets/sprites/ui/icons/paper_yellow.png" id="5_pi103"]
+[ext_resource type="Texture2D" uid="uid://4c436v4ll01o" path="res://assets/sprites/ui/x_button.png" id="7_a8ckp"]
 [ext_resource type="Texture2D" uid="uid://7skhrmiycpyb" path="res://assets/sprites/ui/buttons/button_right.png" id="7_m7rvb"]
-[ext_resource type="Texture2D" uid="uid://4c436v4ll01o" path="res://assets/sprites/ui/x_button.png" id="7_p6vph"]
 [ext_resource type="Texture2D" uid="uid://c51kmo2gv3wml" path="res://assets/sprites/ui/buttons/button_right_pressed.png" id="8_vsbps"]
 
 [node name="Handbook" type="ColorRect" node_paths=PackedStringArray("tabbar", "tab_container", "hide_button")]
@@ -68,7 +68,7 @@ tab_3/icon = ExtResource("3_nh548")
 [node name="HideButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBox"]
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
-texture_normal = ExtResource("7_p6vph")
+texture_normal = ExtResource("7_a8ckp")
 stretch_mode = 5
 
 [node name="EmptyControl2" type="Control" parent="MarginContainer/VBoxContainer/HBox"]
@@ -126,7 +126,7 @@ text = "	В бою сражаются герои игрока с противн�
  - атака противника
  - помощь союзнику
 В первом случае нужно выбрать противника, во втором - союзника. 
-	Описания действий можно посмотреть в городе, кликнув на героя в меню улучшений, или во время боя, удерживая палец на бойце.  "
+	Описания действий можно посмотреть в городе, кликнув на героя в алтаре, или во время боя, удерживая палец на бойце.  "
 scroll_active = false
 
 [node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/BattlersTab" instance=ExtResource("1_5jyep")]
@@ -210,7 +210,7 @@ theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "	В режиме кампании происходит выбор игрового уровня; чем он выше - тем сложнее и с более высокой наградой.
 	Чем меньше ходов вы сделаете, побеждая противников уровня - тем больше награды получите.
-	За погибшего в бою героя из награды отнимается штраф."
+	За погибшего в бою героя из награды отнимается штраф. Также за уровень даётся оценка в звёздах, с учётом выживших героев."
 scroll_active = false
 
 [node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/FightsTab" instance=ExtResource("1_5jyep")]
@@ -389,8 +389,7 @@ text = "[img=32x32]res://assets/sprites/ui/icons/sword_x2_yellow.png[/img]: Сл
 [img=32x32]res://assets/sprites/ui/icons/dodge_yellow.png[/img]: Следующая атака по владельцу имеет шанс промаха 50%.
 [img=32x32]res://assets/sprites/ui/icons/power_yellow.png[/img]: Базовый урон следующей атаки владельца станет максимальным.
 [img=32x32]res://assets/sprites/ui/icons/spikes_yellow.png[/img]: Следующая атака по владельцу нанесёт ответный урон =10%.
-[img=32x32]res://assets/sprites/ui/icons/plus_yellow.png[/img]: Исцеляет в начале хода владельца.
-[img=32x32]res://assets/sprites/ui/icons/x_yellow.png[/img]: Владелец не может быть выбран как цель для атаки."
+[img=32x32]res://assets/sprites/ui/icons/plus_yellow.png[/img]: Исцеляет в начале хода владельца."
 scroll_active = false
 
 [node name="RightPaperRect" parent="MarginContainer/VBoxContainer/TabContainer/TokensTab" instance=ExtResource("1_5jyep")]
@@ -417,7 +416,8 @@ theme_override_constants/margin_bottom = 24
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TabContainer/TokensTab/RightPaperRect/HBox/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[img=32x32]res://assets/sprites/ui/icons/fire_yellow.png[/img]: Наносит урон в начале хода владельца.
+text = "[img=32x32]res://assets/sprites/ui/icons/x_yellow.png[/img]: Владелец не может быть выбран как цель для атаки. Своя атака снимает эффект.
+[img=32x32]res://assets/sprites/ui/icons/fire_yellow.png[/img]: Наносит урон в начале хода владельца.
 [img=32x32]res://assets/sprites/ui/icons/eye_blue.png[/img]: Следующая атака владельца имеет шанс промаха 50%.
 [img=32x32]res://assets/sprites/ui/icons/shield_blue.png[/img]: Следующая атака по владельцу нанесёт +50% урона.
 [img=32x32]res://assets/sprites/ui/icons/sword_x2_blue.png[/img]: Следующая атака владельца нанесёт -50% урона.
