@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Token" load_steps=2 format=3 uid="uid://bxia12eshh4vg"]
+[gd_resource type="Resource" script_class="Token" load_steps=3 format=3 uid="uid://bxia12eshh4vg"]
 
 [ext_resource type="Script" path="res://src/gameplay/token.gd" id="1_f72hm"]
+[ext_resource type="Texture2D" uid="uid://cvu84qe72y0dj" path="res://assets/sprites/ui/icons/x_yellow.png" id="1_flidp"]
 
 [resource]
 script = ExtResource("1_f72hm")
 type = 17
-apply_moment = 1
+apply_moment = 3
+icon_texture = ExtResource("1_flidp")
 is_hidden = false
 base_lifetime_turns = 3
 max_amount = 1

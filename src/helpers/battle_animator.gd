@@ -17,6 +17,10 @@ func _ready() -> void:
 
 
 func animate_turn(target_group: Array[Battler] = []):
+	if battle_manager.target_battler_index == -1:
+		animate_turn_completed.emit()
+		return
+	
 	# ----- HIDING EVERYTHING -----
 	
 	battle_scene.hide_all_hud()

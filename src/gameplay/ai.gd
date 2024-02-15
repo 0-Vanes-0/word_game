@@ -1,11 +1,23 @@
 class_name AI
 extends Object
 
+const NOT_ATTACKING_MOBS: Array[Battler.Types] = []
+
 
 static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) -> int:
 	assert(current_battler.type in Battler.ENEMIES)
 	var heroes: Array[Battler] = all_battlers.filter(func(b: Battler): return b.type in Battler.HEROES and b.is_alive)
 	var enemies: Array[Battler] = all_battlers.filter(func(b: Battler): return b.type in Battler.ENEMIES and b.is_alive and b.index != current_battler.index)
+	
+	if not current_battler.type in NOT_ATTACKING_MOBS:
+		for i in range(heroes.size()-1,-1,-1):
+			if heroes[i].token_handler.get_first_token(Token.Types.TAUNT) != null:
+				return heroes[i].index
+			if heroes[i].token_handler.get_first_token(Token.Types.REACHLESS) != null:
+				heroes.remove_at(i)
+	
+	if heroes.is_empty():
+		return -1
 	
 	match current_battler.type:
 		Battler.Types.ENEMY_GOBLIN:
@@ -14,8 +26,6 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			
 			var lowest := _get_lowest_health(heroes)
 			for i in heroes.size():
-				if heroes[i].token_handler.get_first_token(Token.Types.TAUNT) != null:
-					return heroes[i].index
 				if heroes[i].stats.health == lowest:
 					chances.append(100)
 				else:

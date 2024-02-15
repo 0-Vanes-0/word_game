@@ -33,7 +33,6 @@ func init_turn():
 		return
 	
 	var current_battler := battle_scene.battlers[current_battler_index]
-	
 	current_battler.token_handler.check_tokens(Token.ApplyMoments.ON_TURN_START)
 	if not current_battler.is_alive or current_battler.stun_turns > 0:
 		if current_battler.stun_turns > 0:
@@ -80,8 +79,14 @@ func init_turn():
 					b.selection.hide()
 					b.selection_hover.hide()
 				
-				set_target_and_action(AI.pick_target(current_battler, battle_scene.battlers))
+				set_target_and_action( AI.pick_target(current_battler, battle_scene.battlers) )
 				#coins_reduced.emit()
+				
+				if target_battler_index == -1:
+					turn_manager.shift_battler()
+					await get_tree().create_timer(1.0).timeout
+					init_turn()
+					return
 				
 				var group: Array[Battler] = []
 				if current_battler.stats.is_attack_action_group:
@@ -91,7 +96,7 @@ func init_turn():
 						func():
 							proceed_turn()
 				, CONNECT_ONE_SHOT)
-				battle_animator.animate_enemy_prepare(Battler.ActionTypes.ATTACK, group)
+				battle_animator.animate_enemy_prepare(current_action_type, group)
 		
 		else:
 			_proceed_end_battle()
@@ -101,30 +106,31 @@ func proceed_turn(spell: Spell = null):
 	for b in battle_scene.battlers:
 		b.set_area_inputable(false)
 	
-	var current_battler := battle_scene.battlers[current_battler_index]
-	var target_battler := battle_scene.battlers[target_battler_index]
 	var group: Array[Battler] = []
-	
-	if is_player_turn:
-		if current_action_type == Battler.ActionTypes.ATTACK:
-			if current_battler.stats.is_attack_action_group:
-				group = battle_scene.get_alive_enemies()
-			current_battler.do_attack_action(target_battler, group)
-				
-		elif current_action_type == Battler.ActionTypes.ALLY:
-			if current_battler.stats.is_ally_action_group:
-				group = battle_scene.get_alive_players()
-			current_battler.do_ally_action(target_battler, group)
+	if target_battler_index != -1:
+		var current_battler := battle_scene.battlers[current_battler_index]
+		var target_battler := battle_scene.battlers[target_battler_index]
 		
-		if spell:
-			spell.apply_effects(current_action_type, target_battler, group)
-	
-	else:
-		if current_action_type == Battler.ActionTypes.ATTACK and current_battler.stats.is_attack_action_group:
-			group = battle_scene.get_alive_players()
-		elif current_action_type == Battler.ActionTypes.ALLY and current_battler.stats.is_ally_action_group:
-			group = battle_scene.get_alive_enemies()
-		AI.do_action(current_battler, target_battler, group)
+		if is_player_turn:
+			if current_action_type == Battler.ActionTypes.ATTACK:
+				if current_battler.stats.is_attack_action_group:
+					group = battle_scene.get_alive_enemies()
+				current_battler.do_attack_action(target_battler, group)
+					
+			elif current_action_type == Battler.ActionTypes.ALLY:
+				if current_battler.stats.is_ally_action_group:
+					group = battle_scene.get_alive_players()
+				current_battler.do_ally_action(target_battler, group)
+			
+			if spell:
+				spell.apply_effects(current_action_type, target_battler, group)
+		
+		else:
+			if current_action_type == Battler.ActionTypes.ATTACK and current_battler.stats.is_attack_action_group:
+				group = battle_scene.get_alive_players()
+			elif current_action_type == Battler.ActionTypes.ALLY and current_battler.stats.is_ally_action_group:
+				group = battle_scene.get_alive_enemies()
+			AI.do_action(current_battler, target_battler, group)
 	
 	for b in battle_scene.battlers:
 		if b.is_alive:
@@ -143,7 +149,7 @@ func proceed_turn(spell: Spell = null):
 
 
 func set_target_and_action(index: int):
-	assert(index in range(0, battle_scene.battlers.size()))
+	assert(index in range(-1, battle_scene.battlers.size()))
 	target_battler_index = index
 	if current_battler_index in _get_player_indexes():
 		current_action_type = Battler.ActionTypes.ALLY if target_battler_index in _get_player_indexes() else Battler.ActionTypes.ATTACK
