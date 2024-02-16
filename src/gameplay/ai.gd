@@ -86,6 +86,7 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 				current_battler.token_handler.add_token(Token.Types.ANTISHIELD, 2)
 	
 	(current_battler.stats as EnemyBattlerStats).reduce_reward()
+	current_battler.set_coin_counter( (current_battler.stats as EnemyBattlerStats).reward )
 
 
 static func _get_lowest_health(battlers: Array[Battler]) -> int:

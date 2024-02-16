@@ -13,8 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="13_nvbkp"]
 
 [node name="BattleHUDManager" type="CenterContainer" node_paths=PackedStringArray("_status_label", "_spell_label", "_reset_spell_button", "_rune_buttons", "_proceed_button")]
-offset_right = 880.0
-offset_bottom = 240.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 150.0
+grow_horizontal = 2
 theme = ExtResource("1_gqh4m")
 script = ExtResource("1_r71ia")
 _status_label = NodePath("HBoxContainer/StatusVBox/StatusLabel")
@@ -24,7 +26,7 @@ _rune_buttons = NodePath("HBoxContainer/SpellVBox/RunesGrid")
 _proceed_button = NodePath("HBoxContainer/ProceedButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(400, 180)
+custom_minimum_size = Vector2(400, 150)
 layout_mode = 2
 theme_override_constants/separation = 32
 

@@ -1,7 +1,6 @@
 class_name BattleManager
 extends Node
 
-signal coins_reduced
 signal battle_ended(is_victory: bool)
 
 @export var battle_scene: BattleScene
@@ -36,8 +35,7 @@ func init_turn():
 	current_battler.token_handler.check_tokens(Token.ApplyMoments.ON_TURN_START)
 	if not current_battler.is_alive or current_battler.stun_turns > 0:
 		if current_battler.stun_turns > 0:
-			turn_manager.shift_battler(current_battler.stun_turns)
-		await get_tree().create_timer(1.0).timeout
+			await turn_manager.shift_battler(current_battler.stun_turns)
 		init_turn()
 	
 	else:
@@ -80,7 +78,6 @@ func init_turn():
 					b.selection_hover.hide()
 				
 				set_target_and_action( AI.pick_target(current_battler, battle_scene.battlers) )
-				#coins_reduced.emit()
 				
 				if target_battler_index == -1:
 					turn_manager.shift_battler()

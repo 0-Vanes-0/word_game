@@ -32,3 +32,7 @@ func set_icon(value: Texture2D, size: Sizes):
 
 func set_text(text: Variant):
 	$Label.text = str(text)
+
+
+func set_text_color(color: Color):
+	$Label.add_theme_color_override("font_color", color)

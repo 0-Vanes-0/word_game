@@ -71,11 +71,13 @@ func animate_turn(target_group: Array[Battler] = []):
 	current_battler.tokens_container.hide()
 	current_battler.selection.hide()
 	current_battler.selection_hover.hide()
+	current_battler.coin_counter.hide()
 	for b in target_battlers:
 		b.health_bar.hide()
 		b.tokens_container.hide()
 		b.selection.hide()
 		b.selection_hover.hide()
+		b.coin_counter.hide()
 	
 	current_battler.anim_handler.anim_action(current_action_type)
 	if current_battler_index != target_battler_indexes[0]:
@@ -173,8 +175,6 @@ func animate_turn(target_group: Array[Battler] = []):
 						target_battlers[i].sprite.offset = target_battler_offsets[i]
 						if target_battlers[i].is_alive:
 							target_battlers[i].anim_handler.anim_idle()
-							target_battlers[i].health_bar.show()
-							target_battlers[i].tokens_container.show()
 			)
 	
 	_tween.tween_callback(
@@ -186,6 +186,12 @@ func animate_turn(target_group: Array[Battler] = []):
 				for i in battlers.size():
 					if battlers[i].is_alive:
 						battlers[i].move_to_front()
+						battlers[i].health_bar.show()
+						battlers[i].tokens_container.show()
+					if i in [3,4,5]:
+						battlers[i].coin_counter.show()
+						
+					
 				black.move_to_front()
 				battle_scene.show_all_hud()
 	)

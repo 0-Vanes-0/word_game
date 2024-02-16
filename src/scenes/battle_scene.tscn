@@ -248,11 +248,14 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 mouse_filter = 2
-metadata/_edit_lock_ = true
 
 [node name="BattleHUDManager" parent="CanvasLayer/Control/VBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("14_3lqgt")]
 layout_mode = 2
+size_flags_vertical = 8
 _battle_scene = NodePath("../../../..")
+
+[node name="EmptyControl2" type="Control" parent="CanvasLayer/Control/VBox"]
+layout_mode = 2
 
 [node name="OverlayContainer" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 1

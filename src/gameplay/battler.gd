@@ -44,6 +44,7 @@ var size_area: Area2D
 var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
 var tokens_container: VBoxContainer
+var coin_counter: CenterContainer
 var token_handler: TokenHandler
 var anim_handler: BattlerAnimHandler
 
@@ -118,6 +119,18 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	tokens_container.name = "TokensContainer"
 	self.add_child(tokens_container)
 	tokens_container.position = Vector2(- Global.CHARACTER_SIZE.x / 2, - Global.CHARACTER_SIZE.y * 2)
+	
+	coin_counter = CenterContainer.new()
+	self.add_child(coin_counter)
+	var coin_label := Preloader.icon_label.instantiate() as IconLabel
+	coin_label.set_icon(Preloader.texture_coin, IconLabel.Sizes.x16)
+	coin_label.set_text("")
+	coin_label.set_text_color(Color.GOLD)
+	coin_counter.add_child(coin_label)
+	
+	coin_counter.position = Vector2.LEFT * Global.CHARACTER_SIZE.x / 2 + Vector2.DOWN * 30
+	coin_counter.custom_minimum_size.x = Global.CHARACTER_SIZE.x
+	coin_counter.hide()
 #endregion
 
 
@@ -161,6 +174,12 @@ func _physics_process(delta: float) -> void:
 
 func set_area_inputable(is_inputable: bool):
 	coll_shape.disabled = not is_inputable
+
+
+func set_coin_counter(value: int):
+	coin_counter.show()
+	var coin_label := coin_counter.get_child(0) as IconLabel
+	coin_label.set_text(value)
 
 
 #region Actions

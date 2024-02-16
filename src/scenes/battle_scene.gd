@@ -62,13 +62,14 @@ func _ready() -> void:
 						turn_manager.remove_battler(index)
 			)
 			battler.name = "Player" + str(index)
-		else:
+		elif battler.stats is EnemyBattlerStats:
 			enemy_battlers.append(battler)
 			battler.died.connect(
 					func():
 						turn_manager.remove_battler(index)
 			)
 			battler.name = "Enemy" + str(index)
+			battler.set_coin_counter( (battler.stats as EnemyBattlerStats).reward )
 		
 		battlers_node.add_child(battler)
 		battlers.append(battler)
