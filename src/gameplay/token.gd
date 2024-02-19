@@ -108,21 +108,21 @@ func apply_token_effect(should_be_spent := true):
 			owner.dodge_chance = 50
 			print_debug("Can dodge!")
 		Types.HEAL_TIMED:
-			owner.pre_heal += 10 # TODO: rework heal value?
+			owner.pre_heal += 10
 			print_debug("Healed!")
 		Types.STIM:
 			owner.action_value = owner.stats.max_damage
 			owner.is_stimed = true
 			print_debug("Stimulated!")
 		Types.REACHLESS:
-			pass # TODO
+			pass
 		Types.MORE_DEATH_RESIST:
 			pass # TODO 10
 		
 		Types.LESS_DEATH_RESIST:
 			pass # TODO 10
 		Types.FIRE:
-			owner.pre_damage += 5 # TODO: rework fire dmg value?
+			owner.pre_damage += 2
 			print_debug("Burnt!")
 		Types.STUN:
 			owner.stun_turns += 1

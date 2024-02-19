@@ -68,7 +68,7 @@ func appear(stats: BattlerStats):
 		foe_action_label.scroll_active = false
 	
 	if ally_action_label != null:
-		ally_action_label.queue_free() # TODO
+		ally_action_label.queue_free()
 	if stats.ally_action_name.is_empty() or stats.ally_action_text.is_empty():
 		ally_action_icon.hide()
 	else:

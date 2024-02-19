@@ -4,6 +4,7 @@ extends Node
 @export var battle_scene: PackedScene
 @export var game_scene: PackedScene
 @export var level_scene: PackedScene
+@export var credits_scene: PackedScene
 @export var http_test_scene: PackedScene
 
 @export_group("Battler Stats", "stats_")
@@ -89,7 +90,7 @@ var battle_musics: Array[AudioStreamOggVorbis]
 
 
 func _ready() -> void:
-	assert(game_scene and http_test_scene and battle_scene and level_scene)
+	assert(game_scene and http_test_scene and battle_scene and level_scene and credits_scene)
 	assert(stats_goblin and stats_knight and stats_mage and stats_robber)
 	assert(sprite_frames_knight and sprite_frames_robber and sprite_frames_mage and sprite_frames_goblin)
 	assert(texture_selection and texture_selection_hover and texture_sword_yellow_icon

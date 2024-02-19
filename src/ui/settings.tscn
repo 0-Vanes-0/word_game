@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_y7cbf"]
 [ext_resource type="Script" path="res://src/ui/settings.gd" id="2_2iu14"]
 
-[node name="Settings" type="ColorRect" node_paths=PackedStringArray("back_button", "music_button")]
+[node name="Settings" type="ColorRect" node_paths=PackedStringArray("back_button", "music_button", "credits")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,6 +15,7 @@ color = Color(0, 0, 0, 0.501961)
 script = ExtResource("2_2iu14")
 back_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/BackButton")
 music_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/MusicHBox/MusicButton")
+credits = NodePath("MarginContainer/MarginContainer/VBoxContainer/Credits")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(480, 270)
@@ -62,3 +63,10 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 10
 flat = true
+
+[node name="Credits" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+bbcode_enabled = true
+text = "[center][url={}]Титры[/url]"
+fit_content = true

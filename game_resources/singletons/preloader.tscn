@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=72 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://sncq6xl7ntsu" path="res://src/scenes/level_scene.tscn" id="4_yt2dt"]
 [ext_resource type="Resource" uid="uid://coausqeuq5nxy" path="res://game_resources/battler_stats/fire_imp_base_stats.tres" id="5_1ed1q"]
 [ext_resource type="Resource" uid="uid://bx8m2l8lc15c4" path="res://game_resources/battler_stats/goblin_base_stats.tres" id="5_o2b78"]
+[ext_resource type="PackedScene" uid="uid://3m4qidjmbdit" path="res://src/scenes/credits_scene.tscn" id="5_u7nqy"]
 [ext_resource type="SpriteFrames" uid="uid://c71of80kg874k" path="res://game_resources/sprite_frames/sprite_frames_knight.tres" id="5_wh8vi"]
 [ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="6_1v8hy"]
 [ext_resource type="Resource" uid="uid://b3l3x7xocpnw3" path="res://game_resources/battler_stats/heroes/knight_base_stats.tres" id="6_s46mm"]
@@ -76,6 +77,7 @@ script = ExtResource("1_0hqcx")
 battle_scene = ExtResource("3_mm2kd")
 game_scene = ExtResource("2_mq5gj")
 level_scene = ExtResource("4_yt2dt")
+credits_scene = ExtResource("5_u7nqy")
 http_test_scene = ExtResource("3_x778j")
 stats_fire_imp = ExtResource("5_1ed1q")
 stats_goblin = ExtResource("5_o2b78")

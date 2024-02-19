@@ -3,10 +3,11 @@ extends ColorRect
 
 @export var back_button: Button
 @export var music_button: CheckButton
+@export var credits: RichTextLabel
 
 
 func _ready() -> void:
-	assert(back_button and music_button)
+	assert(back_button and music_button and credits)
 	
 	back_button.pressed.connect( func(): self.hide() )
 	music_button.toggled.connect(
@@ -19,3 +20,4 @@ func _ready() -> void:
 				SaveLoad.save_settings()
 	)
 	music_button.button_pressed = Global.settings.get("AUDIO").get("MUSIC")
+	credits.meta_clicked.connect( func(meta: Variant): Global.switch_to_scene(Preloader.credits_scene))

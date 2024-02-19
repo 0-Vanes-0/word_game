@@ -56,7 +56,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 				chances.append(100)
 			for i in enemies.size():
 				if enemies[i].stats.health < enemies[i].stats.base_health * 0.5 and enemies[i].token_handler.get_first_token(Token.Types.SHIELD) == null:
-					chances.append(300)
+					chances.append(500)
 				else:
 					chances.append(10)
 			

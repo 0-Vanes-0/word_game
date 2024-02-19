@@ -172,8 +172,6 @@ func _on_battle_ended(is_victory: bool):
 	Global.set_player_total_coins(total_coins + coins)
 	
 	victory_defeat_container.result_label.text += "\n"
-	if get_alive_players().size() < 3:
-		victory_defeat_container.result_label.text += "\n" + "Погибшие герои будут возрождены в городе."
 
 
 #func _process(delta: float) -> void:
