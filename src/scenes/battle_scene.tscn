@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_lirsh"]
-[ext_resource type="SpriteFrames" uid="uid://dpa1fpp1aqjip" path="res://game_resources/sprite_frames/sprite_frames_robber.tres" id="4_4bqb5"]
+[ext_resource type="SpriteFrames" uid="uid://5buaq66eo0y0" path="res://game_resources/sprite_frames/sprite_frames_snake.tres" id="4_m7vku"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="7_7eskq"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="8_u8eru"]
@@ -62,13 +62,11 @@ layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 52429
 [node name="-----TEST-----" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="-----TEST-----"]
-position = Vector2(1267, 394)
+position = Vector2(660, 320)
 scale = Vector2(2, 2)
-sprite_frames = ExtResource("4_4bqb5")
-animation = &"die"
-frame = 4
-frame_progress = 1.0
-offset = Vector2(2, -24)
+sprite_frames = ExtResource("4_m7vku")
+animation = &"buff"
+offset = Vector2(16, -32)
 
 [node name="HFlowContainer" type="VBoxContainer" parent="-----TEST-----"]
 clip_contents = true
@@ -266,6 +264,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="WtfLabel" type="RichTextLabel" parent="CanvasLayer/Control/OverlayContainer"]
 z_index = 999

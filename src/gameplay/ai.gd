@@ -60,9 +60,21 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 				else:
 					chances.append(10)
 			
-			print_debug(chances)
+			print_debug("BEAR CHANCES:", chances)
 			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
 			return (RouletteWheel.spin(all_alive, chances) as Battler).index
+		
+		Battler.Types.ENEMY_SNAKE:
+			# Strategy: 50/50 attacks hero or defends
+			var chances: Array[int] = []
+			
+			for i in heroes.size():
+				chances.append(100 / heroes.size())
+			chances.append(100) # itself
+			
+			print_debug("SNAKE CHANCES:", chances)
+			heroes.append(current_battler)
+			return (RouletteWheel.spin(heroes, chances) as Battler).index
 		
 		_:
 			return (heroes.pick_random() as Battler).index
@@ -78,12 +90,16 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 		match current_battler.type:
 			Battler.Types.ENEMY_FIRE_IMP:
 				target_battler.token_handler.add_token(Token.Types.FIRE, 2)
+			Battler.Types.ENEMY_SNAKE:
+				target_battler.token_handler.add_token(Token.Types.BLIND, 1)
 	
 	elif action_type == Battler.ActionTypes.ALLY:
 		match current_battler.type:
 			Battler.Types.ENEMY_BEAR:
 				target_battler.token_handler.add_token(Token.Types.SHIELD, 2)
 				current_battler.token_handler.add_token(Token.Types.ANTISHIELD, 2)
+			Battler.Types.ENEMY_SNAKE:
+				current_battler.token_handler.add_token(Token.Types.DODGE, 2)
 	
 	(current_battler.stats as EnemyBattlerStats).reduce_reward()
 	current_battler.set_coin_counter( (current_battler.stats as EnemyBattlerStats).reward )

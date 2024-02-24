@@ -45,14 +45,16 @@ theme_override_constants/separation = 10
 [node name="BackButton" type="Button" parent="MarginContainer/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 48
 text = " Закрыть "
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBox"]
 custom_minimum_size = Vector2(480, 360)
 layout_mode = 2
 bbcode_enabled = true
-text = "	Версия 0.31:
+text = "	Версия 0.9 (текущая):
+• Добавлен новый противник и новые уровни
+	Версия 0.31:
 • Добавлено отображение награды за каждого противника
 	Версия 0.3:
 • Добавлены новые руны:[img=32x32]res://assets/sprites/magic_effects/icons/ice.png[/img] и [img=32x32]res://assets/sprites/magic_effects/icons/comet.png[/img]

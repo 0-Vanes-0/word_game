@@ -1,0 +1,162 @@
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=19 format=3 uid="uid://5buaq66eo0y0"]
+
+[ext_resource type="Texture2D" uid="uid://dv0jarq1l35e0" path="res://assets/sprites/characters/snake_sheet.png" id="1_sa7ni"]
+[ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="2_80gdu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eir1j"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(332, 74, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb263"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(332, 148, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ajhqs"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(166, 148, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbmdk"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(0, 74, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcjrg"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(166, 74, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oyty8"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(332, 74, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6u1j"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(498, 74, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5d7g"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(0, 74, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkm3v"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(0, 0, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1lfp"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(166, 0, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6obo"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(332, 0, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2vpu"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(498, 0, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd6dv"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(166, 148, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qah5m"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(0, 148, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxekm"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(0, 148, 166, 74)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewxet"]
+atlas = ExtResource("1_sa7ni")
+region = Rect2(166, 148, 166, 74)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eir1j")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb263")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ajhqs")
+}],
+"loop": false,
+"name": &"buff",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbmdk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pcjrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oyty8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6u1j")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5d7g")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_pkm3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1lfp")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_e6obo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2vpu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cd6dv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qah5m")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxekm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewxet")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("2_80gdu")
+offset = Vector2(16, -32)
+separate_offsets = {}

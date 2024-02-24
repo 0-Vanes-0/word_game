@@ -112,6 +112,9 @@ func _get_label_with_info(text: String) -> RichTextLabel:
 		"$fire": {
 			"add_image": [Preloader.token_fire.icon_texture, 24, 24]
 		},
+		"$blind": {
+			"add_image": [Preloader.token_blind.icon_texture, 24, 24]
+		},
 		
 	}
 	

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_wpi7t")
-base_reward = 25
+base_reward = 30
 reward_loss = 1
 icon = ExtResource("1_17gh3")
 battler_name = "Древеган"

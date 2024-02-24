@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://d4ksbpdtlx8x3"]
+[gd_scene load_steps=78 format=3 uid="uid://d4ksbpdtlx8x3"]
 
 [ext_resource type="Script" path="res://src/scenes/game_scene.gd" id="1_ypskv"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_atyqr"]
@@ -27,7 +27,6 @@
 [ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="29_gw7o5"]
 [ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="30_uvo5x"]
 [ext_resource type="PackedScene" uid="uid://dpxqftjda0jvt" path="res://src/ui/settings.tscn" id="33_7hm1v"]
-[ext_resource type="PackedScene" uid="uid://bdcjxv73fliif" path="res://src/ui/changelog.tscn" id="33_lrfs7"]
 [ext_resource type="Texture2D" uid="uid://6cgsen650mbo" path="res://assets/sprites/ui/buttons/big_round_button.png" id="55_3uxqc"]
 [ext_resource type="Texture2D" uid="uid://ck6g6ijrcupwk" path="res://assets/sprites/ui/buttons/big_round_button_gray.png" id="56_tf52a"]
 [ext_resource type="Script" path="res://src/ui/icon_button.gd" id="57_yku2b"]
@@ -615,17 +614,15 @@ separate_offsets = {
 "hurt": Vector2(4, -24)
 }
 
-[node name="GameScene" type="Node2D" node_paths=PackedStringArray("settings_button", "handbook_button", "version_label", "hero_grid_container", "upgrade_button", "play_button", "level_up_container", "handbook", "changelog", "settings")]
+[node name="GameScene" type="Node2D" node_paths=PackedStringArray("settings_button", "handbook_button", "hero_grid_container", "upgrade_button", "play_button", "level_up_container", "handbook", "settings")]
 script = ExtResource("1_ypskv")
 settings_button = NodePath("CanvasLayer/Control/MarginContainer/HeaderHBox/SettingsButton")
 handbook_button = NodePath("CanvasLayer/Control/MarginContainer/HeaderHBox/HandbookButton")
-version_label = NodePath("CanvasLayer/Control/VersionLabel")
 hero_grid_container = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/GridContainer")
 upgrade_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/HBox/UpgradeButton")
 play_button = NodePath("CanvasLayer/Control/CenterContainer/MarginContainer/MarginContainer/HeroesVBox/HBox/GameButton")
 level_up_container = NodePath("CanvasLayer/Control/LevelUpContainer")
 handbook = NodePath("CanvasLayer/Control/Handbook")
-changelog = NodePath("CanvasLayer/Control/Changelog")
 settings = NodePath("CanvasLayer/Control/Settings")
 
 [node name="Background" type="Node2D" parent="."]
@@ -849,16 +846,6 @@ layout_mode = 2
 mouse_filter = 2
 stretch_mode = 5
 
-[node name="VersionLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-bbcode_enabled = true
-text = "[center][url={\"example\": \"value\"}]v0.0(early access)[/url][/center]"
-fit_content = true
-scroll_active = false
-
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
 anchors_preset = 15
@@ -1049,10 +1036,6 @@ visible = false
 layout_mode = 1
 
 [node name="Handbook" parent="CanvasLayer/Control" instance=ExtResource("64_ke84h")]
-visible = false
-layout_mode = 1
-
-[node name="Changelog" parent="CanvasLayer/Control" instance=ExtResource("33_lrfs7")]
 visible = false
 layout_mode = 1
 

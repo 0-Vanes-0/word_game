@@ -8,19 +8,21 @@ extends Node
 @export var http_test_scene: PackedScene
 
 @export_group("Battler Stats", "stats_")
-@export var stats_fire_imp: BattlerStats
-@export var stats_goblin: BattlerStats
-@export var stats_bear: BattlerStats
-@export var stats_ent: BattlerStats
-@export var stats_knight: BattlerStats
-@export var stats_mage: BattlerStats
-@export var stats_robber: BattlerStats
+@export var stats_fire_imp: EnemyBattlerStats
+@export var stats_goblin: EnemyBattlerStats
+@export var stats_bear: EnemyBattlerStats
+@export var stats_ent: EnemyBattlerStats
+@export var stats_snake: EnemyBattlerStats
+@export var stats_knight: PlayerBattlerStats
+@export var stats_mage: PlayerBattlerStats
+@export var stats_robber: PlayerBattlerStats
 
 @export_group("Sprite Frames", "sprite_frames_")
 @export var sprite_frames_fire_imp: MySpriteFrames
 @export var sprite_frames_goblin: MySpriteFrames
 @export var sprite_frames_bear: MySpriteFrames
 @export var sprite_frames_ent: MySpriteFrames
+@export var sprite_frames_snake: MySpriteFrames
 @export var sprite_frames_knight: MySpriteFrames
 @export var sprite_frames_mage: MySpriteFrames
 @export var sprite_frames_robber: MySpriteFrames

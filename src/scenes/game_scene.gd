@@ -3,13 +3,11 @@ extends Node2D
 
 @export var settings_button: IconButton
 @export var handbook_button: IconButton
-@export var version_label: RichTextLabel
 @export var hero_grid_container: GridContainer
 @export var upgrade_button: Button
 @export var play_button: Button
 @export var level_up_container: LevelUpContainer
 @export var handbook: Handbook
-@export var changelog: Changelog
 @export var settings: Settings
 var heroes_icons: Array[BackgroundedIcon]
 var heroes_options: Array[HBoxContainer]
@@ -29,17 +27,8 @@ var hero_icon_textures := {
 
 
 func _ready() -> void:
-	assert(level_up_container and handbook_button and handbook and version_label and settings_button and hero_grid_container and changelog and upgrade_button and play_button and settings)
-	level_up_container.hide(); handbook.hide(); changelog.hide(); settings.hide()
-	
-	version_label.text = "[center][url={}]v" + str(Global.VERSION) + "(early access)[/url][/center]"
-	version_label.meta_clicked.connect(
-			func(meta: Variant):
-				changelog.show()
-	)
-	if Global.get_player_last_seen_version() < Global.VERSION:
-		version_label.meta_clicked.emit("version")
-		Global.set_player_last_seen_version(Global.VERSION)
+	assert(level_up_container and handbook_button and handbook and settings_button and hero_grid_container and upgrade_button and play_button and settings)
+	level_up_container.hide(); handbook.hide(); settings.hide()
 	
 	settings_button.set_on_press( func(): settings.show() )
 	handbook_button.set_on_press( func(): handbook.show() )

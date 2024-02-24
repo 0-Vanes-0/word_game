@@ -14,7 +14,8 @@ const REWARDS := {
 	Battler.Types.ENEMY_GOBLIN: 10,
 	Battler.Types.ENEMY_FIRE_IMP: 15,
 	Battler.Types.ENEMY_BEAR: 20,
-	Battler.Types.ENEMY_ENT: 25,
+	Battler.Types.ENEMY_ENT: 30,
+	Battler.Types.ENEMY_SNAKE: 40,
 }
 
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpxqftjda0jvt"]
+[gd_scene load_steps=5 format=3 uid="uid://dpxqftjda0jvt"]
 
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_e406r"]
 [ext_resource type="PackedScene" uid="uid://d0n3dpvos7lex" path="res://src/ui/paper_rect.tscn" id="1_y7cbf"]
 [ext_resource type="Script" path="res://src/ui/settings.gd" id="2_2iu14"]
+[ext_resource type="PackedScene" uid="uid://bdcjxv73fliif" path="res://src/ui/changelog.tscn" id="4_1das2"]
 
-[node name="Settings" type="ColorRect" node_paths=PackedStringArray("back_button", "music_button", "credits")]
+[node name="Settings" type="ColorRect" node_paths=PackedStringArray("back_button", "music_button", "credits", "changelog")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,10 +16,11 @@ color = Color(0, 0, 0, 0.501961)
 script = ExtResource("2_2iu14")
 back_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/BackButton")
 music_button = NodePath("MarginContainer/MarginContainer/VBoxContainer/MusicHBox/MusicButton")
-credits = NodePath("MarginContainer/MarginContainer/VBoxContainer/Credits")
+credits = NodePath("MarginContainer/MarginContainer/VBoxContainer/VersionsAndCredits")
+changelog = NodePath("Changelog")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(480, 270)
+custom_minimum_size = Vector2(480, 480)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -56,6 +58,7 @@ layout_mode = 2
 
 [node name="Music" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer/MusicHBox"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 36
 text = "Музыка"
 
 [node name="MusicButton" type="CheckButton" parent="MarginContainer/MarginContainer/VBoxContainer/MusicHBox"]
@@ -64,9 +67,16 @@ layout_mode = 2
 size_flags_horizontal = 10
 flat = true
 
-[node name="Credits" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
+[node name="VersionsAndCredits" type="RichTextLabel" parent="MarginContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
+theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "[center][url={}]Титры[/url]"
+text = "[center][url=versions]Описание версий[/url]
+
+[url=credits]Титры[/url]"
 fit_content = true
+
+[node name="Changelog" parent="." instance=ExtResource("4_1das2")]
+visible = false
+layout_mode = 1

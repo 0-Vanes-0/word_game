@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://bqj7efl8yfpbk"]
+
+[ext_resource type="Texture2D" uid="uid://b81wqpp78mbym" path="res://assets/sprites/avas/con36.png" id="1_wn1o0"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_oyatj"]
+
+[resource]
+script = ExtResource("2_oyatj")
+base_reward = 40
+reward_loss = 2
+icon = ExtResource("1_wn1o0")
+battler_name = "Змеюка"
+base_min_initiative = 6
+base_max_initiative = 10
+base_health = 90
+base_min_damage_fraction = Vector2(2, 3)
+base_max_damage = 30
+base_ally_action_value = 2
+is_attack_action_group = false
+is_ally_action_group = false
+foe_action_name = "Гиппократов Самогон"
+foe_action_text = "Наносит $dmg урона одной цели и накладывает $blind"
+ally_action_name = "Слизеринский Приём"
+ally_action_text = "Накладывает 2$dodge на себя"
+base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])

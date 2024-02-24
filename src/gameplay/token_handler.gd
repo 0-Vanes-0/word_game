@@ -14,7 +14,7 @@ func add_token(token_type: Token.Types, amount: int = 1):
 		return
 	
 	var having_amount: int = 0
-	for t in battler.tokens:
+	for t in battler.tokens: # TODO: TOKEN REPLACEMENTS
 		if t.type == token_type:
 			having_amount += 1
 	
