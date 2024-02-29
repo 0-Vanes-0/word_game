@@ -76,6 +76,30 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			heroes.append(current_battler)
 			return (RouletteWheel.spin(heroes, chances) as Battler).index
 		
+		Battler.Types.ENEMY_ORC:
+			# Strategy: buff himself until gets 3+ positive tokens, then share them with his ally
+			var chances: Array[int] = []
+			
+			var pos_tokens_count: int = 0
+			for t in current_battler.tokens:
+				if t.type in Token.POSITIVE_TYPES:
+					pos_tokens_count += 1
+			
+			for i in heroes.size():
+				if pos_tokens_count >= 3 and enemies.size() > 0:
+					chances.append(5)
+				else:
+					chances.append(100 / heroes.size())
+			for i in enemies.size():
+				if pos_tokens_count >= 3:
+					chances.append(100 / enemies.size())
+				else:
+					chances.append(0)
+			
+			print_debug("ORC CHANCES:", chances)
+			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
+			return (RouletteWheel.spin(all_alive, chances) as Battler).index
+		
 		_:
 			return (heroes.pick_random() as Battler).index
 
@@ -92,6 +116,10 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 				target_battler.token_handler.add_token(Token.Types.FIRE, 2)
 			Battler.Types.ENEMY_SNAKE:
 				target_battler.token_handler.add_token(Token.Types.BLIND, 1)
+				target_battler.token_handler.add_token(Token.Types.ANTIATTACK, 1)
+			Battler.Types.ENEMY_ORC:
+				var token_type: Token.Types = [Token.Types.SHIELD, Token.Types.ATTACK, Token.Types.STIM].pick_random()
+				current_battler.token_handler.add_token(token_type, 2)
 	
 	elif action_type == Battler.ActionTypes.ALLY:
 		match current_battler.type:
@@ -100,6 +128,11 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 				current_battler.token_handler.add_token(Token.Types.ANTISHIELD, 2)
 			Battler.Types.ENEMY_SNAKE:
 				current_battler.token_handler.add_token(Token.Types.DODGE, 2)
+			Battler.Types.ENEMY_ORC:
+				for t in current_battler.tokens:
+					if t.type in Token.POSITIVE_TYPES:
+						target_battler.token_handler.add_token(t.type, 1)
+						t.queue_delete()
 	
 	(current_battler.stats as EnemyBattlerStats).reduce_reward()
 	current_battler.set_coin_counter( (current_battler.stats as EnemyBattlerStats).reward )

@@ -386,10 +386,10 @@ func update_save_button() -> void:
 "
 
 [sub_resource type="StyleBoxFlat" id="5"]
-content_margin_left = 20.0
-content_margin_top = 20.0
-content_margin_right = 20.0
-content_margin_bottom = 20.0
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
 bg_color = Color(0, 0, 0, 0.25098)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kjgn5"]
@@ -412,12 +412,14 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Label5" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Alpha Threshold"
 horizontal_alignment = 1
 
 [node name="Threshold" type="SpinBox" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 max_value = 1.0
 step = 0.005
@@ -425,11 +427,13 @@ value = 0.9
 
 [node name="Reload" type="Button" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 disabled = true
 text = "Reload"
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
@@ -621,7 +625,7 @@ one_shot = true
 
 [node name="SplitDialog" type="ConfirmationDialog" parent="."]
 title = "Edit Spritesheet"
-position = Vector2i(-500, 0)
+position = Vector2i(-500, 36)
 size = Vector2i(272, 343)
 visible = true
 
@@ -674,7 +678,7 @@ layout_mode = 2
 
 [node name="StashDialog" type="AcceptDialog" parent="."]
 title = "Image Stash"
-position = Vector2i(-500, 500)
+position = Vector2i(-500, 374)
 size = Vector2i(309, 100)
 visible = true
 

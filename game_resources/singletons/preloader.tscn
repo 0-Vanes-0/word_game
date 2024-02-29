@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=76 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -21,6 +21,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cxd0gx3lpfnso" path="res://game_resources/sprite_frames/sprite_frames_fire_imp.tres" id="10_ln2yb"]
 [ext_resource type="Texture2D" uid="uid://cim7p0f0ynatd" path="res://assets/sprites/ui/selection_hover.png" id="11_nxxdl"]
 [ext_resource type="Resource" uid="uid://bqj7efl8yfpbk" path="res://game_resources/battler_stats/snake_base_stats.tres" id="11_rqdn3"]
+[ext_resource type="Resource" uid="uid://dthoyun1tqhtd" path="res://game_resources/battler_stats/orc_base_stats.tres" id="12_agxgk"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="12_aw57u"]
 [ext_resource type="SpriteFrames" uid="uid://bect0g6f4bvhb" path="res://game_resources/sprite_frames/sprite_frames_bear.tres" id="13_5efth"]
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="14_xt4q3"]
@@ -29,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://dsov2a1l5ms8d" path="res://assets/sprites/ui/icons/play_button_yellow.png" id="18_d3g4s"]
 [ext_resource type="SpriteFrames" uid="uid://5buaq66eo0y0" path="res://game_resources/sprite_frames/sprite_frames_snake.tres" id="19_l6uol"]
 [ext_resource type="Resource" uid="uid://cjci4twgd872l" path="res://game_resources/runes/rune_explosion.tres" id="20_arl4a"]
+[ext_resource type="SpriteFrames" uid="uid://bneb1qp4ybxpw" path="res://game_resources/sprite_frames/sprite_frames_orc.tres" id="21_03jl4"]
 [ext_resource type="Resource" uid="uid://bq5vnut7tmf8g" path="res://game_resources/runes/rune_dark.tres" id="21_ywknp"]
 [ext_resource type="Resource" uid="uid://b8hyd4fr04thg" path="res://game_resources/runes/rune_fire.tres" id="22_vth3l"]
 [ext_resource type="Texture2D" uid="uid://x84xcpjy7blk" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_bg.png" id="23_lgn4a"]
@@ -86,6 +88,7 @@ stats_goblin = ExtResource("5_o2b78")
 stats_bear = ExtResource("7_r1l67")
 stats_ent = ExtResource("8_rycwy")
 stats_snake = ExtResource("11_rqdn3")
+stats_orc = ExtResource("12_agxgk")
 stats_knight = ExtResource("6_s46mm")
 stats_mage = ExtResource("7_elr8a")
 stats_robber = ExtResource("8_5xyke")
@@ -94,6 +97,7 @@ sprite_frames_goblin = ExtResource("8_r525w")
 sprite_frames_bear = ExtResource("13_5efth")
 sprite_frames_ent = ExtResource("15_c582y")
 sprite_frames_snake = ExtResource("19_l6uol")
+sprite_frames_orc = ExtResource("21_03jl4")
 sprite_frames_knight = ExtResource("5_wh8vi")
 sprite_frames_mage = ExtResource("7_chvag")
 sprite_frames_robber = ExtResource("6_1v8hy")

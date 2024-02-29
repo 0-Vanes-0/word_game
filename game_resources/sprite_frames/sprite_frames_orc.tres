@@ -1,0 +1,171 @@
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=19 format=3 uid="uid://bneb1qp4ybxpw"]
+
+[ext_resource type="Texture2D" uid="uid://cwwp5hpy5fbpt" path="res://assets/sprites/characters/Orc_spritesheet.png" id="1_8o61p"]
+[ext_resource type="Script" path="res://game_resources/sprite_frames/my_sprite_frames.gd" id="2_sluth"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6bqi"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(368, 0, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4d24r"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(552, 0, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbfvq"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(0, 0, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5p3wt"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(0, 132, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q25ir"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(184, 132, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noc3u"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(368, 132, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gx1c0"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(552, 132, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b58tj"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(0, 264, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjabs"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(0, 132, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lpa62"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(184, 264, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxmid"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(368, 264, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vil4t"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(552, 264, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83vvo"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(0, 0, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pmsr7"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(368, 0, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2adsc"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(184, 0, 184, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jciqx"]
+atlas = ExtResource("1_8o61p")
+region = Rect2(368, 0, 184, 132)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6bqi")
+}],
+"loop": false,
+"name": &"action_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4d24r")
+}],
+"loop": false,
+"name": &"action_attack",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbfvq")
+}],
+"loop": false,
+"name": &"buff",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5p3wt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q25ir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noc3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gx1c0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b58tj")
+}],
+"loop": false,
+"name": &"die",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjabs")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_lpa62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxmid")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_vil4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uxmid")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83vvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmsr7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83vvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pmsr7")
+}],
+"loop": false,
+"name": &"prepare_ally",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2adsc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jciqx")
+}],
+"loop": false,
+"name": &"prepare_attack",
+"speed": 4.0
+}]
+script = ExtResource("2_sluth")
+offset = Vector2(42, -64)
+separate_offsets = {}

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://dthoyun1tqhtd"]
+
+[ext_resource type="Texture2D" uid="uid://hluw3qr5o6b3" path="res://assets/sprites/avas/con34.png" id="1_2c8u6"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_hqler"]
+
+[resource]
+script = ExtResource("2_hqler")
+base_reward = 60
+reward_loss = 2
+icon = ExtResource("1_2c8u6")
+battler_name = "Типичный Орк"
+base_min_initiative = 7
+base_max_initiative = 9
+base_health = 150
+base_min_damage_fraction = Vector2(3, 4)
+base_max_damage = 40
+base_ally_action_value = 0
+is_attack_action_group = false
+is_ally_action_group = false
+foe_action_name = "Альянс-сосед"
+foe_action_text = "Наносит $dmg урона одной цели и накладывает на себя 2 случайных положительных эффекта "
+ally_action_name = "Наполнение смыслом"
+ally_action_text = "Передаёт свои положительные эффекты союзнику"
+base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])

@@ -14,9 +14,20 @@ func add_token(token_type: Token.Types, amount: int = 1):
 		return
 	
 	var having_amount: int = 0
-	for t in battler.tokens: # TODO: TOKEN REPLACEMENTS
+	for t in battler.tokens:
 		if t.type == token_type:
 			having_amount += 1
+		if amount > 0 and (
+				t.type == Token.Types.ANTIATTACK and token_type == Token.Types.ATTACK
+				or 
+				t.type == Token.Types.ATTACK and token_type == Token.Types.ANTIATTACK
+				or
+				t.type == Token.Types.ANTISHIELD and token_type == Token.Types.SHIELD
+				or
+				t.type == Token.Types.SHIELD and token_type == Token.Types.ANTISHIELD
+			):
+			amount -= 1
+			t.queue_delete()
 	
 	var to_add: int
 	if Token.get_max_amount(token_type) == 0:

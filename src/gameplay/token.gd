@@ -92,7 +92,7 @@ func apply_token_effect(should_be_spent := true):
 			or apply_moment == ApplyMoments.BEFORE_GET_ATTACKED
 			or apply_moment == ApplyMoments.BEFORE_ATTACKING
 		):
-		lifetime_turns = 0
+		queue_delete()
 	
 	match type:
 		Types.SHIELD:
@@ -144,6 +144,10 @@ func apply_token_effect(should_be_spent := true):
 
 func adjust_turn_count(value: int = -1):
 	lifetime_turns = clampi(lifetime_turns + value, 0, base_lifetime_turns)
+
+
+func queue_delete():
+	lifetime_turns = 0
 
 
 func is_need_delete() -> bool:

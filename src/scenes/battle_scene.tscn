@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_lirsh"]
-[ext_resource type="SpriteFrames" uid="uid://5buaq66eo0y0" path="res://game_resources/sprite_frames/sprite_frames_snake.tres" id="4_m7vku"]
+[ext_resource type="SpriteFrames" uid="uid://bneb1qp4ybxpw" path="res://game_resources/sprite_frames/sprite_frames_orc.tres" id="4_74c6l"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="7_7eskq"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="8_u8eru"]
@@ -64,9 +64,9 @@ layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 52429
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="-----TEST-----"]
 position = Vector2(660, 320)
 scale = Vector2(2, 2)
-sprite_frames = ExtResource("4_m7vku")
-animation = &"buff"
-offset = Vector2(16, -32)
+sprite_frames = ExtResource("4_74c6l")
+animation = &"idle"
+offset = Vector2(42, -64)
 
 [node name="HFlowContainer" type="VBoxContainer" parent="-----TEST-----"]
 clip_contents = true

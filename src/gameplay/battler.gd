@@ -10,13 +10,13 @@ enum Types {
 	NONE = 0,
 	HERO_KNIGHT = 11, HERO_ROBBER = 12, HERO_MAGE = 13,
 	
-	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23, ENEMY_ENT = 24, ENEMY_SNAKE = 25
+	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23, ENEMY_ENT = 24, ENEMY_SNAKE = 25, ENEMY_ORC = 26
 }
 enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
 const HEROES: Array[Types] = [Types.HERO_KNIGHT, Types.HERO_ROBBER, Types.HERO_MAGE]
-const ENEMIES: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT, Types.ENEMY_SNAKE]
+const ENEMIES: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT, Types.ENEMY_SNAKE, Types.ENEMY_ORC]
 
 var type: Types
 var stats: BattlerStats
@@ -308,6 +308,8 @@ static func get_start_stats(type: Types) -> BattlerStats:
 			return Preloader.stats_ent
 		Types.ENEMY_SNAKE:
 			return Preloader.stats_snake
+		Types.ENEMY_ORC:
+			return Preloader.stats_orc
 		
 		_:
 			assert(false, "Wrong type: " + str(type))
@@ -332,6 +334,8 @@ static func _get_sprite_frames(type: Types) -> SpriteFrames:
 			return Preloader.sprite_frames_ent
 		Types.ENEMY_SNAKE:
 			return Preloader.sprite_frames_snake
+		Types.ENEMY_ORC:
+			return Preloader.sprite_frames_orc
 		
 		_:
 			assert(false, "Wrong type: " + str(type))
@@ -356,6 +360,8 @@ static func _get_offset(type: Types) -> Vector2:
 			return Preloader.sprite_frames_ent.offset
 		Types.ENEMY_SNAKE:
 			return Preloader.sprite_frames_snake.offset
+		Types.ENEMY_ORC:
+			return Preloader.sprite_frames_orc.offset
 		
 		_:
 			assert(false, "Wrong type: " + str(type))
