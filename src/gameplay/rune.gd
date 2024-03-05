@@ -61,7 +61,7 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 					var picked: Token.Types = pos_types.pick_random()
 					for t in battler.tokens:
 						if t.type == picked:
-							t.queue_delete()
+							t.queue_outofturns()
 			elif action_type == Battler.ActionTypes.ALLY:
 				battler.token_handler.add_token(Token.Types.REACHLESS)
 		
@@ -83,7 +83,7 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 					var picked: Token.Types = neg_types.pick_random()
 					for t in battler.tokens:
 						if t.type == picked:
-							t.queue_delete()
+							t.queue_outofturns()
 		
 		Types.WATER:
 			if action_type == Battler.ActionTypes.ATTACK:

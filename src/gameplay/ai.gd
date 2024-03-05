@@ -100,6 +100,26 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
 			return (RouletteWheel.spin(all_alive, chances) as Battler).index
 		
+		Battler.Types.ENEMY_JINN:
+			# Strategy: adds antiattack to hero OR heals 15% + removes neg token (higher chances of this if neg tokens >= 2)
+			var chances: Array[int] = []
+			
+			for i in heroes.size():
+				chances.append(100 / heroes.size())
+			for i in enemies.size():
+				var neg_tokens_count: int = 0
+				for t in enemies[i].tokens:
+					if t.type in Token.NEGATIVE_TYPES:
+						neg_tokens_count += 1
+				if neg_tokens_count >= 2:
+					chances.append(300 / enemies.size())
+				else:
+					chances.append(100 / enemies.size())
+			
+			print_debug("JINN CHANCES:", chances)
+			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
+			return (RouletteWheel.spin(all_alive, chances) as Battler).index
+		
 		_:
 			return (heroes.pick_random() as Battler).index
 
@@ -120,6 +140,8 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 			Battler.Types.ENEMY_ORC:
 				var token_type: Token.Types = [Token.Types.SHIELD, Token.Types.ATTACK, Token.Types.STIM].pick_random()
 				current_battler.token_handler.add_token(token_type, 2)
+			Battler.Types.ENEMY_JINN:
+				target_battler.token_handler.add_token(Token.Types.ANTIATTACK, 1)
 	
 	elif action_type == Battler.ActionTypes.ALLY:
 		match current_battler.type:
@@ -132,7 +154,15 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 				for t in current_battler.tokens:
 					if t.type in Token.POSITIVE_TYPES:
 						target_battler.token_handler.add_token(t.type, 1)
-						t.queue_delete()
+						t.queue_outofturns()
+			Battler.Types.ENEMY_JINN:
+				var heal := ceili(target_battler.stats.base_health * (0.1 * current_battler.stats.ally_action_value))
+				target_battler.stats.adjust_health(heal)
+				var neg_tokens: Array[Token] = []
+				for t in target_battler.tokens:
+					if t.type in Token.NEGATIVE_TYPES:
+						neg_tokens.append(t)
+				(neg_tokens.pick_random() as Token).queue_outofturns()
 	
 	(current_battler.stats as EnemyBattlerStats).reduce_reward()
 	current_battler.set_coin_counter( (current_battler.stats as EnemyBattlerStats).reward )

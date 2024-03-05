@@ -14,6 +14,7 @@ extends Node
 @export var stats_ent: EnemyBattlerStats
 @export var stats_snake: EnemyBattlerStats
 @export var stats_orc: EnemyBattlerStats
+@export var stats_jinn: EnemyBattlerStats
 @export var stats_knight: PlayerBattlerStats
 @export var stats_mage: PlayerBattlerStats
 @export var stats_robber: PlayerBattlerStats
@@ -25,6 +26,7 @@ extends Node
 @export var sprite_frames_ent: MySpriteFrames
 @export var sprite_frames_snake: MySpriteFrames
 @export var sprite_frames_orc: MySpriteFrames
+@export var sprite_frames_jinn: MySpriteFrames
 @export var sprite_frames_knight: MySpriteFrames
 @export var sprite_frames_mage: MySpriteFrames
 @export var sprite_frames_robber: MySpriteFrames

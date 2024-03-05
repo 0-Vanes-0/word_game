@@ -10,13 +10,13 @@ enum Types {
 	NONE = 0,
 	HERO_KNIGHT = 11, HERO_ROBBER = 12, HERO_MAGE = 13,
 	
-	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23, ENEMY_ENT = 24, ENEMY_SNAKE = 25, ENEMY_ORC = 26
+	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23, ENEMY_ENT = 24, ENEMY_SNAKE = 25, ENEMY_ORC = 26, ENEMY_JINN = 27
 }
 enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
 const HEROES: Array[Types] = [Types.HERO_KNIGHT, Types.HERO_ROBBER, Types.HERO_MAGE]
-const ENEMIES: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT, Types.ENEMY_SNAKE, Types.ENEMY_ORC]
+const ENEMIES: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT, Types.ENEMY_SNAKE, Types.ENEMY_ORC, Types.ENEMY_JINN]
 
 var type: Types
 var stats: BattlerStats
@@ -310,13 +310,15 @@ static func get_start_stats(type: Types) -> BattlerStats:
 			return Preloader.stats_snake
 		Types.ENEMY_ORC:
 			return Preloader.stats_orc
+		Types.ENEMY_JINN:
+			return Preloader.stats_jinn
 		
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return null
 
 
-static func _get_sprite_frames(type: Types) -> SpriteFrames:
+static func _get_sprite_frames(type: Types) -> MySpriteFrames:
 	match type:
 		Types.HERO_KNIGHT:
 			return Preloader.sprite_frames_knight
@@ -336,6 +338,8 @@ static func _get_sprite_frames(type: Types) -> SpriteFrames:
 			return Preloader.sprite_frames_snake
 		Types.ENEMY_ORC:
 			return Preloader.sprite_frames_orc
+		Types.ENEMY_JINN:
+			return Preloader.sprite_frames_jinn
 		
 		_:
 			assert(false, "Wrong type: " + str(type))
@@ -343,29 +347,7 @@ static func _get_sprite_frames(type: Types) -> SpriteFrames:
 
 
 static func _get_offset(type: Types) -> Vector2:
-	match type:
-		Types.HERO_KNIGHT:
-			return Preloader.sprite_frames_knight.offset
-		Types.HERO_ROBBER:
-			return Preloader.sprite_frames_robber.offset
-		Types.HERO_MAGE:
-			return Preloader.sprite_frames_mage.offset
-		Types.ENEMY_GOBLIN:
-			return Preloader.sprite_frames_goblin.offset
-		Types.ENEMY_FIRE_IMP:
-			return Preloader.sprite_frames_fire_imp.offset
-		Types.ENEMY_BEAR:
-			return Preloader.sprite_frames_bear.offset
-		Types.ENEMY_ENT:
-			return Preloader.sprite_frames_ent.offset
-		Types.ENEMY_SNAKE:
-			return Preloader.sprite_frames_snake.offset
-		Types.ENEMY_ORC:
-			return Preloader.sprite_frames_orc.offset
-		
-		_:
-			assert(false, "Wrong type: " + str(type))
-			return Vector2.ZERO
+	return _get_sprite_frames(type).offset
 
 
 static func _get_scale_x(type: Types) -> int:

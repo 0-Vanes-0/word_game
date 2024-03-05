@@ -27,7 +27,7 @@ func add_token(token_type: Token.Types, amount: int = 1):
 				t.type == Token.Types.SHIELD and token_type == Token.Types.ANTISHIELD
 			):
 			amount -= 1
-			t.queue_delete()
+			t.queue_outofturns()
 	
 	var to_add: int
 	if Token.get_max_amount(token_type) == 0:
