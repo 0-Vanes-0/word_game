@@ -117,7 +117,7 @@ func animate_turn(target_group: Array[Battler] = []):
 						else: 
 							target_battlers[i].position = left_position - group_gap * (2 - i) if target_battlers.size() > 1 else left_position
 			)
-		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type):
+		if current_action_type == Battler.ActionTypes.ATTACK and not _is_attack_ranged(current_battler.type, current_battler.anim_handler.action_anim_number):
 			_tween.tween_property(
 					current_battler, "position",
 					center_position,
@@ -257,9 +257,11 @@ func _new_tween() -> Tween:
 	return create_tween()
 
 
-func _is_attack_ranged(type: Battler.Types) -> bool:
+func _is_attack_ranged(type: Battler.Types, action_anim_number := 0) -> bool:
 	var rangers: Array[Battler.Types] = [
 			Battler.Types.HERO_MAGE,
 			Battler.Types.ENEMY_FIRE_IMP,
+			Battler.Types.ENEMY_JINN,
+			Battler.Types.BOSS_ONE,
 	]
 	return rangers.has(type)

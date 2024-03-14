@@ -28,8 +28,9 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 			battler.token_handler.add_token(Token.Types.TAUNT)
 		
 		Types.FIRE:
-			if action_type == Battler.ActionTypes.ATTACK:
+			if action_type == Battler.ActionTypes.ATTACK and battler.resist_handler.provoke_resist(Resist.Types.FIRE) == false:
 				battler.token_handler.add_token(Token.Types.FIRE)
+			
 			elif action_type == Battler.ActionTypes.ALLY:
 				battler.token_handler.add_token(Token.Types.MIRROR)
 		
@@ -40,14 +41,16 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 				#pass
 		
 		Types.TESLA:
-			if action_type == Battler.ActionTypes.ATTACK:
+			if action_type == Battler.ActionTypes.ATTACK and battler.resist_handler.provoke_resist(Resist.Types.TESLA) == false:
 				battler.token_handler.add_token(Token.Types.BLIND)
+			
 			elif action_type == Battler.ActionTypes.ALLY:
 				battler.token_handler.add_token(Token.Types.STIM)
 		
 		Types.TORNADO:
-			if action_type == Battler.ActionTypes.ATTACK:
+			if action_type == Battler.ActionTypes.ATTACK and battler.resist_handler.provoke_resist(Resist.Types.TORNADO) == false:
 				battler.token_handler.add_token(Token.Types.STUN)
+			
 			elif action_type == Battler.ActionTypes.ALLY:
 				battler.token_handler.add_token(Token.Types.DODGE)
 		
@@ -62,18 +65,21 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 					for t in battler.tokens:
 						if t.type == picked:
 							t.queue_outofturns()
+			
 			elif action_type == Battler.ActionTypes.ALLY:
 				battler.token_handler.add_token(Token.Types.REACHLESS)
 		
 		Types.DARK:
 			if action_type == Battler.ActionTypes.ATTACK:
 				battler.token_handler.add_token(Token.Types.LESS_DEATH_RESIST)
+			
 			elif action_type == Battler.ActionTypes.ALLY:
 				battler.token_handler.add_token(Token.Types.MORE_DEATH_RESIST)
 		
 		Types.ICE:
-			if action_type == Battler.ActionTypes.ATTACK:
+			if action_type == Battler.ActionTypes.ATTACK and battler.resist_handler.provoke_resist(Resist.Types.ICE) == false:
 				battler.token_handler.add_token(Token.Types.ANTISHIELD)
+			
 			elif action_type == Battler.ActionTypes.ALLY:
 				var neg_types: Array[Token.Types] = []
 				for t in battler.tokens:
@@ -86,8 +92,9 @@ func apply_effect(action_type: Battler.ActionTypes, battler: Battler):
 							t.queue_outofturns()
 		
 		Types.WATER:
-			if action_type == Battler.ActionTypes.ATTACK:
+			if action_type == Battler.ActionTypes.ATTACK and battler.resist_handler.provoke_resist(Resist.Types.WATER) == false:
 				battler.token_handler.add_token(Token.Types.ANTIATTACK)
+			
 			elif action_type == Battler.ActionTypes.ALLY:
 				battler.token_handler.add_token(Token.Types.HEAL_TIMED)
 		

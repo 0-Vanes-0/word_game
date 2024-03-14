@@ -61,13 +61,6 @@ func adjust_health(delta: int):
 		health_depleted.emit()
 
 
-func get_deaths_door_resist() -> Resist:
-	for resist in resists:
-		if resist.type == Resist.Types.DEATHS_DOOR:
-			return resist
-	return null
-
-
 func generate_damage_value():
 	return randi_range(get_min_damage(), max_damage)
 
@@ -117,6 +110,15 @@ func _get_label_with_info(text: String) -> RichTextLabel:
 		},
 		"$antiattack": {
 			"add_image": [Preloader.token_antiattack.icon_texture, 24, 24]
+		},
+		"$stim": {
+			"add_image": [Preloader.token_stim.icon_texture, 24, 24]
+		},
+		"$taunt": {
+			"add_image": [Preloader.token_taunt.icon_texture, 24, 24]
+		},
+		"$mirror": {
+			"add_image": [Preloader.token_mirror.icon_texture, 24, 24]
 		},
 		
 	}

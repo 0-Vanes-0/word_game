@@ -86,8 +86,10 @@ func init_turn():
 					return
 				
 				var group: Array[Battler] = []
-				if current_battler.stats.is_attack_action_group:
+				if current_action_type == Battler.ActionTypes.ATTACK and current_battler.stats.is_attack_action_group:
 					group = battle_scene.get_alive_players()
+				elif current_action_type == Battler.ActionTypes.ALLY and current_battler.stats.is_ally_action_group:
+					group = battle_scene.get_alive_enemies()
 				
 				battle_animator.animate_enemy_prepare_completed.connect(
 						func():
@@ -126,7 +128,7 @@ func proceed_turn(spell: Spell = null):
 			if current_action_type == Battler.ActionTypes.ATTACK and current_battler.stats.is_attack_action_group:
 				group = battle_scene.get_alive_players()
 			elif current_action_type == Battler.ActionTypes.ALLY and current_battler.stats.is_ally_action_group:
-				group = battle_scene.get_alive_enemies()
+				group = battle_scene.get_alive_enemies(current_battler.type != Battler.Types.BOSS_ONE)
 			AI.do_action(current_battler, target_battler, group)
 	
 	for b in battle_scene.battlers:
@@ -135,6 +137,11 @@ func proceed_turn(spell: Spell = null):
 	
 	battle_animator.animate_turn(group)
 	await battle_animator.animate_turn_completed
+	if group.is_empty():
+		await battle_scene.battlers[target_battler_index].resist_handler.sum_up_resists()
+	else:
+		for b in group:
+			await b.resist_handler.sum_up_resists()
 	
 	if spell:
 		turn_manager.shift_battler(spell.shifted_turns)

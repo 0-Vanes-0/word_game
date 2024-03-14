@@ -2,7 +2,7 @@ class_name Resist
 extends Resource
 
 enum Types {
-	NONE, DEATHS_DOOR, FIRE
+	NONE, DEATHS_DOOR, FIRE, TESLA, TORNADO, ICE, WATER
 }
 
 @export var type: Types = Types.NONE
@@ -37,12 +37,21 @@ func try_to_resist() -> bool:
 		return false
 
 
-static func get_resist_icon(type: Types) -> Texture2D:
-	match type:
+func get_resist_icon() -> Texture2D:
+	match self.type:
 		Types.DEATHS_DOOR:
 			return Preloader.texture_skull
-		#Types.FIRE:
-			#return 
+		Types.FIRE:
+			return Preloader.token_fire.icon_texture
+		Types.TESLA:
+			return Preloader.token_blind.icon_texture
+		Types.TORNADO:
+			return Preloader.token_stun.icon_texture
+		Types.ICE:
+			return Preloader.token_antishield.icon_texture
+		Types.WATER:
+			return Preloader.token_antiattack.icon_texture
+		
 		_:
 			assert(false, "Wrong type: " + str(type))
 			return Texture2D.new()

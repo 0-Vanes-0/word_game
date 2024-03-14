@@ -9,7 +9,7 @@ const CHARACTER_SIZE := Vector2(100, 120)
 const TargetColors := {
 	DEFAULT = Color.WHITE,
 	CURRENT_BATTLER = Color.YELLOW,
-	FOE_BATTLER = Color.BROWN,
+	FOE_BATTLER = Color.ORANGE_RED,
 	ALLY_BATTLER = Color.CORNFLOWER_BLUE,
 }
 const DEFAULT_SETTINGS := {

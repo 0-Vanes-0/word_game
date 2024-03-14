@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=10 format=3 uid="uid://drbj6gk3j0prn"]
+
+[ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_78qp0"]
+[ext_resource type="Texture2D" uid="uid://cp881q73bbyam" path="res://assets/sprites/avas/con10.png" id="1_ukvdq"]
+[ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_rlmeu"]
+
+[sub_resource type="Resource" id="Resource_t6rm1"]
+script = ExtResource("1_78qp0")
+type = 1
+base_value = 50
+
+[sub_resource type="Resource" id="Resource_x0dxn"]
+script = ExtResource("1_78qp0")
+type = 2
+base_value = 50
+
+[sub_resource type="Resource" id="Resource_3yj43"]
+script = ExtResource("1_78qp0")
+type = 3
+base_value = 50
+
+[sub_resource type="Resource" id="Resource_jqbdh"]
+script = ExtResource("1_78qp0")
+type = 4
+base_value = 80
+
+[sub_resource type="Resource" id="Resource_31han"]
+script = ExtResource("1_78qp0")
+type = 5
+base_value = 50
+
+[sub_resource type="Resource" id="Resource_xich6"]
+script = ExtResource("1_78qp0")
+type = 6
+base_value = 50
+
+[resource]
+script = ExtResource("2_rlmeu")
+base_reward = 300
+reward_loss = 5
+icon = ExtResource("1_ukvdq")
+battler_name = "Дазутлек"
+base_min_initiative = 10
+base_max_initiative = 12
+base_health = 400
+base_min_damage_fraction = Vector2(1, 6)
+base_max_damage = 60
+base_ally_action_value = 0
+is_attack_action_group = false
+is_ally_action_group = true
+foe_action_name = "Очищение от живых"
+foe_action_text = "Наносит $dmg урона цели и накладывает $antiattack$taunt или 2$antishield или 5$fire"
+ally_action_name = "Рабство"
+ally_action_text = "Полностью исцеляет соседние цели и накладывает на них 
+2$shield 2$attack, 
+добавляя себе 2$mirror"
+base_resist_array = Array[ExtResource("1_78qp0")]([SubResource("Resource_t6rm1"), SubResource("Resource_x0dxn"), SubResource("Resource_3yj43"), SubResource("Resource_jqbdh"), SubResource("Resource_31han"), SubResource("Resource_xich6")])

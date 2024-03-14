@@ -5,18 +5,19 @@ signal clicked
 signal hold_started
 signal hold_stopped
 signal died
+signal action_successed(on_battler: Battler)
 
 enum Types {
 	NONE = 0,
 	HERO_KNIGHT = 11, HERO_ROBBER = 12, HERO_MAGE = 13,
 	
-	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23, ENEMY_ENT = 24, ENEMY_SNAKE = 25, ENEMY_ORC = 26, ENEMY_JINN = 27
+	ENEMY_GOBLIN = 21, ENEMY_FIRE_IMP = 22, ENEMY_BEAR = 23, ENEMY_ENT = 24, ENEMY_SNAKE = 25, ENEMY_ORC = 26, ENEMY_JINN = 27, BOSS_ONE = 28
 }
 enum ActionTypes {
 	NONE, ATTACK, ALLY
 }
 const HEROES: Array[Types] = [Types.HERO_KNIGHT, Types.HERO_ROBBER, Types.HERO_MAGE]
-const ENEMIES: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT, Types.ENEMY_SNAKE, Types.ENEMY_ORC, Types.ENEMY_JINN]
+const ENEMIES: Array[Types] = [Types.ENEMY_GOBLIN, Types.ENEMY_FIRE_IMP, Types.ENEMY_BEAR, Types.ENEMY_ENT, Types.ENEMY_SNAKE, Types.ENEMY_ORC, Types.ENEMY_JINN, Types.BOSS_ONE]
 
 var type: Types
 var stats: BattlerStats
@@ -43,10 +44,11 @@ var selection: Sprite2D
 var size_area: Area2D
 var coll_shape: CollisionShape2D
 var health_bar: MyProgressBar
-var tokens_container: VBoxContainer
+var tokens_container: HFlowContainer
 var coin_counter: CenterContainer
 var token_handler: TokenHandler
 var anim_handler: BattlerAnimHandler
+var resist_handler: ResistHandler
 
 
 static func create(type: Types, stats: BattlerStats, index: int) -> Battler:
@@ -70,10 +72,17 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	anim_handler = BattlerAnimHandler.new()
 	self.add_child(anim_handler)
 	
+	resist_handler = ResistHandler.new()
+	self.add_child(resist_handler)
+	
 	sprite = AnimatedSprite2D.new()
 	sprite.sprite_frames = Battler._get_sprite_frames(type)
 	sprite.offset = Battler._get_offset(type)
-	sprite.scale = Vector2(Battler._get_scale_x(type), 1) * 2.0
+	sprite.scale = (
+			Vector2(Battler._get_scale_x(type), 1) * 1.5
+			if type == Types.BOSS_ONE
+			else Vector2(Battler._get_scale_x(type), 1) * 2.0
+	)
 	sprite.name = "BattlerSprite"
 	self.add_child(sprite)
 	
@@ -113,12 +122,16 @@ func _init(type: Types, stats: BattlerStats, index: int) -> void:
 	health_bar.max_value = self.stats.max_health
 	health_bar.set_bar_value(health_bar.max_value)
 	
-	tokens_container = VBoxContainer.new()
-	tokens_container.alignment = BoxContainer.ALIGNMENT_END
-	tokens_container.custom_minimum_size = Global.CHARACTER_SIZE
-	tokens_container.name = "TokensContainer"
-	self.add_child(tokens_container)
-	tokens_container.position = Vector2(- Global.CHARACTER_SIZE.x / 2, - Global.CHARACTER_SIZE.y * 2)
+	var vbox := VBoxContainer.new()
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.custom_minimum_size = Global.CHARACTER_SIZE
+	vbox.name = "TokensContainer"
+	self.add_child(vbox)
+	vbox.position = Vector2(- Global.CHARACTER_SIZE.x / 2, - Global.CHARACTER_SIZE.y * 2)
+	tokens_container = HFlowContainer.new()
+	tokens_container.alignment = FlowContainer.ALIGNMENT_CENTER
+	tokens_container.z_index = 999
+	vbox.add_child(tokens_container)
 	
 	coin_counter = CenterContainer.new()
 	self.add_child(coin_counter)
@@ -183,7 +196,7 @@ func set_coin_counter(value: int):
 
 
 #region Actions
-func do_attack_action(target_battler: Battler, target_group: Array[Battler] = [], is_first_call := true): # TODO: bad code -> both target_battler and target_group :/
+func do_attack_action(target_battler: Battler, target_group: Array[Battler] = [], on_attack_success_func := Callable(), is_first_call := true): # TODO: bad code -> both target_battler and target_group :/
 	action_value = int(stats.generate_damage_value())
 	damage_modifier = 0
 	is_stimed = false
@@ -192,15 +205,15 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	self.token_handler.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING)
 	
 	if target_group.is_empty():
-		_perform_attack(target_battler, is_first_call)
+		_perform_attack(target_battler, on_attack_success_func)
 	else:
 		for b in target_group:
 			damage_modifier = 0
-			_perform_attack(b, is_first_call)
+			_perform_attack(b, on_attack_success_func)
 	
 	if type == Types.HERO_ROBBER and is_first_call and target_battler.is_alive:
 		await get_tree().create_timer(0.25).timeout
-		do_attack_action(target_battler, [], false)
+		do_attack_action(target_battler, [], Callable(), false)
 	else:
 		self.token_handler.check_tokens()
 		if target_group.is_empty():
@@ -210,7 +223,7 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 				b.token_handler.check_tokens()
 
 
-func _perform_attack(target_battler: Battler, is_first_call: bool):
+func _perform_attack(target_battler: Battler, on_attack_success_func: Callable):
 	target_battler.defense_modifier = 0
 	target_battler.mirror_modifier = 0
 	target_battler.dodge_chance = 0
@@ -219,20 +232,23 @@ func _perform_attack(target_battler: Battler, is_first_call: bool):
 	var is_avoid := randf() < 1.0 - calc_hit_chance(target_battler)
 	
 	if is_avoid:
-		target_battler.anim_handler.anim_value_label(Battler.ActionTypes.ATTACK, str("ПРОМАХ"))
+		target_battler.anim_handler.anim_value_label(BattlerAnimHandler.TextTypes.ATTACK, str("ПРОМАХ"))
 	else:
 		self.token_handler.apply_tokens(Token.ApplyMoments.ON_ATTACKING)
 		target_battler.token_handler.apply_tokens(Token.ApplyMoments.ON_GET_ATTACKED)
 		var result := calc_damage_value(action_value, target_battler)
 		target_battler.stats.adjust_health(- result)
-	
+		
+		if not on_attack_success_func.is_null():
+			on_attack_success_func.call()
+		
 		if target_battler.mirror_modifier > 0:
 			await get_tree().create_timer(0.25).timeout
 			self.stats.adjust_health(- ceili(result * target_battler.mirror_modifier / 100.0) )
 
 
 func calc_damage_value(value: int, target_battler: Battler) -> int:
-	return roundi( value * (1 + damage_modifier / 100.0 - target_battler.defense_modifier / 100.0) )
+	return roundi( value * (1 + damage_modifier / 100.0) * (1 - target_battler.defense_modifier / 100.0) )
 
 
 func calc_hit_chance(target_battler: Battler) -> float:
@@ -251,34 +267,33 @@ func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []):
 	elif type == Types.HERO_MAGE:
 		action_value = int(target_battler.stats.max_health * (stats.ally_action_value / 100.0))
 		target_battler.stats.adjust_health(action_value)
+#endregion
 
-
+#region Health signals
 func _on_health_changed(value: int, delta: int):
 	health_bar.set_bar_value(value)
-	var action_type := (
-			Battler.ActionTypes.ATTACK if delta < 0
-			else Battler.ActionTypes.ALLY if delta > 0
-			else Battler.ActionTypes.NONE
-	)
 	if value > 0:
 		if is_about_to_die:
 			anim_handler.anim_and_set_about_to_die(false)
 		else:
-			anim_handler.anim_value_label(action_type, str(delta))
+			var text_type := (
+					BattlerAnimHandler.TextTypes.ATTACK if delta < 0
+					else BattlerAnimHandler.TextTypes.ALLY if delta > 0
+					else BattlerAnimHandler.TextTypes.NONE
+			)
+			anim_handler.anim_value_label(text_type, str(delta))
 
 
 func _on_health_depleted():
-	var deaths_door_resist := self.stats.get_deaths_door_resist()
-	if deaths_door_resist != null:
+	if resist_handler.get_resist(Resist.Types.DEATHS_DOOR) != null:
 		if not is_about_to_die:
-			anim_handler.anim_value_label(ActionTypes.ATTACK, str("ПРИ СМЕРТИ"))
+			anim_handler.anim_value_label(BattlerAnimHandler.TextTypes.ATTACK, str("ПРИ\nСМЕРТИ"))
 			anim_handler.anim_and_set_about_to_die(true)
 			return
-		elif deaths_door_resist.try_to_resist():
-			anim_handler.anim_value_label(ActionTypes.ATTACK, str("СОПРОТИВЛЕНИЕ"))
+		elif is_alive and resist_handler.provoke_resist(Resist.Types.DEATHS_DOOR):
 			return
 	
-	anim_handler.anim_value_label(ActionTypes.ATTACK, str("СМЕРТЬ"))
+	anim_handler.anim_value_label(BattlerAnimHandler.TextTypes.ATTACK, str("СМЕРТЬ"))
 	anim_handler.anim_and_set_about_to_die(false)
 	is_alive = false
 	health_bar.hide()
@@ -287,7 +302,6 @@ func _on_health_depleted():
 	anim_handler.anim_die()
 	died.emit()
 #endregion
-
 
 #region Static functions
 static func get_start_stats(type: Types) -> BattlerStats:
@@ -312,6 +326,8 @@ static func get_start_stats(type: Types) -> BattlerStats:
 			return Preloader.stats_orc
 		Types.ENEMY_JINN:
 			return Preloader.stats_jinn
+		Types.BOSS_ONE:
+			return Preloader.stats_boss_one
 		
 		_:
 			assert(false, "Wrong type: " + str(type))
@@ -340,6 +356,8 @@ static func _get_sprite_frames(type: Types) -> MySpriteFrames:
 			return Preloader.sprite_frames_orc
 		Types.ENEMY_JINN:
 			return Preloader.sprite_frames_jinn
+		Types.BOSS_ONE:
+			return Preloader.sprite_frames_boss_one
 		
 		_:
 			assert(false, "Wrong type: " + str(type))

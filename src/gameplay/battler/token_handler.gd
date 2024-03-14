@@ -68,6 +68,7 @@ func update_token_labels():
 				current_t_label.token = token
 				current_t_label.amount = 1
 				current_t_label.duration = token.lifetime_turns
+				current_t_label.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 				battler.tokens_container.add_child(current_t_label)
 				current_t_label.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 			else:

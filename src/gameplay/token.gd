@@ -7,7 +7,7 @@ enum Types {
 	
 	FIRE = 21, STUN = 22, ANTISHIELD = 23, ANTIATTACK = 24, BLIND = 25, TAUNT = 26, LESS_DEATH_RESIST = 27,
 }
-const POSITIVE_TYPES: Array[Types] = [Types.SHIELD, Types.ATTACK, Types.DODGE, Types.HEAL_TIMED, Types.STIM, Types.REACHLESS]
+const POSITIVE_TYPES: Array[Types] = [Types.SHIELD, Types.ATTACK, Types.MIRROR, Types.DODGE, Types.HEAL_TIMED, Types.STIM, Types.REACHLESS]
 const NEGATIVE_TYPES: Array[Types] = [Types.FIRE, Types.STUN, Types.ANTISHIELD, Types.ANTIATTACK, Types.BLIND, Types.TAUNT]
 enum ApplyMoments {
 	NONE, ON_TURN_START, ON_GET_ATTACKED, ON_ATTACKING, BEFORE_GET_ATTACKED, BEFORE_ATTACKING
@@ -122,7 +122,7 @@ func apply_token_effect(should_be_spent := true):
 		Types.LESS_DEATH_RESIST:
 			pass # TODO 10
 		Types.FIRE:
-			owner.pre_damage += 2
+			owner.pre_damage += 5
 			print_debug("Burnt!")
 		Types.STUN:
 			owner.stun_turns += 1

@@ -178,17 +178,17 @@ func _on_battle_ended(is_victory: bool):
 	#$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.RIGHT * 20 * delta
 
 
-func get_alive_players() -> Array[Battler]:
+func get_alive_players(is_current_battler_included := true) -> Array[Battler]:
 	return player_battlers.filter(
 			func(battler: Battler):
 				return battler.is_alive
 	)
 
 
-func get_alive_enemies() -> Array[Battler]:
+func get_alive_enemies(is_current_battler_included := true) -> Array[Battler]:
 	return enemy_battlers.filter(
 			func(battler: Battler):
-				return battler.is_alive
+				return battler.is_alive and (is_current_battler_included or battler.index != battle_manager.current_battler_index)
 	)
 
 

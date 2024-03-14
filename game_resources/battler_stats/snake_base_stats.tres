@@ -1,7 +1,28 @@
-[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://bqj7efl8yfpbk"]
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=8 format=3 uid="uid://bqj7efl8yfpbk"]
 
+[ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_mr4fv"]
 [ext_resource type="Texture2D" uid="uid://b81wqpp78mbym" path="res://assets/sprites/avas/con36.png" id="1_wn1o0"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_oyatj"]
+
+[sub_resource type="Resource" id="Resource_q5cck"]
+script = ExtResource("1_mr4fv")
+type = 4
+base_value = 80
+
+[sub_resource type="Resource" id="Resource_10t3a"]
+script = ExtResource("1_mr4fv")
+type = 6
+base_value = 40
+
+[sub_resource type="Resource" id="Resource_213i0"]
+script = ExtResource("1_mr4fv")
+type = 2
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_v1cuv"]
+script = ExtResource("1_mr4fv")
+type = 3
+base_value = 20
 
 [resource]
 script = ExtResource("2_oyatj")
@@ -21,4 +42,4 @@ foe_action_name = "Гиппократов Самогон"
 foe_action_text = "Наносит $dmg урона одной цели и накладывает $blind и $antiattack"
 ally_action_name = "Слизеринский Приём"
 ally_action_text = "Накладывает 2$dodge на себя"
-base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])
+base_resist_array = Array[ExtResource("1_mr4fv")]([SubResource("Resource_q5cck"), SubResource("Resource_10t3a"), SubResource("Resource_213i0"), SubResource("Resource_v1cuv")])

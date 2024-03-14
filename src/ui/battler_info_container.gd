@@ -84,7 +84,7 @@ func appear(stats: BattlerStats):
 		child.queue_free()
 	for resist in stats.resists:
 		var resist_label := IconLabel.create()
-		resist_label.set_icon(Resist.get_resist_icon(resist.type), IconLabel.Sizes.x24)
+		resist_label.set_icon(resist.get_resist_icon(), IconLabel.Sizes.x24)
 		resist_label.set_text(str(resist.value) + "%")
 		resists_grid.add_child(resist_label)
 	if not stats.resists.is_empty():

@@ -1,6 +1,9 @@
 class_name BattlerAnimHandler
 extends Node
 
+enum TextTypes {
+	NONE, ATTACK, ALLY, RESIST
+}
 const Animations := {
 	IDLE = "idle",
 	PREPARE_ATTACK = "prepare_attack",
@@ -14,6 +17,7 @@ const Animations := {
 	DIE = "die",
 }
 var battler: Battler
+var action_anim_number: int
 
 
 func _ready() -> void:
@@ -31,11 +35,21 @@ func anim_idle(start_frame: int = 0):
 func anim_prepare(type: Battler.ActionTypes):
 	match type:
 		Battler.ActionTypes.ATTACK:
-			battler.sprite.play(Animations.PREPARE_ATTACK)
-			_check_offset(Animations.PREPARE_ATTACK)
+			if action_anim_number > 0 and battler.sprite.sprite_frames.has_animation(Animations.PREPARE_ATTACK + str(action_anim_number)):
+				battler.sprite.play(Animations.PREPARE_ATTACK + str(action_anim_number))
+				_check_offset(Animations.PREPARE_ATTACK + str(action_anim_number))
+			else:
+				battler.sprite.play(Animations.PREPARE_ATTACK)
+				_check_offset(Animations.PREPARE_ATTACK)
+		
 		Battler.ActionTypes.ALLY:
-			battler.sprite.play(Animations.PREPARE_ALLY)
-			_check_offset(Animations.PREPARE_ALLY)
+			if action_anim_number > 0 and battler.sprite.sprite_frames.has_animation(Animations.PREPARE_ALLY + str(action_anim_number)):
+				battler.sprite.play(Animations.PREPARE_ALLY + str(action_anim_number))
+				_check_offset(Animations.PREPARE_ALLY + str(action_anim_number))
+			else:
+				battler.sprite.play(Animations.PREPARE_ALLY)
+				_check_offset(Animations.PREPARE_ALLY)
+		
 		_:
 			battler.sprite.play(Animations.IDLE)
 			_check_offset(Animations.IDLE)
@@ -44,14 +58,25 @@ func anim_prepare(type: Battler.ActionTypes):
 func anim_action(type: Battler.ActionTypes):
 	match type:
 		Battler.ActionTypes.ATTACK:
-			battler.sprite.play(Animations.ACTION_ATTACK)
-			_check_offset(Animations.ACTION_ATTACK)
+			if action_anim_number > 0 and battler.sprite.sprite_frames.has_animation(Animations.ACTION_ATTACK + str(action_anim_number)):
+				battler.sprite.play(Animations.ACTION_ATTACK + str(action_anim_number))
+				_check_offset(Animations.ACTION_ATTACK + str(action_anim_number))
+			else:
+				battler.sprite.play(Animations.ACTION_ATTACK)
+				_check_offset(Animations.ACTION_ATTACK)
+		
 		Battler.ActionTypes.ALLY:
-			battler.sprite.play(Animations.ACTION_ALLY)
-			_check_offset(Animations.ACTION_ALLY)
+			if action_anim_number > 0 and battler.sprite.sprite_frames.has_animation(Animations.ACTION_ALLY + str(action_anim_number)):
+				battler.sprite.play(Animations.ACTION_ALLY + str(action_anim_number))
+				_check_offset(Animations.ACTION_ALLY + str(action_anim_number))
+			else:
+				battler.sprite.play(Animations.ACTION_ALLY)
+				_check_offset(Animations.ACTION_ALLY)
+		
 		_:
 			battler.sprite.play(Animations.IDLE)
 			_check_offset(Animations.IDLE)
+	action_anim_number = 0
 
 
 func anim_reaction(type: Battler.ActionTypes):
@@ -84,7 +109,7 @@ func _check_offset(anim: String):
 		battler.sprite.offset = (battler.sprite.sprite_frames as MySpriteFrames).offset
 
 
-func anim_value_label(current_action_type: Battler.ActionTypes, text: String):
+func anim_value_label(text_type: TextTypes, text: String, icon: Texture = null):
 	var value_label := RichTextLabel.new()
 	value_label.theme = Preloader.default_theme
 	value_label.bbcode_enabled = true
@@ -93,22 +118,26 @@ func anim_value_label(current_action_type: Battler.ActionTypes, text: String):
 	value_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	value_label.add_theme_constant_override("outline_size", 8)
 	value_label.add_theme_font_size_override("normal_font_size", 24)
-	value_label.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 30)
+	value_label.custom_minimum_size = Vector2(Global.CHARACTER_SIZE.x * 2, 60)
 	value_label.name = "ValueLabel"
 	value_label.z_index = 100
 	battler.add_child(value_label)
 	
-	value_label.text = (
-			"[center]"
-			+ ("" if not text.is_valid_int() or text.begins_with("-") or text == "0" else "+")
+	value_label.text = "[center]"
+	if icon != null:
+		value_label.text += "[img=32x32]" + icon.resource_path + "[/img]"
+	value_label.text += (
+			("" if not text.is_valid_int() or text.begins_with("-") or text == "0" else "+")
 			+ text
-			+ "[/center]"
 	)
+	value_label.text += "[/center]"
 	value_label.update_minimum_size()
 	value_label.position = Vector2.UP * Global.CHARACTER_SIZE.y / 2 + Vector2.LEFT * value_label.size.x / 2
 	value_label.modulate = (
-				Global.TargetColors.FOE_BATTLER if current_action_type == Battler.ActionTypes.ATTACK
-				else Global.TargetColors.ALLY_BATTLER
+				Global.TargetColors.FOE_BATTLER if text_type == TextTypes.ATTACK
+				else Global.TargetColors.ALLY_BATTLER if text_type == TextTypes.ALLY
+				else Global.TargetColors.CURRENT_BATTLER if text_type == TextTypes.RESIST
+				else Global.TargetColors.DEFAULT
 	)
 	var tween := create_tween()
 	tween.tween_property(

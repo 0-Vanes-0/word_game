@@ -1,7 +1,13 @@
-[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://bx8m2l8lc15c4"]
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=5 format=3 uid="uid://bx8m2l8lc15c4"]
 
+[ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_14i55"]
 [ext_resource type="Texture2D" uid="uid://dkvue48d5hlcs" path="res://assets/sprites/avas/con16.png" id="1_jci05"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_wwmoy"]
+
+[sub_resource type="Resource" id="Resource_a5dny"]
+script = ExtResource("1_14i55")
+type = 4
+base_value = 40
 
 [resource]
 script = ExtResource("2_wwmoy")
@@ -21,4 +27,4 @@ foe_action_name = "Гоп-дубинка"
 foe_action_text = "Наносит $dmg урона одной цели"
 ally_action_name = ""
 ally_action_text = ""
-base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])
+base_resist_array = Array[ExtResource("1_14i55")]([SubResource("Resource_a5dny")])

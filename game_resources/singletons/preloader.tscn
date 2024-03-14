@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=80 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="12_aw57u"]
 [ext_resource type="SpriteFrames" uid="uid://bect0g6f4bvhb" path="res://game_resources/sprite_frames/sprite_frames_bear.tres" id="13_5efth"]
 [ext_resource type="Resource" uid="uid://5r43hqs5mx76" path="res://game_resources/battler_stats/jinn_base_stats.tres" id="13_7jgwv"]
+[ext_resource type="Resource" uid="uid://drbj6gk3j0prn" path="res://game_resources/battler_stats/boss1_base_stats.tres" id="14_x3fg3"]
 [ext_resource type="Texture2D" uid="uid://c5qm8yx7ng0en" path="res://assets/sprites/ui/icons/shield_yellow.png" id="14_xt4q3"]
 [ext_resource type="SpriteFrames" uid="uid://bxht187ek74ni" path="res://game_resources/sprite_frames/sprite_frames_ent.tres" id="15_c582y"]
 [ext_resource type="Texture2D" uid="uid://c3q6pw2pa2cds" path="res://assets/sprites/ui/icons/person_yellow.png" id="16_ilmgl"]
@@ -40,6 +41,7 @@
 [ext_resource type="Resource" uid="uid://pthoxclx332h" path="res://game_resources/runes/rune_spikes.tres" id="24_dxppb"]
 [ext_resource type="Texture2D" uid="uid://c61cgmxcgp2vi" path="res://assets/sprites/ui/bars/stamina-energy-magic_bar_border.png" id="24_mf617"]
 [ext_resource type="Resource" uid="uid://bjr00kkxd0ccr" path="res://game_resources/runes/rune_taunt.tres" id="25_stx8v"]
+[ext_resource type="SpriteFrames" uid="uid://bu6h8bidcjrck" path="res://game_resources/sprite_frames/sprite_frames_boss1.tres" id="25_tfjra"]
 [ext_resource type="Texture2D" uid="uid://ber214afay0e" path="res://assets/sprites/ui/bars/hp_full.png" id="25_uq5xq"]
 [ext_resource type="Texture2D" uid="uid://dw4se0mw8vsbc" path="res://assets/sprites/ui/bars/stamina_full_bar.png" id="26_mldub"]
 [ext_resource type="Resource" uid="uid://c81f1bp13k75w" path="res://game_resources/runes/rune_tesla.tres" id="26_nob83"]
@@ -92,6 +94,7 @@ stats_ent = ExtResource("8_rycwy")
 stats_snake = ExtResource("11_rqdn3")
 stats_orc = ExtResource("12_agxgk")
 stats_jinn = ExtResource("13_7jgwv")
+stats_boss_one = ExtResource("14_x3fg3")
 stats_knight = ExtResource("6_s46mm")
 stats_mage = ExtResource("7_elr8a")
 stats_robber = ExtResource("8_5xyke")
@@ -102,6 +105,7 @@ sprite_frames_ent = ExtResource("15_c582y")
 sprite_frames_snake = ExtResource("19_l6uol")
 sprite_frames_orc = ExtResource("21_03jl4")
 sprite_frames_jinn = ExtResource("23_adrll")
+sprite_frames_boss_one = ExtResource("25_tfjra")
 sprite_frames_knight = ExtResource("5_wh8vi")
 sprite_frames_mage = ExtResource("7_chvag")
 sprite_frames_robber = ExtResource("6_1v8hy")

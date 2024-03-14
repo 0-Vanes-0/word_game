@@ -1,24 +1,35 @@
-[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=3 format=3 uid="uid://5r43hqs5mx76"]
+[gd_resource type="Resource" script_class="EnemyBattlerStats" load_steps=6 format=3 uid="uid://5r43hqs5mx76"]
 
 [ext_resource type="Texture2D" uid="uid://dv57lq5cy8xjw" path="res://assets/sprites/avas/con39.png" id="1_5xgr3"]
+[ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_aa4go"]
 [ext_resource type="Script" path="res://src/gameplay/battler_stats/enemy_battler_stats.gd" id="2_ot70k"]
+
+[sub_resource type="Resource" id="Resource_5pw1e"]
+script = ExtResource("1_aa4go")
+type = 4
+base_value = 50
+
+[sub_resource type="Resource" id="Resource_yqtiu"]
+script = ExtResource("1_aa4go")
+type = 2
+base_value = 30
 
 [resource]
 script = ExtResource("2_ot70k")
 base_reward = 100
 reward_loss = 3
 icon = ExtResource("1_5xgr3")
-battler_name = ""
+battler_name = "Джинни"
 base_min_initiative = 4
 base_max_initiative = 6
 base_health = 100
-base_min_damage_fraction = Vector2(2, 3)
-base_max_damage = 60
-base_ally_action_value = 15
-is_attack_action_group = false
+base_min_damage_fraction = Vector2(0, 1)
+base_max_damage = 20
+base_ally_action_value = 20
+is_attack_action_group = true
 is_ally_action_group = false
-foe_action_name = ""
-foe_action_text = ""
-ally_action_name = "samyj luchshij drug"
-ally_action_text = ""
-base_resist_array = Array[Resource("res://src/gameplay/resist.gd")]([])
+foe_action_name = "Три желания"
+foe_action_text = "Наносит $dmg урона всем целям и накладывает $antiattack"
+ally_action_name = "Самый лучший друг"
+ally_action_text = "Восстанавливает $aav% здоровья цели и избавляет от одного типа негативных эффектов"
+base_resist_array = Array[ExtResource("1_aa4go")]([SubResource("Resource_5pw1e"), SubResource("Resource_yqtiu")])
