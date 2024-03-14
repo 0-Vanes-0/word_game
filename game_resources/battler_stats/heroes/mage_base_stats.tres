@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=9 format=3 uid="uid://bhpntspmp1b5e"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=14 format=3 uid="uid://bhpntspmp1b5e"]
 
 [ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_lj0vr"]
 [ext_resource type="Texture2D" uid="uid://digotaoy3m3uw" path="res://assets/sprites/avas/con2.png" id="2_pud63"]
@@ -12,6 +12,31 @@
 script = ExtResource("1_lj0vr")
 type = 1
 base_value = 60
+
+[sub_resource type="Resource" id="Resource_j8tvs"]
+script = ExtResource("1_lj0vr")
+type = 2
+base_value = 80
+
+[sub_resource type="Resource" id="Resource_2e6db"]
+script = ExtResource("1_lj0vr")
+type = 3
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_rnhub"]
+script = ExtResource("1_lj0vr")
+type = 4
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_thaa2"]
+script = ExtResource("1_lj0vr")
+type = 5
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_l0rqr"]
+script = ExtResource("1_lj0vr")
+type = 6
+base_value = 20
 
 [resource]
 script = ExtResource("7_p5y81")
@@ -32,4 +57,4 @@ foe_action_name = "Групповая атака"
 foe_action_text = "Наносит $dmg урона всем целям"
 ally_action_name = "Лечение"
 ally_action_text = "Восстанавливает $aav% здоровья"
-base_resist_array = Array[ExtResource("1_lj0vr")]([SubResource("Resource_qefxs")])
+base_resist_array = Array[ExtResource("1_lj0vr")]([SubResource("Resource_qefxs"), SubResource("Resource_j8tvs"), SubResource("Resource_2e6db"), SubResource("Resource_rnhub"), SubResource("Resource_thaa2"), SubResource("Resource_l0rqr")])

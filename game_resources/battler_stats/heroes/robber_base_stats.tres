@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=7 format=3 uid="uid://dvf258ty8bnm7"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=12 format=3 uid="uid://dvf258ty8bnm7"]
 
 [ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_iy8yc"]
 [ext_resource type="Texture2D" uid="uid://byqctj5057d22" path="res://assets/sprites/avas/con3.png" id="2_sljw5"]
@@ -10,6 +10,31 @@
 script = ExtResource("1_iy8yc")
 type = 1
 base_value = 70
+
+[sub_resource type="Resource" id="Resource_7n4ac"]
+script = ExtResource("1_iy8yc")
+type = 2
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_5jjio"]
+script = ExtResource("1_iy8yc")
+type = 3
+base_value = 60
+
+[sub_resource type="Resource" id="Resource_niqh8"]
+script = ExtResource("1_iy8yc")
+type = 4
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_44tg2"]
+script = ExtResource("1_iy8yc")
+type = 5
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_nvts6"]
+script = ExtResource("1_iy8yc")
+type = 6
+base_value = 60
 
 [resource]
 script = ExtResource("5_o02tt")
@@ -30,4 +55,4 @@ foe_action_name = "Двойная атака"
 foe_action_text = "Наносит $dmg урона дважды одной цели"
 ally_action_name = "Усиление атаки"
 ally_action_text = "Накладывает $aav$attack на цель"
-base_resist_array = Array[ExtResource("1_iy8yc")]([SubResource("Resource_devme")])
+base_resist_array = Array[ExtResource("1_iy8yc")]([SubResource("Resource_devme"), SubResource("Resource_7n4ac"), SubResource("Resource_5jjio"), SubResource("Resource_niqh8"), SubResource("Resource_44tg2"), SubResource("Resource_nvts6")])

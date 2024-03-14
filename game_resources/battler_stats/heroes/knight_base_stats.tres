@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=7 format=3 uid="uid://b3l3x7xocpnw3"]
+[gd_resource type="Resource" script_class="PlayerBattlerStats" load_steps=12 format=3 uid="uid://b3l3x7xocpnw3"]
 
 [ext_resource type="Script" path="res://src/gameplay/resist.gd" id="1_4m8vp"]
 [ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="2_a6f17"]
@@ -10,6 +10,31 @@
 script = ExtResource("1_4m8vp")
 type = 1
 base_value = 80
+
+[sub_resource type="Resource" id="Resource_5sksi"]
+script = ExtResource("1_4m8vp")
+type = 2
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_d7hao"]
+script = ExtResource("1_4m8vp")
+type = 3
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_pf6xa"]
+script = ExtResource("1_4m8vp")
+type = 4
+base_value = 50
+
+[sub_resource type="Resource" id="Resource_rw32s"]
+script = ExtResource("1_4m8vp")
+type = 5
+base_value = 20
+
+[sub_resource type="Resource" id="Resource_6ikwk"]
+script = ExtResource("1_4m8vp")
+type = 6
+base_value = 20
 
 [resource]
 script = ExtResource("5_7yg8s")
@@ -30,4 +55,4 @@ foe_action_name = "Атака"
 foe_action_text = "Наносит $dmg урона одной цели"
 ally_action_name = "Защита"
 ally_action_text = "Накладывает $aav$shield на цель"
-base_resist_array = Array[ExtResource("1_4m8vp")]([SubResource("Resource_37uiu")])
+base_resist_array = Array[ExtResource("1_4m8vp")]([SubResource("Resource_37uiu"), SubResource("Resource_5sksi"), SubResource("Resource_d7hao"), SubResource("Resource_pf6xa"), SubResource("Resource_rw32s"), SubResource("Resource_6ikwk")])
