@@ -30,6 +30,12 @@ func _ready() -> void:
 	assert(level_up_container and handbook_button and handbook and settings_button and hero_grid_container and upgrade_button and play_button and settings)
 	level_up_container.hide(); handbook.hide(); settings.hide()
 	
+	if Global.get_player_last_seen_version() < float(ProjectSettings.get_setting("application/config/version", "99.9")):
+		var stars: Array = Global.player_data["enemy_level_stars"]
+		if stars.back() != 0 and Global.get_player_last_enemy_level_reached() < GameInfo.enemy_levels.size():
+			Global.set_player_last_enemy_level_reached(Global.get_player_last_enemy_level_reached() + 1)
+		Global.set_player_last_seen_version(float(ProjectSettings.get_setting("application/config/version", "0.0")))
+	
 	settings_button.set_on_press( func(): settings.show() )
 	handbook_button.set_on_press( func(): handbook.show() )
 	
