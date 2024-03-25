@@ -45,8 +45,10 @@ func get_level_by_coins(coins: int) -> int:
 # ^
 # |
 # v
-func get_coins_by_level(level: int) -> int:
-	return 10 * pow(2, level - 2)
+func get_coins_by_level(level: int) -> int: # 10, 15, 25, 40, 60...
+	assert(level >= 2)
+	var x := level - 2
+	return 2.5*x*x + 2.5*x + 10
 
 
 func pay_coins(coins: int) -> bool:
