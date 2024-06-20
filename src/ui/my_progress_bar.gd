@@ -10,7 +10,7 @@ enum ValueDisplayType {
 @export_group("Color")
 @export var color_from_editor: Colors = Colors.NONE
 @export var value_display_type: ValueDisplayType = ValueDisplayType.NONE
-@export_group("Children")
+@export_group("Required Children")
 @export var label: Label
 var is_setup: bool = false
 

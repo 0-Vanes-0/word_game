@@ -4,7 +4,7 @@ extends CenterContainer
 signal to_proceed_turn(spell: Spell)
 
 @export var _battle_scene: BattleScene
-@export_group("Children")
+@export_group("Required Children")
 @export var _status_label: RichTextLabel
 @export var _spell_label: Label
 @export var _reset_spell_button: TextureButton

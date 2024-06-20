@@ -13,7 +13,7 @@ const PREVIEW_TIME := 2.0
 const AVA_MOVE_TIME := 0.25
 
 @export var _battle_scene: BattleScene
-@export_group("Children")
+@export_group("Required Children")
 @export var _ava_template: TextureRect
 @export var _label_template: Label
 

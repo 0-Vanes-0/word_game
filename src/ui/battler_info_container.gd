@@ -2,7 +2,7 @@ class_name BattlerInfoContainer
 extends MarginContainer
 
 @export var fade_color_rect: ColorRect
-@export_group("Children")
+@export_group("Required Children")
 @export var name_label: Label
 @export var ava: BackgroundedIcon
 @export var health_bar: MyProgressBar

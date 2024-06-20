@@ -3,7 +3,7 @@ extends Node2D
 
 signal proceed_turn_ended
 
-@export_group("Children")
+@export_group("Required Children")
 @export var battlers_node: Marker2D
 @export var black_screen: MeshInstance2D
 @export var effect_sprite: AnimatedSprite2D#

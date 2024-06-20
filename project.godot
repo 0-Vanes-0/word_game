@@ -50,6 +50,16 @@ window/handheld/orientation=4
 
 enabled=PackedStringArray("res://addons/SpritesheetGenerator/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "purple",
+"res://android/": "gray",
+"res://assets/": "orange",
+"res://game_resources/": "yellow",
+"res://src/": "blue"
+}
+
 [importer_defaults]
 
 texture_atlas={
