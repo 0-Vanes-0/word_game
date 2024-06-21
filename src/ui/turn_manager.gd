@@ -1,8 +1,7 @@
 class_name TurnManager
 extends MarginContainer
 
-signal battlers_moved_by_one_tick
-signal queue_ready
+signal need_to_show_text(text: String, time: float)
 
 const OFFSET := Vector2(4, 4)
 const ELEMENT_SIZE := Vector2(72, 72)
@@ -12,7 +11,6 @@ const AVAS_GAP := 160
 const PREVIEW_TIME := 2.0
 const AVA_MOVE_TIME := 0.25
 
-@export var _battle_scene: BattleScene
 @export_group("Required Children")
 @export var _ava_template: TextureRect
 @export var _label_template: Label
@@ -23,11 +21,10 @@ var _labels: Array[Label] = []
 
 
 func _ready() -> void:
-	assert(_battle_scene and _ava_template and _label_template)
+	assert(_ava_template and _label_template)
 
 
-func setup():
-	var battlers: Array[Battler] = _battle_scene.battlers.duplicate()
+func setup(battlers: Array[Battler]): # TODO: add re-setup???
 	for i in battlers.size():
 		var ava := _create_ava()
 		ava.texture = battlers[i].stats.icon
@@ -47,10 +44,10 @@ func setup():
 	_label_template.hide()
 	$Avas.z_index = 999
 	
-	_battler_queue.resize(10)
+	_battler_queue.resize(6)
 	var size := int(battlers.size())
 	
-	_battle_scene.show_wtf_label("Распределение по скорости", PREVIEW_TIME)
+	need_to_show_text.emit("Распределение по скорости", PREVIEW_TIME)
 	await get_tree().create_timer(PREVIEW_TIME).timeout
 	$Avas.z_index = 0
 	for i in size:
@@ -61,73 +58,65 @@ func setup():
 				next_battler = j
 				max_initiative = battlers[j].stats.initiative
 		_battler_queue[i] = battlers[next_battler]
-		_reposition_slidable(battlers[next_battler].index, i)
+		_reposition(battlers[next_battler].index, i)
 		battlers.remove_at(next_battler)
 		create_tween().tween_property(
-			_labels[i], "modulate:a",
-			0.0,
-			AVA_MOVE_TIME
+				_labels[i], "modulate:a",
+				0.0,
+				AVA_MOVE_TIME
 		)
 		
 		await get_tree().create_timer(0.15).timeout
-	
-	queue_ready.emit()
 
 
-func shift_battler(ticks: int = 1):
-	if _battler_queue[0] != null:
-		for i in range(1, _battler_queue.size()):
-			if _battler_queue[i] != null:
-				continue
-			else:
-				ticks -= 1
-				await _reposition_slidable(_battler_queue[0].index, i, 2.0)
-				if ticks == 0:
-					_battler_queue[i] = _battler_queue[0]
-					break
-		_battler_queue[0] = null
-	else:
-		print_debug("_battler_queue[0] == null!!!")
-	
-	move_battlers()
-	await get_tree().create_timer(AVA_MOVE_TIME).timeout
-	battlers_moved_by_one_tick.emit()
+#func shift_battler(ticks: int = 1):
+#	if _battler_queue[0] != null:
+#		for i in range(1, _battler_queue.size()):
+#			if _battler_queue[i] != null:
+#				continue
+#			else:
+#				ticks -= 1
+#				await _reposition(_battler_queue[0].index, i, 2.0)
+#				if ticks == 0:
+#					_battler_queue[i] = _battler_queue[0]
+#					break
+#		_battler_queue[0] = null
+#	else:
+#		print_debug("_battler_queue[0] == null!!!")
+#
+#	move_battlers()
+#	await get_tree().create_timer(AVA_MOVE_TIME).timeout
 
 
 func get_current_battler_index() -> int:
 	if _battler_queue.any(func(b: Battler): return b != null):
-		if _battler_queue[0] == null:
-			move_battlers()
-			return get_current_battler_index()
 		return _battler_queue[0].index
 	else:
 		assert(false, "_battler_queue is empty!!!")
 		return -1
 
 
-func move_battlers():
-	for i in _battler_queue.size():
-		if _battler_queue[i] == null:
-			if i < _battler_queue.size() - 1:
-				_battler_queue[i] = _battler_queue[i+1]
-				_battler_queue[i+1] = null
-			else:
-				_battler_queue[i] = null
-			
-			if _battler_queue[i] != null:
-				_reposition_slidable(_battler_queue[i].index, i)
+#func move_battlers():
+#	for i in _battler_queue.size():
+#		if _battler_queue[i] == null:
+#			if i < _battler_queue.size() - 1:
+#				_battler_queue[i] = _battler_queue[i+1]
+#				_battler_queue[i+1] = null
+#			else:
+#				_battler_queue[i] = null
+#
+#			if _battler_queue[i] != null:
+#				_reposition(_battler_queue[i].index, i)
 
 
-func remove_battler(battler_index: int):
+func toggle_aliveness(battler_index: int, is_alive: bool):
 	for i in _battler_queue.size():
 		if _battler_queue[i] != null and _battler_queue[i].index == battler_index:
-			_battler_queue[i] = null
-			_avas[battler_index].hide()
-			move_battlers()
+			_avas[battler_index].modulate.s = 1.0 if is_alive else 0.0
 			break
 
 
-func _reposition_slidable(slidable_index: int, i: int, time_scale := 1.0):
+func _reposition(slidable_index: int, i: int, time_scale := 1.0):
 	var tween := create_tween()
 	tween.tween_property(
 		_avas[slidable_index], "position",

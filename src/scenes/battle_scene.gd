@@ -52,67 +52,56 @@ func _ready() -> void:
 		battler.position = battlers_positions[index]
 		battler.clicked.connect(func(): _on_battler_clicked(battler))
 		battler.hold_started.connect(func(): battler_info.appear(battler.stats))
-		battler.hold_stopped.connect(battler_info.disappear)
+		battler.hold_stopped.connect(func(): battler_info.disappear())
 		battler.set_area_inputable(true)
 		
 		if battler.stats is PlayerBattlerStats:
 			player_battlers.append(battler)
-			battler.died.connect(
-					func():
-						turn_manager.remove_battler(index)
-			)
 			battler.name = "Player" + str(index)
 		elif battler.stats is EnemyBattlerStats:
 			enemy_battlers.append(battler)
-			battler.died.connect(
-					func():
-						turn_manager.remove_battler(index)
-			)
 			battler.name = "Enemy" + str(index)
-#			battler.set_coin_counter( (battler.stats as EnemyBattlerStats).reward )
 		
 		battlers_node.add_child(battler)
 		battlers.append(battler)
 	
 	black_screen.move_to_front()
-	battlers_node.move_child(effect_sprite, -1) # To remove
 	$"-----TEST-----".hide()
 	
-	back_button.pressed.connect(
+	back_button.set_on_press(
 			func():
 				back_confirm.show()
 				get_tree().paused = true
 	)
-	handbook_button.pressed.connect(
+	handbook_button.set_on_press(
 			func():
 				handbook.show()
 	)
 	
 	preview_color_rect.show()
-	turn_manager.queue_ready.connect(
-			func():
-				var tween := create_tween()
-				tween.tween_property(
-						preview_color_rect, "modulate:a",
-						0.0,
-						0.5
-				)
-				tween.tween_callback(
-						func():
-							preview_color_rect.hide()
-							battle_manager.init_turn()
-							battle_manager.battle_ended.connect(_on_battle_ended)
-				)
-	)
-	turn_manager.setup()
 	
 	battler_info.hide()
 	
-	hud_manager.to_proceed_turn.connect( 
-			func(spell: Spell):
-				battle_manager.proceed_turn(spell)
+	hud_manager.to_proceed_turn.connect(
+		func(spell: Spell):
+			battle_manager.proceed_turn(spell)
 	)
 	hud_manager.disappear()
+	
+	turn_manager.need_to_show_text.connect(show_wtf_label)
+	await turn_manager.setup(battlers)
+	var tween := create_tween()
+	tween.tween_property(
+			preview_color_rect, "modulate:a",
+			0.0,
+			0.5
+	)
+	tween.tween_callback(
+			func():
+				preview_color_rect.hide()
+				battle_manager.init_turn()
+				battle_manager.battle_ended.connect(_on_battle_ended)
+	)
 
 
 func _on_battler_clicked(battler: Battler):

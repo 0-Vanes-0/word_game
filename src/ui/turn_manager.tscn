@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bm6rijkr05day" path="res://assets/sprites/ui/square_border_big_full_empty.png" id="4_twfpf"]
 
 [node name="TurnManager" type="MarginContainer" node_paths=PackedStringArray("_ava_template", "_label_template")]
-offset_right = 652.0
+offset_right = 436.0
 offset_bottom = 80.0
 size_flags_horizontal = 4
 theme = ExtResource("1_uwlp7")
@@ -102,42 +102,6 @@ patch_margin_right = 6
 patch_margin_bottom = 6
 
 [node name="NinePatchRect6" type="NinePatchRect" parent="MarginContainer/FramesBox"]
-custom_minimum_size = Vector2(72, 0)
-layout_mode = 2
-texture = ExtResource("3_qssq5")
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-
-[node name="NinePatchRect7" type="NinePatchRect" parent="MarginContainer/FramesBox"]
-custom_minimum_size = Vector2(72, 0)
-layout_mode = 2
-texture = ExtResource("3_qssq5")
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-
-[node name="NinePatchRect8" type="NinePatchRect" parent="MarginContainer/FramesBox"]
-custom_minimum_size = Vector2(72, 0)
-layout_mode = 2
-texture = ExtResource("3_qssq5")
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-
-[node name="NinePatchRect9" type="NinePatchRect" parent="MarginContainer/FramesBox"]
-custom_minimum_size = Vector2(72, 0)
-layout_mode = 2
-texture = ExtResource("3_qssq5")
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-
-[node name="NinePatchRect10" type="NinePatchRect" parent="MarginContainer/FramesBox"]
 custom_minimum_size = Vector2(72, 0)
 layout_mode = 2
 texture = ExtResource("3_qssq5")

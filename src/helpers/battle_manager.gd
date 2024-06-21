@@ -35,7 +35,7 @@ func init_turn():
 	current_battler.token_handler.check_tokens(Token.ApplyMoments.ON_TURN_START)
 	if not current_battler.is_alive or current_battler.stun_turns > 0:
 		if current_battler.stun_turns > 0:
-			await turn_manager.shift_battler(current_battler.stun_turns)
+			await turn_manager.shift_battler(current_battler.stun_turns) # REMOVE THIS
 		init_turn()
 	
 	else:
@@ -80,7 +80,7 @@ func init_turn():
 				set_target_and_action( AI.pick_target(current_battler, battle_scene.battlers) )
 				
 				if target_battler_index == -1:
-					turn_manager.shift_battler()
+					turn_manager.shift_battler() # REMOVE THIS
 					await get_tree().create_timer(1.0).timeout
 					init_turn()
 					return
@@ -144,12 +144,12 @@ func proceed_turn(spell: Spell = null):
 			await b.resist_handler.sum_up_resists()
 	
 	if spell:
-		turn_manager.shift_battler(spell.shifted_turns)
+		turn_manager.shift_battler(spell.shifted_turns) # REMOVE THIS
 		spell.free()
 	else:
-		turn_manager.shift_battler()
+		turn_manager.shift_battler() # REMOVE THIS
 	
-	turn_manager.battlers_moved_by_one_tick.connect(init_turn, CONNECT_ONE_SHOT)
+	turn_manager.battlers_moved_by_one_tick.connect(init_turn, CONNECT_ONE_SHOT) # REMOVE THIS
 
 
 func set_target_and_action(index: int):
