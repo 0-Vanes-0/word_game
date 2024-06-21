@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://bawiklcjfkhhb"]
+
+[ext_resource type="Script" path="res://src/gameplay/battler/battler.gd" id="1_4ihnm"]
+[ext_resource type="Texture2D" uid="uid://cim7p0f0ynatd" path="res://assets/sprites/ui/selection_hover.png" id="2_co8xr"]
+[ext_resource type="Texture2D" uid="uid://cay0px1pbvcpn" path="res://assets/sprites/ui/selection.png" id="3_ggc0a"]
+[ext_resource type="Script" path="res://src/gameplay/battler/token_handler.gd" id="3_glqs5"]
+[ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="4_3yhrw"]
+[ext_resource type="Script" path="res://src/gameplay/battler/battler_anim_handler.gd" id="4_shnbn"]
+[ext_resource type="Script" path="res://src/gameplay/battler/resist_handler.gd" id="5_llfdl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqwx2"]
+size = Vector2(100, 120)
+
+[node name="BattlerTemplate" type="Node2D" node_paths=PackedStringArray("sprite", "uis", "selection_hover", "selection", "health_bar", "tokens_container", "size_area", "token_handler", "anim_handler", "resist_handler")]
+script = ExtResource("1_4ihnm")
+sprite = NodePath("BattlerSprite")
+uis = NodePath("UIs")
+selection_hover = NodePath("UIs/SelectionHover")
+selection = NodePath("UIs/Selection")
+health_bar = NodePath("UIs/MyProgressBar")
+tokens_container = NodePath("UIs/VBox/TokensContainer")
+size_area = NodePath("SizeArea")
+token_handler = NodePath("Handlers/TokenHandler")
+anim_handler = NodePath("Handlers/BattlerAnimHandler")
+resist_handler = NodePath("Handlers/ResistHandler")
+
+[node name="BattlerSprite" type="AnimatedSprite2D" parent="."]
+
+[node name="UIs" type="Node2D" parent="."]
+
+[node name="SelectionHover" type="Sprite2D" parent="UIs"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_co8xr")
+offset = Vector2(0, -14)
+
+[node name="Selection" type="Sprite2D" parent="UIs"]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("3_ggc0a")
+offset = Vector2(0, 5.5)
+
+[node name="MyProgressBar" parent="UIs" instance=ExtResource("4_3yhrw")]
+offset_left = -35.0
+offset_top = 30.0
+offset_right = 35.0
+offset_bottom = 45.0
+color_from_editor = 1
+value_display_type = 2
+
+[node name="VBox" type="VBoxContainer" parent="UIs"]
+custom_minimum_size = Vector2(100, 120)
+offset_left = -50.0
+offset_top = -240.0
+offset_right = 50.0
+offset_bottom = -120.0
+alignment = 2
+
+[node name="TokensContainer" type="HFlowContainer" parent="UIs/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="SizeArea" type="Area2D" parent="."]
+position = Vector2(0, -60)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SizeArea"]
+shape = SubResource("RectangleShape2D_wqwx2")
+
+[node name="Handlers" type="Node" parent="."]
+
+[node name="TokenHandler" type="Node" parent="Handlers"]
+script = ExtResource("3_glqs5")
+
+[node name="BattlerAnimHandler" type="Node" parent="Handlers"]
+script = ExtResource("4_shnbn")
+
+[node name="ResistHandler" type="Node" parent="Handlers"]
+script = ExtResource("5_llfdl")

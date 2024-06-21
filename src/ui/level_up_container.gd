@@ -27,18 +27,18 @@ func _ready() -> void:
 				if self.visible:
 					update_content()
 	)
-	knight_button.pressed.connect(func(): _on_upgrade_button_pressed(Battler.Types.HERO_KNIGHT))
-	robber_button.pressed.connect(func(): _on_upgrade_button_pressed(Battler.Types.HERO_ROBBER))
-	mage_button.pressed.connect(func(): _on_upgrade_button_pressed(Battler.Types.HERO_MAGE))
+	knight_button.pressed.connect(func(): _on_upgrade_button_pressed(Battler.HeroTypes.KNIGHT))
+	robber_button.pressed.connect(func(): _on_upgrade_button_pressed(Battler.HeroTypes.ROBBER))
+	mage_button.pressed.connect(func(): _on_upgrade_button_pressed(Battler.HeroTypes.MAGE))
 
 
 func update_content():
 	var knight := Preloader.stats_knight as PlayerBattlerStats
 	var robber := Preloader.stats_robber as PlayerBattlerStats
 	var mage := Preloader.stats_mage as PlayerBattlerStats
-	var knight_level: int = Global.get_player_level(Battler.Types.HERO_KNIGHT)
-	var robber_level: int = Global.get_player_level(Battler.Types.HERO_ROBBER)
-	var mage_level: int = Global.get_player_level(Battler.Types.HERO_MAGE)
+	var knight_level: int = Global.get_player_level(Battler.HeroTypes.KNIGHT)
+	var robber_level: int = Global.get_player_level(Battler.HeroTypes.ROBBER)
+	var mage_level: int = Global.get_player_level(Battler.HeroTypes.MAGE)
 	var next_knight_payment: int = GameInfo.get_coins_by_level(knight_level + 1)
 	var next_robber_payment: int = GameInfo.get_coins_by_level(robber_level + 1)
 	var next_mage_payment: int = GameInfo.get_coins_by_level(mage_level + 1)
@@ -70,7 +70,7 @@ func update_content():
 	mage_damage.set_text(str(mage_min_dmg) + "-" + str(mage_max_dmg))
 
 
-func _on_upgrade_button_pressed(hero_type: Battler.Types):
+func _on_upgrade_button_pressed(hero_type: Battler.HeroTypes):
 	var hero_level: int = Global.get_player_level(hero_type)
 	var coins_to_spent: int = GameInfo.get_coins_by_level(hero_level + 1)
 	if GameInfo.pay_coins(coins_to_spent):
@@ -93,20 +93,20 @@ func _on_color_rect_gui_input(event: InputEvent) -> void:
 
 func _on_knight_icon_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
-		var knight := (Preloader.stats_knight.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.Types.HERO_KNIGHT))
+		var knight := (Preloader.stats_knight.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.HeroTypes.KNIGHT))
 		$ColorRect/CenterContainer/BattlerInfoContainer.appear(knight)
 		$ColorRect.show()
 
 
 func _on_robber_icon_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
-		var robber := (Preloader.stats_robber.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.Types.HERO_ROBBER))
+		var robber := (Preloader.stats_robber.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.HeroTypes.ROBBER))
 		$ColorRect/CenterContainer/BattlerInfoContainer.appear(robber)
 		$ColorRect.show()
 
 
 func _on_mage_icon_gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
-		var mage := (Preloader.stats_mage.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.Types.HERO_MAGE))
+		var mage := (Preloader.stats_mage.get_resource() as PlayerBattlerStats).assign_level(Global.get_player_level(Battler.HeroTypes.MAGE))
 		$ColorRect/CenterContainer/BattlerInfoContainer.appear(mage)
 		$ColorRect.show()

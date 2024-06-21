@@ -96,6 +96,9 @@ var battle_musics: Array[AudioStreamOggVorbis]
 @export var level_container: PackedScene
 @export var level_page: PackedScene
 
+@export_group("Templates")
+@export var battler_template: PackedScene
+
 
 func _ready() -> void:
 	assert(game_scene and http_test_scene and battle_scene and level_scene and credits_scene)
@@ -114,6 +117,7 @@ func _ready() -> void:
 			and token_dodge and token_heal_timed and token_less_death_resist and token_mirror 
 			and token_more_death_resist and token_reachless and token_stim and token_stun and token_taunt)
 	assert(default_theme and my_progress_bar and icon_label and level_container and level_page)
+	assert(battler_template)
 	
 	game_scene_musics = [ audio_game_scene4, audio_game_scene5 ]
 	battle_musics = [ audio_battle1, audio_battle2, audio_battle3 ]

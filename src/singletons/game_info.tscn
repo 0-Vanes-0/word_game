@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_di6hx"]
 script = ExtResource("2_wdgve")
-enemies = Array[int]([21, 21, 0])
+enemies = Array[int]([21, 21, -1])
 coin_summ = 20
 
 [sub_resource type="Resource" id="Resource_pfxr3"]

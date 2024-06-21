@@ -5,7 +5,7 @@ extends Node
 #region CONSTANTS
 #const VERSION := 0.9
 var SCREEN_WIDTH: int; var SCREEN_HEIGHT: int; var RATIO := ":"
-const CHARACTER_SIZE := Vector2(100, 120)
+var CHARACTER_SIZE: Vector2
 const TargetColors := {
 	DEFAULT = Color.WHITE,
 	CURRENT_BATTLER = Color.YELLOW,
@@ -26,7 +26,7 @@ const DEFAULT_DATA := {
 		"mage_level": 1,
 	},
 	"coins": 0,
-	"last_hero_choice": [Battler.Types.HERO_MAGE, Battler.Types.HERO_ROBBER, Battler.Types.HERO_KNIGHT],
+	"last_hero_choice": [Battler.HeroTypes.MAGE, Battler.HeroTypes.ROBBER, Battler.HeroTypes.KNIGHT],
 	"last_enemy_level_reached": 1,
 	"total_coins": 0,
 	"enemy_level_stars": [0],
@@ -50,6 +50,10 @@ func setup():
 	RATIO = str(SCREEN_WIDTH / gcd) + RATIO + str(SCREEN_HEIGHT / gcd)
 	print_debug("\t", "SCREEN_WIDTH=", SCREEN_WIDTH, ", SCREEN_HEIGHT=", SCREEN_HEIGHT, ", RATIO=", RATIO)
 	
+	var battler := Preloader.battler_template.instantiate() as Battler
+	Global.CHARACTER_SIZE = battler.size_area.get_child(0).shape.size
+	battler.queue_free()
+	
 	randomize()
 	
 	player_data = SaveLoad.load_data()
@@ -69,24 +73,24 @@ func set_player_last_seen_version(value: float):
 func get_player_last_seen_version() -> float:
 	return player_data.get("last_seen_version") as float
 
-func set_player_level(battler_type: Battler.Types, value: int):
+func set_player_level(battler_type: int, value: int):
 	match battler_type:
-		Battler.Types.HERO_KNIGHT:
+		Battler.HeroTypes.KNIGHT:
 			player_data["levels"]["knight_level"] = value
-		Battler.Types.HERO_ROBBER:
+		Battler.HeroTypes.ROBBER:
 			player_data["levels"]["robber_level"] = value
-		Battler.Types.HERO_MAGE:
+		Battler.HeroTypes.MAGE:
 			player_data["levels"]["mage_level"] = value
 		_:
 			assert(false, str(battler_type))
 	SaveLoad.save_data()
-func get_player_level(battler_type: Battler.Types) -> int:
+func get_player_level(battler_type: int) -> int:
 	match battler_type:
-		Battler.Types.HERO_KNIGHT:
+		Battler.HeroTypes.KNIGHT:
 			return player_data.get("levels").get("knight_level") as int
-		Battler.Types.HERO_ROBBER:
+		Battler.HeroTypes.ROBBER:
 			return player_data.get("levels").get("robber_level") as int
-		Battler.Types.HERO_MAGE:
+		Battler.HeroTypes.MAGE:
 			return player_data.get("levels").get("mage_level") as int
 		_:
 			assert(false, str(battler_type))

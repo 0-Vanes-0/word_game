@@ -257,11 +257,11 @@ func _new_tween() -> Tween:
 	return create_tween()
 
 
-func _is_attack_ranged(type: Battler.Types, action_anim_number := 0) -> bool:
-	var rangers: Array[Battler.Types] = [
-			Battler.Types.HERO_MAGE,
-			Battler.Types.ENEMY_FIRE_IMP,
-			Battler.Types.ENEMY_JINN,
-			Battler.Types.BOSS_ONE,
+func _is_attack_ranged(type: int, action_anim_number := 0) -> bool:
+	var rangers: Array[int] = [
+			Battler.HeroTypes.MAGE,
+			Battler.EnemyTypes.FIRE_IMP,
+			Battler.EnemyTypes.JINN,
+			Battler.EnemyTypes.BOSS_ONE,
 	]
 	return rangers.has(type)

@@ -1,7 +1,7 @@
 class_name AI
 extends Object
 
-const NOT_ATTACKING_MOBS: Array[Battler.Types] = []
+const NOT_ATTACKING_MOBS: Array[int] = []
 
 
 static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) -> int:
@@ -20,7 +20,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 		return -1
 	
 	match current_battler.type:
-		Battler.Types.ENEMY_GOBLIN:
+		Battler.EnemyTypes.GOBLIN:
 			# Strategy: Attack priority on hero with lowest hp
 			var chances: Array[int] = []
 			
@@ -33,7 +33,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			
 			return (RouletteWheel.spin(heroes, chances) as Battler).index
 		
-		Battler.Types.ENEMY_FIRE_IMP:
+		Battler.EnemyTypes.FIRE_IMP:
 			# Strategy: Attack priority on hero with highest hp
 			var chances: Array[int] = []
 			
@@ -48,7 +48,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			
 			return (RouletteWheel.spin(heroes, chances) as Battler).index
 		
-		Battler.Types.ENEMY_BEAR:
+		Battler.EnemyTypes.BEAR:
 			# Strategy: Random attack and defends if someone has hp <50% and is without SHIELD
 			var chances: Array[int] = []
 			
@@ -64,7 +64,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
 			return (RouletteWheel.spin(all_alive, chances) as Battler).index
 		
-		Battler.Types.ENEMY_SNAKE:
+		Battler.EnemyTypes.SNAKE:
 			# Strategy: 50/50 attacks hero or defends
 			var chances: Array[int] = []
 			
@@ -76,7 +76,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			heroes.append(current_battler)
 			return (RouletteWheel.spin(heroes, chances) as Battler).index
 		
-		Battler.Types.ENEMY_ORC:
+		Battler.EnemyTypes.ORC:
 			# Strategy: buff himself until gets 3+ positive tokens, then share them with his ally
 			var chances: Array[int] = []
 			
@@ -100,7 +100,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
 			return (RouletteWheel.spin(all_alive, chances) as Battler).index
 		
-		Battler.Types.ENEMY_JINN:
+		Battler.EnemyTypes.JINN:
 			# Strategy: adds antiattack to hero OR heals 15% + removes neg token (higher chances of this if neg tokens >= 2)
 			var chances: Array[int] = []
 			
@@ -120,7 +120,7 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			var all_alive: Array[Battler] = heroes.duplicate(); all_alive.append_array(enemies)
 			return (RouletteWheel.spin(all_alive, chances) as Battler).index
 		
-		Battler.Types.BOSS_ONE:
+		Battler.EnemyTypes.BOSS_ONE:
 			# Strategy: Random target + random attack type BUT if ally is injured - heals and buffs him
 			var chances: Array[int] = []
 			
@@ -153,22 +153,22 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 				target_battler, target_group,
 				func():
 					match current_battler.type:
-						Battler.Types.ENEMY_FIRE_IMP:
+						Battler.EnemyTypes.FIRE_IMP:
 							target_battler.token_handler.add_token(Token.Types.FIRE, 2)
 						
-						Battler.Types.ENEMY_SNAKE:
+						Battler.EnemyTypes.SNAKE:
 							target_battler.token_handler.add_token(Token.Types.BLIND, 1)
 							target_battler.token_handler.add_token(Token.Types.ANTIATTACK, 1)
 						
-						Battler.Types.ENEMY_ORC:
+						Battler.EnemyTypes.ORC:
 							var token_type: Token.Types = [Token.Types.SHIELD, Token.Types.ATTACK, Token.Types.STIM].pick_random()
 							current_battler.token_handler.add_token(token_type, 2)
 						
-						Battler.Types.ENEMY_JINN:
+						Battler.EnemyTypes.JINN:
 							for b in target_group:
 								b.token_handler.add_token(Token.Types.ANTIATTACK, 1)
 						
-						Battler.Types.BOSS_ONE:
+						Battler.EnemyTypes.BOSS_ONE:
 							var attack_type: Array[Callable] = []
 							attack_type.append(
 									func():
@@ -188,20 +188,20 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 	
 	elif action_type == Battler.ActionTypes.ALLY:
 		match current_battler.type:
-			Battler.Types.ENEMY_BEAR:
+			Battler.EnemyTypes.BEAR:
 				target_battler.token_handler.add_token(Token.Types.SHIELD, 2)
 				current_battler.token_handler.add_token(Token.Types.ANTISHIELD, 2)
 			
-			Battler.Types.ENEMY_SNAKE:
+			Battler.EnemyTypes.SNAKE:
 				current_battler.token_handler.add_token(Token.Types.DODGE, 2)
 			
-			Battler.Types.ENEMY_ORC:
+			Battler.EnemyTypes.ORC:
 				for t in current_battler.tokens:
 					if t.type in Token.POSITIVE_TYPES:
 						target_battler.token_handler.add_token(t.type, 1)
 						t.queue_outofturns()
 			
-			Battler.Types.ENEMY_JINN:
+			Battler.EnemyTypes.JINN:
 				var heal := ceili(target_battler.stats.base_health * (current_battler.stats.ally_action_value / 100.0))
 				target_battler.stats.adjust_health(heal)
 				var neg_token_types: Array[Token.Types] = []
@@ -214,7 +214,7 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 						if t.type == picked_type:
 							t.queue_outofturns()
 			
-			Battler.Types.BOSS_ONE:
+			Battler.EnemyTypes.BOSS_ONE:
 				for b in target_group:
 					b.stats.adjust_health(999)
 					for t in b.tokens:
@@ -224,8 +224,8 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 					b.token_handler.add_token(Token.Types.ATTACK, 2)
 				current_battler.token_handler.add_token(Token.Types.MIRROR, 2)
 	
-	(current_battler.stats as EnemyBattlerStats).reduce_reward()
-	current_battler.set_coin_counter( (current_battler.stats as EnemyBattlerStats).reward )
+#	(current_battler.stats as EnemyBattlerStats).reduce_reward()
+#	current_battler.set_coin_counter( (current_battler.stats as EnemyBattlerStats).reward )
 
 
 static func _get_lowest_health(battlers: Array[Battler]) -> int:

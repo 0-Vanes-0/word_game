@@ -21,8 +21,8 @@ var action_anim_number: int
 
 
 func _ready() -> void:
-	assert(get_parent() != null and get_parent() is Battler)
-	battler = get_parent() as Battler
+	assert(get_parent().get_parent() != null and get_parent().get_parent() is Battler)
+	battler = get_parent().get_parent() as Battler
 
 
 func anim_idle(start_frame: int = 0):

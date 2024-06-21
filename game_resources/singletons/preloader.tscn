@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://d1durabajavqv"]
+[gd_scene load_steps=81 format=3 uid="uid://d1durabajavqv"]
 
 [ext_resource type="Script" path="res://game_resources/singletons/preloader.gd" id="1_0hqcx"]
 [ext_resource type="PackedScene" uid="uid://d4ksbpdtlx8x3" path="res://src/scenes/game_scene.tscn" id="2_mq5gj"]
@@ -79,6 +79,7 @@
 [ext_resource type="Resource" uid="uid://b5j3ydiia2s58" path="res://game_resources/tokens/token_less_death_resist.tres" id="64_m65uw"]
 [ext_resource type="PackedScene" uid="uid://co1wty0nrsnxw" path="res://src/ui/level_container.tscn" id="69_redp6"]
 [ext_resource type="PackedScene" uid="uid://byoci31hrw0pl" path="res://src/ui/level_page.tscn" id="70_hsjhf"]
+[ext_resource type="PackedScene" uid="uid://bawiklcjfkhhb" path="res://src/gameplay/battler/battler_template.tscn" id="80_8fq0r"]
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
@@ -160,3 +161,4 @@ my_progress_bar = ExtResource("38_ly5rc")
 icon_label = ExtResource("42_v5dl2")
 level_container = ExtResource("69_redp6")
 level_page = ExtResource("70_hsjhf")
+battler_template = ExtResource("80_8fq0r")

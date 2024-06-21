@@ -44,8 +44,8 @@ func _ready() -> void:
 	battlers_positions[5] = Vector2.RIGHT * Global.SCREEN_WIDTH * 14 / 16
 	
 	for index in GameInfo.MAX_BATTLERS_COUNT:
-		var battler_type: Battler.Types = GameInfo.battlers_types[index]
-		if battler_type == Battler.Types.NONE:
+		var battler_type: int = GameInfo.battlers_types[index]
+		if battler_type == -1:
 			continue
 		
 		var battler := Battler.create(battler_type, Battler.get_start_stats(battler_type), index)
@@ -69,7 +69,7 @@ func _ready() -> void:
 						turn_manager.remove_battler(index)
 			)
 			battler.name = "Enemy" + str(index)
-			battler.set_coin_counter( (battler.stats as EnemyBattlerStats).reward )
+#			battler.set_coin_counter( (battler.stats as EnemyBattlerStats).reward )
 		
 		battlers_node.add_child(battler)
 		battlers.append(battler)

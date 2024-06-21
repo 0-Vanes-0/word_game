@@ -5,7 +5,7 @@ extends Node
 
 const MAX_BATTLERS_COUNT: int = 6
 
-@export var battlers_types: Array[Battler.Types] = [Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE, Battler.Types.NONE]
+@export var battlers_types: Array[int] = [-1, -1, -1, -1, -1, -1]
 @export var enemy_levels: Array[EnemyLevel]
 @export var current_enemy_level: int
 
@@ -26,14 +26,14 @@ func _ready() -> void:
 
 func add_enemies(level_number: int):
 	current_enemy_level = clampi(level_number, 1, enemy_levels.size())
-	var enemies: Array[Battler.Types]
+	var enemies: Array[Battler.EnemyTypes]
 	for level in enemy_levels:
 		if level.level_number == current_enemy_level:
 			enemies = level.enemies
 	
 	assert(
 			not enemies.is_empty() 
-			and enemies.any( func(type: Battler.Types): return type != Battler.Types.NONE  )
+			and enemies.any( func(type: Battler.EnemyTypes): return type != Battler.EnemyTypes.NONE  )
 	)
 	battlers_types[3] = enemies[0]
 	battlers_types[4] = enemies[1]

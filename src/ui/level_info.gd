@@ -23,7 +23,7 @@ func appear(level: int):
 	var enemy_level := GameInfo.get_enemy_level(level) as EnemyLevel
 	for i in enemies_icons.size():
 		enemies_icons[i].show()
-		if enemy_level.enemies[i] == Battler.Types.NONE:
+		if enemy_level.enemies[i] == Battler.EnemyTypes.NONE:
 			enemies_icons[i].hide()
 		else:
 			enemies_icons[i].set_icon(Battler.get_start_stats(enemy_level.enemies[i]).icon)

@@ -11,18 +11,18 @@ extends Node2D
 @export var settings: Settings
 var heroes_icons: Array[BackgroundedIcon]
 var heroes_options: Array[HBoxContainer]
-var heroes: Array[Battler.Types]
+var heroes: Array[Battler.HeroTypes]
 
 var chosen_heroes_types: Array
 var heroes_levels := {
-	Battler.Types.HERO_KNIGHT: 1,
-	Battler.Types.HERO_ROBBER: 1,
-	Battler.Types.HERO_MAGE: 1,
+	Battler.HeroTypes.KNIGHT: 1,
+	Battler.HeroTypes.ROBBER: 1,
+	Battler.HeroTypes.MAGE: 1,
 }
 var hero_icon_textures := {
-	Battler.Types.HERO_KNIGHT: Preloader.stats_knight.icon,
-	Battler.Types.HERO_ROBBER: Preloader.stats_robber.icon,
-	Battler.Types.HERO_MAGE: Preloader.stats_mage.icon,
+	Battler.HeroTypes.KNIGHT: Preloader.stats_knight.icon,
+	Battler.HeroTypes.ROBBER: Preloader.stats_robber.icon,
+	Battler.HeroTypes.MAGE: Preloader.stats_mage.icon,
 }
 
 
@@ -47,13 +47,13 @@ func _ready() -> void:
 	
 #region Grid Container
 	chosen_heroes_types = Global.get_player_last_hero_choice()
-	heroes_levels[Battler.Types.HERO_KNIGHT] = Global.get_player_level(Battler.Types.HERO_KNIGHT)
-	heroes_levels[Battler.Types.HERO_ROBBER] = Global.get_player_level(Battler.Types.HERO_ROBBER)
-	heroes_levels[Battler.Types.HERO_MAGE] = Global.get_player_level(Battler.Types.HERO_MAGE)
+	heroes_levels[Battler.HeroTypes.KNIGHT] = Global.get_player_level(Battler.HeroTypes.KNIGHT)
+	heroes_levels[Battler.HeroTypes.ROBBER] = Global.get_player_level(Battler.HeroTypes.ROBBER)
+	heroes_levels[Battler.HeroTypes.MAGE] = Global.get_player_level(Battler.HeroTypes.MAGE)
 	
 	assert(heroes_icons.size() == chosen_heroes_types.size())
 	for i in heroes_icons.size():
-		heroes_icons[i].set_icon(hero_icon_textures.get(chosen_heroes_types[i] as Battler.Types))
+		heroes_icons[i].set_icon(hero_icon_textures.get(chosen_heroes_types[i] as Battler.HeroTypes))
 		heroes_icons[i].gui_input.connect(
 				func(event: InputEvent):
 					if event is InputEventMouseButton and event.is_pressed():
@@ -75,7 +75,7 @@ func _ready() -> void:
 			button.pressed.connect(
 					func():
 						chosen_heroes_types[i] = hero_icon_textures.keys()[j]
-						heroes_icons[i].set_icon(hero_icon_textures.get(chosen_heroes_types[i] as Battler.Types))
+						heroes_icons[i].set_icon(hero_icon_textures.get(chosen_heroes_types[i] as Battler.HeroTypes))
 						heroes_options[i].modulate.a = 0.0
 						for b: TextureButton in heroes_options[i].get_children():
 							b.disabled = false
@@ -89,7 +89,7 @@ func _ready() -> void:
 			func():
 				var arr := Global.get_player_last_hero_choice()
 				for i in arr.size():
-					GameInfo.battlers_types[i] = arr[i] as Battler.Types
+					GameInfo.battlers_types[i] = arr[i] as Battler.HeroTypes
 				Global.switch_to_scene(Preloader.level_scene)
 	)
 
