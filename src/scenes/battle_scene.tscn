@@ -192,11 +192,10 @@ layout_mode = 2
 mouse_filter = 2
 stretch_mode = 5
 
-[node name="TurnManager" parent="CanvasLayer/Control/VBox/HeaderHBox" node_paths=PackedStringArray("_battle_scene") instance=ExtResource("15_die4i")]
+[node name="TurnManager" parent="CanvasLayer/Control/VBox/HeaderHBox" instance=ExtResource("15_die4i")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-_battle_scene = NodePath("../../../../..")
 
 [node name="HandbookButton" type="TextureButton" parent="CanvasLayer/Control/VBox/HeaderHBox"]
 custom_minimum_size = Vector2(100, 0)
