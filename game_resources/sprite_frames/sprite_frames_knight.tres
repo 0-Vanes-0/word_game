@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=20 format=3 uid="uid://c71of80kg874k"]
+[gd_resource type="SpriteFrames" script_class="MySpriteFrames" load_steps=27 format=3 uid="uid://c71of80kg874k"]
 
 [ext_resource type="Texture2D" uid="uid://bcmv0x88pdeeo" path="res://assets/sprites/characters/heroes/knight_sheet.png" id="1_khti4"]
 [ext_resource type="Texture2D" uid="uid://be0wrenfysr22" path="res://assets/sprites/characters/heroes/knight_death_sheet.png" id="2_afa6m"]
@@ -12,9 +12,37 @@ region = Rect2(306, 156, 102, 78)
 atlas = ExtResource("1_khti4")
 region = Rect2(204, 78, 102, 78)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_82ipy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1lnd"]
+atlas = ExtResource("1_khti4")
+region = Rect2(306, 78, 102, 78)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa06s"]
 atlas = ExtResource("2_afa6m")
-region = Rect2(0, 0, 72, 70)
+region = Rect2(0, 0, 93, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1elk"]
+atlas = ExtResource("2_afa6m")
+region = Rect2(93, 0, 93, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqm3v"]
+atlas = ExtResource("2_afa6m")
+region = Rect2(186, 0, 93, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsk8j"]
+atlas = ExtResource("2_afa6m")
+region = Rect2(0, 70, 93, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmgjr"]
+atlas = ExtResource("2_afa6m")
+region = Rect2(93, 70, 93, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44bud"]
+atlas = ExtResource("2_afa6m")
+region = Rect2(186, 70, 93, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjg5m"]
+atlas = ExtResource("2_afa6m")
+region = Rect2(0, 0, 93, 70)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6eq4i"]
 atlas = ExtResource("1_khti4")
@@ -86,19 +114,40 @@ animations = [{
 "name": &"action_attack",
 "speed": 4.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1lnd")
+}],
 "loop": false,
 "name": &"buff",
 "speed": 4.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wa06s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1elk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gqm3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsk8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmgjr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44bud")
+}],
 "loop": false,
 "name": &"die",
 "speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_82ipy")
+"texture": SubResource("AtlasTexture_qjg5m")
 }],
 "loop": false,
 "name": &"hurt",
@@ -159,8 +208,8 @@ animations = [{
 "speed": 6.0
 }]
 script = ExtResource("4_8pguh")
-offset = Vector2(3, -39)
+offset = Vector2(14, -39)
 separate_offsets = {
-"die": Vector2(8, -30),
-"hurt": Vector2(8, -30)
+"die": Vector2(4, -30),
+"hurt": Vector2(4, -30)
 }
