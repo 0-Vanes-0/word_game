@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8el1hovmv4cy"
-path="res://.godot/imported/mage_deah_sheet.png-33d791e02776b379630e6933c5174568.ctex"
+uid="uid://xmel0b0lov7n"
+path="res://.godot/imported/mage_death_sheet.png-c61521f31a9e83f778822a81d64858d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/heroes/mage_deah_sheet.png"
-dest_files=["res://.godot/imported/mage_deah_sheet.png-33d791e02776b379630e6933c5174568.ctex"]
+source_file="res://assets/sprites/characters/heroes/mage_death_sheet.png"
+dest_files=["res://.godot/imported/mage_death_sheet.png-c61521f31a9e83f778822a81d64858d1.ctex"]
 
 [params]
 
