@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/scenes/battle_scene.gd" id="1_2ge4k"]
 [ext_resource type="Texture2D" uid="uid://blh1lfsj8y125" path="res://assets/sprites/env/grass_Background.png" id="2_lirsh"]
-[ext_resource type="SpriteFrames" uid="uid://bu6h8bidcjrck" path="res://game_resources/sprite_frames/sprite_frames_boss1.tres" id="4_i0h5j"]
+[ext_resource type="SpriteFrames" uid="uid://bxht187ek74ni" path="res://game_resources/sprite_frames/sprite_frames_ent.tres" id="4_eao3n"]
 [ext_resource type="PackedScene" uid="uid://w3gp8jc1u66i" path="res://src/ui/my_progress_bar.tscn" id="7_7eskq"]
 [ext_resource type="TileSet" uid="uid://dd5it3fci4tvk" path="res://game_resources/tilesets/level_tileset.tres" id="8_2qah2"]
 [ext_resource type="Texture2D" uid="uid://d18e3iw5ari5m" path="res://assets/sprites/ui/bars/magic_full_bar.png" id="8_u8eru"]
@@ -62,12 +62,10 @@ layer_0/tile_data = PackedInt32Array(524288, 589824, 3, 524289, 589824, 3, 52429
 [node name="-----TEST-----" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="-----TEST-----"]
-position = Vector2(710, 330)
-sprite_frames = ExtResource("4_i0h5j")
-animation = &"prepare_attack3"
-frame = 2
-frame_progress = 1.0
-offset = Vector2(-8, -80)
+position = Vector2(660, 330)
+sprite_frames = ExtResource("4_eao3n")
+animation = &"die"
+offset = Vector2(32, -48)
 
 [node name="HFlowContainer" type="VBoxContainer" parent="-----TEST-----"]
 clip_contents = true
@@ -327,13 +325,13 @@ layout_mode = 1
 visible = false
 layout_mode = 1
 
-[node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
+[node name="BattleAnimator" type="Node" parent="." node_paths=PackedStringArray("_battle_scene")]
 script = ExtResource("15_ynmqs")
-battle_scene = NodePath("..")
+_battle_scene = NodePath("..")
 
-[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("battle_scene")]
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("_battle_scene")]
 script = ExtResource("18_n0r4n")
-battle_scene = NodePath("..")
+_battle_scene = NodePath("..")
 
 [connection signal="button_down" from="CanvasLayer/Control/VBox/HeaderHBox/BackButton" to="CanvasLayer/Control/VBox/HeaderHBox/BackButton" method="_on_button_down"]
 [connection signal="button_up" from="CanvasLayer/Control/VBox/HeaderHBox/BackButton" to="CanvasLayer/Control/VBox/HeaderHBox/BackButton" method="_on_button_up"]

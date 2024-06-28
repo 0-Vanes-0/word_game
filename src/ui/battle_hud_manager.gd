@@ -1,7 +1,7 @@
 class_name BattleHUDManager
 extends CenterContainer
 
-signal to_proceed_turn(spell: Spell)
+signal need_to_proceed_turn(spell: Spell)
 
 @export var _battle_scene: BattleScene
 @export_group("Required Children")
@@ -23,7 +23,7 @@ func _ready() -> void:
 				_proceed_button.set_pressable(false)
 				_proceed_button.button_pressed = false
 				disappear()
-				to_proceed_turn.emit(Spell.create(_battle_scene.battlers[_battle_scene.battle_manager.current_battler_index], _runes))
+				need_to_proceed_turn.emit(Spell.create(_battle_scene.battle_manager.get_current_battler(), _runes))
 	)
 	_reset_spell_button.pressed.connect(
 			func():
@@ -48,7 +48,7 @@ func _ready() -> void:
 	_spell_label.text = ""
 
 
-func on_battler_clicked(battler: Battler):
+func show_action_info(battler: Battler):
 	var current_battler := _battle_scene.battle_manager.get_current_battler()
 	current_battler.action_value = 0
 	current_battler.damage_modifier = 0
@@ -117,6 +117,7 @@ func appear(current_battler: Battler):
 		rune_button.show()
 	
 	self.show()
+	print_debug("showing hud for hero: ", current_battler.index)
 
 
 func disappear():

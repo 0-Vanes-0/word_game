@@ -1,7 +1,7 @@
 class_name AI
 extends Object
 
-const NOT_ATTACKING_MOBS: Array[int] = []
+const NOT_ATTACKING_MOBS: Array[Battler.EnemyTypes] = []
 
 
 static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) -> int:
@@ -144,21 +144,22 @@ static func pick_target(current_battler: Battler, all_battlers: Array[Battler]) 
 			return (heroes.pick_random() as Battler).index
 
 
-static func do_action(current_battler: Battler, target_battler: Battler, target_group: Array[Battler] = []):
-	assert(current_battler.type in Battler.ENEMIES)
-	var action_type := Battler.ActionTypes.ATTACK if target_battler.type in Battler.HEROES else Battler.ActionTypes.ALLY
+static func do_action(current_battler: Battler, target_group: Array[Battler], action_type: Battler.ActionTypes):
+	assert(current_battler.type in Battler.ENEMIES and not target_group.is_empty())
 	
 	if action_type == Battler.ActionTypes.ATTACK:
 		current_battler.do_attack_action(
-				target_battler, target_group,
+				target_group,
 				func():
 					match current_battler.type:
 						Battler.EnemyTypes.FIRE_IMP:
-							target_battler.token_handler.add_token(Token.Types.FIRE, 2)
+							for b in target_group:
+								b.token_handler.add_token(Token.Types.FIRE, 2)
 						
 						Battler.EnemyTypes.SNAKE:
-							target_battler.token_handler.add_token(Token.Types.BLIND, 1)
-							target_battler.token_handler.add_token(Token.Types.ANTIATTACK, 1)
+							for b in target_group:
+								b.token_handler.add_token(Token.Types.BLIND, 1)
+								b.token_handler.add_token(Token.Types.ANTIATTACK, 1)
 						
 						Battler.EnemyTypes.ORC:
 							var token_type: Token.Types = [Token.Types.SHIELD, Token.Types.ATTACK, Token.Types.STIM].pick_random()
@@ -172,16 +173,19 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 							var attack_type: Array[Callable] = []
 							attack_type.append(
 									func():
-										target_battler.token_handler.add_token(Token.Types.ANTIATTACK, 1)
-										target_battler.token_handler.add_token(Token.Types.TAUNT, 1)
+										for b in target_group:
+											b.token_handler.add_token(Token.Types.ANTIATTACK, 1)
+											b.token_handler.add_token(Token.Types.TAUNT, 1)
 							)
 							attack_type.append(
 									func():
-										target_battler.token_handler.add_token(Token.Types.ANTISHIELD, 2)
+										for b in target_group:
+											b.token_handler.add_token(Token.Types.ANTISHIELD, 2)
 							)
 							attack_type.append(
 									func():
-										target_battler.token_handler.add_token(Token.Types.FIRE, 5)
+										for b in target_group:
+											b.token_handler.add_token(Token.Types.FIRE, 5)
 							)
 							attack_type[current_battler.anim_handler.action_anim_number - 1].call()
 		)
@@ -189,7 +193,8 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 	elif action_type == Battler.ActionTypes.ALLY:
 		match current_battler.type:
 			Battler.EnemyTypes.BEAR:
-				target_battler.token_handler.add_token(Token.Types.SHIELD, 2)
+				for b in target_group:
+					b.token_handler.add_token(Token.Types.SHIELD, 2)
 				current_battler.token_handler.add_token(Token.Types.ANTISHIELD, 2)
 			
 			Battler.EnemyTypes.SNAKE:
@@ -198,21 +203,23 @@ static func do_action(current_battler: Battler, target_battler: Battler, target_
 			Battler.EnemyTypes.ORC:
 				for t in current_battler.tokens:
 					if t.type in Token.POSITIVE_TYPES:
-						target_battler.token_handler.add_token(t.type, 1)
+						for b in target_group:
+							b.token_handler.add_token(t.type, 1)
 						t.queue_outofturns()
 			
 			Battler.EnemyTypes.JINN:
-				var heal := ceili(target_battler.stats.base_health * (current_battler.stats.ally_action_value / 100.0))
-				target_battler.stats.adjust_health(heal)
-				var neg_token_types: Array[Token.Types] = []
-				for t in target_battler.tokens:
-					if t.type in Token.NEGATIVE_TYPES:
-						neg_token_types.append(t.type)
-				if not neg_token_types.is_empty():
-					var picked_type := neg_token_types.pick_random() as Token.Types
-					for t in target_battler.tokens:
-						if t.type == picked_type:
-							t.queue_outofturns()
+				for b in target_group:
+					var heal := ceili(b.stats.base_health * (current_battler.stats.ally_action_value / 100.0))
+					b.stats.adjust_health(heal)
+					var neg_token_types: Array[Token.Types] = []
+					for t in b.tokens:
+						if t.type in Token.NEGATIVE_TYPES:
+							neg_token_types.append(t.type)
+					if not neg_token_types.is_empty():
+						var picked_type := neg_token_types.pick_random() as Token.Types
+						for t in b.tokens:
+							if t.type == picked_type:
+								t.queue_outofturns()
 			
 			Battler.EnemyTypes.BOSS_ONE:
 				for b in target_group:

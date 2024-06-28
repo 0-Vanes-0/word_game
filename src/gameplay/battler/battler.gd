@@ -138,7 +138,7 @@ func set_area_inputable(is_inputable: bool):
 
 
 #region Actions
-func do_attack_action(target_battler: Battler, target_group: Array[Battler] = [], on_attack_success_func := Callable(), is_first_call := true): # TODO: bad code -> both target_battler and target_group :/
+func do_attack_action(target_group: Array[Battler], on_attack_success_func := Callable()):
 	action_value = int(stats.generate_damage_value())
 	damage_modifier = 0
 	is_stimed = false
@@ -146,23 +146,16 @@ func do_attack_action(target_battler: Battler, target_group: Array[Battler] = []
 	
 	self.token_handler.apply_tokens(Token.ApplyMoments.BEFORE_ATTACKING)
 	
-	if target_group.is_empty():
-		_perform_attack(target_battler, on_attack_success_func)
-	else:
-		for b in target_group:
-			damage_modifier = 0
-			_perform_attack(b, on_attack_success_func)
+	for b in target_group:
+		_perform_attack(b, on_attack_success_func)
 	
-	if type == HeroTypes.ROBBER and is_first_call and target_battler.is_alive:
+	if type == HeroTypes.ROBBER:
 		await get_tree().create_timer(0.25).timeout
-		do_attack_action(target_battler, [], Callable(), false)
+		do_attack_action(target_group, Callable()) # TODO: what here?
 	else:
 		self.token_handler.check_tokens()
-		if target_group.is_empty():
-			target_battler.token_handler.check_tokens()
-		else:
-			for b in target_group:
-				b.token_handler.check_tokens()
+		for b in target_group:
+			b.token_handler.check_tokens()
 
 
 func _perform_attack(target_battler: Battler, on_attack_success_func: Callable):
@@ -197,18 +190,21 @@ func calc_hit_chance(target_battler: Battler) -> float:
 	return (1.0 - miss_chance / 100.0) * (1.0 - target_battler.dodge_chance / 100.0)
 
 
-func do_ally_action(target_battler: Battler, target_group: Array[Battler] = []): # TODO: bad code -> both target_battler and target_group :/
+func do_ally_action(target_group: Array[Battler]):
 	action_value = 0
 	
 	if type == HeroTypes.KNIGHT:
-		target_battler.token_handler.add_token(Token.Types.SHIELD, stats.ally_action_value)
+		for b in target_group:
+			b.token_handler.add_token(Token.Types.SHIELD, stats.ally_action_value)
 	
 	elif type == HeroTypes.ROBBER:
-		target_battler.token_handler.add_token(Token.Types.ATTACK, stats.ally_action_value)
+		for b in target_group:
+			b.token_handler.add_token(Token.Types.ATTACK, stats.ally_action_value)
 	
 	elif type == HeroTypes.MAGE:
-		action_value = int(target_battler.stats.max_health * (stats.ally_action_value / 100.0))
-		target_battler.stats.adjust_health(action_value)
+		for b in target_group:
+			action_value = int(b.stats.max_health * (stats.ally_action_value / 100.0))
+			b.stats.adjust_health(action_value)
 #endregion
 
 #region Health signals

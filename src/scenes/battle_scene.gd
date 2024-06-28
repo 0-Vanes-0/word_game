@@ -82,9 +82,9 @@ func _ready() -> void:
 	
 	battler_info.hide()
 	
-	hud_manager.to_proceed_turn.connect(
-		func(spell: Spell):
-			battle_manager.proceed_turn(spell)
+	hud_manager.need_to_proceed_turn.connect(
+			func(spell: Spell):
+				battle_manager.proceed_turn(spell)
 	)
 	hud_manager.disappear()
 	
@@ -109,17 +109,18 @@ func _on_battler_clicked(battler: Battler):
 	
 	for b in battlers:
 		b.selection_hover.hide()
-	var current_battler := battlers[battle_manager.current_battler_index]
-	if battle_manager.current_action_type == Battler.ActionTypes.ATTACK and current_battler.stats.is_attack_action_group:
+	
+	var current_battler := battle_manager.get_current_battler()
+	if current_battler.stats.is_attack_action_group and battle_manager.current_action_type == Battler.ActionTypes.ATTACK:
 		for b in get_alive_enemies():
 			b.selection_hover.show()
-	elif battle_manager.current_action_type == Battler.ActionTypes.ALLY and current_battler.stats.is_ally_action_group:
+	elif current_battler.stats.is_ally_action_group and battle_manager.current_action_type == Battler.ActionTypes.ALLY:
 		for b in get_alive_players():
 			b.selection_hover.show()
 	else:
 		battler.selection_hover.show()
 	
-	hud_manager.on_battler_clicked(battler)
+	hud_manager.show_action_info(battler)
 	current_battler.anim_handler.anim_prepare(battle_manager.current_action_type)
 
 

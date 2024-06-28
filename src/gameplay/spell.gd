@@ -16,16 +16,14 @@ func _init(caster: Battler, runes: Array[Rune]) -> void:
 	self.caster = caster
 
 
-func apply_effects(action_type: Battler.ActionTypes, target_battler: Battler, target_group: Array[Battler] = []):
-	for rune in runes:
-		if rune.type == Rune.Types.TAUNT:
-			rune.apply_effect(action_type, caster)
-			continue
-		
-		if target_group.is_empty():
-			rune.apply_effect(action_type, target_battler)
-		else:
+func apply_effects(target_group: Array[Battler], action_type: Battler.ActionTypes):
+	if not target_group.is_empty():
+		for rune in runes:
+			if rune.type == Rune.Types.TAUNT:
+				rune.apply_effect(action_type, caster)
+				continue
+			
 			for b in target_group:
 				rune.apply_effect(action_type, b)
-	
-	shifted_turns = clampi(runes.size(), 1, 3)
+		
+		shifted_turns = clampi(runes.size(), 1, 3)
