@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="5_btmbs"]
 [ext_resource type="Texture2D" uid="uid://byqctj5057d22" path="res://assets/sprites/avas/con3.png" id="5_twdlc"]
 [ext_resource type="Texture2D" uid="uid://digotaoy3m3uw" path="res://assets/sprites/avas/con2.png" id="6_6glsd"]
-[ext_resource type="Texture2D" uid="uid://d0olvwfx035lc" path="res://assets/sprites/export_ignore/icons/heart_yellow.png" id="8_i36dg"]
+[ext_resource type="Texture2D" uid="uid://d0olvwfx035lc" path="res://assets/sprites/ui/icons/heart_yellow.png" id="8_i36dg"]
 [ext_resource type="Texture2D" uid="uid://dm5hht40edbp6" path="res://assets/sprites/ui/icons/sword_yellow.png" id="9_futtk"]
 [ext_resource type="PackedScene" uid="uid://d2vcave878atq" path="res://src/ui/battler_info_container.tscn" id="13_5wm1b"]
 

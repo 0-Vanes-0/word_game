@@ -149,13 +149,13 @@ func do_attack_action(target_group: Array[Battler], on_attack_success_func := Ca
 	for b in target_group:
 		_perform_attack(b, on_attack_success_func)
 	
-	if type == HeroTypes.ROBBER:
-		await get_tree().create_timer(0.25).timeout
-		do_attack_action(target_group, Callable()) # TODO: what here?
-	else:
-		self.token_handler.check_tokens()
-		for b in target_group:
-			b.token_handler.check_tokens()
+#	if type == HeroTypes.ROBBER:
+#		await get_tree().create_timer(0.25).timeout
+#		do_attack_action(target_group, Callable()) # TODO: what here?
+#	else:
+	self.token_handler.check_tokens()
+	for b in target_group:
+		b.token_handler.check_tokens()
 
 
 func _perform_attack(target_battler: Battler, on_attack_success_func: Callable):

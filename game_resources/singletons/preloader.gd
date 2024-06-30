@@ -1,10 +1,10 @@
 extends Node
 
 @export_group("Game Screens")
-@export var battle_scene: PackedScene
 @export var game_scene: PackedScene
-@export var level_scene: PackedScene
 @export var credits_scene: PackedScene
+@export var level_scene: PackedScene
+@export var battle_scene: PackedScene
 @export var http_test_scene: PackedScene
 
 @export_group("Battler Stats", "stats_")

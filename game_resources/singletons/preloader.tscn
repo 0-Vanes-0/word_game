@@ -83,10 +83,10 @@
 
 [node name="Preloader" type="Node"]
 script = ExtResource("1_0hqcx")
-battle_scene = ExtResource("3_mm2kd")
 game_scene = ExtResource("2_mq5gj")
-level_scene = ExtResource("4_yt2dt")
 credits_scene = ExtResource("5_u7nqy")
+level_scene = ExtResource("4_yt2dt")
+battle_scene = ExtResource("3_mm2kd")
 http_test_scene = ExtResource("3_x778j")
 stats_fire_imp = ExtResource("5_1ed1q")
 stats_goblin = ExtResource("5_o2b78")
