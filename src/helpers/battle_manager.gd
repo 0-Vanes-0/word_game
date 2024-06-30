@@ -44,7 +44,6 @@ func init_turn():
 		
 		else:
 			if _battle_scene.get_alive_players().size() > 0 and _battle_scene.get_alive_enemies().size() > 0: # TODO: need to check if there are more enemies in level
-				print_debug("there are alive battlers")
 				is_player_turn = current_battler_index in _get_player_indexes()
 				if is_player_turn:
 					_prepare_player_turn(current_battler)
@@ -63,7 +62,6 @@ func proceed_turn(spell: Spell = null):
 	if target_battler_index != -1:
 		var current_battler := _battle_scene.battlers[current_battler_index]
 		var target_battler :=  _battle_scene.battlers[target_battler_index]
-		print_debug("current_battler_index: ", current_battler_index, " target_battler_index: ", target_battler_index)
 		
 		if current_battler.stats.is_attack_action_group and current_action_type == Battler.ActionTypes.ATTACK:
 			target_group = _battle_scene.get_alive_enemies() if is_player_turn else _battle_scene.get_alive_players()

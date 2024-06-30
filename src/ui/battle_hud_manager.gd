@@ -117,7 +117,6 @@ func appear(current_battler: Battler):
 		rune_button.show()
 	
 	self.show()
-	print_debug("showing hud for hero: ", current_battler.index)
 
 
 func disappear():

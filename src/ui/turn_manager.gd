@@ -10,19 +10,23 @@ const AVAS_GAP := 160
 
 const PREVIEW_TIME := 2.0
 const AVA_MOVE_TIME := 0.25
+const ARROW_MOVE_TIME := 0.5
 
 @export_group("Required Children")
 @export var _ava_template: TextureRect
 @export var _label_template: Label
+@export var _arrow: TextureRect
 
 var current_queue_index: int = 0
 var _battler_queue: Array[Battler] = []
 var _avas: Array[TextureRect] = []
 var _labels: Array[Label] = []
+var _arrow_positions: Array[Vector2] = []
 
 
 func _ready() -> void:
-	assert(_ava_template and _label_template)
+	assert(_ava_template and _label_template and _arrow)
+	_arrow.hide()
 
 
 func setup(battlers: Array[Battler]): # TODO: add re-setup???
@@ -35,6 +39,9 @@ func setup(battlers: Array[Battler]): # TODO: add re-setup???
 		_avas.append(ava)
 		$Avas.add_child(ava)
 		
+		ava.update_minimum_size()
+		_arrow_positions.append(Vector2(ava.size.x / 2 - _arrow.pivot_offset.x + i * ava.size.x, self.size.y))
+		
 		var label := _label_template.duplicate() as Label
 		label.text = str(battlers_copy[i].stats.initiative)
 		label.update_minimum_size()
@@ -42,6 +49,11 @@ func setup(battlers: Array[Battler]): # TODO: add re-setup???
 		label.custom_minimum_size.x = ava.size.x
 		_labels.append(label)
 		$Avas.add_child(label)
+		
+		battlers[i].stats.health_depleted.connect(
+				func():
+					_toggle_aliveness(ava, battlers[i].is_alive)
+		)
 	
 	_ava_template.hide()
 	_label_template.hide()
@@ -49,8 +61,7 @@ func setup(battlers: Array[Battler]): # TODO: add re-setup???
 	
 	var size := int(battlers_copy.size())
 	_battler_queue.resize(size)
-
-	print_debug("battlers ready: ", battlers_copy.size())
+	
 	need_to_show_text.emit("Распределение по скорости", PREVIEW_TIME)
 	await get_tree().create_timer(PREVIEW_TIME).timeout
 	$Avas.z_index = 0
@@ -71,25 +82,15 @@ func setup(battlers: Array[Battler]): # TODO: add re-setup???
 		)
 		
 		await get_tree().create_timer(0.15).timeout
-
-
-#func shift_battler(ticks: int = 1):
-#	if _battler_queue[0] != null:
-#		for i in range(1, _battler_queue.size()):
-#			if _battler_queue[i] != null:
-#				continue
-#			else:
-#				ticks -= 1
-#				await _reposition(_battler_queue[0].index, i, 2.0)
-#				if ticks == 0:
-#					_battler_queue[i] = _battler_queue[0]
-#					break
-#		_battler_queue[0] = null
-#	else:
-#		print_debug("_battler_queue[0] == null!!!")
-#
-#	move_battlers()
-#	await get_tree().create_timer(AVA_MOVE_TIME).timeout
+	
+	_arrow.position = _arrow_positions[0]
+	_arrow.modulate.a = 0.0
+	_arrow.show()
+	create_tween().tween_property(
+			_arrow, "modulate:a",
+			1.0,
+			ARROW_MOVE_TIME
+	)
 
 
 func get_current_battler_index() -> int:
@@ -99,31 +100,20 @@ func get_current_battler_index() -> int:
 func next_battler():
 	if _battler_queue.any(func(b: Battler): return b.is_alive):
 		current_queue_index = (current_queue_index + 1) % _battler_queue.size()
-		print_debug("current_queue_index: ", current_queue_index)
-		await get_tree().create_timer(0.01).timeout # Animation here
+		var tween := create_tween().tween_property(
+				_arrow, "position",
+				_arrow_positions[current_queue_index],
+				ARROW_MOVE_TIME
+		)
+		await tween.finished
 		if not _battler_queue[current_queue_index].is_alive:
 			next_battler()
-	#else: notify somehow?
+	else:
+		assert(false, "No alive battlers!")
 
 
-#func move_battlers():
-#	for i in _battler_queue.size():
-#		if _battler_queue[i] == null:
-#			if i < _battler_queue.size() - 1:
-#				_battler_queue[i] = _battler_queue[i+1]
-#				_battler_queue[i+1] = null
-#			else:
-#				_battler_queue[i] = null
-#
-#			if _battler_queue[i] != null:
-#				_reposition(_battler_queue[i].index, i)
-
-
-func toggle_aliveness(battler_index: int, is_alive: bool):
-	for i in _battler_queue.size():
-		if _battler_queue[i] != null and _battler_queue[i].index == battler_index:
-			_avas[battler_index].modulate.s = 1.0 if is_alive else 0.0
-			break
+func _toggle_aliveness(ava: TextureRect, is_alive: bool):
+	ava.modulate.v = 1.0 if is_alive else 0.5
 
 
 func _reposition(slidable_index: int, i: int, time_scale := 1.0):

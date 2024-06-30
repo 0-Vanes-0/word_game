@@ -1,13 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://0r6661gt0ld7"]
+[gd_scene load_steps=8 format=3 uid="uid://0r6661gt0ld7"]
 
 [ext_resource type="Script" path="res://src/ui/turn_manager.gd" id="1_ar4um"]
 [ext_resource type="Theme" uid="uid://dk0tmfu7rmmc0" path="res://game_resources/themes/default_theme.tres" id="1_uwlp7"]
 [ext_resource type="Texture2D" uid="uid://smv2g75weceu" path="res://assets/sprites/avas/con1.png" id="2_wfl0v"]
 [ext_resource type="Texture2D" uid="uid://dob6wtpdtd3qi" path="res://assets/sprites/ui/scquare_border_small.png" id="3_qssq5"]
 [ext_resource type="Texture2D" uid="uid://dxd2rxnkb37q0" path="res://assets/sprites/ui/scquare_border_small_bg.png" id="3_yckcx"]
+[ext_resource type="Texture2D" uid="uid://cxsi7syw5tx7w" path="res://assets/sprites/ui/icons/play_button4_yellow.png" id="4_i7nvj"]
 [ext_resource type="Texture2D" uid="uid://bm6rijkr05day" path="res://assets/sprites/ui/square_border_big_full_empty.png" id="4_twfpf"]
 
-[node name="TurnManager" type="MarginContainer" node_paths=PackedStringArray("_ava_template", "_label_template")]
+[node name="TurnManager" type="MarginContainer" node_paths=PackedStringArray("_ava_template", "_label_template", "_arrow")]
 offset_right = 436.0
 offset_bottom = 80.0
 size_flags_horizontal = 4
@@ -15,6 +16,7 @@ theme = ExtResource("1_uwlp7")
 script = ExtResource("1_ar4um")
 _ava_template = NodePath("Avas/Battler")
 _label_template = NodePath("Avas/Label")
+_arrow = NodePath("Avas/Arrow")
 
 [node name="Avas" type="Control" parent="."]
 layout_mode = 2
@@ -40,6 +42,16 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 36
 text = "10"
 horizontal_alignment = 1
+
+[node name="Arrow" type="TextureRect" parent="Avas"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 53.0
+offset_bottom = 105.0
+pivot_offset = Vector2(16, 0)
+texture = ExtResource("4_i7nvj")
+stretch_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
