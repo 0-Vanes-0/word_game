@@ -55,9 +55,9 @@ var coll_shape: CollisionShape2D
 @export var resist_handler: ResistHandler
 
 
-static func create(type: int, stats: BattlerStats, index: int) -> Battler:
+static func create(type: int, index: int) -> Battler:
 	var battler := Preloader.battler_template.instantiate() as Battler
-	return battler.initialize(type, stats, index)
+	return battler.initialize(type, Battler.get_start_stats(type), index)
 
 
 #region Init

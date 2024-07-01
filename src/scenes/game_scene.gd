@@ -89,7 +89,7 @@ func _ready() -> void:
 			func():
 				var arr := Global.get_player_last_hero_choice()
 				for i in arr.size():
-					GameInfo.battlers_types[i] = arr[i] as Battler.HeroTypes
+					GameInfo.heroes_types[i] = arr[i] as Battler.HeroTypes
 				Global.switch_to_scene(Preloader.level_scene)
 	)
 

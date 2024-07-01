@@ -20,10 +20,9 @@ signal proceed_turn_ended
 @export var battle_animator: BattleAnimator
 @export var battle_manager: BattleManager
 
-var battlers_positions: Array[Vector2]
+var _battlers_positions: Array[Vector2]
 var battlers: Array[Battler]
-var player_battlers: Array[Battler]
-var enemy_battlers: Array[Battler]
+var enemy_level_stage_number: int = -1
 
 
 func _ready() -> void:
@@ -35,35 +34,18 @@ func _ready() -> void:
 	if Global.settings.get("AUDIO").get("MUSIC") == true:
 		SoundManager.play_music(Preloader.battle_musics.pick_random())
 	
-	battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
-	battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
-	battlers_positions[1] = Vector2.RIGHT * Global.SCREEN_WIDTH * 4 / 16
-	battlers_positions[2] = Vector2.RIGHT * Global.SCREEN_WIDTH * 6 / 16
-	battlers_positions[3] = Vector2.RIGHT * Global.SCREEN_WIDTH * 10 / 16
-	battlers_positions[4] = Vector2.RIGHT * Global.SCREEN_WIDTH * 12 / 16
-	battlers_positions[5] = Vector2.RIGHT * Global.SCREEN_WIDTH * 14 / 16
+	battlers.resize(GameInfo.MAX_BATTLERS_COUNT)
+	_battlers_positions.resize(GameInfo.MAX_BATTLERS_COUNT)
+	_battlers_positions[0] = Vector2.RIGHT * Global.SCREEN_WIDTH * 2 / 16
+	_battlers_positions[1] = Vector2.RIGHT * Global.SCREEN_WIDTH * 4 / 16
+	_battlers_positions[2] = Vector2.RIGHT * Global.SCREEN_WIDTH * 6 / 16
+	_battlers_positions[3] = Vector2.RIGHT * Global.SCREEN_WIDTH * 10 / 16
+	_battlers_positions[4] = Vector2.RIGHT * Global.SCREEN_WIDTH * 12 / 16
+	_battlers_positions[5] = Vector2.RIGHT * Global.SCREEN_WIDTH * 14 / 16
 	
+	var types: Array[int] = Array(GameInfo.heroes_types + GameInfo.enemies_types, TYPE_INT, &"", null)
 	for index in GameInfo.MAX_BATTLERS_COUNT:
-		var battler_type: int = GameInfo.battlers_types[index]
-		if battler_type == -1:
-			continue
-		
-		var battler := Battler.create(battler_type, Battler.get_start_stats(battler_type), index)
-		battler.position = battlers_positions[index]
-		battler.clicked.connect(func(): _on_battler_clicked(battler))
-		battler.hold_started.connect(func(): battler_info.appear(battler.stats))
-		battler.hold_stopped.connect(func(): battler_info.disappear())
-		battler.set_area_inputable(true)
-		
-		if battler.stats is PlayerBattlerStats:
-			player_battlers.append(battler)
-			battler.name = "Player" + str(index)
-		elif battler.stats is EnemyBattlerStats:
-			enemy_battlers.append(battler)
-			battler.name = "Enemy" + str(index)
-		
-		battlers_node.add_child(battler)
-		battlers.append(battler)
+		create_battler(index, types[index])
 	
 	black_screen.move_to_front()
 	$"-----TEST-----".hide()
@@ -104,6 +86,26 @@ func _ready() -> void:
 	)
 
 
+func create_battler(index: int, battler_type: int):
+	if battler_type == -1 or not (index in range(0, GameInfo.MAX_BATTLERS_COUNT)):
+		return
+	
+	var battler := Battler.create(battler_type, index)
+	battler.position = _battlers_positions[index]
+	battler.clicked.connect( func(): _on_battler_clicked(battler) )
+	battler.hold_started.connect( func(): battler_info.appear(battler.stats) )
+	battler.hold_stopped.connect( func(): battler_info.disappear() )
+	battler.set_area_inputable(true)
+	
+	if battler.stats is PlayerBattlerStats:
+		battler.name = "Player" + str(index)
+	elif battler.stats is EnemyBattlerStats:
+		battler.name = "Enemy" + str(index)
+	
+	battlers_node.add_child(battler)
+	battlers[index] = battler
+
+
 func _on_battler_clicked(battler: Battler):
 	battle_manager.set_target_and_action(battler.index)
 	
@@ -126,11 +128,11 @@ func _on_battler_clicked(battler: Battler):
 
 func _on_battle_ended(is_victory: bool):
 	var coins: int = 0
-	for b in enemy_battlers:
+	for b in get_enemies():
 		var enemy_stats := b.stats as EnemyBattlerStats
 		coins += enemy_stats.reward
 	var player_coins := int(Global.get_player_coins())
-	var penalty: int = coins * (1 - float(get_alive_players().size()) / player_battlers.size())
+	var penalty: int = coins * (1 - float(get_alive_players().size()) / get_players().size())
 	
 	victory_defeat_container.victory_defeat_label.text = "ПОБЕДА" if is_victory else "ПОРАЖЕНИЕ"
 	if is_victory:
@@ -168,15 +170,29 @@ func _on_battle_ended(is_victory: bool):
 	#$Background/ParallaxBackground/ParallaxLayer2.motion_offset += Vector2.RIGHT * 20 * delta
 
 
+func get_players() -> Array[Battler]:
+	return battlers.filter(
+			func(battler: Battler):
+				return battler.index < GameInfo.MAX_BATTLERS_COUNT / 2
+	)
+
+
+func get_enemies() -> Array[Battler]:
+	return battlers.filter(
+		func(battler: Battler):
+			return battler.index < GameInfo.MAX_BATTLERS_COUNT / 2
+	)
+
+
 func get_alive_players(is_current_battler_included := true) -> Array[Battler]:
-	return player_battlers.filter(
+	return get_players().filter(
 			func(battler: Battler):
 				return battler.is_alive
 	)
 
 
 func get_alive_enemies(is_current_battler_included := true) -> Array[Battler]:
-	return enemy_battlers.filter(
+	return get_enemies().filter(
 			func(battler: Battler):
 				return battler.is_alive and (is_current_battler_included or battler.index != battle_manager.current_battler_index)
 	)

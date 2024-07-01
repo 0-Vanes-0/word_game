@@ -5,39 +5,32 @@ extends Node
 
 const MAX_BATTLERS_COUNT: int = 6
 
-@export var battlers_types: Array[int] = [-1, -1, -1, -1, -1, -1]
+@export var heroes_types: Array[int] = [Battler.HeroTypes.NONE, Battler.HeroTypes.NONE, Battler.HeroTypes.NONE]
+@export var enemies_types: Array[int] = [Battler.EnemyTypes.NONE, Battler.EnemyTypes.NONE, Battler.EnemyTypes.NONE]
 @export var enemy_levels: Array[EnemyLevel]
 @export var current_enemy_level: int
 
 
 func _ready() -> void:
-	assert(battlers_types.size() == MAX_BATTLERS_COUNT and enemy_levels.size() > 0)
+	assert(enemy_levels.size() > 0)
 	for i in enemy_levels.size():
 		enemy_levels[i].level_number = i+1
-	
-	#var has_none := func() -> bool: 
-		#for type in battlers_types:
-			#if type == Battler.Types.NONE:
-				#return true
-		#return false
-	#
-	#assert(not has_none.call())
 
 
 func add_enemies(level_number: int):
 	current_enemy_level = clampi(level_number, 1, enemy_levels.size())
-	var enemies: Array[Battler.EnemyTypes]
-	for level in enemy_levels:
-		if level.level_number == current_enemy_level:
-			enemies = level.enemies
-	
-	assert(
-			not enemies.is_empty() 
-			and enemies.any( func(type: Battler.EnemyTypes): return type != Battler.EnemyTypes.NONE  )
-	)
-	battlers_types[3] = enemies[0]
-	battlers_types[4] = enemies[1]
-	battlers_types[5] = enemies[2]
+#	var enemies: Array[Battler.EnemyTypes]
+#	for level in enemy_levels:
+#		if level.level_number == current_enemy_level:
+#			enemies = level.enemies
+#
+#	assert(
+#			not enemies.is_empty()
+#			and enemies.any( func(type: Battler.EnemyTypes): return type != Battler.EnemyTypes.NONE  )
+#	)
+#	battlers_types[3] = enemies[0]
+#	battlers_types[4] = enemies[1]
+#	battlers_types[5] = enemies[2]
 
 
 func get_level_by_coins(coins: int) -> int:

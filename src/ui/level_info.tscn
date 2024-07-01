@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://4c436v4ll01o" path="res://assets/sprites/ui/x_button.png" id="4_cvfpt"]
 [ext_resource type="Texture2D" uid="uid://d3v0e0pan5xka" path="res://assets/sprites/ui/icons/coin.png" id="5_k3l7t"]
 
-[node name="LevelInfo" type="ColorRect" node_paths=PackedStringArray("close_button", "level_label", "enemies_icons", "coin_label", "play_button")]
+[node name="LevelInfo" type="ColorRect" node_paths=PackedStringArray("_close_button", "_level_label", "_enemies_vbox", "_enemy_icon_template", "_play_button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,11 +17,11 @@ grow_vertical = 2
 theme = ExtResource("3_pprh2")
 color = Color(0, 0, 0, 0.501961)
 script = ExtResource("2_am48x")
-close_button = NodePath("MarginContainer/CloseButton")
-level_label = NodePath("MarginContainer/MarginContainer/VBox/LevelLabel")
-enemies_icons = [NodePath("MarginContainer/MarginContainer/VBox/HBox/Enemy1"), NodePath("MarginContainer/MarginContainer/VBox/HBox/Enemy2"), NodePath("MarginContainer/MarginContainer/VBox/HBox/Enemy3")]
-coin_label = NodePath("MarginContainer/MarginContainer/VBox/HBox2/CoinLabel")
-play_button = NodePath("MarginContainer/MarginContainer/VBox/PlayButton")
+_close_button = NodePath("MarginContainer/CloseButton")
+_level_label = NodePath("MarginContainer/MarginContainer/VBox/LevelLabel")
+_enemies_vbox = NodePath("MarginContainer/MarginContainer/VBox/HBox/EnemiesVBox")
+_enemy_icon_template = NodePath("MarginContainer/MarginContainer/VBox/HBox/EnemiesVBox/HBox/Enemy1")
+_play_button = NodePath("MarginContainer/MarginContainer/VBox/PlayButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(360, 270)
@@ -74,15 +74,21 @@ alignment = 1
 layout_mode = 2
 text = "Состав:"
 
-[node name="Enemy1" parent="MarginContainer/MarginContainer/VBox/HBox" instance=ExtResource("2_q5v0y")]
+[node name="EnemiesVBox" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBox/HBox"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBox/HBox/EnemiesVBox"]
+layout_mode = 2
+
+[node name="Enemy1" parent="MarginContainer/MarginContainer/VBox/HBox/EnemiesVBox/HBox" instance=ExtResource("2_q5v0y")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Enemy2" parent="MarginContainer/MarginContainer/VBox/HBox" instance=ExtResource("2_q5v0y")]
+[node name="Enemy2" parent="MarginContainer/MarginContainer/VBox/HBox/EnemiesVBox/HBox" instance=ExtResource("2_q5v0y")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
-[node name="Enemy3" parent="MarginContainer/MarginContainer/VBox/HBox" instance=ExtResource("2_q5v0y")]
+[node name="Enemy3" parent="MarginContainer/MarginContainer/VBox/HBox/EnemiesVBox/HBox" instance=ExtResource("2_q5v0y")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 
