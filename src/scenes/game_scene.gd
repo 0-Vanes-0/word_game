@@ -31,10 +31,14 @@ func _ready() -> void:
 	level_up_container.hide(); handbook.hide(); settings.hide()
 	
 	if Global.get_player_last_seen_version() < float(ProjectSettings.get_setting("application/config/version", "99.9")):
-		var stars: Array = Global.player_data["enemy_level_stars"]
+		var stars: Array = Global.player_data.get("enemy_level_stars")
 		if stars.back() != 0 and Global.get_player_last_enemy_level_reached() < GameInfo.enemy_levels.size():
 			Global.set_player_last_enemy_level_reached(Global.get_player_last_enemy_level_reached() + 1)
 		Global.set_player_last_seen_version(float(ProjectSettings.get_setting("application/config/version", "0.0")))
+	
+	if Global.get_player_last_enemy_level_reached() > GameInfo.enemy_levels.size():
+		Global.set_player_last_enemy_level_reached(GameInfo.enemy_levels.size())
+		(Global.player_data.get("enemy_level_stars") as Array).resize(GameInfo.enemy_levels.size())
 	
 	settings_button.set_on_press( func(): settings.show() )
 	handbook_button.set_on_press( func(): handbook.show() )
